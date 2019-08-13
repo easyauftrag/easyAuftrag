@@ -37,7 +37,7 @@ namespace easyAuftrag.Logik
     /// <summary>
     /// Klasse zum Drucken von Aufträgen
     /// </summary>
-    class Drucken
+    public class Drucken
     {
     }
 }

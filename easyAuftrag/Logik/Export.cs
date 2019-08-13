@@ -38,7 +38,7 @@ namespace easyAuftrag.Logik
     /// <summary>
     /// Klasse zum Export von Daten in Dateien
     /// </summary>
-    class Export
+    public class Export
     {
         /// <summary>
         /// Methode zum Export einer Taetigkeitsliste in eine Datei
