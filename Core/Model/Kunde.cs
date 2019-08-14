@@ -69,7 +69,8 @@ namespace Core.Model
         /// </summary>
         public Kunde()
         {
-
+            RechnungsAdresse = new Adresse();
+            WeitereAdressen = new List<Adresse>();
         }
     }
 }

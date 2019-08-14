@@ -56,9 +56,21 @@ namespace Core.Model
         /// </summary>
         public string TelefonNr { get; set; }
         /// <summary>
-        /// Adresse des Mitarbeiters
+        /// Straße des Mitarbeiters
         /// </summary>
-        public Adresse Adresse { get; set; }
+        public string Strasse { get; set; }
+        /// <summary>
+        /// Hausnummer des Mitarbeiters
+        /// </summary>
+        public string Hausnr { get; set; }
+        /// <summary>
+        /// Postleitzahl des Mitarbeiters
+        /// </summary>
+        public string PLZ { get; set; }
+        /// <summary>
+        /// Wohnort des Mitarbeiters
+        /// </summary>
+        public string Wohnort { get; set; }
         /// <summary>
         /// Auslastung der Stelle des Mitarbeiters in Prozent, wird mit dem Sollwert der Wochenstunden verrechnet.
         /// </summary>
