@@ -162,7 +162,21 @@ namespace Core
         /// <seealso cref="EasyAuftragContext"/>
         public void AuftragLoeschen(int auftragID)
         {
-
+            try
+            {
+                using (var db = new EasyAuftragContext())
+                {
+                    if (db.Auftraege.Find(auftragID) != null)
+                    {
+                        db.Auftraege.Remove(db.Auftraege.Find(auftragID));
+                        db.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         /// <summary>

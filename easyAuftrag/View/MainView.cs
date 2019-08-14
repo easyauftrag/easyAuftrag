@@ -74,6 +74,7 @@ namespace easyAuftrag
                                     select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
                         dgvMain.DataSource = auft;
                         dgvMain.Columns["auftragID"].Visible = false;
+                        dgvMain.Columns["Name"].HeaderText = "Kundenname";
                     }
                     else if(cbErledigt.Checked)
                     {
@@ -81,6 +82,7 @@ namespace easyAuftrag
                                          select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
                         dgvMain.DataSource = auft;
                         dgvMain.Columns["auftragID"].Visible = false;
+                        dgvMain.Columns["Name"].HeaderText = "Kundenname";
                     }
                     else if(cbAbgerechnet.Checked)
                     {
@@ -88,6 +90,7 @@ namespace easyAuftrag
                                     select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
                         dgvMain.DataSource = auft;
                         dgvMain.Columns["auftragID"].Visible = false;
+                        dgvMain.Columns["Name"].HeaderText = "Kundenname";
                     }
                     else
                     {
@@ -95,8 +98,8 @@ namespace easyAuftrag
                                     select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
                         dgvMain.DataSource = auft;
                         dgvMain.Columns["auftragID"].Visible = false;
+                        dgvMain.Columns["Name"].HeaderText = "Kundenname";
                     }
-                    //TODO Spalten abändern, ID ausblenden
                 }
             }
             catch (Exception ex)
@@ -221,6 +224,21 @@ namespace easyAuftrag
             this.Activate();
             TabelleNeu();
         }
+        private void LöschenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (dgvMain.SelectedRows.Count > 0)
+            {
+                int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
+                AuftragView auftragV = new AuftragView("Auftrag Löschen", auftrag: _handler.AuftragLaden(auftragID));
+                if (auftragV.ShowDialog() == DialogResult.OK)
+                {
+                    _handler.AuftragLoeschen(auftragID);
+                }
+            }
+            this.BringToFront();
+            this.Activate();
+            TabelleNeu();
+        }
 
         private void ButExport_Click(object sender, EventArgs e)
         {
@@ -231,6 +249,6 @@ namespace easyAuftrag
         {
 
         }
-        
+
     }
 }
