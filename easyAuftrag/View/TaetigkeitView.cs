@@ -76,7 +76,6 @@ namespace easyAuftrag.View
             }
         }
 
-        Handler _handler = new Handler();
         /// <summary>
         /// Konstruktor für die <see cref="TaetigkeitView"/>
         /// </summary>

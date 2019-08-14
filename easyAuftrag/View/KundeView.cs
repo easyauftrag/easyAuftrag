@@ -57,6 +57,8 @@ namespace easyAuftrag.View
         /// und gibt seine Daten an <see cref="FillControls"/>, um sie in der View anzuzeigen.
         /// </value>
         public Kunde KundenInfo { get; set; }
+        private List<Adresse> Adrlist { get; set; }
+        private BindingSource Bs = new BindingSource();
 
         /// <summary>
         /// Konstruktor für die <see cref="KundeView"/>
@@ -80,6 +82,12 @@ namespace easyAuftrag.View
             Text = titel;
             KundenInfo = kunde;
             FillControls(KundenInfo);
+            using (var db = new EasyAuftragContext())
+            {
+                Adrlist = (from t in db.Adressen where t.KundeID == kunde.KundeID select t).ToList();
+            }
+            Bs.DataSource = Adrlist;
+            dgvKunde.DataSource = Bs;
         }
 
         /// <summary>
@@ -90,15 +98,12 @@ namespace easyAuftrag.View
         {
             try
             {
-                // errorInfo.Clear();
-
                 KundenInfo.Name = tbName.Text;
                 KundenInfo.RechnungsAdresse.Strasse = tbStraße.Text;
                 KundenInfo.RechnungsAdresse.Hausnr = tbHaus.Text;
                 KundenInfo.RechnungsAdresse.PLZ = tbPLZ.Text;
                 KundenInfo.RechnungsAdresse.Wohnort = tbStadt.Text;
                 KundenInfo.TelefonNr = tbTelefon.Text;
-
             }
             catch (Exception ex)
             {
@@ -118,7 +123,6 @@ namespace easyAuftrag.View
             tbPLZ.Text = kunde.RechnungsAdresse.PLZ;
             tbStadt.Text = kunde.RechnungsAdresse.Wohnort;
             tbTelefon.Text = kunde.TelefonNr;
-
         }
 
         /// <summary>
@@ -144,9 +148,24 @@ namespace easyAuftrag.View
             this.Hide();
         }
 
+        /// <summary>
+        /// Action beim Klick auf den "Weitere Adresse" Button
+        /// </summary>
+        /// <remarks>
+        /// Öffnet <see cref="AdresseView"/> und legt eine neue Adresse an, falls erstere <see cref="DialogResult.OK"/> zurückgibt.
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButAdresse_Click(object sender, EventArgs e)
         {
-
+            AdresseView adresseV = new AdresseView("Neue Adresse");
+            if (adresseV.ShowDialog() == DialogResult.OK)
+            {
+                KundenInfo.WeitereAdressen.Add(adresseV.AdresseInfo);
+                Bs.Add(adresseV.AdresseInfo);
+            }
+            this.BringToFront();
+            this.Activate();
         }
     }
 }
