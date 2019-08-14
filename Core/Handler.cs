@@ -76,7 +76,7 @@ namespace Core
             }
             catch (Exception ex)
             {
-
+                ErrorHandler.ErrorHandle(ex);
             }
         }
 
