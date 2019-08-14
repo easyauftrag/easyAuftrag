@@ -72,7 +72,19 @@ namespace Core
         {
             try
             {
-
+                using (var db = new EasyAuftragContext())
+                {
+                    if (db.Kunden.Find(kundeID) != null)
+                    {
+                        db.Kunden.Find(kundeID).Name = kunde.Name;
+                        db.Kunden.Find(kundeID).Strasse = kunde.Strasse;
+                        db.Kunden.Find(kundeID).Hausnr = kunde.Hausnr;
+                        db.Kunden.Find(kundeID).PLZ = kunde.PLZ;
+                        db.Kunden.Find(kundeID).Wohnort = kunde.Wohnort;
+                        db.Kunden.Find(kundeID).TelefonNr = kunde.TelefonNr;
+                        db.SaveChanges();
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -122,13 +134,10 @@ namespace Core
         {
             try
             {
-
                 using (var db = new EasyAuftragContext())
                 {
-                    
                     if (db.Auftraege.Find(auftragID) != null)
                     {
-
                         db.Auftraege.Find(auftragID).AuftragNummer = auftrag.AuftragNummer;
                         db.Auftraege.Find(auftragID).Eingang = auftrag.Eingang;
                         db.Auftraege.Find(auftragID).Erteilt = auftrag.Erteilt;
@@ -185,7 +194,27 @@ namespace Core
         /// <seealso cref="EasyAuftragContext"/>
         public void MitarbeiterBearbeiten(Mitarbeiter mitarbeiter, int mitarbeiterID)
         {
-
+            try
+            {
+                using (var db = new EasyAuftragContext())
+                {
+                    if (db.Mitarbeiters.Find(mitarbeiterID) != null)
+                    {
+                        db.Mitarbeiters.Find(mitarbeiterID).Name = mitarbeiter.Name;
+                        db.Mitarbeiters.Find(mitarbeiterID).Strasse = mitarbeiter.Strasse;
+                        db.Mitarbeiters.Find(mitarbeiterID).Hausnr = mitarbeiter.Hausnr;
+                        db.Mitarbeiters.Find(mitarbeiterID).PLZ = mitarbeiter.PLZ;
+                        db.Mitarbeiters.Find(mitarbeiterID).Wohnort = mitarbeiter.Wohnort;
+                        db.Mitarbeiters.Find(mitarbeiterID).TelefonNr = mitarbeiter.TelefonNr;
+                        db.Mitarbeiters.Find(mitarbeiterID).AuslastungStelle = mitarbeiter.AuslastungStelle;
+                        db.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         /// <summary>
@@ -248,11 +277,19 @@ namespace Core
         /// <returns>Kunde aus Datenbank</returns>
         public Kunde KundeLaden(int kundeID)
         {
-            using (var db = new EasyAuftragContext())
+            Kunde kund = new Kunde();
+            try
             {
-                List<Kunde> kunden = (from k in db.Kunden where k.KundeID == kundeID select k).ToList();
-                return kunden.ElementAt(0);
+                using (var db = new EasyAuftragContext())
+                {
+                    kund = (from k in db.Kunden select k).First(k => k.KundeID == kundeID);
+                }
             }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
+            return kund;
         }
 
         /// <summary>

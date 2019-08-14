@@ -126,7 +126,6 @@ namespace easyAuftrag
             MitarbeiterView mitarbeiterV = new MitarbeiterView("Neuer Mitarbeiter");
             if (mitarbeiterV.ShowDialog() == DialogResult.OK)
             {
-                // MessageBox.Show("OK");
                 _handler.MitarbeiterAnlegen(mitarbeiterV.MitarbeiterInfo);
             }
             this.BringToFront();
@@ -144,7 +143,6 @@ namespace easyAuftrag
             AuftragView auftragV = new AuftragView("Neuer Auftrag");
             if (auftragV.ShowDialog() == DialogResult.OK)
             {
-                // MessageBox.Show("OK");
                 _handler.AuftragAnlegen(auftragV.AuftragInfo);
             }
             this.BringToFront();
@@ -195,7 +193,6 @@ namespace easyAuftrag
             AuftragView auftragV = new AuftragView("Neuer Auftrag");
             if (auftragV.ShowDialog() == DialogResult.OK)
             {
-                // MessageBox.Show("OK");
                 _handler.AuftragAnlegen(auftragV.AuftragInfo);
             }
             this.BringToFront();
@@ -208,11 +205,9 @@ namespace easyAuftrag
             if (dgvMain.SelectedRows.Count > 0)
             {
                 int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
-                // AuftragLaden hier aufrufen und Auftrag statt auftragID an AuftragView weitergeben
                 AuftragView auftragV = new AuftragView("Auftrag Bearbeiten", auftrag: _handler.AuftragLaden(auftragID));
                 if (auftragV.ShowDialog() == DialogResult.OK)
                 {
-                    // MessageBox.Show("OK");
                     _handler.AuftragBearbeiten(auftragV.AuftragInfo, auftragID);
                 }
             }
