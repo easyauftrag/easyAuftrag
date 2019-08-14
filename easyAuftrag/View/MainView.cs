@@ -46,7 +46,7 @@ namespace easyAuftrag
     /// </summary>
     public partial class MainView : Form
     {
-        Handler _handler = new Handler();
+        private Handler _handler = new Handler();
 
         /// <summary>
         /// Konstruktor für die <see cref="MainView"/>
@@ -73,21 +73,25 @@ namespace easyAuftrag
                     {
                         auftraege = (from k in db.Auftraege where k.Abgerechnet == false && k.Erledigt == true select k).ToList();
                         dgvMain.DataSource = auftraege;
+                        dgvMain.Columns["auftragID"].Visible = false;
                     }
                     else if(cbErledigt.Checked)
                     {
                         auftraege = (from k in db.Auftraege where k.Erledigt == true select k).ToList();
                         dgvMain.DataSource = auftraege;
+                        dgvMain.Columns["auftragID"].Visible = false;
                     }
                     else if(cbAbgerechnet.Checked)
                     {
                         auftraege = (from k in db.Auftraege where k.Abgerechnet == false select k).ToList();
                         dgvMain.DataSource = auftraege;
+                        dgvMain.Columns["auftragID"].Visible = false;
                     }
                     else
                     {
                         auftraege = (from k in db.Auftraege select k).ToList();
                         dgvMain.DataSource = auftraege;
+                        dgvMain.Columns["auftragID"].Visible = false;
                     }
                     //TODO Spalten abändern, ID ausblenden
                 }
@@ -108,7 +112,6 @@ namespace easyAuftrag
             KundeView kundeV = new KundeView("Neuer Kunde");
             if (kundeV.ShowDialog() == DialogResult.OK)
             {
-                // MessageBox.Show("OK");
                 _handler.KundeAnlegen(kundeV.KundenInfo);
             }
             this.BringToFront();

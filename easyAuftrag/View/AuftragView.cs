@@ -175,7 +175,6 @@ namespace easyAuftrag.View
             TaetigkeitView taetigkeitV = new TaetigkeitView("Neue Tätigkeit");
             if (taetigkeitV.ShowDialog() == DialogResult.OK)
             {
-                // MessageBox.Show("OK");
                 AuftragInfo.Taetigkeiten.Add(taetigkeitV.TaetigkeitInfo);
             }
             this.BringToFront();
