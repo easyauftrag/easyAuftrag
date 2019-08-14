@@ -65,24 +65,28 @@ namespace easyAuftrag
             {
                 using (var db = new EasyAuftragContext())
                 {
+                    List<Auftrag> auftraege = new List<Auftrag>();
+                    auftraege = (from k in db.Auftraege where k.Abgerechnet == false && k.Erledigt == true select k).ToList();
+                    tssLabNummer.Text = auftraege.Count().ToString();
+
                     if (cbErledigt.Checked && cbAbgerechnet.Checked)
                     {
-                        List<Auftrag> auftraege = (from k in db.Auftraege where k.Abgerechnet == false && k.Erledigt == true select k).ToList();
+                        auftraege = (from k in db.Auftraege where k.Abgerechnet == false && k.Erledigt == true select k).ToList();
                         dgvMain.DataSource = auftraege;
                     }
                     else if(cbErledigt.Checked)
                     {
-                        List<Auftrag> auftraege = (from k in db.Auftraege where k.Erledigt == true select k).ToList();
+                        auftraege = (from k in db.Auftraege where k.Erledigt == true select k).ToList();
                         dgvMain.DataSource = auftraege;
                     }
                     else if(cbAbgerechnet.Checked)
                     {
-                        List<Auftrag> auftraege = (from k in db.Auftraege where k.Abgerechnet == false select k).ToList();
+                        auftraege = (from k in db.Auftraege where k.Abgerechnet == false select k).ToList();
                         dgvMain.DataSource = auftraege;
                     }
                     else
                     {
-                        List<Auftrag> auftraege = (from k in db.Auftraege select k).ToList();
+                        auftraege = (from k in db.Auftraege select k).ToList();
                         dgvMain.DataSource = auftraege;
                     }
                     //TODO Spalten abändern, ID ausblenden
