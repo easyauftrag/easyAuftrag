@@ -65,32 +65,35 @@ namespace easyAuftrag
             {
                 using (var db = new EasyAuftragContext())
                 {
-                    List<Auftrag> auftraege = new List<Auftrag>();
-                    auftraege = (from k in db.Auftraege where k.Abgerechnet == false && k.Erledigt == true select k).ToList();
+                    var auftraege = (from a in db.Auftraege where a.Abgerechnet == false && a.Erledigt == true select a).ToList();
                     tssLabNummer.Text = auftraege.Count().ToString();
 
                     if (cbErledigt.Checked && cbAbgerechnet.Checked)
                     {
-                        auftraege = (from k in db.Auftraege where k.Abgerechnet == false && k.Erledigt == true select k).ToList();
-                        dgvMain.DataSource = auftraege;
+                        var auft = (from a in db.Auftraege join k in db.Kunden on a.KundeID equals k.KundeID where a.Abgerechnet == false && a.Erledigt == true
+                                    select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
+                        dgvMain.DataSource = auft;
                         dgvMain.Columns["auftragID"].Visible = false;
                     }
                     else if(cbErledigt.Checked)
                     {
-                        auftraege = (from k in db.Auftraege where k.Erledigt == true select k).ToList();
-                        dgvMain.DataSource = auftraege;
+                        var auft = (from a in db.Auftraege join k in db.Kunden on a.KundeID equals k.KundeID where a.Erledigt == true
+                                         select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
+                        dgvMain.DataSource = auft;
                         dgvMain.Columns["auftragID"].Visible = false;
                     }
                     else if(cbAbgerechnet.Checked)
                     {
-                        auftraege = (from k in db.Auftraege where k.Abgerechnet == false select k).ToList();
-                        dgvMain.DataSource = auftraege;
+                        var auft = (from a in db.Auftraege join k in db.Kunden on a.KundeID equals k.KundeID where a.Abgerechnet == false
+                                    select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
+                        dgvMain.DataSource = auft;
                         dgvMain.Columns["auftragID"].Visible = false;
                     }
                     else
                     {
-                        auftraege = (from k in db.Auftraege select k).ToList();
-                        dgvMain.DataSource = auftraege;
+                        var auft = (from a in db.Auftraege join k in db.Kunden on a.KundeID equals k.KundeID
+                                    select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
+                        dgvMain.DataSource = auft;
                         dgvMain.Columns["auftragID"].Visible = false;
                     }
                     //TODO Spalten abändern, ID ausblenden
