@@ -100,17 +100,6 @@ namespace easyAuftrag.View
             dgvAuftrag.DataSource = Bs;
         }
 
-        public void TabelleNeu(int auftragID)
-        {
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                ErrorHandler.ErrorHandle(ex);
-            }
-        }
 
         /// <summary>
         /// Packt die Eingaben in den Controls in einen <see cref="Auftrag"/>.

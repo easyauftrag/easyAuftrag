@@ -77,10 +77,10 @@ namespace Core
                     if (db.Kunden.Find(kundeID) != null)
                     {
                         db.Kunden.Find(kundeID).Name = kunde.Name;
-                        db.Kunden.Find(kundeID).Strasse = kunde.Strasse;
-                        db.Kunden.Find(kundeID).Hausnr = kunde.Hausnr;
-                        db.Kunden.Find(kundeID).PLZ = kunde.PLZ;
-                        db.Kunden.Find(kundeID).Wohnort = kunde.Wohnort;
+                        db.Kunden.Find(kundeID).RechnungsAdresse.Strasse = kunde.RechnungsAdresse.Strasse;
+                        db.Kunden.Find(kundeID).RechnungsAdresse.Hausnr = kunde.RechnungsAdresse.Hausnr;
+                        db.Kunden.Find(kundeID).RechnungsAdresse.PLZ = kunde.RechnungsAdresse.PLZ;
+                        db.Kunden.Find(kundeID).RechnungsAdresse.Wohnort = kunde.RechnungsAdresse.Wohnort;
                         db.Kunden.Find(kundeID).TelefonNr = kunde.TelefonNr;
                         db.SaveChanges();
                     }
@@ -229,10 +229,10 @@ namespace Core
                     if (db.Mitarbeiters.Find(mitarbeiterID) != null)
                     {
                         db.Mitarbeiters.Find(mitarbeiterID).Name = mitarbeiter.Name;
-                        db.Mitarbeiters.Find(mitarbeiterID).Strasse = mitarbeiter.Strasse;
-                        db.Mitarbeiters.Find(mitarbeiterID).Hausnr = mitarbeiter.Hausnr;
-                        db.Mitarbeiters.Find(mitarbeiterID).PLZ = mitarbeiter.PLZ;
-                        db.Mitarbeiters.Find(mitarbeiterID).Wohnort = mitarbeiter.Wohnort;
+                        db.Mitarbeiters.Find(mitarbeiterID).Adresse.Strasse = mitarbeiter.Adresse.Strasse;
+                        db.Mitarbeiters.Find(mitarbeiterID).Adresse.Hausnr = mitarbeiter.Adresse.Hausnr;
+                        db.Mitarbeiters.Find(mitarbeiterID).Adresse.PLZ = mitarbeiter.Adresse.PLZ;
+                        db.Mitarbeiters.Find(mitarbeiterID).Adresse.Wohnort = mitarbeiter.Adresse.Wohnort;
                         db.Mitarbeiters.Find(mitarbeiterID).TelefonNr = mitarbeiter.TelefonNr;
                         db.Mitarbeiters.Find(mitarbeiterID).AuslastungStelle = mitarbeiter.AuslastungStelle;
                         db.SaveChanges();

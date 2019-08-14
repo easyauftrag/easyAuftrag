@@ -143,5 +143,10 @@ namespace easyAuftrag.View
             this.DialogResult = DialogResult.Cancel;
             this.Hide();
         }
+
+        private void ButAdresse_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

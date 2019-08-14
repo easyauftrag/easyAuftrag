@@ -43,7 +43,7 @@
             this.tbHaus = new System.Windows.Forms.TextBox();
             this.tbStadt = new System.Windows.Forms.TextBox();
             this.labRech = new System.Windows.Forms.Label();
-            this.butAddr = new System.Windows.Forms.Button();
+            this.butAdresse = new System.Windows.Forms.Button();
             this.dgvKunde = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKunde)).BeginInit();
             this.SuspendLayout();
@@ -187,16 +187,17 @@
             this.labRech.TabIndex = 11;
             this.labRech.Text = "Rechnungsaddresse:";
             // 
-            // butAddr
+            // butAdresse
             // 
-            this.butAddr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.butAddr.AutoSize = true;
-            this.butAddr.Location = new System.Drawing.Point(12, 328);
-            this.butAddr.Name = "butAddr";
-            this.butAddr.Size = new System.Drawing.Size(101, 23);
-            this.butAddr.TabIndex = 6;
-            this.butAddr.Text = "Weitere Addresse";
-            this.butAddr.UseVisualStyleBackColor = true;
+            this.butAdresse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butAdresse.AutoSize = true;
+            this.butAdresse.Location = new System.Drawing.Point(12, 328);
+            this.butAdresse.Name = "butAdresse";
+            this.butAdresse.Size = new System.Drawing.Size(101, 23);
+            this.butAdresse.TabIndex = 6;
+            this.butAdresse.Text = "Weitere Adresse";
+            this.butAdresse.UseVisualStyleBackColor = true;
+            this.butAdresse.Click += new System.EventHandler(this.ButAdresse_Click);
             // 
             // dgvKunde
             // 
@@ -214,7 +215,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(426, 363);
             this.Controls.Add(this.dgvKunde);
-            this.Controls.Add(this.butAddr);
+            this.Controls.Add(this.butAdresse);
             this.Controls.Add(this.labRech);
             this.Controls.Add(this.tbStadt);
             this.Controls.Add(this.tbHaus);
@@ -255,7 +256,7 @@
         private System.Windows.Forms.TextBox tbHaus;
         private System.Windows.Forms.TextBox tbStadt;
         private System.Windows.Forms.Label labRech;
-        private System.Windows.Forms.Button butAddr;
+        private System.Windows.Forms.Button butAdresse;
         private System.Windows.Forms.DataGridView dgvKunde;
     }
 }
