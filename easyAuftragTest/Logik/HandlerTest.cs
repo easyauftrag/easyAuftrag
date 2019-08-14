@@ -615,7 +615,7 @@ namespace easyAuftragTest.Logik
                 auftragTest = (from a in db.Auftraege where a.AuftragID == maxID select a).ToList().First();
 
                 // angelegten Auftrag löschen
-                _handler.KundeLoeschen(maxID);
+                _handler.AuftragLoeschen(maxID);
 
                 // Versuch, gelöschten Auftrag aufzurufen
                 auftragTest = (from a in db.Auftraege where a.AuftragID == maxID select a).ToList().First();
@@ -628,28 +628,272 @@ namespace easyAuftragTest.Logik
             }
         }
 
+        /// <summary>
+        /// überprüft, ob ein Mitarbeiter zur DB hinzugefügt wurde
+        /// </summary>
+        /// <seealso cref="Handler.MitarbeiterAnlegen(Mitarbeiter)"/>
         [TestMethod]
-        public void MitarbeiterAnlegenTest()
+        public void IrgendeinMitarbeiterAnlegenTest()
         {
-            //
-            // TODO: Testlogik hier hinzufügen
-            //
+            using (var db = new EasyAuftragContext())
+            {
+                // Anzahl Mitarbeiter messen
+                int anzahlMitarbeiter = (from m in db.Mitarbeiters select m).ToList().Count();
+
+                // neuen Mitarbeiter anlegen
+                Mitarbeiter mitarbeiterTest = new Mitarbeiter
+                {
+                    Hausnr = "test",
+                    Name = "test",
+                    PLZ = "test",
+                    Strasse = "test",
+                    TelefonNr = "test",
+                    Wohnort = "test"
+                };
+                _handler.MitarbeiterAnlegen(mitarbeiterTest);
+
+                // überprüfen, ob neuer Mitarbeiter angelegt wurde
+                if (anzahlMitarbeiter + 1 != (from m in db.Mitarbeiters select m).ToList().Count())
+                {
+                    Assert.Fail();
+                }
+            }
         }
 
+        /// <summary>
+        /// überprüft, ob die MitarbeiterID eines neu erstellten Mitarbeiters richtig ist
+        /// </summary>
+        /// <seealso cref="Handler.MitarbeiterAnlegen(Mitarbeiter)"/>
+        [TestMethod]
+        public void MitarbeiterIDExistiertTest()
+        {
+            using (var db = new EasyAuftragContext())
+            {
+                // Mitarbeiter mit max ID, da vorheriger Mitarbeiter gelöscht sein könnte
+                Mitarbeiter mitarbeiterMaxIDTest = new Mitarbeiter
+                {
+                    Hausnr = "test",
+                    Name = "test",
+                    PLZ = "test",
+                    Strasse = "test",
+                    TelefonNr = "test",
+                    Wohnort = "test"
+                };
+                _handler.MitarbeiterAnlegen(mitarbeiterMaxIDTest);
+
+                // max ID herausfinden
+                int mitarbeiterMaxID = (from m in db.Mitarbeiters orderby m.MitarbeiterID ascending select m.MitarbeiterID).ToList().Last();
+
+                // neuer Mitarbeiter zum Vergleich der max ID
+                Mitarbeiter mitarbeiterTestMaxIDTestNeu = new Mitarbeiter
+                {
+                    Hausnr = "test1234",
+                    Name = "test2345",
+                    PLZ = "test3456",
+                    Strasse = "test4567",
+                    TelefonNr = "test5678",
+                    Wohnort = "test6789"
+                };
+                _handler.MitarbeiterAnlegen(mitarbeiterTestMaxIDTestNeu);
+
+                // überprüfen, ob neue ID existiert
+                if (mitarbeiterMaxID + 1 != (from m in db.Mitarbeiters orderby m.MitarbeiterID ascending select m.MitarbeiterID).ToList().Last())
+                {
+                    Assert.Fail();
+                }
+            }
+        }
+
+        /// <summary>
+        /// überprüft, ob die Daten eines neu angelegten Mitarbeiters richtig sind
+        /// </summary>
+        /// <seealso cref="Handler.MitarbeiterAnlegen(Mitarbeiter)"/>
+        [TestMethod]
+        public void MitarbeiterAnlegenDatenTest()
+        {
+            using (var db = new EasyAuftragContext())
+            {
+                // Mitarbeiter mit max ID zum Vergleich der Daten
+                Mitarbeiter mitarbeiterMaxIDTest = new Mitarbeiter
+                {
+                    Hausnr = "test1234",
+                    Name = "test2345",
+                    PLZ = "test3456",
+                    Strasse = "test4567",
+                    TelefonNr = "test5678",
+                    Wohnort = "test6789"
+                };
+                _handler.MitarbeiterAnlegen(mitarbeiterMaxIDTest);
+
+                // Mitarbeiter mit max ID aus DB ziehen
+                Mitarbeiter mitarbeiterVergleich = (from m in db.Mitarbeiters orderby m.MitarbeiterID ascending select m).ToList().Last();
+
+                if (mitarbeiterMaxIDTest.Hausnr != mitarbeiterVergleich.Hausnr)
+                {
+                    Assert.Fail();
+                }
+                if (mitarbeiterMaxIDTest.Name != mitarbeiterVergleich.Name)
+                {
+                    Assert.Fail();
+                }
+                if (mitarbeiterMaxIDTest.PLZ != mitarbeiterVergleich.PLZ)
+                {
+                    Assert.Fail();
+                }
+                if (mitarbeiterMaxIDTest.Strasse != mitarbeiterVergleich.Strasse)
+                {
+                    Assert.Fail();
+                }
+                if (mitarbeiterMaxIDTest.TelefonNr != mitarbeiterVergleich.TelefonNr)
+                {
+                    Assert.Fail();
+                }
+                if (mitarbeiterMaxIDTest.Wohnort != mitarbeiterVergleich.Wohnort)
+                {
+                    Assert.Fail();
+                }
+            }
+        }
+
+        /// <summary>
+        /// überprüft, ob ein Mitarbeiter korrekt bearbeitet wurde
+        /// </summary>
+        /// <seealso cref="Handler.MitarbeiterBearbeiten(Mitarbeiter, int)"/>
         [TestMethod]
         public void MitarbeiterBearbeitenTest()
         {
-            //
-            // TODO: Testlogik hier hinzufügen
-            //
+            using (var db = new EasyAuftragContext())
+            {
+                // Mitarbeiter mit max ID zum Vergleich der Daten
+                Mitarbeiter mitarbeiterMaxIDTest = new Mitarbeiter
+                {
+                    Hausnr = "test1234",
+                    Name = "test2345",
+                    PLZ = "test3456",
+                    Strasse = "test4567",
+                    TelefonNr = "test5678",
+                    Wohnort = "test6789"
+                };
+                _handler.MitarbeiterAnlegen(mitarbeiterMaxIDTest);
+
+                // bearbeiteter Mitarbeiter in DB speichern
+                Mitarbeiter mitarbeiterBearbTest = new Mitarbeiter
+                {
+                    Hausnr = "test9876",
+                    Name = "test8765",
+                    PLZ = "test7654",
+                    Strasse = "test6543",
+                    TelefonNr = "test5432",
+                    Wohnort = "test4321"
+                };
+                int maxID = (from m in db.Mitarbeiters orderby m.MitarbeiterID ascending select m.MitarbeiterID).ToList().Last();
+                _handler.MitarbeiterBearbeiten(mitarbeiterBearbTest, maxID);
+
+                // Mitarbeiter mit max ID aus DB ziehen
+                Mitarbeiter mitarbeiterVergleich = (from m in db.Mitarbeiters orderby m.Mitarbeiter ascending where m.Mitarbeiter == maxID select m).ToList().Last();
+
+                // Test ob alle Daten geändert wurden
+                if (mitarbeiterBearbTest.Hausnr != mitarbeiterVergleich.Hausnr)
+                {
+                    Assert.Fail();
+                }
+                if (mitarbeiterBearbTest.Name != mitarbeiterVergleich.Name)
+                {
+                    Assert.Fail();
+                }
+                if (mitarbeiterBearbTest.PLZ != mitarbeiterVergleich.PLZ)
+                {
+                    Assert.Fail();
+                }
+                if (mitarbeiterBearbTest.Strasse != mitarbeiterVergleich.Strasse)
+                {
+                    Assert.Fail();
+                }
+                if (mitarbeiterBearbTest.TelefonNr != mitarbeiterVergleich.TelefonNr)
+                {
+                    Assert.Fail();
+                }
+                if (mitarbeiterBearbTest.Wohnort != mitarbeiterVergleich.Wohnort)
+                {
+                    Assert.Fail();
+                }
+            }
         }
 
+        /// <summary>
+        /// überprüft, ob irgendein Mitarbeiter gelöscht wird
+        /// </summary>
+        /// <seealso cref="Handler.MitarbeiterLoeschen(int)"/>
+        [TestMethod]
+        public void IrgendeinMitarbeiterLoeschenTest()
+        {
+            using (var db = new EasyAuftragContext())
+            {
+                // Mitarbeiter hinzufügen
+                Mitarbeiter mitarbeiterTest = new Mitarbeiter
+                {
+                    Hausnr = "test1234",
+                    Name = "test2345",
+                    PLZ = "test3456",
+                    Strasse = "test4567",
+                    TelefonNr = "test5678",
+                    Wohnort = "test6789"
+                };
+                _handler.MitarbeiterAnlegen(mitarbeiterTest);
+
+                // ID des angelegten Mitarbeiters herausfinden
+                int maxID = (from m in db.Mitarbeiters orderby m.MitarbeiterID ascending select m.MitarbeiterID).ToList().Last();
+
+                // anzahl der Mitarbeiter herausfinden
+                int anzahlMitarbeiter = (from m in db.Kunden select m).ToList().Count();
+
+                // angelegten Mitarbeiter löschen
+                _handler.MitarbeiterLoeschen(maxID);
+
+                // überprüfen, ob jetzt ein Mitarbeiter weniger in der DB ist
+                if (anzahlMitarbeiter - 1 != (from m in db.Mitarbeiters select m).ToList().Count())
+                {
+                    Assert.Fail();
+                }
+            }
+        }
+
+        /// <summary>
+        /// überprüft, ob der angegebene Mitarbeiter gelöscht wird
+        /// </summary>
+        /// <seealso cref="Handler.MitarbeiterLoeschen(int)"/>
         [TestMethod]
         public void MitarbeiterLoeschenTest()
         {
-            //
-            // TODO: Testlogik hier hinzufügen
-            //
+            using (var db = new EasyAuftragContext())
+            {
+                // Mitarbeiter hinzufügen
+                Mitarbeiter mitarbeiterTest = new Mitarbeiter
+                {
+                    Hausnr = "test1234",
+                    Name = "test2345",
+                    PLZ = "test3456",
+                    Strasse = "test4567",
+                    TelefonNr = "test5678",
+                    Wohnort = "test6789"
+                };
+                _handler.MitarbeiterAnlegen(mitarbeiterTest);
+
+                // ID des angelegten Mitarbeiters herausfinden
+                int maxID = (from m in db.Kunden orderby m.KundeID ascending select m.KundeID).ToList().Last();
+
+                // angelegten Mitarbeiter löschen
+                _handler.MitarbeiterLoeschen(maxID);
+
+                // Versuch, gelöschten Mitarbeiter aufzurufen
+                mitarbeiterTest = (from m in db.Mitarbeiters where m.MitarbeiterID == maxID select m).ToList().First();
+
+                // Falls der Mitarbeiter doch noch existiert, also ungleich null ist, schlägt der Test fehl
+                if (mitarbeiterTest != null)
+                {
+                    Assert.Fail();
+                }
+            }
         }
 
         [TestMethod]
