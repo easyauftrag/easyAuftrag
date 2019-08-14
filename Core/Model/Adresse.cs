@@ -20,6 +20,10 @@ namespace Core.Model
         [Browsable(false)]
         public int AdresseID { get; set; }
         /// <summary>
+        /// Kunden ID als Fremdschlüssel zur Verknüpfung der Adresse mit dem Kunden
+        /// </summary>
+        public int KundeID { get; set; }
+        /// <summary>
         /// Straße der Adresse
         /// </summary>
         public string Strasse { get; set; }
