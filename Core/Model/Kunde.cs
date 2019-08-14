@@ -52,21 +52,13 @@ namespace Core.Model
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// Straße der Adresse des Kunden
+        /// Rechnungsadresse des Kunden
         /// </summary>
-        public string Strasse { get; set; }
+        public Adresse RechnungsAdresse { get; set; }
         /// <summary>
-        /// Hausnummer der Adresse des Kunden
+        /// weitere Adressen des Kunden
         /// </summary>
-        public string Hausnr { get; set; }
-        /// <summary>
-        /// Postleitzahl der Adresse des Kunden
-        /// </summary>
-        public string PLZ { get; set; }
-        /// <summary>
-        /// Stadt der Adresse des Kunden
-        /// </summary>
-        public string Wohnort { get; set; }
+        public List<Adresse> WeitereAdressen { get; set; }
         /// <summary>
         /// Telefonnummer des Kunden
         /// </summary>

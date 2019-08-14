@@ -93,10 +93,10 @@ namespace easyAuftrag.View
                 // errorInfo.Clear();
 
                 KundenInfo.Name = tbName.Text;
-                KundenInfo.Strasse = tbStraße.Text;
-                KundenInfo.Hausnr = tbHaus.Text;
-                KundenInfo.PLZ = tbPLZ.Text;
-                KundenInfo.Wohnort = tbStadt.Text;
+                KundenInfo.RechnungsAdresse.Strasse = tbStraße.Text;
+                KundenInfo.RechnungsAdresse.Hausnr = tbHaus.Text;
+                KundenInfo.RechnungsAdresse.PLZ = tbPLZ.Text;
+                KundenInfo.RechnungsAdresse.Wohnort = tbStadt.Text;
                 KundenInfo.TelefonNr = tbTelefon.Text;
 
             }
@@ -113,10 +113,10 @@ namespace easyAuftrag.View
         private void FillControls(Kunde kunde)
         {
             tbName.Text = kunde.Name;
-            tbStraße.Text = kunde.Strasse;
-            tbHaus.Text = kunde.Hausnr;
-            tbPLZ.Text = kunde.PLZ;
-            tbStadt.Text = kunde.Wohnort;
+            tbStraße.Text = kunde.RechnungsAdresse.Strasse;
+            tbHaus.Text = kunde.RechnungsAdresse.Hausnr;
+            tbPLZ.Text = kunde.RechnungsAdresse.PLZ;
+            tbStadt.Text = kunde.RechnungsAdresse.Wohnort;
             tbTelefon.Text = kunde.TelefonNr;
 
         }

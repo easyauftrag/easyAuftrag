@@ -90,10 +90,10 @@ namespace easyAuftrag.View
                 // errorInfo.Clear();
 
                 MitarbeiterInfo.Name = tbName.Text;
-                MitarbeiterInfo.Strasse = tbStraße.Text;
-                MitarbeiterInfo.Hausnr = tbHaus.Text;
-                MitarbeiterInfo.PLZ = tbPLZ.Text;
-                MitarbeiterInfo.Wohnort = tbStadt.Text;
+                MitarbeiterInfo.Adresse.Strasse = tbStraße.Text;
+                MitarbeiterInfo.Adresse.Hausnr = tbHaus.Text;
+                MitarbeiterInfo.Adresse.PLZ = tbPLZ.Text;
+                MitarbeiterInfo.Adresse.Wohnort = tbStadt.Text;
                 MitarbeiterInfo.TelefonNr = tbTelefon.Text;
                 int auslastung;
                 if (! string.IsNullOrEmpty(tbAuslastung.Text))
@@ -125,10 +125,10 @@ namespace easyAuftrag.View
         private void FillControls(Mitarbeiter mitarbeiter)
         {
             tbName.Text = mitarbeiter.Name;
-            tbStraße.Text = mitarbeiter.Strasse;
-            tbHaus.Text = mitarbeiter.Hausnr;
-            tbPLZ.Text = mitarbeiter.PLZ;
-            tbStadt.Text = mitarbeiter.Wohnort;
+            tbStraße.Text = mitarbeiter.Adresse.Strasse;
+            tbHaus.Text = mitarbeiter.Adresse.Hausnr;
+            tbPLZ.Text = mitarbeiter.Adresse.PLZ;
+            tbStadt.Text = mitarbeiter.Adresse.Wohnort;
             tbTelefon.Text = mitarbeiter.TelefonNr;
             tbAuslastung.Text = mitarbeiter.AuslastungStelle.ToString();
 
