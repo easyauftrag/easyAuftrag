@@ -880,7 +880,7 @@ namespace easyAuftragTest.Logik
                 _handler.MitarbeiterAnlegen(mitarbeiterTest);
 
                 // ID des angelegten Mitarbeiters herausfinden
-                int maxID = (from m in db.Kunden orderby m.KundeID ascending select m.KundeID).ToList().Last();
+                int maxID = (from m in db.Mitarbeiters orderby m.MitarbeiterID ascending select m.MitarbeiterID).ToList().Last();
 
                 // angelegten Mitarbeiter löschen
                 _handler.MitarbeiterLoeschen(maxID);
