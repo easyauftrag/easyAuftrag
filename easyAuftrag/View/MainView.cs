@@ -65,9 +65,19 @@ namespace easyAuftrag
             {
                 using (var db = new EasyAuftragContext())
                 {
-                    if (cbErledigt.Checked)
+                    if (cbErledigt.Checked && cbAbgerechnet.Checked)
+                    {
+                        List<Auftrag> auftraege = (from k in db.Auftraege where k.Abgerechnet == false && k.Erledigt == true select k).ToList();
+                        dgvMain.DataSource = auftraege;
+                    }
+                    else if(cbErledigt.Checked)
                     {
                         List<Auftrag> auftraege = (from k in db.Auftraege where k.Erledigt == true select k).ToList();
+                        dgvMain.DataSource = auftraege;
+                    }
+                    else if(cbAbgerechnet.Checked)
+                    {
+                        List<Auftrag> auftraege = (from k in db.Auftraege where k.Abgerechnet == false select k).ToList();
                         dgvMain.DataSource = auftraege;
                     }
                     else
@@ -149,6 +159,16 @@ namespace easyAuftrag
         }
 
         /// <summary>
+        /// Action beim Aktivieren der Checkbox "Nicht abgerechnete Aufträge"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CbAbgerechnet_CheckedChanged(object sender, EventArgs e)
+        {
+            TabelleNeu();
+        }
+
+        /// <summary>
         /// Action beim Laden der Form
         /// </summary>
         /// <param name="sender"></param>
@@ -206,5 +226,6 @@ namespace easyAuftrag
         {
 
         }
+        
     }
 }

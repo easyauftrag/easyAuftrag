@@ -134,6 +134,7 @@ namespace Core
                         db.Auftraege.Find(auftragID).Erteilt = auftrag.Erteilt;
                         db.Auftraege.Find(auftragID).Taetigkeiten = auftrag.Taetigkeiten;
                         db.Auftraege.Find(auftragID).Erledigt = auftrag.Erledigt;
+                        db.Auftraege.Find(auftragID).Abgerechnet = auftrag.Abgerechnet;
                         db.Auftraege.Find(auftragID).KundeID = auftrag.KundeID;
                         db.SaveChanges();
                     }

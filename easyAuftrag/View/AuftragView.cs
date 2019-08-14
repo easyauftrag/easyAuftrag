@@ -107,6 +107,7 @@ namespace easyAuftrag.View
                 AuftragInfo.Eingang = dtpEingang.Value;
                 AuftragInfo.Erteilt = dtpErteilt.Value;
                 AuftragInfo.Erledigt = cbErledigt.Checked;
+                AuftragInfo.Abgerechnet = cbAbgerechnet.Checked;
 
             }
             catch (Exception ex)
@@ -134,6 +135,7 @@ namespace easyAuftrag.View
             dtpEingang.Value = auftrag.Eingang;
             dtpErteilt.Value = auftrag.Erteilt;
             cbErledigt.Checked = auftrag.Erledigt;
+            cbAbgerechnet.Checked = auftrag.Abgerechnet;
             tbGesamt.Text = auftrag.ZeitGesamt.ToString();
         }
 

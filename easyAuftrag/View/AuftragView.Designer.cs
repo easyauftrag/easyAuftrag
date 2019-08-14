@@ -43,6 +43,7 @@
             this.labGesamt = new System.Windows.Forms.Label();
             this.dgvAuftrag = new System.Windows.Forms.DataGridView();
             this.butNeueTaetigkeit = new System.Windows.Forms.Button();
+            this.cbAbgerechnet = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAuftrag)).BeginInit();
             this.SuspendLayout();
             // 
@@ -198,11 +199,24 @@
             this.butNeueTaetigkeit.UseVisualStyleBackColor = true;
             this.butNeueTaetigkeit.Click += new System.EventHandler(this.ButNeueTaetigkeit_Click);
             // 
+            // cbAbgerechnet
+            // 
+            this.cbAbgerechnet.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.cbAbgerechnet.AutoSize = true;
+            this.cbAbgerechnet.Location = new System.Drawing.Point(83, 155);
+            this.cbAbgerechnet.Name = "cbAbgerechnet";
+            this.cbAbgerechnet.Size = new System.Drawing.Size(87, 17);
+            this.cbAbgerechnet.TabIndex = 15;
+            this.cbAbgerechnet.Text = "Abgerechnet";
+            this.cbAbgerechnet.UseVisualStyleBackColor = true;
+            // 
             // AuftragView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(399, 417);
+            this.Controls.Add(this.cbAbgerechnet);
             this.Controls.Add(this.butNeueTaetigkeit);
             this.Controls.Add(this.dgvAuftrag);
             this.Controls.Add(this.labGesamt);
@@ -243,5 +257,6 @@
         private System.Windows.Forms.Label labGesamt;
         private System.Windows.Forms.DataGridView dgvAuftrag;
         private System.Windows.Forms.Button butNeueTaetigkeit;
+        private System.Windows.Forms.CheckBox cbAbgerechnet;
     }
 }

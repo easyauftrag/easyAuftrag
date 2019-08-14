@@ -73,6 +73,10 @@ namespace Core.Model
         /// </summary>
         public bool Erledigt { get; set; }
         /// <summary>
+        /// Zeigt an, ob der Auftrag schon abgerechnet wurde
+        /// </summary>
+        public bool Abgerechnet { get; set; }
+        /// <summary>
         /// Enthält die gesamte bisher für den Auftrag benötigte Zeit
         /// </summary>
         /// <value>
