@@ -357,7 +357,7 @@ namespace easyAuftragTest.Logik
         }
 
         /// <summary>
-        /// überprüft, ob irgendein Auftrag angelegt wird
+        /// überprüft, ob ein Kunde zur DB hinzugefügt wurde
         /// </summary>
         /// <seealso cref="Handler.AuftragAnlegen(Auftrag)"/>
         [TestMethod]
@@ -389,7 +389,7 @@ namespace easyAuftragTest.Logik
         }
 
         /// <summary>
-        /// überprüft, ob die ID eines angelegten Auftrags richtig ist
+        /// überprüft, ob die AuftragsID eines neu erstellten Auftrags richtig ist
         /// </summary>
         /// <seealso cref="Handler.AuftragAnlegen(Auftrag)"/>
         [TestMethod]
@@ -790,7 +790,7 @@ namespace easyAuftragTest.Logik
                 _handler.MitarbeiterBearbeiten(mitarbeiterBearbTest, maxID);
 
                 // Mitarbeiter mit max ID aus DB ziehen
-                Mitarbeiter mitarbeiterVergleich = (from m in db.Mitarbeiters orderby m.Mitarbeiter ascending where m.Mitarbeiter == maxID select m).ToList().Last();
+                Mitarbeiter mitarbeiterVergleich = (from m in db.Mitarbeiters orderby m.MitarbeiterID ascending where m.MitarbeiterID == maxID select m).ToList().Last();
 
                 // Test ob alle Daten geändert wurden
                 if (mitarbeiterBearbTest.Hausnr != mitarbeiterVergleich.Hausnr)
@@ -845,7 +845,7 @@ namespace easyAuftragTest.Logik
                 int maxID = (from m in db.Mitarbeiters orderby m.MitarbeiterID ascending select m.MitarbeiterID).ToList().Last();
 
                 // anzahl der Mitarbeiter herausfinden
-                int anzahlMitarbeiter = (from m in db.Kunden select m).ToList().Count();
+                int anzahlMitarbeiter = (from m in db.Mitarbeiters select m).ToList().Count();
 
                 // angelegten Mitarbeiter löschen
                 _handler.MitarbeiterLoeschen(maxID);
@@ -896,60 +896,492 @@ namespace easyAuftragTest.Logik
             }
         }
 
+        /// <summary>
+        /// überprüft, ob eine Taetigkeit zur DB hinzugefügt wurde
+        /// </summary>
+        /// <seealso cref="Handler.TaetigkeitAnlegen(Taetigkeit)"/>
         [TestMethod]
-        public void TaetigkeitAnlegenTest()
+        public void IrgendeineTaetigkeitAnlegenTest()
         {
-            //
-            // TODO: Testlogik hier hinzufügen
-            //
+            using (var db = new EasyAuftragContext())
+            {
+                // Anzahl Taetigkeit messen
+                int anzahlTaetigkeiten = (from t in db.Taetigkeiten select t).ToList().Count();
+
+                // neuen Taetigkeit anlegen
+                Taetigkeit taetigkeitTest = new Taetigkeit
+                {
+                    AuftragID = 1,
+                    Datum = new DateTime(2019, 8, 14),
+                    MitarbeiterID = 1,
+                    Name = "Irgendeine Tätigkeit",
+                    StartZeit = new TimeSpan(12, 44, 0),
+                    EndZeit = new TimeSpan(15, 23, 14)
+                };
+                _handler.TaetigkeitAnlegen(taetigkeitTest);
+
+                // überprüfen, ob neue Taetigkeit angelegt wurde
+                if (anzahlTaetigkeiten + 1 != (from t in db.Taetigkeiten select t).ToList().Count())
+                {
+                    Assert.Fail();
+                }
+            }
         }
 
+        /// <summary>
+        /// überprüft, ob die TaetigkeitsID einer neu erstellten Taetigkeit richtig ist
+        /// </summary>
+        /// <seealso cref="Handler.KundeAnlegen(Kunde)"/>
+        [TestMethod]
+        public void TaetigkeitIDExistiertTest()
+        {
+            using (var db = new EasyAuftragContext())
+            {
+                // Taetigkeit mit max ID, da vorherige Taetigkeit gelöscht sein könnte
+                Taetigkeit taetigkeitMaxIDTest = new Taetigkeit
+                {
+                    AuftragID = 2,
+                    Datum = new DateTime(2019, 8, 14),
+                    MitarbeiterID = 3,
+                    Name = "TaetigkeitIDExistiertTest1",
+                    StartZeit = new TimeSpan(12, 44, 0),
+                    EndZeit = new TimeSpan(15, 23, 14)
+                };
+                _handler.TaetigkeitAnlegen(taetigkeitMaxIDTest);
+
+                // max ID herausfinden
+                int taetigkeitMaxID = (from t in db.Taetigkeiten orderby t.TaetigkeitID ascending select t.TaetigkeitID).ToList().Last();
+
+                // neue Taetigkeit zum Vergleich der max ID
+                Taetigkeit taetigkeitTestMaxIDTestNeu = new Taetigkeit
+                {
+                    AuftragID = 2,
+                    Datum = new DateTime(2019, 8, 14),
+                    MitarbeiterID = 3,
+                    Name = "TaetigkeitIDExistiertTest2",
+                    StartZeit = new TimeSpan(12, 44, 0),
+                    EndZeit = new TimeSpan(15, 23, 14)
+                };
+                _handler.TaetigkeitAnlegen(taetigkeitTestMaxIDTestNeu);
+
+                // überprüfen, ob neue ID existiert
+                if (taetigkeitMaxID + 1 != (from t in db.Taetigkeiten orderby t.TaetigkeitID ascending select t.TaetigkeitID).ToList().Last())
+                {
+                    Assert.Fail();
+                }
+            }
+        }
+
+        /// <summary>
+        /// überprüft, ob die Daten einer neu angelegten Taetigkeit richtig sind
+        /// </summary>
+        /// <seealso cref="Handler.TaetigkeitAnlegen(Taetigkeit)"/>
+        [TestMethod]
+        public void TaetigkeitAnlegenDatenTest()
+        {
+            using (var db = new EasyAuftragContext())
+            {
+                // Taetigkeit mit max ID zum Vergleich der Daten
+                Taetigkeit taetigkeitMaxIDTest = new Taetigkeit
+                {
+                    AuftragID = 2,
+                    Datum = new DateTime(2019, 8, 14),
+                    MitarbeiterID = 3,
+                    Name = "TaetigkeitAnlegenDatenTest",
+                    StartZeit = new TimeSpan(12, 44, 0),
+                    EndZeit = new TimeSpan(15, 23, 14)
+                };
+                _handler.TaetigkeitAnlegen(taetigkeitMaxIDTest);
+
+                // Taetigkeit mit max ID aus DB ziehen
+                Taetigkeit taetigkeitVergleich = (from t in db.Taetigkeiten orderby t.TaetigkeitID ascending select t).ToList().Last();
+
+                if (taetigkeitMaxIDTest.AuftragID != taetigkeitVergleich.AuftragID)
+                {
+                    Assert.Fail();
+                }
+                if (taetigkeitMaxIDTest.Name != taetigkeitVergleich.Name)
+                {
+                    Assert.Fail();
+                }
+                if (taetigkeitMaxIDTest.Datum != taetigkeitVergleich.Datum)
+                {
+                    Assert.Fail();
+                }
+                if (taetigkeitMaxIDTest.MitarbeiterID != taetigkeitVergleich.MitarbeiterID)
+                {
+                    Assert.Fail();
+                }
+                if (taetigkeitMaxIDTest.StartZeit != taetigkeitVergleich.StartZeit)
+                {
+                    Assert.Fail();
+                }
+                if (taetigkeitMaxIDTest.EndZeit != taetigkeitVergleich.EndZeit)
+                {
+                    Assert.Fail();
+                }
+            }
+        }
+
+        /// <summary>
+        /// überprüft, ob eine Taetigkeit korrekt bearbeitet wurde
+        /// </summary>
+        /// <seealso cref="Handler.TaetigkeitBearbeiten(Taetigkeit, int)"/>
         [TestMethod]
         public void TaetigkeitBearbeitenTest()
         {
-            //
-            // TODO: Testlogik hier hinzufügen
-            //
+            using (var db = new EasyAuftragContext())
+            {
+                // Taetigkeit mit max ID zum Vergleich der Daten
+                Taetigkeit taetigkeitMaxIDTest = new Taetigkeit
+                {
+                    AuftragID = 2,
+                    Datum = new DateTime(2019, 8, 14),
+                    MitarbeiterID = 3,
+                    Name = "TaetigkeitBearbeiten",
+                    StartZeit = new TimeSpan(12, 44, 0),
+                    EndZeit = new TimeSpan(15, 23, 14)
+                };
+                _handler.TaetigkeitAnlegen(taetigkeitMaxIDTest);
+
+                // bearbeitete Taetigkeit in DB speichern
+                Taetigkeit taetigkeitBearbTest = new Taetigkeit
+                {
+                    AuftragID = 1,
+                    Datum = new DateTime(2018, 5, 14),
+                    MitarbeiterID = 1,
+                    Name = "bearbeitete Taetigkeit",
+                    StartZeit = new TimeSpan(17, 43, 0),
+                    EndZeit = new TimeSpan(23, 23, 54)
+                };
+                int maxID = (from k in db.Taetigkeiten orderby k.TaetigkeitID ascending select k.TaetigkeitID).ToList().Last();
+                _handler.TaetigkeitBearbeiten(taetigkeitBearbTest, maxID);
+
+                // Taetigkeit mit max ID aus DB ziehen
+                Taetigkeit taetigkeitVergleich = (from t in db.Taetigkeiten orderby t.TaetigkeitID ascending where t.TaetigkeitID == maxID select t).ToList().Last();
+
+                // Test ob alle Daten geändert wurden
+                if (taetigkeitBearbTest.AuftragID != taetigkeitVergleich.AuftragID)
+                {
+                    Assert.Fail();
+                }
+                if (taetigkeitBearbTest.Name != taetigkeitVergleich.Name)
+                {
+                    Assert.Fail();
+                }
+                if (taetigkeitBearbTest.Datum != taetigkeitVergleich.Datum)
+                {
+                    Assert.Fail();
+                }
+                if (taetigkeitBearbTest.MitarbeiterID != taetigkeitVergleich.MitarbeiterID)
+                {
+                    Assert.Fail();
+                }
+                if (taetigkeitBearbTest.StartZeit != taetigkeitVergleich.StartZeit)
+                {
+                    Assert.Fail();
+                }
+                if (taetigkeitBearbTest.EndZeit != taetigkeitVergleich.EndZeit)
+                {
+                    Assert.Fail();
+                }
+            }
         }
 
+        /// <summary>
+        /// überprüft, ob irgendeine Taetigkeit gelöscht wird
+        /// </summary>
+        /// <seealso cref="Handler.TaetigkeitLoeschen(int)"/>
+        [TestMethod]
+        public void IrgendeineTaetigkeitLoeschenTest()
+        {
+            using (var db = new EasyAuftragContext())
+            {
+                // Taetigkeit hinzufügen
+                Taetigkeit taetigkeitTest = new Taetigkeit
+                {
+                    AuftragID = 1,
+                    Datum = new DateTime(2018, 5, 14),
+                    MitarbeiterID = 1,
+                    Name = "IrgendeineTaetigkeitLoeschen",
+                    StartZeit = new TimeSpan(17, 43, 0),
+                    EndZeit = new TimeSpan(23, 23, 54)
+                };
+                _handler.TaetigkeitAnlegen(taetigkeitTest);
+
+                // ID der angelegten Taetigkeit herausfinden
+                int maxID = (from t in db.Taetigkeiten orderby t.TaetigkeitID ascending select t.TaetigkeitID).ToList().Last();
+
+                // anzahl der Taetigkeiten herausfinden
+                int anzahlTaetigkeiten = (from t in db.Taetigkeiten select t).ToList().Count();
+
+                // angelegte Taetigkeit löschen
+                _handler.TaetigkeitLoeschen(maxID);
+
+                // überprüfen, ob jetzt eine Taetigkeit weniger in der DB ist
+                if (anzahlTaetigkeiten - 1 != (from t in db.Taetigkeiten select t).ToList().Count())
+                {
+                    Assert.Fail();
+                }
+            }
+        }
+
+        /// <summary>
+        /// überprüft, ob die angegebene Taetigkeit gelöscht wird
+        /// </summary>
+        /// <seealso cref="Handler.TaetigkeitLoeschen(int)"/>
         [TestMethod]
         public void TaetigkeitLoeschenTest()
         {
-            //
-            // TODO: Testlogik hier hinzufügen
-            //
+            using (var db = new EasyAuftragContext())
+            {
+                // Taetigkeit hinzufügen
+                Taetigkeit taetigkeitTest = new Taetigkeit
+                {
+                    AuftragID = 1,
+                    Datum = new DateTime(2018, 5, 14),
+                    MitarbeiterID = 1,
+                    Name = "TaetigkeitLoeschenTest",
+                    StartZeit = new TimeSpan(17, 43, 0),
+                    EndZeit = new TimeSpan(23, 23, 54)
+                };
+                _handler.TaetigkeitAnlegen(taetigkeitTest);
+
+                // ID der angelegten Taetigkeit herausfinden
+                int maxID = (from t in db.Taetigkeiten orderby t.TaetigkeitID ascending select t.TaetigkeitID).ToList().Last();
+
+                // angelegte Taetigkeit löschen
+                _handler.TaetigkeitLoeschen(maxID);
+
+                // Versuch, gelöschte Taetigkeit aufzurufen
+                taetigkeitTest = (from t in db.Taetigkeiten where t.TaetigkeitID == maxID select t).ToList().First();
+
+                // Falls die Taetigkeit doch noch existiert, also ungleich null ist, schlägt der Test fehl
+                if (taetigkeitTest != null)
+                {
+                    Assert.Fail();
+                }
+            }
         }
 
+        /// <summary>
+        /// überprüft, ob ein Kunde richtig aus der DB geladen wird
+        /// </summary>
+        /// <seealso cref="Handler.KundeLaden(int)"/>
         [TestMethod]
         public void KundeLadenTest()
         {
-            //
-            // TODO: Testlogik hier hinzufügen
-            //
+            using (var db = new EasyAuftragContext())
+            {
+                // neuen Kunden anlegen
+                Kunde kundeTest = new Kunde
+                {
+                    Hausnr = "test1",
+                    Name = "test2",
+                    PLZ = "test3",
+                    Strasse = "test4",
+                    TelefonNr = "test5",
+                    Wohnort = "test6"
+                };
+                _handler.KundeAnlegen(kundeTest);
+
+                // max ID herausfinden
+                int kundeMaxID = (from k in db.Kunden orderby k.KundeID ascending select k.KundeID).ToList().Last();
+
+                // Kunde laden
+                Kunde kundeGeladen = _handler.KundeLaden(kundeMaxID);
+
+                // Eigenschaften des Kunden vergleichen
+                if (kundeTest.Hausnr != kundeGeladen.Hausnr)
+                {
+                    Assert.Fail();
+                }
+                if (kundeTest.Name != kundeGeladen.Name)
+                {
+                    Assert.Fail();
+                }
+                if (kundeTest.PLZ != kundeGeladen.PLZ)
+                {
+                    Assert.Fail();
+                }
+                if (kundeTest.Strasse != kundeGeladen.Strasse)
+                {
+                    Assert.Fail();
+                }
+                if (kundeTest.TelefonNr != kundeGeladen.TelefonNr)
+                {
+                    Assert.Fail();
+                }
+                if (kundeTest.Wohnort != kundeGeladen.Wohnort)
+                {
+                    Assert.Fail();
+                }
+            }
         }
 
+        /// <summary>
+        /// überprüft, ob ein Auftrag richtig aus der DB geladen wird
+        /// </summary>
+        /// <seealso cref="Handler.AuftragLaden(int)"/>
         [TestMethod]
         public void AuftragLadenTest()
         {
-            //
-            // TODO: Testlogik hier hinzufügen
-            //
+            using (var db = new EasyAuftragContext())
+            {
+                // neuen Auftrag anlegen
+                Auftrag auftragTest = new Auftrag
+                {
+                    Abgerechnet = false,
+                    AuftragNummer = "LadenTest",
+                    Eingang = new DateTime(2019, 8, 14),
+                    Erledigt = false,
+                    Erteilt = new DateTime(2019, 8, 14),
+                    KundeID = 2
+                };
+                _handler.AuftragAnlegen(auftragTest);
+
+                // max ID herausfinden
+                int auftragMaxID = (from a in db.Auftraege orderby a.AuftragID ascending select a.AuftragID).ToList().Last();
+
+                // Auftrag laden
+                Auftrag auftragGeladen = _handler.AuftragLaden(auftragMaxID);
+
+                // Eigenschaften des Auftrags vergleichen
+                if (auftragGeladen.Abgerechnet != auftragTest.Abgerechnet)
+                {
+                    Assert.Fail();
+                }
+                if (auftragGeladen.AuftragNummer != auftragTest.AuftragNummer)
+                {
+                    Assert.Fail();
+                }
+                if (auftragGeladen.Eingang != auftragTest.Eingang)
+                {
+                    Assert.Fail();
+                }
+                if (auftragGeladen.Erledigt != auftragTest.Erledigt)
+                {
+                    Assert.Fail();
+                }
+                if (auftragGeladen.Erteilt != auftragTest.Erteilt)
+                {
+                    Assert.Fail();
+                }
+                if (auftragGeladen.KundeID != auftragTest.KundeID)
+                {
+                    Assert.Fail();
+                }
+            }
         }
 
+        /// <summary>
+        /// überprüft, ob ein Mitarbeiter richtig aus der DB geladen wird
+        /// </summary>
+        /// <seealso cref="Handler.MitarbeiterLaden(int)"/>
         [TestMethod]
         public void MitarbeiterLadenTest()
         {
-            //
-            // TODO: Testlogik hier hinzufügen
-            //
+            using (var db = new EasyAuftragContext())
+            {
+                // neuen Mitarbeiter anlegen
+                Mitarbeiter mitarbeiterTest = new Mitarbeiter
+                {
+                    Hausnr = "test1",
+                    Name = "test2",
+                    PLZ = "test3",
+                    Strasse = "test4",
+                    TelefonNr = "test5",
+                    Wohnort = "test6"
+                };
+                _handler.MitarbeiterAnlegen(mitarbeiterTest);
+
+                // max ID herausfinden
+                int mitarbeiterMaxID = (from m in db.Mitarbeiters orderby m.MitarbeiterID ascending select m.MitarbeiterID).ToList().Last();
+
+                // Mitarbeiter laden
+                Mitarbeiter mitarbeiterGeladen = _handler.MitarbeiterLaden(mitarbeiterMaxID);
+
+                // Eigenschaften des Kunden vergleichen
+                if (mitarbeiterTest.Hausnr != mitarbeiterGeladen.Hausnr)
+                {
+                    Assert.Fail();
+                }
+                if (mitarbeiterTest.Name != mitarbeiterGeladen.Name)
+                {
+                    Assert.Fail();
+                }
+                if (mitarbeiterTest.PLZ != mitarbeiterGeladen.PLZ)
+                {
+                    Assert.Fail();
+                }
+                if (mitarbeiterTest.Strasse != mitarbeiterGeladen.Strasse)
+                {
+                    Assert.Fail();
+                }
+                if (mitarbeiterTest.TelefonNr != mitarbeiterGeladen.TelefonNr)
+                {
+                    Assert.Fail();
+                }
+                if (mitarbeiterTest.Wohnort != mitarbeiterGeladen.Wohnort)
+                {
+                    Assert.Fail();
+                }
+            }
         }
 
+        /// <summary>
+        /// überprüft, ob eine Tätigkeit richtig aus der DB geladen wird
+        /// </summary>
+        /// <seealso cref="Handler.TaetigkeitLaden(int)"/>
         [TestMethod]
         public void TaetigkeitLadenTest()
         {
-            //
-            // TODO: Testlogik hier hinzufügen
-            //
+            using (var db = new EasyAuftragContext())
+            {
+                // neue Taetigkeit anlegen
+                Taetigkeit taetigkeitTest = new Taetigkeit
+                {
+                    AuftragID = 2,
+                    Datum = new DateTime(2019, 8, 14),
+                    MitarbeiterID = 3,
+                    Name = "Taetigkeit Laden",
+                    StartZeit = new TimeSpan(12, 44, 0),
+                    EndZeit = new TimeSpan(15, 23, 14)
+                };
+                _handler.TaetigkeitAnlegen(taetigkeitTest);
+
+                // max ID herausfinden
+                int taetigkeitMaxID = (from t in db.Taetigkeiten orderby t.TaetigkeitID ascending select t.TaetigkeitID).ToList().Last();
+
+                // Taetigkeit laden
+                Taetigkeit taetigkeitGeladen = _handler.TaetigkeitLaden(taetigkeitMaxID);
+
+                // Eigenschaften des Kunden vergleichen
+                if (taetigkeitGeladen.AuftragID != taetigkeitTest.AuftragID)
+                {
+                    Assert.Fail();
+                }
+                if (taetigkeitGeladen.Datum != taetigkeitTest.Datum)
+                {
+                    Assert.Fail();
+                }
+                if (taetigkeitGeladen.MitarbeiterID != taetigkeitTest.MitarbeiterID)
+                {
+                    Assert.Fail();
+                }
+                if (taetigkeitGeladen.Name != taetigkeitTest.Name)
+                {
+                    Assert.Fail();
+                }
+                if (taetigkeitGeladen.StartZeit != taetigkeitTest.StartZeit)
+                {
+                    Assert.Fail();
+                }
+                if (taetigkeitGeladen.EndZeit != taetigkeitTest.EndZeit)
+                {
+                    Assert.Fail();
+                }
+            }
         }
     }
 }
