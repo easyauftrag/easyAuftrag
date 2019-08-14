@@ -42,15 +42,19 @@
             this.labStadt = new System.Windows.Forms.Label();
             this.tbHaus = new System.Windows.Forms.TextBox();
             this.tbStadt = new System.Windows.Forms.TextBox();
+            this.labRech = new System.Windows.Forms.Label();
+            this.butAddr = new System.Windows.Forms.Button();
+            this.dgvKunde = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvKunde)).BeginInit();
             this.SuspendLayout();
             // 
             // butAbbr
             // 
             this.butAbbr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAbbr.Location = new System.Drawing.Point(339, 193);
+            this.butAbbr.Location = new System.Drawing.Point(339, 328);
             this.butAbbr.Name = "butAbbr";
             this.butAbbr.Size = new System.Drawing.Size(75, 23);
-            this.butAbbr.TabIndex = 7;
+            this.butAbbr.TabIndex = 8;
             this.butAbbr.Text = "Abbrechen";
             this.butAbbr.UseVisualStyleBackColor = true;
             this.butAbbr.Click += new System.EventHandler(this.ButAbbr_Click);
@@ -58,10 +62,10 @@
             // butSpeichern
             // 
             this.butSpeichern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butSpeichern.Location = new System.Drawing.Point(258, 193);
+            this.butSpeichern.Location = new System.Drawing.Point(258, 328);
             this.butSpeichern.Name = "butSpeichern";
             this.butSpeichern.Size = new System.Drawing.Size(75, 23);
-            this.butSpeichern.TabIndex = 6;
+            this.butSpeichern.TabIndex = 7;
             this.butSpeichern.Text = "Speichern";
             this.butSpeichern.UseVisualStyleBackColor = true;
             this.butSpeichern.Click += new System.EventHandler(this.ButSpeichern_Click);
@@ -72,7 +76,7 @@
             this.labName.Location = new System.Drawing.Point(12, 16);
             this.labName.Name = "labName";
             this.labName.Size = new System.Drawing.Size(35, 13);
-            this.labName.TabIndex = 8;
+            this.labName.TabIndex = 9;
             this.labName.Text = "Name";
             // 
             // tbName
@@ -88,97 +92,130 @@
             // 
             this.tbStraße.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbStraße.Location = new System.Drawing.Point(105, 40);
+            this.tbStraße.Location = new System.Drawing.Point(105, 92);
             this.tbStraße.Name = "tbStraße";
             this.tbStraße.Size = new System.Drawing.Size(309, 20);
-            this.tbStraße.TabIndex = 1;
+            this.tbStraße.TabIndex = 2;
             // 
             // tbPLZ
             // 
             this.tbPLZ.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbPLZ.Location = new System.Drawing.Point(105, 119);
+            this.tbPLZ.Location = new System.Drawing.Point(105, 171);
             this.tbPLZ.Name = "tbPLZ";
             this.tbPLZ.Size = new System.Drawing.Size(309, 20);
-            this.tbPLZ.TabIndex = 4;
+            this.tbPLZ.TabIndex = 5;
             // 
             // tbTelefon
             // 
             this.tbTelefon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbTelefon.Location = new System.Drawing.Point(105, 146);
+            this.tbTelefon.Location = new System.Drawing.Point(105, 39);
             this.tbTelefon.Name = "tbTelefon";
             this.tbTelefon.Size = new System.Drawing.Size(309, 20);
-            this.tbTelefon.TabIndex = 5;
+            this.tbTelefon.TabIndex = 1;
             // 
             // labStraße
             // 
             this.labStraße.AutoSize = true;
-            this.labStraße.Location = new System.Drawing.Point(12, 43);
+            this.labStraße.Location = new System.Drawing.Point(12, 95);
             this.labStraße.Name = "labStraße";
             this.labStraße.Size = new System.Drawing.Size(38, 13);
-            this.labStraße.TabIndex = 9;
+            this.labStraße.TabIndex = 12;
             this.labStraße.Text = "Straße";
             // 
             // labPLZ
             // 
             this.labPLZ.AutoSize = true;
-            this.labPLZ.Location = new System.Drawing.Point(12, 122);
+            this.labPLZ.Location = new System.Drawing.Point(12, 174);
             this.labPLZ.Name = "labPLZ";
             this.labPLZ.Size = new System.Drawing.Size(27, 13);
-            this.labPLZ.TabIndex = 12;
+            this.labPLZ.TabIndex = 15;
             this.labPLZ.Text = "PLZ";
             // 
             // labTelefon
             // 
             this.labTelefon.AutoSize = true;
-            this.labTelefon.Location = new System.Drawing.Point(12, 149);
+            this.labTelefon.Location = new System.Drawing.Point(12, 42);
             this.labTelefon.Name = "labTelefon";
             this.labTelefon.Size = new System.Drawing.Size(55, 13);
-            this.labTelefon.TabIndex = 13;
+            this.labTelefon.TabIndex = 10;
             this.labTelefon.Text = "Telefonnr.";
             // 
             // labHaus
             // 
             this.labHaus.AutoSize = true;
-            this.labHaus.Location = new System.Drawing.Point(12, 69);
+            this.labHaus.Location = new System.Drawing.Point(12, 121);
             this.labHaus.Name = "labHaus";
             this.labHaus.Size = new System.Drawing.Size(44, 13);
-            this.labHaus.TabIndex = 10;
+            this.labHaus.TabIndex = 13;
             this.labHaus.Text = "Hausnr.";
             // 
             // labStadt
             // 
             this.labStadt.AutoSize = true;
-            this.labStadt.Location = new System.Drawing.Point(12, 96);
+            this.labStadt.Location = new System.Drawing.Point(12, 148);
             this.labStadt.Name = "labStadt";
             this.labStadt.Size = new System.Drawing.Size(32, 13);
-            this.labStadt.TabIndex = 11;
+            this.labStadt.TabIndex = 14;
             this.labStadt.Text = "Stadt";
             // 
             // tbHaus
             // 
             this.tbHaus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbHaus.Location = new System.Drawing.Point(105, 66);
+            this.tbHaus.Location = new System.Drawing.Point(105, 118);
             this.tbHaus.Name = "tbHaus";
             this.tbHaus.Size = new System.Drawing.Size(309, 20);
-            this.tbHaus.TabIndex = 2;
+            this.tbHaus.TabIndex = 3;
             // 
             // tbStadt
             // 
             this.tbStadt.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbStadt.Location = new System.Drawing.Point(105, 93);
+            this.tbStadt.Location = new System.Drawing.Point(105, 145);
             this.tbStadt.Name = "tbStadt";
             this.tbStadt.Size = new System.Drawing.Size(309, 20);
-            this.tbStadt.TabIndex = 3;
+            this.tbStadt.TabIndex = 4;
+            // 
+            // labRech
+            // 
+            this.labRech.AutoSize = true;
+            this.labRech.Location = new System.Drawing.Point(12, 68);
+            this.labRech.Name = "labRech";
+            this.labRech.Size = new System.Drawing.Size(108, 13);
+            this.labRech.TabIndex = 11;
+            this.labRech.Text = "Rechnungsaddresse:";
+            // 
+            // butAddr
+            // 
+            this.butAddr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.butAddr.AutoSize = true;
+            this.butAddr.Location = new System.Drawing.Point(12, 328);
+            this.butAddr.Name = "butAddr";
+            this.butAddr.Size = new System.Drawing.Size(101, 23);
+            this.butAddr.TabIndex = 6;
+            this.butAddr.Text = "Weitere Addresse";
+            this.butAddr.UseVisualStyleBackColor = true;
+            // 
+            // dgvKunde
+            // 
+            this.dgvKunde.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvKunde.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvKunde.Location = new System.Drawing.Point(15, 197);
+            this.dgvKunde.Name = "dgvKunde";
+            this.dgvKunde.Size = new System.Drawing.Size(399, 124);
+            this.dgvKunde.TabIndex = 16;
             // 
             // KundeView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(426, 228);
+            this.ClientSize = new System.Drawing.Size(426, 363);
+            this.Controls.Add(this.dgvKunde);
+            this.Controls.Add(this.butAddr);
+            this.Controls.Add(this.labRech);
             this.Controls.Add(this.tbStadt);
             this.Controls.Add(this.tbHaus);
             this.Controls.Add(this.labStadt);
@@ -195,6 +232,7 @@
             this.Controls.Add(this.butSpeichern);
             this.Name = "KundeView";
             this.Text = "Kunde";
+            ((System.ComponentModel.ISupportInitialize)(this.dgvKunde)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -216,5 +254,8 @@
         private System.Windows.Forms.Label labStadt;
         private System.Windows.Forms.TextBox tbHaus;
         private System.Windows.Forms.TextBox tbStadt;
+        private System.Windows.Forms.Label labRech;
+        private System.Windows.Forms.Button butAddr;
+        private System.Windows.Forms.DataGridView dgvKunde;
     }
 }
