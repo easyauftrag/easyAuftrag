@@ -99,7 +99,21 @@ namespace Core
         /// <seealso cref="EasyAuftragContext"/>
         public void KundeLoeschen(int kundeID)
         {
-
+            try
+            {
+                using (var db = new EasyAuftragContext())
+                {
+                    if (db.Kunden.Find(kundeID) != null)
+                    {
+                        db.Kunden.Remove(db.Kunden.Find(kundeID));
+                        db.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         /// <summary>
@@ -238,7 +252,21 @@ namespace Core
         /// <seealso cref="EasyAuftragContext"/>
         public void MitarbeiterLoeschen(int mitarbeiterID)
         {
-
+            try
+            {
+                using (var db = new EasyAuftragContext())
+                {
+                    if (db.Mitarbeiters.Find(mitarbeiterID) != null)
+                    {
+                        db.Mitarbeiters.Remove(db.Mitarbeiters.Find(mitarbeiterID));
+                        db.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         /// <summary>
@@ -271,7 +299,26 @@ namespace Core
         /// <seealso cref="EasyAuftragContext"/>
         public void TaetigkeitBearbeiten(Taetigkeit taetigkeit, int taetigkeitID)
         {
-
+            try
+            {
+                using (var db = new EasyAuftragContext())
+                {
+                    if (db.Taetigkeiten.Find(taetigkeitID) != null)
+                    {
+                        db.Taetigkeiten.Find(taetigkeitID).AuftragID = taetigkeit.AuftragID;
+                        db.Taetigkeiten.Find(taetigkeitID).MitarbeiterID = taetigkeit.MitarbeiterID;
+                        db.Taetigkeiten.Find(taetigkeitID).Name = taetigkeit.Name;
+                        db.Taetigkeiten.Find(taetigkeitID).Datum = taetigkeit.Datum;
+                        db.Taetigkeiten.Find(taetigkeitID).StartZeit = taetigkeit.StartZeit;
+                        db.Taetigkeiten.Find(taetigkeitID).EndZeit = taetigkeit.EndZeit;
+                        db.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         /// <summary>
@@ -281,7 +328,21 @@ namespace Core
         /// <seealso cref="EasyAuftragContext"/>
         public void TaetigkeitLoeschen(int taetigkeitID)
         {
-
+            try
+            {
+                using (var db = new EasyAuftragContext())
+                {
+                    if (db.Taetigkeiten.Find(taetigkeitID) != null)
+                    {
+                        db.Taetigkeiten.Remove(db.Taetigkeiten.Find(taetigkeitID));
+                        db.SaveChanges();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         /// <summary>

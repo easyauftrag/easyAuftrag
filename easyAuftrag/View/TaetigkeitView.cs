@@ -101,23 +101,21 @@ namespace easyAuftrag.View
                 TaetigkeitInfo.MitarbeiterID = Convert.ToInt32(cbMitarbeiter.SelectedValue);
                 TaetigkeitInfo.Datum = dtpDatum.Value;
                 TaetigkeitInfo.Name = tbName.Text;
-                TimeSpan start;
-                if (TimeSpan.TryParse(tbStart.Text, out start))
+                if (TimeSpan.TryParse(tbStart.Text, out TimeSpan start))
                 {
                     TaetigkeitInfo.StartZeit = start;
                 }
                 else
                 {
-                    errorInfo.SetError(tbStart, "Bitte korrekte Uhrzeit eingeben!");
+                    errorInfo.SetError(tbStart, "Bitte korrekte Startzeit eingeben!");
                 }
-                TimeSpan ende;
-                if (TimeSpan.TryParse(tbEnde.Text, out ende))
+                if (TimeSpan.TryParse(tbEnde.Text, out TimeSpan ende))
                 {
                     TaetigkeitInfo.EndZeit = ende;
                 }
                 else
                 {
-                    errorInfo.SetError(tbEnde, "Bitte korrekte Uhrzeit eingeben!");
+                    errorInfo.SetError(tbEnde, "Bitte korrekte Endzeit eingeben!");
                 }
             }
             catch (Exception ex)
@@ -133,7 +131,6 @@ namespace easyAuftrag.View
         /// <param name="taetigkeit"></param>
         private void FillControls(Taetigkeit taetigkeit)
         {
-            // TODO MitarbeiterID
             using (var db = new EasyAuftragContext())
             {
                 int[] mitarbeiterIDs = (from k in db.Mitarbeiters select k.MitarbeiterID).ToArray();

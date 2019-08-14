@@ -59,6 +59,8 @@ namespace easyAuftrag.View
         /// und gibt seine Daten an <see cref="FillControls"/>, um sie in der View anzuzeigen.
         /// </value>
         public Auftrag AuftragInfo { get; set; }
+        private List<Taetigkeit> Tatlist { get; set; }
+        private BindingSource Bs = new BindingSource();
 
         /// <summary>
         /// Konstruktor für die <see cref="AuftragView"/>
@@ -90,7 +92,24 @@ namespace easyAuftrag.View
             Text = titel;
             AuftragInfo = auftrag;
             FillControls(AuftragInfo);
+            using (var db = new EasyAuftragContext())
+            {
+                Tatlist = (from t in db.Taetigkeiten where t.AuftragID == auftrag.AuftragID select t).ToList();
+            }
+            Bs.DataSource = Tatlist;
+            dgvAuftrag.DataSource = Bs;
+        }
 
+        public void TabelleNeu(int auftragID)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         /// <summary>
@@ -176,9 +195,11 @@ namespace easyAuftrag.View
             if (taetigkeitV.ShowDialog() == DialogResult.OK)
             {
                 AuftragInfo.Taetigkeiten.Add(taetigkeitV.TaetigkeitInfo);
+                Bs.Add(taetigkeitV.TaetigkeitInfo);
             }
             this.BringToFront();
             this.Activate();
         }
+
     }
 }
