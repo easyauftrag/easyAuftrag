@@ -54,7 +54,10 @@ namespace Core.Model
         /// <summary>
         /// Rechnungsadresse des Kunden
         /// </summary>
-        public Adresse RechnungsAdresse { get; set; }
+        public string Strasse { get; set; }
+        public string Hausnr { get; set; }
+        public string PLZ { get; set; }
+        public string Wohnort { get; set; }
         /// <summary>
         /// weitere Adressen des Kunden
         /// </summary>
@@ -69,7 +72,6 @@ namespace Core.Model
         /// </summary>
         public Kunde()
         {
-            RechnungsAdresse = new Adresse();
             WeitereAdressen = new List<Adresse>();
         }
     }

@@ -77,10 +77,10 @@ namespace Core
                     if (db.Kunden.Find(kundeID) != null)
                     {
                         db.Kunden.Find(kundeID).Name = kunde.Name;
-                        db.Kunden.Find(kundeID).RechnungsAdresse.Strasse = kunde.RechnungsAdresse.Strasse;
-                        db.Kunden.Find(kundeID).RechnungsAdresse.Hausnr = kunde.RechnungsAdresse.Hausnr;
-                        db.Kunden.Find(kundeID).RechnungsAdresse.PLZ = kunde.RechnungsAdresse.PLZ;
-                        db.Kunden.Find(kundeID).RechnungsAdresse.Wohnort = kunde.RechnungsAdresse.Wohnort;
+                        db.Kunden.Find(kundeID).Strasse = kunde.Strasse;
+                        db.Kunden.Find(kundeID).Hausnr = kunde.Hausnr;
+                        db.Kunden.Find(kundeID).PLZ = kunde.PLZ;
+                        db.Kunden.Find(kundeID).Wohnort = kunde.Wohnort;
                         db.Kunden.Find(kundeID).TelefonNr = kunde.TelefonNr;
                         db.SaveChanges();
                     }
