@@ -57,6 +57,7 @@
     <Compile Include="Config.cs" />
     <Compile Include="Model\Kunde.cs" />
     <Compile Include="Model\Mitarbeiter.cs" />
+    <Compile Include="Model\SucheInfo.cs" />
     <Compile Include="Model\Taetigkeit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

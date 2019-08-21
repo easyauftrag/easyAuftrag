@@ -99,6 +99,12 @@
     <Compile Include="View\MitarbeiterView.Designer.cs">
       <DependentUpon>MitarbeiterView.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\SuchControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\SuchControl.Designer.cs">
+      <DependentUpon>SuchControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\TaetigkeitView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,6 +140,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\MitarbeiterView.resx">
       <DependentUpon>MitarbeiterView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\SuchControl.resx">
+      <DependentUpon>SuchControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\TaetigkeitView.resx">
       <DependentUpon>TaetigkeitView.cs</DependentUpon>

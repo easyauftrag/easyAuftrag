@@ -36,8 +36,6 @@
             this.extrasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hilfeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tvMain = new System.Windows.Forms.TreeView();
-            this.cbErledigt = new System.Windows.Forms.CheckBox();
-            this.tbSearch = new System.Windows.Forms.TextBox();
             this.dgvMain = new System.Windows.Forms.DataGridView();
             this.cxtMain = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.neuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,7 +51,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tssLabText = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssLabNummer = new System.Windows.Forms.ToolStripStatusLabel();
-            this.cbAbgerechnet = new System.Windows.Forms.CheckBox();
+            this.suchControlMain = new easyAuftrag.View.SuchControl();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
             this.cxtMain.SuspendLayout();
@@ -72,7 +70,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(0);
-            this.menuStrip1.Size = new System.Drawing.Size(785, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(670, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -112,28 +110,8 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.tvMain.Location = new System.Drawing.Point(13, 58);
             this.tvMain.Name = "tvMain";
-            this.tvMain.Size = new System.Drawing.Size(189, 341);
+            this.tvMain.Size = new System.Drawing.Size(189, 441);
             this.tvMain.TabIndex = 6;
-            // 
-            // cbErledigt
-            // 
-            this.cbErledigt.AutoSize = true;
-            this.cbErledigt.Location = new System.Drawing.Point(207, 58);
-            this.cbErledigt.Name = "cbErledigt";
-            this.cbErledigt.Size = new System.Drawing.Size(110, 17);
-            this.cbErledigt.TabIndex = 7;
-            this.cbErledigt.Text = "Erledigte Aufträge";
-            this.cbErledigt.UseVisualStyleBackColor = true;
-            this.cbErledigt.CheckedChanged += new System.EventHandler(this.CbErledigt_CheckedChanged);
-            // 
-            // tbSearch
-            // 
-            this.tbSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbSearch.Location = new System.Drawing.Point(486, 58);
-            this.tbSearch.Name = "tbSearch";
-            this.tbSearch.Size = new System.Drawing.Size(287, 20);
-            this.tbSearch.TabIndex = 8;
             // 
             // dgvMain
             // 
@@ -145,9 +123,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvMain.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMain.Location = new System.Drawing.Point(207, 82);
+            this.dgvMain.Location = new System.Drawing.Point(207, 188);
             this.dgvMain.Name = "dgvMain";
-            this.dgvMain.Size = new System.Drawing.Size(566, 317);
+            this.dgvMain.Size = new System.Drawing.Size(451, 311);
             this.dgvMain.TabIndex = 9;
             this.dgvMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DgvMain_MouseUp);
             // 
@@ -159,7 +137,7 @@
             this.bearbeitenToolStripMenuItem1,
             this.löschenToolStripMenuItem});
             this.cxtMain.Name = "cxtMain";
-            this.cxtMain.Size = new System.Drawing.Size(181, 98);
+            this.cxtMain.Size = new System.Drawing.Size(131, 76);
             // 
             // neuToolStripMenuItem
             // 
@@ -183,7 +161,7 @@
             // löschenToolStripMenuItem
             // 
             this.löschenToolStripMenuItem.Name = "löschenToolStripMenuItem";
-            this.löschenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.löschenToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.löschenToolStripMenuItem.Text = "Löschen";
             this.löschenToolStripMenuItem.Click += new System.EventHandler(this.LöschenToolStripMenuItem_Click);
             // 
@@ -197,7 +175,7 @@
             this.butMitarbeiter});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(785, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(670, 25);
             this.toolStrip1.TabIndex = 10;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -251,9 +229,9 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tssLabText,
             this.tssLabNummer});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 402);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 502);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(785, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(670, 22);
             this.statusStrip1.TabIndex = 11;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -268,28 +246,23 @@
             this.tssLabNummer.Name = "tssLabNummer";
             this.tssLabNummer.Size = new System.Drawing.Size(0, 17);
             // 
-            // cbAbgerechnet
+            // suchControlMain
             // 
-            this.cbAbgerechnet.AutoSize = true;
-            this.cbAbgerechnet.Location = new System.Drawing.Point(323, 58);
-            this.cbAbgerechnet.Name = "cbAbgerechnet";
-            this.cbAbgerechnet.Size = new System.Drawing.Size(163, 17);
-            this.cbAbgerechnet.TabIndex = 12;
-            this.cbAbgerechnet.Text = "Nicht abgerechnete Aufträge";
-            this.cbAbgerechnet.UseVisualStyleBackColor = true;
-            this.cbAbgerechnet.CheckedChanged += new System.EventHandler(this.CbAbgerechnet_CheckedChanged);
+            this.suchControlMain.Location = new System.Drawing.Point(208, 52);
+            this.suchControlMain.Name = "suchControlMain";
+            this.suchControlMain.Size = new System.Drawing.Size(455, 130);
+            this.suchControlMain.TabIndex = 12;
+            this.suchControlMain.SuchEvent += new System.Action(this.TabelleNeu);
             // 
             // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(785, 424);
-            this.Controls.Add(this.cbAbgerechnet);
+            this.ClientSize = new System.Drawing.Size(670, 524);
+            this.Controls.Add(this.suchControlMain);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.dgvMain);
-            this.Controls.Add(this.tbSearch);
-            this.Controls.Add(this.cbErledigt);
             this.Controls.Add(this.tvMain);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -318,8 +291,6 @@
         private System.Windows.Forms.ToolStripMenuItem extrasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hilfeToolStripMenuItem;
         private System.Windows.Forms.TreeView tvMain;
-        private System.Windows.Forms.CheckBox cbErledigt;
-        private System.Windows.Forms.TextBox tbSearch;
         private System.Windows.Forms.DataGridView dgvMain;
         private System.Windows.Forms.ContextMenuStrip cxtMain;
         private System.Windows.Forms.ToolStripMenuItem neuToolStripMenuItem;
@@ -335,7 +306,7 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel tssLabText;
         private System.Windows.Forms.ToolStripStatusLabel tssLabNummer;
-        private System.Windows.Forms.CheckBox cbAbgerechnet;
+        private View.SuchControl suchControlMain;
     }
 }
 
