@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Kunden");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Mitarbeiter");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Aufträge");
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ansichtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,11 +55,18 @@
             this.tssLabText = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssLabNummer = new System.Windows.Forms.ToolStripStatusLabel();
             this.suchControlMain = new easyAuftrag.View.SuchControl();
+            this.ctxTree = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripNeu = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripBearbeiten = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLoeschen = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
             this.cxtMain.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.ctxTree.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -110,6 +120,19 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.tvMain.Location = new System.Drawing.Point(13, 58);
             this.tvMain.Name = "tvMain";
+            treeNode1.Name = "Kunden";
+            treeNode1.Tag = "kunden";
+            treeNode1.Text = "Kunden";
+            treeNode2.Name = "Mitarbeiter";
+            treeNode2.Tag = "mitarbeiter";
+            treeNode2.Text = "Mitarbeiter";
+            treeNode3.Name = "Auftraege";
+            treeNode3.Tag = "auftraege";
+            treeNode3.Text = "Aufträge";
+            this.tvMain.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2,
+            treeNode3});
             this.tvMain.Size = new System.Drawing.Size(189, 441);
             this.tvMain.TabIndex = 6;
             // 
@@ -254,6 +277,49 @@
             this.suchControlMain.TabIndex = 12;
             this.suchControlMain.SuchEvent += new System.Action(this.TabelleNeu);
             // 
+            // ctxTree
+            // 
+            this.ctxTree.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripNeu,
+            this.toolStripSeparator1,
+            this.toolStripBearbeiten,
+            this.toolStripSeparator2,
+            this.toolStripLoeschen});
+            this.ctxTree.Name = "ctxTree";
+            this.ctxTree.Size = new System.Drawing.Size(181, 104);
+            this.ctxTree.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ctxTree_MouseUp);
+            // 
+            // toolStripNeu
+            // 
+            this.toolStripNeu.Name = "toolStripNeu";
+            this.toolStripNeu.Size = new System.Drawing.Size(180, 22);
+            this.toolStripNeu.Text = "Neu";
+            this.toolStripNeu.Click += new System.EventHandler(this.toolStripNeu_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // toolStripBearbeiten
+            // 
+            this.toolStripBearbeiten.Name = "toolStripBearbeiten";
+            this.toolStripBearbeiten.Size = new System.Drawing.Size(180, 22);
+            this.toolStripBearbeiten.Text = "Bearbeiten";
+            this.toolStripBearbeiten.Click += new System.EventHandler(this.toolStripBearbeiten_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            // 
+            // toolStripLoeschen
+            // 
+            this.toolStripLoeschen.Name = "toolStripLoeschen";
+            this.toolStripLoeschen.Size = new System.Drawing.Size(180, 22);
+            this.toolStripLoeschen.Text = "Löschen";
+            this.toolStripLoeschen.Click += new System.EventHandler(this.toolStripLoeschen_Click);
+            // 
             // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -277,6 +343,7 @@
             this.toolStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.ctxTree.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -307,6 +374,12 @@
         private System.Windows.Forms.ToolStripStatusLabel tssLabText;
         private System.Windows.Forms.ToolStripStatusLabel tssLabNummer;
         private View.SuchControl suchControlMain;
+        private System.Windows.Forms.ContextMenuStrip ctxTree;
+        private System.Windows.Forms.ToolStripMenuItem toolStripNeu;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripBearbeiten;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripLoeschen;
     }
 }
 

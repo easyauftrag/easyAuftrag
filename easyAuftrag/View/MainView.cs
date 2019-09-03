@@ -53,6 +53,7 @@ namespace easyAuftrag
         public MainView()
         {
             InitializeComponent();
+            BuildTreeView();
         }
 
         /// <summary>
@@ -279,5 +280,99 @@ namespace easyAuftrag
 
         }
 
+        private void BuildTreeView()
+        {
+            try
+            {
+                using (var db = new EasyAuftragContext())
+                {
+                    List<Kunde> kun = (from k in db.Kunden select k).ToList();
+                    foreach (Kunde k in kun)
+                    {
+                        TreeNode nKunde = new TreeNode(k.Name);
+                        nKunde.Tag = "Kunde_" + k.KundeID.ToString();
+                        tvMain.Nodes["Kunden"].Nodes.Add(nKunde);
+                    }
+                    List<Mitarbeiter> mit = (from m in db.Mitarbeiters select m).ToList();
+                    foreach (Mitarbeiter m in mit)
+                    {
+                        TreeNode nMitarbeiter = new TreeNode(m.Name);
+                        nMitarbeiter.Tag = "Mitarbeiter_" + m.MitarbeiterID.ToString();
+                        tvMain.Nodes["Mitarbeiter"].Nodes.Add(nMitarbeiter);
+                    }
+                    List<Auftrag> auf = (from a in db.Auftraege select a).ToList();
+                    foreach (Auftrag a in auf)
+                    {
+                        TreeNode nAuftrag = new TreeNode(a.AuftragNummer);
+                        nAuftrag.Tag = "Auftrag_" + a.AuftragID.ToString();
+                        tvMain.Nodes["Auftraege"].Nodes.Add(nAuftrag);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                ErrorHandler.ErrorHandle(ex);
+            }
+        }
+
+        private void ctxTree_MouseUp(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                if (e.Button == MouseButtons.Right)
+                {
+                    if (tvMain.SelectedNode != null)
+                    {
+                        if (tvMain.SelectedNode.Tag.ToString().Contains("_"))
+                        {
+                            toolStripBearbeiten.Enabled = true;
+                            toolStripLoeschen.Enabled = true;
+                            ctxTree.Show(tvMain, e.X, e.Y);
+                        }
+                        else
+                        {
+                            toolStripBearbeiten.Enabled = false;
+                            toolStripLoeschen.Enabled = false;
+                            ctxTree.Show(tvMain, e.X, e.Y);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ErrorHandler.ErrorHandle(ex);
+            }
+        }
+
+        private void toolStripNeu_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (tvMain.SelectedNode.Tag.ToString().StartsWith("Kun"))
+                {
+                    Kunde kunde = new Kunde();
+                }
+                //TODO Mitarbeiter und Aufträge
+                //TODO Tätigkeiten
+            }
+            catch (Exception ex)
+            {
+
+                ErrorHandler.ErrorHandle(ex);
+            }
+        }
+
+        private void toolStripBearbeiten_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripLoeschen_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
