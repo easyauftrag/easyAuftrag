@@ -55,13 +55,13 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tssLabText = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssLabNummer = new System.Windows.Forms.ToolStripStatusLabel();
-            this.suchControlMain = new easyAuftrag.View.SuchControl();
             this.ctxTree = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripNeu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripBearbeiten = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLoeschen = new System.Windows.Forms.ToolStripMenuItem();
+            this.suchControlMain = new easyAuftrag.View.SuchControl();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
             this.cxtMain.SuspendLayout();
@@ -122,13 +122,13 @@
             this.tvMain.Location = new System.Drawing.Point(13, 58);
             this.tvMain.Name = "tvMain";
             treeNode1.Name = "Kunden";
-            treeNode1.Tag = "kunden";
+            treeNode1.Tag = "Kunden";
             treeNode1.Text = "Kunden";
             treeNode2.Name = "Mitarbeiter";
-            treeNode2.Tag = "mitarbeiter";
+            treeNode2.Tag = "Mitarbeiter";
             treeNode2.Text = "Mitarbeiter";
             treeNode3.Name = "Auftraege";
-            treeNode3.Tag = "auftraege";
+            treeNode3.Tag = "Auftraege";
             treeNode3.Text = "Aufträge";
             this.tvMain.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
@@ -277,14 +277,6 @@
             this.tssLabNummer.Name = "tssLabNummer";
             this.tssLabNummer.Size = new System.Drawing.Size(0, 17);
             // 
-            // suchControlMain
-            // 
-            this.suchControlMain.Location = new System.Drawing.Point(208, 52);
-            this.suchControlMain.Name = "suchControlMain";
-            this.suchControlMain.Size = new System.Drawing.Size(455, 130);
-            this.suchControlMain.TabIndex = 12;
-            this.suchControlMain.SuchEvent += new System.Action(this.TabelleNeu);
-            // 
             // ctxTree
             // 
             this.ctxTree.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -326,6 +318,14 @@
             this.toolStripLoeschen.Size = new System.Drawing.Size(130, 22);
             this.toolStripLoeschen.Text = "Löschen";
             this.toolStripLoeschen.Click += new System.EventHandler(this.toolStripLoeschen_Click);
+            // 
+            // suchControlMain
+            // 
+            this.suchControlMain.Location = new System.Drawing.Point(208, 52);
+            this.suchControlMain.Name = "suchControlMain";
+            this.suchControlMain.Size = new System.Drawing.Size(455, 130);
+            this.suchControlMain.TabIndex = 12;
+            this.suchControlMain.SuchEvent += new System.Action(this.TabelleNeu);
             // 
             // MainView
             // 
