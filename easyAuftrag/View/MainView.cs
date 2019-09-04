@@ -53,7 +53,6 @@ namespace easyAuftrag
         public MainView()
         {
             InitializeComponent();
-            BuildTreeView();
         }
 
         /// <summary>
@@ -172,7 +171,7 @@ namespace easyAuftrag
             }
             this.BringToFront();
             this.Activate();
-            TabelleNeu();
+            //TabelleNeu();
         }
 
         /// <summary>
@@ -189,7 +188,7 @@ namespace easyAuftrag
             }
             this.BringToFront();
             this.Activate();
-            TabelleNeu();
+            //TabelleNeu();
         }
 
         /// <summary>
@@ -217,6 +216,7 @@ namespace easyAuftrag
         private void MainView_Load(object sender, EventArgs e)
         {
             TabelleNeu();
+            BuildTreeView();
         }
 
         private void DgvMain_MouseUp(object sender, MouseEventArgs e)
@@ -227,7 +227,7 @@ namespace easyAuftrag
             }
         }
 
-        private void NeuToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TSMIneu_Click(object sender, EventArgs e)
         {
             AuftragView auftragV = new AuftragView("Neuer Auftrag");
             if (auftragV.ShowDialog() == DialogResult.OK)
@@ -239,7 +239,7 @@ namespace easyAuftrag
             TabelleNeu();
         }
 
-        private void BearbeitenToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void TSMIbearbeiten_Click(object sender, EventArgs e)
         {
             if (dgvMain.SelectedRows.Count > 0)
             {
@@ -254,7 +254,7 @@ namespace easyAuftrag
             this.Activate();
             TabelleNeu();
         }
-        private void LöschenToolStripMenuItem_Click(object sender, EventArgs e)
+        private void TSMIloeschen_Click(object sender, EventArgs e)
         {
             if (dgvMain.SelectedRows.Count > 0)
             {
@@ -316,8 +316,7 @@ namespace easyAuftrag
                 ErrorHandler.ErrorHandle(ex);
             }
         }
-
-        private void ctxTree_MouseUp(object sender, MouseEventArgs e)
+        private void tvMain_MouseUp(object sender, MouseEventArgs e)
         {
             try
             {
@@ -355,8 +354,18 @@ namespace easyAuftrag
                 {
                     Kunde kunde = new Kunde();
                 }
-                //TODO Mitarbeiter und Aufträge
-                //TODO Tätigkeiten
+                if (tvMain.SelectedNode.Tag.ToString().StartsWith("Mit"))
+                {
+                    Mitarbeiter mitarbeiter = new Mitarbeiter();
+                }
+                if (tvMain.SelectedNode.Tag.ToString().StartsWith("Auf"))
+                {
+                    Auftrag auftrag = new Auftrag();
+                }
+                if (tvMain.SelectedNode.Tag.ToString().StartsWith("Tae"))
+                {
+                    Taetigkeit taetigkeit = new Taetigkeit();
+                }
             }
             catch (Exception ex)
             {
@@ -374,5 +383,7 @@ namespace easyAuftrag
         {
 
         }
+
+        
     }
 }

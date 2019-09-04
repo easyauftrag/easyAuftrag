@@ -41,10 +41,11 @@
             this.tvMain = new System.Windows.Forms.TreeView();
             this.dgvMain = new System.Windows.Forms.DataGridView();
             this.cxtMain = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.neuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TSMIneu = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.bearbeitenToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.löschenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.TSMIbearbeiten = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.TSMIloeschen = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.butExport = new System.Windows.Forms.ToolStripButton();
             this.butNachweis = new System.Windows.Forms.ToolStripButton();
@@ -105,7 +106,7 @@
             // extrasToolStripMenuItem
             // 
             this.extrasToolStripMenuItem.Name = "extrasToolStripMenuItem";
-            this.extrasToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
+            this.extrasToolStripMenuItem.Size = new System.Drawing.Size(50, 24);
             this.extrasToolStripMenuItem.Text = "Extras";
             // 
             // hilfeToolStripMenuItem
@@ -135,6 +136,7 @@
             treeNode3});
             this.tvMain.Size = new System.Drawing.Size(189, 441);
             this.tvMain.TabIndex = 6;
+            this.tvMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tvMain_MouseUp);
             // 
             // dgvMain
             // 
@@ -155,38 +157,44 @@
             // cxtMain
             // 
             this.cxtMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.neuToolStripMenuItem,
+            this.TSMIneu,
             this.toolStripMenuItem1,
-            this.bearbeitenToolStripMenuItem1,
-            this.löschenToolStripMenuItem});
+            this.TSMIbearbeiten,
+            this.toolStripSeparator3,
+            this.TSMIloeschen});
             this.cxtMain.Name = "cxtMain";
-            this.cxtMain.Size = new System.Drawing.Size(131, 76);
+            this.cxtMain.Size = new System.Drawing.Size(131, 82);
             // 
-            // neuToolStripMenuItem
+            // TSMIneu
             // 
-            this.neuToolStripMenuItem.Name = "neuToolStripMenuItem";
-            this.neuToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
-            this.neuToolStripMenuItem.Text = "Neu";
-            this.neuToolStripMenuItem.Click += new System.EventHandler(this.NeuToolStripMenuItem_Click);
+            this.TSMIneu.Name = "TSMIneu";
+            this.TSMIneu.Size = new System.Drawing.Size(130, 22);
+            this.TSMIneu.Text = "Neu";
+            this.TSMIneu.Click += new System.EventHandler(this.TSMIneu_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(127, 6);
             // 
-            // bearbeitenToolStripMenuItem1
+            // TSMIbearbeiten
             // 
-            this.bearbeitenToolStripMenuItem1.Name = "bearbeitenToolStripMenuItem1";
-            this.bearbeitenToolStripMenuItem1.Size = new System.Drawing.Size(130, 22);
-            this.bearbeitenToolStripMenuItem1.Text = "Bearbeiten";
-            this.bearbeitenToolStripMenuItem1.Click += new System.EventHandler(this.BearbeitenToolStripMenuItem1_Click);
+            this.TSMIbearbeiten.Name = "TSMIbearbeiten";
+            this.TSMIbearbeiten.Size = new System.Drawing.Size(130, 22);
+            this.TSMIbearbeiten.Text = "Bearbeiten";
+            this.TSMIbearbeiten.Click += new System.EventHandler(this.TSMIbearbeiten_Click);
             // 
-            // löschenToolStripMenuItem
+            // toolStripSeparator3
             // 
-            this.löschenToolStripMenuItem.Name = "löschenToolStripMenuItem";
-            this.löschenToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
-            this.löschenToolStripMenuItem.Text = "Löschen";
-            this.löschenToolStripMenuItem.Click += new System.EventHandler(this.LöschenToolStripMenuItem_Click);
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(127, 6);
+            // 
+            // TSMIloeschen
+            // 
+            this.TSMIloeschen.Name = "TSMIloeschen";
+            this.TSMIloeschen.Size = new System.Drawing.Size(130, 22);
+            this.TSMIloeschen.Text = "Löschen";
+            this.TSMIloeschen.Click += new System.EventHandler(this.TSMIloeschen_Click);
             // 
             // toolStrip1
             // 
@@ -207,7 +215,7 @@
             this.butExport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.butExport.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.butExport.Name = "butExport";
-            this.butExport.Size = new System.Drawing.Size(74, 22);
+            this.butExport.Size = new System.Drawing.Size(75, 22);
             this.butExport.Text = "Datei Export";
             this.butExport.Click += new System.EventHandler(this.ButExport_Click);
             // 
@@ -286,37 +294,36 @@
             this.toolStripSeparator2,
             this.toolStripLoeschen});
             this.ctxTree.Name = "ctxTree";
-            this.ctxTree.Size = new System.Drawing.Size(181, 104);
-            this.ctxTree.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ctxTree_MouseUp);
+            this.ctxTree.Size = new System.Drawing.Size(131, 82);
             // 
             // toolStripNeu
             // 
             this.toolStripNeu.Name = "toolStripNeu";
-            this.toolStripNeu.Size = new System.Drawing.Size(180, 22);
+            this.toolStripNeu.Size = new System.Drawing.Size(130, 22);
             this.toolStripNeu.Text = "Neu";
             this.toolStripNeu.Click += new System.EventHandler(this.toolStripNeu_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(127, 6);
             // 
             // toolStripBearbeiten
             // 
             this.toolStripBearbeiten.Name = "toolStripBearbeiten";
-            this.toolStripBearbeiten.Size = new System.Drawing.Size(180, 22);
+            this.toolStripBearbeiten.Size = new System.Drawing.Size(130, 22);
             this.toolStripBearbeiten.Text = "Bearbeiten";
             this.toolStripBearbeiten.Click += new System.EventHandler(this.toolStripBearbeiten_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(127, 6);
             // 
             // toolStripLoeschen
             // 
             this.toolStripLoeschen.Name = "toolStripLoeschen";
-            this.toolStripLoeschen.Size = new System.Drawing.Size(180, 22);
+            this.toolStripLoeschen.Size = new System.Drawing.Size(130, 22);
             this.toolStripLoeschen.Text = "Löschen";
             this.toolStripLoeschen.Click += new System.EventHandler(this.toolStripLoeschen_Click);
             // 
@@ -360,10 +367,10 @@
         private System.Windows.Forms.TreeView tvMain;
         private System.Windows.Forms.DataGridView dgvMain;
         private System.Windows.Forms.ContextMenuStrip cxtMain;
-        private System.Windows.Forms.ToolStripMenuItem neuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem TSMIneu;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem bearbeitenToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem löschenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem TSMIbearbeiten;
+        private System.Windows.Forms.ToolStripMenuItem TSMIloeschen;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton butExport;
         private System.Windows.Forms.ToolStripButton butNachweis;
@@ -380,6 +387,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripBearbeiten;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem toolStripLoeschen;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
     }
 }
 
