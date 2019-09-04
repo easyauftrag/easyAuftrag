@@ -200,13 +200,13 @@ namespace easyAuftrag
                         TreeNode nAuftrag = new TreeNode(a.AuftragNummer);
                         nAuftrag.Tag = "Auftrag_" + a.AuftragID.ToString();
                         tvMain.Nodes["Auftraege"].Nodes.Add(nAuftrag);
-                        /*List<Taetigkeit> tat = (from t in db.Taetigkeiten where t.AuftragID == a.AuftragID select t).ToList();
+                        List<Taetigkeit> tat = (from t in db.Taetigkeiten where t.AuftragID == a.AuftragID select t).ToList();
                         foreach (Taetigkeit t in tat)
                         {
                             TreeNode nTaetigkeit = new TreeNode(t.Name);
                             nTaetigkeit.Tag = "Taetigkeit_" + t.TaetigkeitID.ToString();
-                            tvMain.Nodes["Auftraege"].Nodes[a.AuftragNummer.ToString()].Nodes.Add(nTaetigkeit);
-                        }*/
+                            tvMain.Nodes["Auftraege"].LastNode.Nodes.Add(nTaetigkeit);
+                        }
                         //TODO Tätigkeiten einbinden
                     }
                 }
@@ -270,6 +270,11 @@ namespace easyAuftrag
             TabelleNeu();
         }
 
+        /// <summary>
+        /// Action beim Rechtsklick auf das <see cref="DataGridView"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DgvMain_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -331,6 +336,11 @@ namespace easyAuftrag
 
         }
 
+        /// <summary>
+        /// Action beim Rechtsklick auf das <see cref="TreeView"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tvMain_MouseUp(object sender, MouseEventArgs e)
         {
             try
@@ -398,6 +408,17 @@ namespace easyAuftrag
                     this.BringToFront();
                     this.Activate();
                     TabelleNeu();
+                    TreeViewNeu();
+                }
+                if (item[0].ToLower().StartsWith("tae"))
+                {
+                    TaetigkeitView taetigkeitV = new TaetigkeitView("Neue Taetigkeit");
+                    if (taetigkeitV.ShowDialog() == DialogResult.OK)
+                    {
+                        _handler.TaetigkeitAnlegen(taetigkeitV.TaetigkeitInfo);
+                    }
+                    this.BringToFront();
+                    this.Activate();
                     TreeViewNeu();
                 }
             }
