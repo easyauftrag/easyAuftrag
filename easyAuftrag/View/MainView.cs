@@ -415,13 +415,15 @@ namespace easyAuftrag
                 }
                 if (item[0].ToLower().StartsWith("tae"))
                 {
-                    TaetigkeitView taetigkeitV = new TaetigkeitView("Neue Taetigkeit");
-                    if (taetigkeitV.ShowDialog() == DialogResult.OK)
+                    string[] itemParent = tvMain.SelectedNode.Parent.Tag.ToString().Split('_') ;
+                    AuftragView auftragV = new AuftragView("Auftrag Bearbeiten", auftrag: _handler.AuftragLaden(Convert.ToInt32(itemParent[1])));
+                    if (auftragV.ShowDialog() == DialogResult.OK)
                     {
-                        _handler.TaetigkeitAnlegen(taetigkeitV.TaetigkeitInfo);
+                        _handler.AuftragBearbeiten(auftragV.AuftragInfo, Convert.ToInt32(itemParent[1]));
                     }
                     this.BringToFront();
                     this.Activate();
+                    TabelleNeu();
                     TreeViewNeu();
                 }
             }
