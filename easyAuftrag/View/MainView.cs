@@ -234,6 +234,7 @@ namespace easyAuftrag
             this.BringToFront();
             this.Activate();
             //TabelleNeu();
+            TreeViewNeu();
         }
 
         /// <summary>
@@ -251,6 +252,7 @@ namespace easyAuftrag
             this.BringToFront();
             this.Activate();
             //TabelleNeu();
+            TreeViewNeu();
         }
 
         /// <summary>
@@ -268,6 +270,7 @@ namespace easyAuftrag
             this.BringToFront();
             this.Activate();
             TabelleNeu();
+            TreeViewNeu();
         }
 
         /// <summary>
