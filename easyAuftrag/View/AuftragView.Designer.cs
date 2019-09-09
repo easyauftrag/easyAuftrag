@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.butAbbr = new System.Windows.Forms.Button();
             this.butSpeichern = new System.Windows.Forms.Button();
             this.tbAuftragNr = new System.Windows.Forms.TextBox();
@@ -44,7 +45,12 @@
             this.dgvAuftrag = new System.Windows.Forms.DataGridView();
             this.butNeueTaetigkeit = new System.Windows.Forms.Button();
             this.cbAbgerechnet = new System.Windows.Forms.CheckBox();
+            this.cxtAuftrag = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.neuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bearbeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.löschenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAuftrag)).BeginInit();
+            this.cxtAuftrag.SuspendLayout();
             this.SuspendLayout();
             // 
             // butAbbr
@@ -187,6 +193,7 @@
             this.dgvAuftrag.Name = "dgvAuftrag";
             this.dgvAuftrag.Size = new System.Drawing.Size(374, 198);
             this.dgvAuftrag.TabIndex = 14;
+            this.dgvAuftrag.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvAuftrag_CellMouseUp);
             // 
             // butNeueTaetigkeit
             // 
@@ -210,6 +217,33 @@
             this.cbAbgerechnet.TabIndex = 15;
             this.cbAbgerechnet.Text = "Abgerechnet";
             this.cbAbgerechnet.UseVisualStyleBackColor = true;
+            // 
+            // cxtAuftrag
+            // 
+            this.cxtAuftrag.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.neuToolStripMenuItem,
+            this.bearbeitenToolStripMenuItem,
+            this.löschenToolStripMenuItem});
+            this.cxtAuftrag.Name = "cxtAuftrag";
+            this.cxtAuftrag.Size = new System.Drawing.Size(181, 92);
+            // 
+            // neuToolStripMenuItem
+            // 
+            this.neuToolStripMenuItem.Name = "neuToolStripMenuItem";
+            this.neuToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.neuToolStripMenuItem.Text = "Neu";
+            // 
+            // bearbeitenToolStripMenuItem
+            // 
+            this.bearbeitenToolStripMenuItem.Name = "bearbeitenToolStripMenuItem";
+            this.bearbeitenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bearbeitenToolStripMenuItem.Text = "Bearbeiten";
+            // 
+            // löschenToolStripMenuItem
+            // 
+            this.löschenToolStripMenuItem.Name = "löschenToolStripMenuItem";
+            this.löschenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.löschenToolStripMenuItem.Text = "Löschen";
             // 
             // AuftragView
             // 
@@ -235,6 +269,7 @@
             this.Name = "AuftragView";
             this.Text = "Auftrag";
             ((System.ComponentModel.ISupportInitialize)(this.dgvAuftrag)).EndInit();
+            this.cxtAuftrag.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -258,5 +293,9 @@
         private System.Windows.Forms.DataGridView dgvAuftrag;
         private System.Windows.Forms.Button butNeueTaetigkeit;
         private System.Windows.Forms.CheckBox cbAbgerechnet;
+        private System.Windows.Forms.ContextMenuStrip cxtAuftrag;
+        private System.Windows.Forms.ToolStripMenuItem neuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bearbeitenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem löschenToolStripMenuItem;
     }
 }

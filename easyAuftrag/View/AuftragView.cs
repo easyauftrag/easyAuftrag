@@ -190,5 +190,12 @@ namespace easyAuftrag.View
             this.Activate();
         }
 
+        private void DgvAuftrag_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                cxtAuftrag.Show(dgvAuftrag, e.X, e.Y);
+            }
+        }
     }
 }
