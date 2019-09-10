@@ -74,7 +74,7 @@ namespace easyAuftrag.Logik
 
             int charactersOnPage = 0;
             int linesPerPage = 0;
-            Font font = new Font(FontFamily.GenericSansSerif,12.0F, FontStyle.Regular);
+            Font font = new Font(FontFamily.GenericSansSerif,10.0F, FontStyle.Regular);
             string stringToPrint = "Example";
 
             e.Graphics.MeasureString(stringToPrint, font, e.MarginBounds.Size, StringFormat.GenericTypographic, out charactersOnPage, out linesPerPage);
@@ -83,9 +83,10 @@ namespace easyAuftrag.Logik
             e.Graphics.DrawString(_druckDoc.KundeName, font, Brushes.Black, 50, 75, StringFormat.GenericTypographic);
             e.Graphics.DrawString(_druckDoc.KundeAnschrift, font, Brushes.Black, 45, 82, StringFormat.GenericTypographic);
             e.Graphics.DrawString(_druckDoc.KundeTelefon, font, Brushes.Black, 160, 82, StringFormat.GenericTypographic);
+            int y = 115;
             foreach (Taetigkeit t in _druckDoc.TatListe)
             {
-                int y = 115;
+                
 
                 string mitarbeiter = (from i in _druckDoc.MitList where t.MitarbeiterID == i.MitarbeiterID select i.Name).First();
 
@@ -94,6 +95,7 @@ namespace easyAuftrag.Logik
                 e.Graphics.DrawString(t.Name, font, Brushes.Black, 75, y, StringFormat.GenericTypographic);
                 e.Graphics.DrawString(t.StartZeit.ToString(), font, Brushes.Black, 154, y, StringFormat.GenericTypographic);
                 e.Graphics.DrawString(t.EndZeit.ToString(), font, Brushes.Black, 168, y, StringFormat.GenericTypographic);
+                e.Graphics.DrawString( Math.Round(t.Minuten / 60, 1).ToString(), font, Brushes.Black, 182, y, StringFormat.GenericTypographic);
 
                 y += 6;
             }
