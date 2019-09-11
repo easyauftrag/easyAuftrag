@@ -26,11 +26,15 @@
     DE - Germany
 */
 
+using Core.Model;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace easyAuftrag.Logik
 {
@@ -39,5 +43,66 @@ namespace easyAuftrag.Logik
     /// </summary>
     public class Drucken
     {
+        DruckDoc _druckDoc = new DruckDoc();
+        public Drucken()
+        {
+
+        }
+
+        public void Druck(DruckDoc druckDoc)
+        {
+            _druckDoc = druckDoc;
+            PrintDocument doc = new PrintDocument();
+            doc.PrintPage += printDocument_PrintPage;
+            
+            //PrintPreviewDialog printPreview = new PrintPreviewDialog();
+            //printPreview.Document = printDocument;
+            //printPreview.ShowDialog();
+
+            PrintDialog dlgPrinter = new PrintDialog();
+            dlgPrinter.Document = doc;
+
+            if (dlgPrinter.ShowDialog() == DialogResult.OK)
+            {
+                doc.Print();
+            }
+        }
+        
+        private void printDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            e.Graphics.PageUnit = GraphicsUnit.Millimeter;
+
+            int charactersOnPage = 0;
+            int linesPerPage = 0;
+            Font font = new Font(FontFamily.GenericSansSerif,10.0F, FontStyle.Regular);
+            string stringToPrint = "Example";
+
+            e.Graphics.MeasureString(stringToPrint, font, e.MarginBounds.Size, StringFormat.GenericTypographic, out charactersOnPage, out linesPerPage);
+
+            e.Graphics.DrawString(_druckDoc.AuftragNr, font, Brushes.Black, 124, 60, StringFormat.GenericTypographic);
+            e.Graphics.DrawString(_druckDoc.KundeName, font, Brushes.Black, 50, 75, StringFormat.GenericTypographic);
+            e.Graphics.DrawString(_druckDoc.KundeAnschrift, font, Brushes.Black, 45, 82, StringFormat.GenericTypographic);
+            e.Graphics.DrawString(_druckDoc.KundeTelefon, font, Brushes.Black, 160, 82, StringFormat.GenericTypographic);
+            int y = 115;
+            foreach (Taetigkeit t in _druckDoc.TatListe)
+            {
+                
+
+                string mitarbeiter = (from i in _druckDoc.MitList where t.MitarbeiterID == i.MitarbeiterID select i.Name).First();
+
+                e.Graphics.DrawString(t.Datum.ToShortDateString(), font, Brushes.Black, 26, y, StringFormat.GenericTypographic);
+                e.Graphics.DrawString(mitarbeiter, font, Brushes.Black, 50, y, StringFormat.GenericTypographic);
+                e.Graphics.DrawString(t.Name, font, Brushes.Black, 75, y, StringFormat.GenericTypographic);
+                e.Graphics.DrawString(t.StartZeit.ToString(), font, Brushes.Black, 154, y, StringFormat.GenericTypographic);
+                e.Graphics.DrawString(t.EndZeit.ToString(), font, Brushes.Black, 168, y, StringFormat.GenericTypographic);
+                e.Graphics.DrawString( Math.Round(t.Minuten / 60, 1).ToString(), font, Brushes.Black, 182, y, StringFormat.GenericTypographic);
+
+                y += 6;
+            }
+            
+            stringToPrint = stringToPrint.Substring(charactersOnPage);
+
+            e.HasMorePages = (stringToPrint.Length > 0);
+        }
     }
 }

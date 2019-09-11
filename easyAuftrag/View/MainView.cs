@@ -28,6 +28,7 @@
 
 using Core;
 using Core.Model;
+using easyAuftrag.Logik;
 using easyAuftrag.View;
 using System;
 using System.Collections.Generic;
@@ -336,7 +337,32 @@ namespace easyAuftrag
 
         private void ButNachweis_Click(object sender, EventArgs e)
         {
+            if (dgvMain.SelectedRows.Count > 0)
+            {
+                int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
+                using (var db = new EasyAuftragContext())
+                {
+                    DruckDoc doc = new DruckDoc();
+                    Auftrag auftrag = (from a in db.Auftraege where a.AuftragID == auftragID select a).First();
+                    Kunde kunde = (from k in db.Kunden where k.KundeID == auftrag.KundeID select k).First();
+                    List<Taetigkeit> Tatlist = (from t in db.Taetigkeiten where t.AuftragID == auftrag.AuftragID select t).ToList();
+                    List<Mitarbeiter> MitList = new List<Mitarbeiter>();
+                    foreach (Taetigkeit t in Tatlist)
+                    {
+                        MitList.Add((from m in db.Mitarbeiters where m.MitarbeiterID == t.MitarbeiterID select m).First());
+                    }
 
+                    doc.AuftragNr = auftrag.AuftragNummer;
+                    doc.KundeName = kunde.Name;
+                    doc.KundeAnschrift = kunde.Strasse + " " + kunde.Hausnr + ", " + kunde.PLZ + " " + kunde.Wohnort;
+                    doc.KundeTelefon = kunde.TelefonNr;
+                    doc.TatListe = Tatlist;
+                    doc.MitList = MitList;
+
+                    Drucken druck = new Drucken();
+                    druck.Druck(doc);
+                }
+            }
         }
 
         /// <summary>
