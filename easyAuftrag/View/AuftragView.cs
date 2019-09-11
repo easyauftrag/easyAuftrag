@@ -61,6 +61,7 @@ namespace easyAuftrag.View
         public Auftrag AuftragInfo { get; set; }
         private List<Taetigkeit> Tatlist { get; set; }
         private BindingSource Bs = new BindingSource();
+        private Handler _handler = new Handler();
 
         /// <summary>
         /// Konstruktor für die <see cref="AuftragView"/>
@@ -98,6 +99,7 @@ namespace easyAuftrag.View
             }
             Bs.DataSource = Tatlist;
             dgvAuftrag.DataSource = Bs;
+            dgvAuftrag.Columns["TaetigkeitID"].Visible = false;
         }
 
 
@@ -196,6 +198,42 @@ namespace easyAuftrag.View
             {
                 cxtAuftrag.Show(dgvAuftrag, e.X, e.Y);
             }
+        }
+
+        private void NeuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TaetigkeitView taetigkeitV = new TaetigkeitView("Neue Tätigkeit");
+            if (taetigkeitV.ShowDialog() == DialogResult.OK)
+            {
+                AuftragInfo.Taetigkeiten.Add(taetigkeitV.TaetigkeitInfo);
+                Bs.Add(taetigkeitV.TaetigkeitInfo);
+            }
+            this.BringToFront();
+            this.Activate();
+        }
+
+        private void BearbeitenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedRows[0].Cells["TaetigkeitID"].Value);
+            TaetigkeitView taetigkeitV = new TaetigkeitView("Tätigkeit Bearbeiten", taetigkeit: _handler.TaetigkeitLaden(taetigkeitID));
+            if (taetigkeitV.ShowDialog() == DialogResult.OK)
+            {
+                _handler.TaetigkeitBearbeiten(taetigkeitV.TaetigkeitInfo, taetigkeitID);
+            }
+            this.BringToFront();
+            this.Activate();
+        }
+
+        private void LöschenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedRows[0].Cells["TaetigkeitID"].Value);
+            TaetigkeitView taetigkeitV = new TaetigkeitView("Tätigkeit Löschen", taetigkeit: _handler.TaetigkeitLaden(taetigkeitID));
+            if (taetigkeitV.ShowDialog() == DialogResult.OK)
+            {
+                _handler.TaetigkeitLoeschen(taetigkeitID);
+            }
+            this.BringToFront();
+            this.Activate();
         }
     }
 }

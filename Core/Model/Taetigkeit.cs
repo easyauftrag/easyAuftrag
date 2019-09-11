@@ -45,7 +45,6 @@ namespace Core.Model
         /// Tätigkeits ID als Primärschlüssel zur eindeutigen Identifizierung der Tätigkeit in der Datenbank
         /// </summary>
         [Key]
-        [Browsable(false)]
         public int TaetigkeitID { get; set; }
         /// <summary>
         /// Auftrags ID als Fremdschlüssel zur Verknüpfung der Tätigkeit mit einem Auftrag

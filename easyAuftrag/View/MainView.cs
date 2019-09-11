@@ -207,7 +207,6 @@ namespace easyAuftrag
                             nTaetigkeit.Tag = "Taetigkeit_" + t.TaetigkeitID.ToString();
                             tvMain.Nodes["Auftraege"].LastNode.Nodes.Add(nTaetigkeit);
                         }
-                        //TODO Tätigkeiten einbinden
                     }
                 }
 
@@ -233,7 +232,6 @@ namespace easyAuftrag
             }
             this.BringToFront();
             this.Activate();
-            //TabelleNeu();
             TreeViewNeu();
         }
 
@@ -251,7 +249,6 @@ namespace easyAuftrag
             }
             this.BringToFront();
             this.Activate();
-            //TabelleNeu();
             TreeViewNeu();
         }
 
@@ -296,6 +293,7 @@ namespace easyAuftrag
             this.BringToFront();
             this.Activate();
             TabelleNeu();
+            TreeViewNeu();
         }
 
         private void TSMIbearbeiten_Click(object sender, EventArgs e)
@@ -312,6 +310,7 @@ namespace easyAuftrag
             this.BringToFront();
             this.Activate();
             TabelleNeu();
+            TreeViewNeu();
         }
         private void TSMIloeschen_Click(object sender, EventArgs e)
         {
@@ -327,6 +326,7 @@ namespace easyAuftrag
             this.BringToFront();
             this.Activate();
             TabelleNeu();
+            TreeViewNeu();
         }
 
         private void ButExport_Click(object sender, EventArgs e)
