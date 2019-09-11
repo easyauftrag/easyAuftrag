@@ -1,4 +1,31 @@
-﻿using Core;
+﻿/*
+    Dieses Programm mit dem Namen "easyAuftrag" ist eine Verwaltungssoftware 
+    zur Digitalisierung von Auftragszetteln für kleine und mittelständische Handwerksunternehmen.
+
+    
+    Copyright (C) 2019  Torben Hettrich (torben.hettrich@kzvbw.de)
+    Copyright (C) 2019  Jeremias Weber (jeremias.weber@kzvbw.de)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License version 3 as published by
+    the Free Software Foundation.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+    Contact us:
+    Torben Hettrich & Jeremias Weber
+    KZV BW Zahnärztehaus Freiburg
+    Merzhauser Str. 114-116
+    79100 Freiburg im Breisgau
+    DE - Germany
+*/
+using Core;
 using Core.Model;
 using easyAuftrag.Logik;
 using System;
@@ -13,9 +40,27 @@ using System.Windows.Forms;
 
 namespace easyAuftrag.View
 {
+    /// <summary>
+    /// Windows Form für Stundenberechnungen der Mitarbeiter
+    /// </summary>
+    /// <remarks>
+    /// Wird aufgerufen, um Arbeitsstunden eines Mitarbeiters im angegebenen Zeitraum mit dem Soll-Wert zu vergleichen
+    /// </remarks>
     public partial class StundenView : Form
     {
+        /// <summary>
+        /// Hier werden die eingegebenen Daten zwischengespeichert, 
+        /// um sie dann an den <see cref="Core.Handler"/> zu übergeben, oder in der <see cref="TaetigkeitView"/> anzuzeigen.
+        /// </summary>
+        /// <value>
+        /// Wird durch <see cref="FillTaetigkeit"/> oder <see cref="MainView"/> gefüllt
+        /// und gibt seine Daten an <see cref="FillControls"/>, um sie in der View anzuzeigen.
+        /// </value>
         public StundenDoc stundenDoc = new StundenDoc();
+
+        /// <summary>
+        /// Konstruktor für die <see cref="StundenView"/>
+        /// </summary>
         public StundenView()
         {
             InitializeComponent();

@@ -272,7 +272,7 @@ namespace easyAuftrag
         }
 
         /// <summary>
-        /// Action beim Rechtsklick auf das <see cref="DataGridView"/>
+        /// Action beim Rechtsklick auf die <see cref="DataGridView"/>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -284,6 +284,11 @@ namespace easyAuftrag
             }
         }
 
+        /// <summary>
+        /// Action beim Klick auf "Neu" im Kontextmenu auf der <see cref="DataGridView"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TSMIneu_Click(object sender, EventArgs e)
         {
             AuftragView auftragV = new AuftragView("Neuer Auftrag");
@@ -297,6 +302,11 @@ namespace easyAuftrag
             TreeViewNeu();
         }
 
+        /// <summary>
+        /// Action beim Klick auf "Bearbeiten" im Kontextmenu auf der <see cref="DataGridView"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TSMIbearbeiten_Click(object sender, EventArgs e)
         {
             if (dgvMain.SelectedRows.Count > 0)
@@ -313,6 +323,12 @@ namespace easyAuftrag
             TabelleNeu();
             TreeViewNeu();
         }
+
+        /// <summary>
+        /// Action beim Klick auf "Löschen" im Kontextmenu auf der <see cref="DataGridView"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TSMIloeschen_Click(object sender, EventArgs e)
         {
             if (dgvMain.SelectedRows.Count > 0)
@@ -335,6 +351,11 @@ namespace easyAuftrag
 
         }
 
+        /// <summary>
+        /// Action beim Klick auf den "Auftrag drucken" Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButAuftragZettel_Click(object sender, EventArgs e)
         {
             if (dgvMain.SelectedRows.Count > 0)
@@ -365,6 +386,11 @@ namespace easyAuftrag
             }
         }
 
+        /// <summary>
+        /// Action beim Klick auf den "Stundennachweis drucken" Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButStundenZettel_Click(object sender, EventArgs e)
         {
             StundenView stundV = new StundenView();
@@ -376,7 +402,7 @@ namespace easyAuftrag
         }
 
         /// <summary>
-        /// Action beim Rechtsklick auf das <see cref="TreeView"/>
+        /// Action beim Rechtsklick auf die <see cref="TreeView"/>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -410,6 +436,11 @@ namespace easyAuftrag
             }
         }
 
+        /// <summary>
+        /// Action beim Klick auf "Neu" im Kontextmenu auf der <see cref="TreeView"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void toolStripNeu_Click(object sender, EventArgs e)
         {
             try
@@ -470,6 +501,11 @@ namespace easyAuftrag
             }
         }
 
+        /// <summary>
+        /// Action beim Klick auf "Bearbeiten" im Kontextmenu auf der <see cref="TreeView"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void toolStripBearbeiten_Click(object sender, EventArgs e)
         {
             try
@@ -528,6 +564,11 @@ namespace easyAuftrag
             }
         }
 
+        /// <summary>
+        /// Action beim Klick auf "Löschen" im Kontextmenu auf der <see cref="TreeView"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void toolStripLoeschen_Click(object sender, EventArgs e)
         {
             try
