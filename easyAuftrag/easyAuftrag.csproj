@@ -147,6 +147,32 @@
     <EmbeddedResource Include="View\TaetigkeitView.resx">
       <DependentUpon>TaetigkeitView.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="easyAuftrag\.git\config" />
+    <None Include="easyAuftrag\.git\description" />
+    <None Include="easyAuftrag\.git\HEAD" />
+    <None Include="easyAuftrag\.git\hooks\applypatch-msg.sample" />
+    <None Include="easyAuftrag\.git\hooks\commit-msg.sample" />
+    <None Include="easyAuftrag\.git\hooks\fsmonitor-watchman.sample" />
+    <None Include="easyAuftrag\.git\hooks\post-update.sample" />
+    <None Include="easyAuftrag\.git\hooks\pre-applypatch.sample" />
+    <None Include="easyAuftrag\.git\hooks\pre-commit.sample" />
+    <None Include="easyAuftrag\.git\hooks\pre-push.sample" />
+    <None Include="easyAuftrag\.git\hooks\pre-rebase.sample" />
+    <None Include="easyAuftrag\.git\hooks\pre-receive.sample" />
+    <None Include="easyAuftrag\.git\hooks\prepare-commit-msg.sample" />
+    <None Include="easyAuftrag\.git\hooks\update.sample" />
+    <None Include="easyAuftrag\.git\index" />
+    <None Include="easyAuftrag\.git\info\exclude" />
+    <None Include="easyAuftrag\.git\logs\HEAD" />
+    <None Include="easyAuftrag\.git\logs\refs\heads\master" />
+    <None Include="easyAuftrag\.git\logs\refs\remotes\origin\HEAD" />
+    <None Include="easyAuftrag\.git\objects\pack\pack-ab7ce89adbd1d42d524abd7f7a95b2f097138360.idx" />
+    <None Include="easyAuftrag\.git\objects\pack\pack-ab7ce89adbd1d42d524abd7f7a95b2f097138360.pack" />
+    <None Include="easyAuftrag\.git\packed-refs" />
+    <None Include="easyAuftrag\.git\refs\heads\master" />
+    <None Include="easyAuftrag\.git\refs\remotes\origin\HEAD" />
+    <None Include="easyAuftrag\.vs\easyAuftrag\v16\.suo" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -159,13 +185,19 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{5ca1d2ba-8007-4458-bb9a-b6456dae22b9}</Project>
       <Name>Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="easyAuftrag\.gitattributes" />
+    <Content Include="easyAuftrag\.gitignore" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="easyAuftrag\.git\objects\info\" />
+    <Folder Include="easyAuftrag\.git\refs\tags\" />
+    <Folder Include="easyAuftrag\.vs\easyAuftrag\v16\Server\sqlite3\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

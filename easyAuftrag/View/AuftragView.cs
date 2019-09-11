@@ -38,6 +38,7 @@ using System.Windows.Forms;
 using Core;
 using Core.Model;
 using easyAuftrag.View;
+using easyAuftrag.Logik;
 
 namespace easyAuftrag.View
 {
@@ -92,11 +93,11 @@ namespace easyAuftrag.View
             InitializeComponent();
             Text = titel;
             AuftragInfo = auftrag;
-            FillControls(AuftragInfo);
             using (var db = new EasyAuftragContext())
             {
                 Tatlist = (from t in db.Taetigkeiten where t.AuftragID == auftrag.AuftragID select t).ToList();
             }
+            FillControls(AuftragInfo);
             Bs.DataSource = Tatlist;
             dgvAuftrag.DataSource = Bs;
             dgvAuftrag.Columns["TaetigkeitID"].Visible = false;
@@ -146,7 +147,7 @@ namespace easyAuftrag.View
             dtpErteilt.Value = auftrag.Erteilt;
             cbErledigt.Checked = auftrag.Erledigt;
             cbAbgerechnet.Checked = auftrag.Abgerechnet;
-            tbGesamt.Text = auftrag.ZeitGesamt.ToString();
+            tbGesamt.Text = Math.Round((Berechnung.AuftragZeitGesamt(Tatlist)/60), 2).ToString();
         }
 
         /// <summary>

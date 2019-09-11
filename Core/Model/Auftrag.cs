@@ -76,16 +76,6 @@ namespace Core.Model
         /// Zeigt an, ob der Auftrag schon abgerechnet wurde
         /// </summary>
         public bool Abgerechnet { get; set; }
-        /// <summary>
-        /// Enthält die gesamte bisher für den Auftrag benötigte Zeit
-        /// </summary>
-        /// <value>
-        /// Der Wert von ZeitGesamt wird durch die Methode <see cref="AuftragZeitGesamt"/> berechnet
-        /// </value>
-        public double ZeitGesamt
-        {
-            get { return AuftragZeitGesamt(); }
-        }
 
         /// <summary>
         /// Klassenkonstruktor für die Klasse Auftrag
@@ -93,27 +83,6 @@ namespace Core.Model
         public Auftrag()
         {
             Taetigkeiten = new List<Taetigkeit>();
-        }
-
-        /// <summary>
-        /// Berechnet die gesamte bisher für den Auftrag benötigte Zeit aus der Summe der Zeiten (--> <see cref="Taetigkeit.Minuten"/>) aller Tätigkeiten 
-        /// </summary>
-        /// <returns>Gesamtarbeitszeit für einen Auftrag in Minuten als double</returns>
-        private double AuftragZeitGesamt()
-        {
-            double auftragZeitGesamt = 0;
-            if (Taetigkeiten != null)
-            {
-                foreach (Taetigkeit tat in Taetigkeiten)
-                {
-                    auftragZeitGesamt += tat.Minuten;
-                }
-                return auftragZeitGesamt;
-            }
-            else
-            {
-                return 0;
-            }
         }
     }
 }

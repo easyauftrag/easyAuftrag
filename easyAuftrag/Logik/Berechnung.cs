@@ -63,5 +63,26 @@ namespace easyAuftrag.Logik
 
             return arbeitszeit;
         }
+
+        /// <summary>
+        /// Berechnet die gesamte bisher für den Auftrag benötigte Zeit aus der Summe der Zeiten (--> <see cref="Taetigkeit.Minuten"/>) aller Tätigkeiten 
+        /// </summary>
+        /// <returns>Gesamtarbeitszeit für einen Auftrag in Minuten als double</returns>
+        public static double AuftragZeitGesamt(List<Taetigkeit> Taetigkeiten)
+        {
+            double auftragZeitGesamt = 0;
+            if (Taetigkeiten != null)
+            {
+                foreach (Taetigkeit tat in Taetigkeiten)
+                {
+                    auftragZeitGesamt += tat.Minuten;
+                }
+                return auftragZeitGesamt;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }
