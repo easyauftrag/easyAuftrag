@@ -224,8 +224,8 @@
             this.butAuftragZettel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.butAuftragZettel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.butAuftragZettel.Name = "butAuftragZettel";
-            this.butAuftragZettel.Size = new System.Drawing.Size(130, 22);
-            this.butAuftragZettel.Text = "Auftragszettel drucken";
+            this.butAuftragZettel.Size = new System.Drawing.Size(97, 22);
+            this.butAuftragZettel.Text = "Auftrag drucken";
             this.butAuftragZettel.Click += new System.EventHandler(this.ButNachweis_Click);
             // 
             // butAuftrag
