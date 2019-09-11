@@ -90,12 +90,12 @@ namespace easyAuftrag.Logik
 
                 string mitarbeiter = (from i in _druckDoc.MitList where t.MitarbeiterID == i.MitarbeiterID select i.Name).First();
 
-                e.Graphics.DrawString(t.Datum.ToShortDateString(), font, Brushes.Black, 26, y, StringFormat.GenericTypographic);
-                e.Graphics.DrawString(mitarbeiter, font, Brushes.Black, 50, y, StringFormat.GenericTypographic);
+                e.Graphics.DrawString(t.Datum.ToShortDateString(), font, Brushes.Black, 20, y, StringFormat.GenericTypographic);
+                e.Graphics.DrawString(mitarbeiter, font, Brushes.Black, 45, y, StringFormat.GenericTypographic);
                 e.Graphics.DrawString(t.Name, font, Brushes.Black, 75, y, StringFormat.GenericTypographic);
-                e.Graphics.DrawString(t.StartZeit.ToString(), font, Brushes.Black, 154, y, StringFormat.GenericTypographic);
-                e.Graphics.DrawString(t.EndZeit.ToString(), font, Brushes.Black, 168, y, StringFormat.GenericTypographic);
-                e.Graphics.DrawString( Math.Round(t.Minuten / 60, 1).ToString(), font, Brushes.Black, 182, y, StringFormat.GenericTypographic);
+                e.Graphics.DrawString(t.StartZeit.ToString(), font, Brushes.Black, 155, y, StringFormat.GenericTypographic);
+                e.Graphics.DrawString(t.EndZeit.ToString(), font, Brushes.Black, 170, y, StringFormat.GenericTypographic);
+                e.Graphics.DrawString( Math.Round(t.Minuten / 60, 1).ToString(), font, Brushes.Black, 185, y, StringFormat.GenericTypographic);
 
                 y += 6;
             }
