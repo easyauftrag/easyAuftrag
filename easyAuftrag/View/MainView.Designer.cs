@@ -48,7 +48,7 @@
             this.TSMIloeschen = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.butExport = new System.Windows.Forms.ToolStripButton();
-            this.butNachweis = new System.Windows.Forms.ToolStripButton();
+            this.butAuftragZettel = new System.Windows.Forms.ToolStripButton();
             this.butAuftrag = new System.Windows.Forms.ToolStripButton();
             this.butKunde = new System.Windows.Forms.ToolStripButton();
             this.butMitarbeiter = new System.Windows.Forms.ToolStripButton();
@@ -200,7 +200,7 @@
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.butExport,
-            this.butNachweis,
+            this.butAuftragZettel,
             this.butAuftrag,
             this.butKunde,
             this.butMitarbeiter});
@@ -219,14 +219,14 @@
             this.butExport.Text = "Datei Export";
             this.butExport.Click += new System.EventHandler(this.ButExport_Click);
             // 
-            // butNachweis
+            // butAuftragZettel
             // 
-            this.butNachweis.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.butNachweis.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.butNachweis.Name = "butNachweis";
-            this.butNachweis.Size = new System.Drawing.Size(151, 22);
-            this.butNachweis.Text = "Stundennachweis Drucken";
-            this.butNachweis.Click += new System.EventHandler(this.ButNachweis_Click);
+            this.butAuftragZettel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.butAuftragZettel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.butAuftragZettel.Name = "butAuftragZettel";
+            this.butAuftragZettel.Size = new System.Drawing.Size(130, 22);
+            this.butAuftragZettel.Text = "Auftragszettel drucken";
+            this.butAuftragZettel.Click += new System.EventHandler(this.ButNachweis_Click);
             // 
             // butAuftrag
             // 
@@ -373,7 +373,7 @@
         private System.Windows.Forms.ToolStripMenuItem TSMIloeschen;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton butExport;
-        private System.Windows.Forms.ToolStripButton butNachweis;
+        private System.Windows.Forms.ToolStripButton butAuftragZettel;
         private System.Windows.Forms.ToolStripButton butAuftrag;
         private System.Windows.Forms.ToolStripButton butKunde;
         private System.Windows.Forms.ToolStripButton butMitarbeiter;
