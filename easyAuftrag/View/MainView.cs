@@ -335,7 +335,7 @@ namespace easyAuftrag
 
         }
 
-        private void ButNachweis_Click(object sender, EventArgs e)
+        private void ButAuftragZettel_Click(object sender, EventArgs e)
         {
             if (dgvMain.SelectedRows.Count > 0)
             {
@@ -362,6 +362,16 @@ namespace easyAuftrag
                     Drucken druck = new Drucken();
                     druck.Druck(doc);
                 }
+            }
+        }
+
+        private void ButStundenZettel_Click(object sender, EventArgs e)
+        {
+            StundenView stundV = new StundenView();
+            if (stundV.ShowDialog() == DialogResult.OK)
+            {
+                Drucken druck = new Drucken();
+                druck.StundenDruck(stundV.stundenDoc);
             }
         }
 
@@ -576,6 +586,5 @@ namespace easyAuftrag
             }
         }
 
-        
     }
 }

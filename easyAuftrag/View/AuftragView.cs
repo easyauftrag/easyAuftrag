@@ -141,7 +141,7 @@ namespace easyAuftrag.View
                 cbKunde.DataSource = cbKundeEintraege;
                 cbKunde.DisplayMember = "kName";
                 cbKunde.ValueMember = "ID";
-                cbKunde.SelectedValue = Array.IndexOf(kundenIDs, auftrag.KundeID) + 1;
+                cbKunde.SelectedIndex = Array.IndexOf(kundenIDs, auftrag.KundeID);
             }
             dtpEingang.Value = auftrag.Eingang;
             dtpErteilt.Value = auftrag.Erteilt;
@@ -193,7 +193,7 @@ namespace easyAuftrag.View
             this.Activate();
         }
 
-        private void DgvAuftrag_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+        private void DgvAuftrag_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
@@ -236,5 +236,6 @@ namespace easyAuftrag.View
             this.BringToFront();
             this.Activate();
         }
+
     }
 }

@@ -26,6 +26,7 @@
     DE - Germany
 */
 
+using Core;
 using Core.Model;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,7 @@ namespace easyAuftrag.Logik
     public class Drucken
     {
         DruckDoc _druckDoc = new DruckDoc();
+        StundenDoc _stundenDoc = new StundenDoc();
         public Drucken()
         {
 
@@ -54,10 +56,26 @@ namespace easyAuftrag.Logik
             _druckDoc = druckDoc;
             PrintDocument doc = new PrintDocument();
             doc.PrintPage += printDocument_PrintPage;
-            
+
             //PrintPreviewDialog printPreview = new PrintPreviewDialog();
             //printPreview.Document = printDocument;
             //printPreview.ShowDialog();
+
+            PrintDialog dlgPrinter = new PrintDialog();
+            dlgPrinter.Document = doc;
+
+            if (dlgPrinter.ShowDialog() == DialogResult.OK)
+            {
+                doc.Print();
+            }
+        }
+
+        public void StundenDruck(StundenDoc stundenDoc)
+        {
+            _stundenDoc = stundenDoc;
+            PrintDocument doc = new PrintDocument();
+
+            doc.PrintPage += printDocument_PrintStunden;
 
             PrintDialog dlgPrinter = new PrintDialog();
             dlgPrinter.Document = doc;
@@ -100,6 +118,43 @@ namespace easyAuftrag.Logik
                 y += 6;
             }
             
+            stringToPrint = stringToPrint.Substring(charactersOnPage);
+
+            e.HasMorePages = (stringToPrint.Length > 0);
+        }
+        private void printDocument_PrintStunden(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            Config conf = new Config();
+            conf.StundenSoll = 40;
+            string stringToPrint = "Example";
+            int charactersOnPage = 0;
+            int linesPerPage = 0;
+            Font font = new Font(FontFamily.GenericSansSerif, 10.0F, FontStyle.Regular);
+            
+            e.Graphics.PageUnit = GraphicsUnit.Millimeter;
+
+            e.Graphics.MeasureString(stringToPrint, font, e.MarginBounds.Size, StringFormat.GenericTypographic, out charactersOnPage, out linesPerPage);
+
+            e.Graphics.DrawString(_stundenDoc.Mitarbeiter.Name, font, Brushes.Black, 60, 30, StringFormat.GenericTypographic);
+            e.Graphics.DrawString(_stundenDoc.Anfang.ToString(), font, Brushes.Black, 60, 45, StringFormat.GenericTypographic);
+            e.Graphics.DrawString(_stundenDoc.Ende.ToString(), font, Brushes.Black, 60, 60, StringFormat.GenericTypographic);
+            e.Graphics.DrawString((_stundenDoc.Mitarbeiter.AuslastungStelle / 100 * conf.StundenSoll).ToString(), font, Brushes.Black, 60, 75, StringFormat.GenericTypographic);
+            e.Graphics.DrawString(Berechnung.ArbeitsZeit(_stundenDoc).ToString(), font, Brushes.Black, 60, 90, StringFormat.GenericTypographic);
+
+            int y = 115;
+            foreach (Taetigkeit t in _stundenDoc.Tatlist)
+            {
+
+                e.Graphics.DrawString(t.Datum.ToShortDateString(), font, Brushes.Black, 20, y, StringFormat.GenericTypographic);
+                e.Graphics.DrawString(_stundenDoc.Mitarbeiter.Name, font, Brushes.Black, 45, y, StringFormat.GenericTypographic);
+                e.Graphics.DrawString(t.Name, font, Brushes.Black, 75, y, StringFormat.GenericTypographic);
+                e.Graphics.DrawString(t.StartZeit.ToString(), font, Brushes.Black, 155, y, StringFormat.GenericTypographic);
+                e.Graphics.DrawString(t.EndZeit.ToString(), font, Brushes.Black, 170, y, StringFormat.GenericTypographic);
+                e.Graphics.DrawString(Math.Round(t.Minuten / 60, 1).ToString(), font, Brushes.Black, 185, y, StringFormat.GenericTypographic);
+
+                y += 6;
+            }
+
             stringToPrint = stringToPrint.Substring(charactersOnPage);
 
             e.HasMorePages = (stringToPrint.Length > 0);

@@ -193,7 +193,7 @@
             this.dgvAuftrag.Name = "dgvAuftrag";
             this.dgvAuftrag.Size = new System.Drawing.Size(374, 198);
             this.dgvAuftrag.TabIndex = 14;
-            this.dgvAuftrag.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvAuftrag_CellMouseUp);
+            this.dgvAuftrag.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DgvAuftrag_MouseUp);
             // 
             // butNeueTaetigkeit
             // 
@@ -225,26 +225,26 @@
             this.bearbeitenToolStripMenuItem,
             this.löschenToolStripMenuItem});
             this.cxtAuftrag.Name = "cxtAuftrag";
-            this.cxtAuftrag.Size = new System.Drawing.Size(181, 92);
+            this.cxtAuftrag.Size = new System.Drawing.Size(131, 70);
             // 
             // neuToolStripMenuItem
             // 
             this.neuToolStripMenuItem.Name = "neuToolStripMenuItem";
-            this.neuToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.neuToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.neuToolStripMenuItem.Text = "Neu";
             this.neuToolStripMenuItem.Click += new System.EventHandler(this.NeuToolStripMenuItem_Click);
             // 
             // bearbeitenToolStripMenuItem
             // 
             this.bearbeitenToolStripMenuItem.Name = "bearbeitenToolStripMenuItem";
-            this.bearbeitenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bearbeitenToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.bearbeitenToolStripMenuItem.Text = "Bearbeiten";
             this.bearbeitenToolStripMenuItem.Click += new System.EventHandler(this.BearbeitenToolStripMenuItem_Click);
             // 
             // löschenToolStripMenuItem
             // 
             this.löschenToolStripMenuItem.Name = "löschenToolStripMenuItem";
-            this.löschenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.löschenToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.löschenToolStripMenuItem.Text = "Löschen";
             this.löschenToolStripMenuItem.Click += new System.EventHandler(this.LöschenToolStripMenuItem_Click);
             // 

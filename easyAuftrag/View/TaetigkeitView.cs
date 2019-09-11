@@ -98,7 +98,7 @@ namespace easyAuftrag.View
             try
             {
                 TaetigkeitInfo.MitarbeiterID = Convert.ToInt32(cbMitarbeiter.SelectedValue);
-                TaetigkeitInfo.Datum = dtpDatum.Value;
+                TaetigkeitInfo.Datum = dtpDatum.Value.Date;
                 TaetigkeitInfo.Name = tbName.Text;
                 if (TimeSpan.TryParse(tbStart.Text, out TimeSpan start))
                 {

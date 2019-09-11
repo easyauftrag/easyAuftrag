@@ -99,6 +99,12 @@
     <Compile Include="View\MitarbeiterView.Designer.cs">
       <DependentUpon>MitarbeiterView.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\StundenView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\StundenView.Designer.cs">
+      <DependentUpon>StundenView.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\SuchControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -140,6 +146,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\MitarbeiterView.resx">
       <DependentUpon>MitarbeiterView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\StundenView.resx">
+      <DependentUpon>StundenView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\SuchControl.resx">
       <DependentUpon>SuchControl.cs</DependentUpon>

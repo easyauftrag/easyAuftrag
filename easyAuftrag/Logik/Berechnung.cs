@@ -48,20 +48,16 @@ namespace easyAuftrag.Logik
         /// <param name="taetigkeitsListe">Liste aller Tätigkeiten</param>
         /// <param name="mitarbeiterID">Primärschlüssel des Mitarbeiters in der Datenbank</param>
         /// <returns></returns>
-        public static double ArbeitsZeit(DateTime anfang, DateTime ende, List<Taetigkeit> taetigkeitsListe, int mitarbeiterID)
+        public static double ArbeitsZeit(StundenDoc stundenDoc)
         {
-            List<Taetigkeit> gefilterteTatListe = taetigkeitsListe.Where(t => t.MitarbeiterID == mitarbeiterID).ToList();
-            gefilterteTatListe = gefilterteTatListe.Where(t => t.Datum >= anfang).ToList();
-            gefilterteTatListe = gefilterteTatListe.Where(t => t.Datum <= ende).ToList();
-
             double arbeitszeit = 0;
 
-            foreach (Taetigkeit tat in gefilterteTatListe)
+            foreach (Taetigkeit tat in stundenDoc.Tatlist)
             {
                 arbeitszeit += tat.Minuten;
             }
 
-            return arbeitszeit;
+            return Math.Round(arbeitszeit/60, 2);
         }
 
         /// <summary>

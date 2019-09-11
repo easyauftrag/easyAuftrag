@@ -32,6 +32,7 @@
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Kunden");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Mitarbeiter");
             System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Aufträge");
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainView));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ansichtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,6 +63,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLoeschen = new System.Windows.Forms.ToolStripMenuItem();
             this.suchControlMain = new easyAuftrag.View.SuchControl();
+            this.butStundenZettel = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
             this.cxtMain.SuspendLayout();
@@ -201,6 +203,7 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.butExport,
             this.butAuftragZettel,
+            this.butStundenZettel,
             this.butAuftrag,
             this.butKunde,
             this.butMitarbeiter});
@@ -226,7 +229,7 @@
             this.butAuftragZettel.Name = "butAuftragZettel";
             this.butAuftragZettel.Size = new System.Drawing.Size(97, 22);
             this.butAuftragZettel.Text = "Auftrag drucken";
-            this.butAuftragZettel.Click += new System.EventHandler(this.ButNachweis_Click);
+            this.butAuftragZettel.Click += new System.EventHandler(this.ButAuftragZettel_Click);
             // 
             // butAuftrag
             // 
@@ -327,6 +330,16 @@
             this.suchControlMain.TabIndex = 12;
             this.suchControlMain.SuchEvent += new System.Action(this.TabelleNeu);
             // 
+            // butStundenZettel
+            // 
+            this.butStundenZettel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.butStundenZettel.Image = ((System.Drawing.Image)(resources.GetObject("butStundenZettel.Image")));
+            this.butStundenZettel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.butStundenZettel.Name = "butStundenZettel";
+            this.butStundenZettel.Size = new System.Drawing.Size(150, 22);
+            this.butStundenZettel.Text = "Stundennachweis drucken";
+            this.butStundenZettel.Click += new System.EventHandler(this.ButStundenZettel_Click);
+            // 
             // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -388,6 +401,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem toolStripLoeschen;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripButton butStundenZettel;
     }
 }
 
