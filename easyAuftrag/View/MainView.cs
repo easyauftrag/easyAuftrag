@@ -67,9 +67,10 @@ namespace easyAuftrag
             TabelleNeu();
             TreeViewNeu();
             List<string> lstSpalten = new List<string>();
+            int s = dgvMain.Columns.Count;
             foreach (var i in dgvMain.Columns)
             {
-                lstSpalten.Add(i.ToString().Substring(i.ToString().IndexOf("=")+1).Split(',')[0]);
+                lstSpalten.Add(i.ToString().Split('=')[1].Split(',')[0]);
             }
             suchControlMain.Spalten = lstSpalten;
         }
@@ -104,7 +105,7 @@ namespace easyAuftrag
                         {
                             var auft = (from a in db.Auftraege
                                         join k in db.Kunden on a.KundeID equals k.KundeID
-                                        where a.Erledigt == true
+                                        where a.Erledigt == suchControlMain._sucheInfo.CbErledigt.Checked
                                         && a.AuftragNummer == suchControlMain._sucheInfo.TbSuche.Text | k.Name == suchControlMain._sucheInfo.TbSuche.Text
                                         select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
                             dgvMain.DataSource = auft;
