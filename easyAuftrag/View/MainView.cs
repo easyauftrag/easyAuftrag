@@ -69,7 +69,7 @@ namespace easyAuftrag
             List<string> lstSpalten = new List<string>();
             foreach (var i in dgvMain.Columns)
             {
-                lstSpalten.Add(i.ToString());
+                lstSpalten.Add(i.ToString().Substring(i.ToString().IndexOf("=")+1).Split(',')[0]);
             }
             suchControlMain.Spalten = lstSpalten;
         }
