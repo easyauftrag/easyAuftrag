@@ -136,7 +136,7 @@ namespace easyAuftrag.View
                 cbMitarbeiter.DataSource = cbMitarbeiterEintraege;
                 cbMitarbeiter.DisplayMember = "mName";
                 cbMitarbeiter.ValueMember = "ID";
-                cbMitarbeiter.SelectedValue = Array.IndexOf(mitarbeiterIDs, TaetigkeitInfo.MitarbeiterID) + 1;
+                cbMitarbeiter.SelectedIndex = Array.IndexOf(mitarbeiterIDs, TaetigkeitInfo.MitarbeiterID);
             }
             dtpDatum.Value = taetigkeit.Datum;
             tbName.Text = taetigkeit.Name;
