@@ -57,6 +57,7 @@ namespace easyAuftrag.View
         /// und gibt seine Daten an <see cref="FillControls"/>, um sie in der View anzuzeigen.
         /// </value>
         public Kunde KundenInfo { get; set; }
+
         private List<Adresse> Adrlist { get; set; }
         private BindingSource Bs = new BindingSource();
 

@@ -121,7 +121,6 @@ namespace easyAuftrag.View
             {
                 ErrorHandler.ErrorHandle(ex);
             }
-
         }
 
         /// <summary>
@@ -143,7 +142,6 @@ namespace easyAuftrag.View
             tbName.Text = taetigkeit.Name;
             tbStart.Text = taetigkeit.StartZeit.ToString();
             tbEnde.Text = taetigkeit.EndZeit.ToString();
-
         }
 
         /// <summary>

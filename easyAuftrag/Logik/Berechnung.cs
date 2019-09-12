@@ -43,11 +43,11 @@ namespace easyAuftrag.Logik
         /// <summary>
         /// Methode zur Berechnung der Arbeitszeit eines Mitarbeiters in einem vorgegebenen Zeitraum
         /// </summary>
-        /// <param name="anfang">Anfang des Zeitraums der Berechnung</param>
-        /// <param name="ende">Ende des Zeitraums der Berechnung</param>
-        /// <param name="taetigkeitsListe">Liste aller Tätigkeiten</param>
-        /// <param name="mitarbeiterID">Primärschlüssel des Mitarbeiters in der Datenbank</param>
-        /// <returns></returns>
+        /// <param name="stundenDoc">Enthält: Anfang des Zeitraums der Berechnung,
+        /// Ende des Zeitraums der Berechnung,
+        /// den Mitarbeiter, für den Die Arbeitsstunden berechnet werden,
+        /// Liste aller Tätigkeiten des Mitarbeiters</param>
+        /// <returns>Geleistete Arbeitszeit in Stunden (--> <see cref="Taetigkeit.Minuten"/>)</returns>
         public static double ArbeitsZeit(StundenDoc stundenDoc)
         {
             double arbeitszeit = 0;
@@ -61,7 +61,8 @@ namespace easyAuftrag.Logik
         }
 
         /// <summary>
-        /// Berechnet die gesamte bisher für den Auftrag benötigte Zeit aus der Summe der Zeiten (--> <see cref="Taetigkeit.Minuten"/>) aller Tätigkeiten 
+        /// Berechnet die gesamte bisher für den Auftrag benötigte Zeit aus der Summe der Zeiten 
+        /// (--> <see cref="Taetigkeit.Minuten"/>) aller Tätigkeiten 
         /// </summary>
         /// <returns>Gesamtarbeitszeit für einen Auftrag in Minuten als double</returns>
         public static double AuftragZeitGesamt(List<Taetigkeit> Taetigkeiten)

@@ -50,10 +50,10 @@ namespace easyAuftrag.View
     {
         /// <summary>
         /// Hier werden die eingegebenen Daten zwischengespeichert, 
-        /// um sie dann an den <see cref="Core.Handler"/> zu übergeben, oder in der <see cref="TaetigkeitView"/> anzuzeigen.
+        /// um sie dann an <see cref="Logik.Berechnung"/> zu übergeben, oder in der <see cref="StundenView"/> anzuzeigen.
         /// </summary>
         /// <value>
-        /// Wird durch <see cref="FillTaetigkeit"/> oder <see cref="MainView"/> gefüllt
+        /// Wird durch <see cref="FillStunden"/> gefüllt
         /// und gibt seine Daten an <see cref="FillControls"/>, um sie in der View anzuzeigen.
         /// </value>
         public StundenDoc stundenDoc = new StundenDoc();
@@ -73,6 +73,10 @@ namespace easyAuftrag.View
             }
         }
 
+        /// <summary>
+        /// Packt die Eingaben in den Controls in ein <see cref="StundenDoc"/>.
+        /// </summary>
+        /// <returns>StundenDoc aus den Eingaben in den Controls</returns>
         public void FillStunden()
         {
             try
@@ -95,6 +99,10 @@ namespace easyAuftrag.View
             }
         }
 
+        /// <summary>
+        /// Zeigt den Stundensoll, die geleisteten Stunden 
+        /// und die Liste der Tätigkeiten aus dem <see cref="StundenDoc"/> in den Controls an.
+        /// </summary>
         public void FillControls()
         {
             try
@@ -112,12 +120,22 @@ namespace easyAuftrag.View
             }
         }
 
+        /// <summary>
+        /// Action beim Klick auf den "Berechnen" Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButBerechnen_Click(object sender, EventArgs e)
         {
             FillStunden();
             FillControls();
         }
 
+        /// <summary>
+        /// Action beim Klick auf den "Drucken" Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButDruck_Click(object sender, EventArgs e)
         {
             FillStunden();
@@ -125,11 +143,15 @@ namespace easyAuftrag.View
             this.Hide();
         }
 
+        /// <summary>
+        /// Action beim Klick auf den "Abbrechen" Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButAbbr_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
             this.Hide();
         }
-
     }
 }

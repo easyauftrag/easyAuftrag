@@ -46,20 +46,24 @@ namespace easyAuftrag.Logik
     {
         DruckDoc _druckDoc = new DruckDoc();
         StundenDoc _stundenDoc = new StundenDoc();
+
+        /// <summary>
+        /// Konstruktor für die <see cref="Drucken"/> Klasse
+        /// </summary>
         public Drucken()
         {
 
         }
 
+        /// <summary>
+        /// Methode zum Drucken eines Auftrags (--> <see cref="Core.Model.DruckDoc"/>)
+        /// durch <see cref="printDocument_PrintPage"/>
+        /// </summary>
         public void Druck(DruckDoc druckDoc)
         {
             _druckDoc = druckDoc;
             PrintDocument doc = new PrintDocument();
             doc.PrintPage += printDocument_PrintPage;
-
-            //PrintPreviewDialog printPreview = new PrintPreviewDialog();
-            //printPreview.Document = printDocument;
-            //printPreview.ShowDialog();
 
             PrintDialog dlgPrinter = new PrintDialog();
             dlgPrinter.Document = doc;
@@ -70,6 +74,10 @@ namespace easyAuftrag.Logik
             }
         }
 
+        /// <summary>
+        /// Methode zum Drucken der Sollstunden und geleisteten Stunden eines Mitarbeiters (--> <see cref="Core.Model.StundenDoc"/>)
+        /// durch <see cref="printDocument_PrintStunden"/>
+        /// </summary>
         public void StundenDruck(StundenDoc stundenDoc)
         {
             _stundenDoc = stundenDoc;
@@ -85,7 +93,10 @@ namespace easyAuftrag.Logik
                 doc.Print();
             }
         }
-        
+
+        /// <summary>
+        /// Methode, die das Layout zum Drucken eines Auftrags (--> <see cref="Core.Model.DruckDoc"/>) festlegt
+        /// </summary>
         private void printDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             e.Graphics.PageUnit = GraphicsUnit.Millimeter;
@@ -104,8 +115,6 @@ namespace easyAuftrag.Logik
             int y = 115;
             foreach (Taetigkeit t in _druckDoc.TatListe)
             {
-                
-
                 string mitarbeiter = (from i in _druckDoc.MitList where t.MitarbeiterID == i.MitarbeiterID select i.Name).First();
 
                 e.Graphics.DrawString(t.Datum.ToShortDateString(), font, Brushes.Black, 20, y, StringFormat.GenericTypographic);
@@ -122,6 +131,11 @@ namespace easyAuftrag.Logik
 
             e.HasMorePages = (stringToPrint.Length > 0);
         }
+
+        /// <summary>
+        /// Methode, die das Layout zum Drucken der Sollstunden und geleisteten Stunden eines Mitarbeiters 
+        /// (--> <see cref="Core.Model.StundenDoc"/>) festlegt
+        /// </summary>
         private void printDocument_PrintStunden(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             Config conf = new Config();
@@ -144,7 +158,6 @@ namespace easyAuftrag.Logik
             int y = 115;
             foreach (Taetigkeit t in _stundenDoc.Tatlist)
             {
-
                 e.Graphics.DrawString(t.Datum.ToShortDateString(), font, Brushes.Black, 20, y, StringFormat.GenericTypographic);
                 e.Graphics.DrawString(_stundenDoc.Mitarbeiter.Name, font, Brushes.Black, 45, y, StringFormat.GenericTypographic);
                 e.Graphics.DrawString(t.Name, font, Brushes.Black, 75, y, StringFormat.GenericTypographic);

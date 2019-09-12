@@ -87,8 +87,6 @@ namespace easyAuftrag.View
         {
             try
             {
-                // errorInfo.Clear();
-
                 MitarbeiterInfo.Name = tbName.Text;
                 MitarbeiterInfo.Strasse = tbStraße.Text;
                 MitarbeiterInfo.Hausnr = tbHaus.Text;
@@ -131,7 +129,6 @@ namespace easyAuftrag.View
             tbStadt.Text = mitarbeiter.Wohnort;
             tbTelefon.Text = mitarbeiter.TelefonNr;
             tbAuslastung.Text = mitarbeiter.AuslastungStelle.ToString();
-
         }
 
         /// <summary>
