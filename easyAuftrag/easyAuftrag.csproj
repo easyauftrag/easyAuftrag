@@ -67,12 +67,6 @@
     <Compile Include="View\AuftragView.Designer.cs">
       <DependentUpon>AuftragView.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\BerechnungView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\BerechnungView.Designer.cs">
-      <DependentUpon>BerechnungView.cs</DependentUpon>
-    </Compile>
     <Compile Include="View\ExportView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,9 +125,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\AuftragView.resx">
       <DependentUpon>AuftragView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\BerechnungView.resx">
-      <DependentUpon>BerechnungView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ExportView.resx">
       <DependentUpon>ExportView.cs</DependentUpon>

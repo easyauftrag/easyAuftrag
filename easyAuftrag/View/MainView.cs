@@ -48,6 +48,7 @@ namespace easyAuftrag
     public partial class MainView : Form
     {
         private Handler _handler = new Handler();
+
         /// <summary>
         /// Konstruktor für die <see cref="MainView"/>
         /// </summary>
@@ -210,11 +211,9 @@ namespace easyAuftrag
                         }
                     }
                 }
-
             }
             catch (Exception ex)
             {
-
                 ErrorHandler.ErrorHandle(ex);
             }
         }
@@ -346,6 +345,11 @@ namespace easyAuftrag
             TreeViewNeu();
         }
 
+        /// <summary>
+        /// Action beim Klick auf den "Datei Export" Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButExport_Click(object sender, EventArgs e)
         {
 
@@ -431,7 +435,6 @@ namespace easyAuftrag
             }
             catch (Exception ex)
             {
-
                 ErrorHandler.ErrorHandle(ex);
             }
         }
@@ -496,7 +499,6 @@ namespace easyAuftrag
             }
             catch (Exception ex)
             {
-
                 ErrorHandler.ErrorHandle(ex);
             }
         }
@@ -559,7 +561,6 @@ namespace easyAuftrag
             }
             catch (Exception ex)
             {
-
                 ErrorHandler.ErrorHandle(ex);
             }
         }
@@ -622,10 +623,8 @@ namespace easyAuftrag
             }
             catch (Exception ex)
             {
-
                 ErrorHandler.ErrorHandle(ex);
             }
         }
-
     }
 }

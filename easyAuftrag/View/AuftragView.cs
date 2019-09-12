@@ -60,6 +60,7 @@ namespace easyAuftrag.View
         /// und gibt seine Daten an <see cref="FillControls"/>, um sie in der View anzuzeigen.
         /// </value>
         public Auftrag AuftragInfo { get; set; }
+
         private List<Taetigkeit> Tatlist { get; set; }
         private BindingSource Bs = new BindingSource();
         private Handler _handler = new Handler();
@@ -110,7 +111,6 @@ namespace easyAuftrag.View
         /// <returns>Auftrag aus den Eingaben in den Controls</returns>
         private void FillAuftrag()
         {
-
             try
             {
                 AuftragInfo.AuftragNummer = tbAuftragNr.Text;
@@ -193,6 +193,11 @@ namespace easyAuftrag.View
             this.Activate();
         }
 
+        /// <summary>
+        /// Action beim Rechtsklick auf die <see cref="DataGridView"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DgvAuftrag_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -201,6 +206,11 @@ namespace easyAuftrag.View
             }
         }
 
+        /// <summary>
+        /// Action beim Klick auf "Neu" im Kontextmenu auf der <see cref="DataGridView"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NeuToolStripMenuItem_Click(object sender, EventArgs e)
         {
             TaetigkeitView taetigkeitV = new TaetigkeitView("Neue Tätigkeit");
@@ -213,6 +223,11 @@ namespace easyAuftrag.View
             this.Activate();
         }
 
+        /// <summary>
+        /// Action beim Klick auf "Bearbeiten" im Kontextmenu auf der <see cref="DataGridView"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BearbeitenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedRows[0].Cells["TaetigkeitID"].Value);
@@ -225,6 +240,11 @@ namespace easyAuftrag.View
             this.Activate();
         }
 
+        /// <summary>
+        /// Action beim Klick auf "Löschen" im Kontextmenu auf der <see cref="DataGridView"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void LöschenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedRows[0].Cells["TaetigkeitID"].Value);
@@ -236,6 +256,5 @@ namespace easyAuftrag.View
             this.BringToFront();
             this.Activate();
         }
-
     }
 }
