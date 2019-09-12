@@ -33,13 +33,34 @@ using System.Threading.Tasks;
 
 namespace Core.Model
 {
+    /// <summary>
+    /// Model-Klasse zum Erstellen von StundenDocobjekten
+    /// </summary>
     public class StundenDoc
     {
+        /// <summary>
+        /// Anfang des Berechnungszeitraums
+        /// </summary>
         public DateTime Anfang { get; set; }
+
+        /// <summary>
+        /// Ende des Berechnungszeitraums
+        /// </summary>
         public DateTime Ende { get; set; }
+
+        /// <summary>
+        /// Mitarbeiter, dessen Stunden berechnet werden
+        /// </summary>
         public Mitarbeiter Mitarbeiter { get; set; }
+
+        /// <summary>
+        /// Liste der Tätigkeiten des Mitarbeiters im Berechnungszeitraum
+        /// </summary>
         public List<Taetigkeit> Tatlist { get; set; }
 
+        /// <summary>
+        /// Klassenkonstruktor für die Klasse StundenDoc
+        /// </summary>
         public StundenDoc()
         {
 

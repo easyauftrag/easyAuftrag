@@ -51,21 +51,25 @@ namespace Core
         /// </summary>
         /// <seealso cref="Model.Kunde"/>
         public virtual DbSet<Kunde> Kunden { get; set; }
+
         /// <summary>
         /// Liste von Adressen, welche durch die von <see cref="DbContext"/> geerbten Methoden in die Datenbank geschrieben werden kann
         /// </summary>
         /// <seealso cref="Model.Adresse"/>
         public virtual DbSet<Adresse> Adressen { get; set; }
+
         /// <summary>
         /// Liste von Aufträgen, welche durch die von <see cref="DbContext"/> geerbten Methoden in die Datenbank geschrieben werden kann
         /// </summary>
         /// <seealso cref="Model.Auftrag"/>
         public virtual DbSet<Auftrag> Auftraege { get; set; }
+
         /// <summary>
         /// Liste von Mitarbeitern, welche durch die von <see cref="DbContext"/> geerbten Methoden in die Datenbank geschrieben werden kann
         /// </summary>
         /// <seealso cref="Model.Mitarbeiter"/>
         public virtual DbSet<Mitarbeiter> Mitarbeiters { get; set; }
+
         /// <summary>
         /// Liste von Tätigkeiten, welche durch die von <see cref="DbContext"/> geerbten Methoden in die Datenbank geschrieben werden kann
         /// </summary>

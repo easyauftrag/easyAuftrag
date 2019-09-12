@@ -33,15 +33,44 @@ using System.Threading.Tasks;
 
 namespace Core.Model
 {
+    /// <summary>
+    /// Model-Klasse zum Erstellen von DruckDocobjekten
+    /// </summary>
     public class DruckDoc
     {
+        /// <summary>
+        /// Auftragsnummer
+        /// </summary>
         public string AuftragNr { get; set; }
+
+        /// <summary>
+        /// Kundenname
+        /// </summary>
         public string KundeName { get; set; }
+
+        /// <summary>
+        /// Adresse des Kunden
+        /// </summary>
         public string KundeAnschrift { get; set; }
+
+        /// <summary>
+        /// Telefonnummer des Kunden
+        /// </summary>
         public string KundeTelefon { get; set; }
+
+        /// <summary>
+        /// Liste der Tätigkeiten in Zusammenhang mit dem Auftrag
+        /// </summary>
         public List<Taetigkeit> TatListe { get; set; }
+
+        /// <summary>
+        /// Liste der Mitarbeiter, die am Auftrag mitgewirkt haben
+        /// </summary>
         public List<Mitarbeiter> MitList { get; set; }
 
+        /// <summary>
+        /// Klassenkonstruktor für die Klasse DruckDoc
+        /// </summary>
         public DruckDoc()
         {
 

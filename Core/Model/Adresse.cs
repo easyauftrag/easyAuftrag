@@ -46,22 +46,27 @@ namespace Core.Model
         [Key]
         [Browsable(false)]
         public int AdresseID { get; set; }
+
         /// <summary>
         /// Kunden ID als Fremdschlüssel zur Verknüpfung der Adresse mit dem Kunden
         /// </summary>
         public int KundeID { get; set; }
+
         /// <summary>
         /// Straße der Adresse
         /// </summary>
         public string Strasse { get; set; }
+
         /// <summary>
         /// Hausnummer der Adresse
         /// </summary>
         public string Hausnr { get; set; }
+
         /// <summary>
         /// Postleitzahl der Adresse
         /// </summary>
         public string PLZ { get; set; }
+
         /// <summary>
         /// Wohnort der Adresse
         /// </summary>

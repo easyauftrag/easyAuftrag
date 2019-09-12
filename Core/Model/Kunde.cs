@@ -25,7 +25,6 @@
     79100 Freiburg im Breisgau
     DE - Germany
 */
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -47,10 +46,12 @@ namespace Core.Model
         [Key]
         [Browsable(false)]
         public int KundeID { get; set; }
+
         /// <summary>
         /// Name des Kunden
         /// </summary>
         public string Name { get; set; }
+
         /// <summary>
         /// Rechnungsadresse des Kunden
         /// </summary>
@@ -58,10 +59,12 @@ namespace Core.Model
         public string Hausnr { get; set; }
         public string PLZ { get; set; }
         public string Wohnort { get; set; }
+
         /// <summary>
         /// weitere Adressen des Kunden
         /// </summary>
         public List<Adresse> WeitereAdressen { get; set; }
+
         /// <summary>
         /// Telefonnummer des Kunden
         /// </summary>

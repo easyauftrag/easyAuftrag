@@ -25,7 +25,6 @@
     79100 Freiburg im Breisgau
     DE - Germany
 */
-
 using Core.Model;
 using System;
 using System.Collections.Generic;
@@ -135,7 +134,6 @@ namespace Core
             {
                 ErrorHandler.ErrorHandle(ex);
             }
-
         }
 
         /// <summary>
@@ -288,7 +286,6 @@ namespace Core
             {
                 ErrorHandler.ErrorHandle(ex);
             }
-
         }
 
         /// <summary>

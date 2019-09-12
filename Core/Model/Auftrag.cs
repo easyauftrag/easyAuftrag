@@ -25,7 +25,6 @@
     79100 Freiburg im Breisgau
     DE - Germany
 */
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -46,32 +45,39 @@ namespace Core.Model
         /// </summary>
         [Key]
         public int AuftragID { get; set; }
+
         /// <summary>
         /// Aufragsnummer zur Kennzeichnung des Auftrags für den Betrieb
         /// </summary>
         public string AuftragNummer { get; set; }
+
         /// <summary>
         /// Kunden ID als Fremdschlüssel zur Verknüpfung des Auftrags mit einem Kunden
         /// </summary>
         /// <seealso cref="Kunde"/>
         public int KundeID { get; set; }
+
         /// <summary>
         /// Datum, wann der Auftrag eingegangen ist
         /// </summary>
         public DateTime Eingang { get; set; }
+
         /// <summary>
         /// Datum, wann der Auftrag an einen Mitarbeiter erteilt wurde
         /// </summary>
         public DateTime Erteilt { get; set; }
+
         /// <summary>
         /// Liste aller zum Auftrag zugehörigen Tätigkeiten
         /// </summary>
         /// <seealso cref="List{T}"/>
         public List<Taetigkeit> Taetigkeiten { get; set; }
+
         /// <summary>
         /// Zeigt an, ob der Auftrag schon erledigt wurde
         /// </summary>
         public bool Erledigt { get; set; }
+
         /// <summary>
         /// Zeigt an, ob der Auftrag schon abgerechnet wurde
         /// </summary>

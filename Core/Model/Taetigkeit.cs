@@ -25,7 +25,6 @@
     79100 Freiburg im Breisgau
     DE - Germany
 */
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -46,32 +45,39 @@ namespace Core.Model
         /// </summary>
         [Key]
         public int TaetigkeitID { get; set; }
+
         /// <summary>
         /// Auftrags ID als Fremdschlüssel zur Verknüpfung der Tätigkeit mit einem Auftrag
         /// </summary>
         /// <seealso cref="Auftrag"/>
         public int AuftragID { get; set; }
+
         /// <summary>
         /// Mitarbeiter ID als Fremdschlüssel zur Verknüpfung der Tätigkeit mit einem Mitarbeiter
         /// </summary>
         /// <seealso cref="Mitarbeiter"/>
         public int MitarbeiterID { get; set; }
+
         /// <summary>
         /// Datum der Tätigkeit
         /// </summary>
         public DateTime Datum { get; set; }
+
         /// <summary>
         /// Name bzw. Beschreibung der Tätigkeit
         /// </summary>
         public string Name { get; set; }
+
         /// <summary>
         /// Uhrzeit des Beginns der Tätigkeit
         /// </summary>
         public TimeSpan StartZeit { get; set; }
+
         /// <summary>
         /// Uhrzeit des Endes der Tätigkeit
         /// </summary>
         public TimeSpan EndZeit { get; set; } // TODO: Check if größer StartZeit
+
         /// <summary>
         /// Enthält die für die Tätigkeit verbuchte Zeit
         /// </summary>
