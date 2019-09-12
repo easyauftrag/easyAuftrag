@@ -31,14 +31,14 @@
             this.cbErledigt = new System.Windows.Forms.CheckBox();
             this.cbAbgerechnet = new System.Windows.Forms.CheckBox();
             this.tbSuche = new System.Windows.Forms.TextBox();
-            this.dtpAnfangEingang = new System.Windows.Forms.DateTimePicker();
-            this.dtpEndeEingang = new System.Windows.Forms.DateTimePicker();
+            this.dtpAnfang = new System.Windows.Forms.DateTimePicker();
+            this.dtpEnde = new System.Windows.Forms.DateTimePicker();
             this.butSuche = new System.Windows.Forms.Button();
-            this.dtpAnfangErteilt = new System.Windows.Forms.DateTimePicker();
-            this.dtpEndeErteilt = new System.Windows.Forms.DateTimePicker();
-            this.labEingang = new System.Windows.Forms.Label();
-            this.labErteilt = new System.Windows.Forms.Label();
-            this.labText = new System.Windows.Forms.Label();
+            this.comboSpalte = new System.Windows.Forms.ComboBox();
+            this.labSpalte = new System.Windows.Forms.Label();
+            this.labWert = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.labLink = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cbErledigt
@@ -55,7 +55,7 @@
             // cbAbgerechnet
             // 
             this.cbAbgerechnet.AutoSize = true;
-            this.cbAbgerechnet.Location = new System.Drawing.Point(3, 26);
+            this.cbAbgerechnet.Location = new System.Drawing.Point(119, 3);
             this.cbAbgerechnet.Name = "cbAbgerechnet";
             this.cbAbgerechnet.Size = new System.Drawing.Size(163, 17);
             this.cbAbgerechnet.TabIndex = 1;
@@ -65,28 +65,28 @@
             // 
             // tbSuche
             // 
-            this.tbSuche.Location = new System.Drawing.Point(172, 23);
+            this.tbSuche.Location = new System.Drawing.Point(205, 44);
             this.tbSuche.Name = "tbSuche";
-            this.tbSuche.Size = new System.Drawing.Size(200, 20);
+            this.tbSuche.Size = new System.Drawing.Size(274, 20);
             this.tbSuche.TabIndex = 2;
             // 
-            // dtpAnfangEingang
+            // dtpAnfang
             // 
-            this.dtpAnfangEingang.Location = new System.Drawing.Point(2, 62);
-            this.dtpAnfangEingang.Name = "dtpAnfangEingang";
-            this.dtpAnfangEingang.Size = new System.Drawing.Size(200, 20);
-            this.dtpAnfangEingang.TabIndex = 3;
+            this.dtpAnfang.Location = new System.Drawing.Point(205, 44);
+            this.dtpAnfang.Name = "dtpAnfang";
+            this.dtpAnfang.Size = new System.Drawing.Size(134, 20);
+            this.dtpAnfang.TabIndex = 3;
             // 
-            // dtpEndeEingang
+            // dtpEnde
             // 
-            this.dtpEndeEingang.Location = new System.Drawing.Point(208, 62);
-            this.dtpEndeEingang.Name = "dtpEndeEingang";
-            this.dtpEndeEingang.Size = new System.Drawing.Size(200, 20);
-            this.dtpEndeEingang.TabIndex = 4;
+            this.dtpEnde.Location = new System.Drawing.Point(345, 44);
+            this.dtpEnde.Name = "dtpEnde";
+            this.dtpEnde.Size = new System.Drawing.Size(134, 20);
+            this.dtpEnde.TabIndex = 4;
             // 
             // butSuche
             // 
-            this.butSuche.Location = new System.Drawing.Point(378, 23);
+            this.butSuche.Location = new System.Drawing.Point(485, 41);
             this.butSuche.Name = "butSuche";
             this.butSuche.Size = new System.Drawing.Size(75, 23);
             this.butSuche.TabIndex = 5;
@@ -94,64 +94,66 @@
             this.butSuche.UseVisualStyleBackColor = true;
             this.butSuche.Click += new System.EventHandler(this.ButSuche_Click);
             // 
-            // dtpAnfangErteilt
+            // comboSpalte
             // 
-            this.dtpAnfangErteilt.Location = new System.Drawing.Point(2, 101);
-            this.dtpAnfangErteilt.Name = "dtpAnfangErteilt";
-            this.dtpAnfangErteilt.Size = new System.Drawing.Size(200, 20);
-            this.dtpAnfangErteilt.TabIndex = 6;
+            this.comboSpalte.FormattingEnabled = true;
+            this.comboSpalte.Location = new System.Drawing.Point(66, 44);
+            this.comboSpalte.Name = "comboSpalte";
+            this.comboSpalte.Size = new System.Drawing.Size(133, 21);
+            this.comboSpalte.TabIndex = 11;
             // 
-            // dtpEndeErteilt
+            // labSpalte
             // 
-            this.dtpEndeErteilt.Location = new System.Drawing.Point(208, 101);
-            this.dtpEndeErteilt.Name = "dtpEndeErteilt";
-            this.dtpEndeErteilt.Size = new System.Drawing.Size(200, 20);
-            this.dtpEndeErteilt.TabIndex = 7;
+            this.labSpalte.AutoSize = true;
+            this.labSpalte.Location = new System.Drawing.Point(63, 27);
+            this.labSpalte.Name = "labSpalte";
+            this.labSpalte.Size = new System.Drawing.Size(37, 13);
+            this.labSpalte.TabIndex = 12;
+            this.labSpalte.Text = "Spalte";
             // 
-            // labEingang
+            // labWert
             // 
-            this.labEingang.AutoSize = true;
-            this.labEingang.Location = new System.Drawing.Point(0, 46);
-            this.labEingang.Name = "labEingang";
-            this.labEingang.Size = new System.Drawing.Size(83, 13);
-            this.labEingang.TabIndex = 8;
-            this.labEingang.Text = "Eingangsdatum:";
+            this.labWert.AutoSize = true;
+            this.labWert.Location = new System.Drawing.Point(202, 27);
+            this.labWert.Name = "labWert";
+            this.labWert.Size = new System.Drawing.Size(30, 13);
+            this.labWert.TabIndex = 13;
+            this.labWert.Text = "Wert";
             // 
-            // labErteilt
+            // comboBox1
             // 
-            this.labErteilt.AutoSize = true;
-            this.labErteilt.Location = new System.Drawing.Point(0, 85);
-            this.labErteilt.Name = "labErteilt";
-            this.labErteilt.Size = new System.Drawing.Size(85, 13);
-            this.labErteilt.TabIndex = 9;
-            this.labErteilt.Text = "Erteilungsdatum:";
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(4, 44);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(56, 21);
+            this.comboBox1.TabIndex = 14;
             // 
-            // labText
+            // labLink
             // 
-            this.labText.AutoSize = true;
-            this.labText.Location = new System.Drawing.Point(172, 4);
-            this.labText.Name = "labText";
-            this.labText.Size = new System.Drawing.Size(86, 13);
-            this.labText.TabIndex = 10;
-            this.labText.Text = "Auftrag / Kunde:";
+            this.labLink.AutoSize = true;
+            this.labLink.Location = new System.Drawing.Point(0, 27);
+            this.labLink.Name = "labLink";
+            this.labLink.Size = new System.Drawing.Size(62, 13);
+            this.labLink.TabIndex = 15;
+            this.labLink.Text = "Verküpfung";
             // 
             // SuchControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.labText);
-            this.Controls.Add(this.labErteilt);
-            this.Controls.Add(this.labEingang);
-            this.Controls.Add(this.dtpEndeErteilt);
-            this.Controls.Add(this.dtpAnfangErteilt);
+            this.Controls.Add(this.labLink);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.labWert);
+            this.Controls.Add(this.labSpalte);
+            this.Controls.Add(this.comboSpalte);
             this.Controls.Add(this.butSuche);
-            this.Controls.Add(this.dtpEndeEingang);
-            this.Controls.Add(this.dtpAnfangEingang);
+            this.Controls.Add(this.dtpEnde);
+            this.Controls.Add(this.dtpAnfang);
             this.Controls.Add(this.tbSuche);
             this.Controls.Add(this.cbAbgerechnet);
             this.Controls.Add(this.cbErledigt);
             this.Name = "SuchControl";
-            this.Size = new System.Drawing.Size(455, 130);
+            this.Size = new System.Drawing.Size(563, 130);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -162,13 +164,13 @@
         private System.Windows.Forms.CheckBox cbErledigt;
         private System.Windows.Forms.CheckBox cbAbgerechnet;
         private System.Windows.Forms.TextBox tbSuche;
-        private System.Windows.Forms.DateTimePicker dtpAnfangEingang;
-        private System.Windows.Forms.DateTimePicker dtpEndeEingang;
+        private System.Windows.Forms.DateTimePicker dtpAnfang;
+        private System.Windows.Forms.DateTimePicker dtpEnde;
         private System.Windows.Forms.Button butSuche;
-        private System.Windows.Forms.DateTimePicker dtpAnfangErteilt;
-        private System.Windows.Forms.DateTimePicker dtpEndeErteilt;
-        private System.Windows.Forms.Label labEingang;
-        private System.Windows.Forms.Label labErteilt;
-        private System.Windows.Forms.Label labText;
+        private System.Windows.Forms.ComboBox comboSpalte;
+        private System.Windows.Forms.Label labSpalte;
+        private System.Windows.Forms.Label labWert;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label labLink;
     }
 }

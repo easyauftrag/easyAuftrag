@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Kunden");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Mitarbeiter");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Aufträge");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Kunden");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Mitarbeiter");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Aufträge");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainView));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,6 +50,7 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.butExport = new System.Windows.Forms.ToolStripButton();
             this.butAuftragZettel = new System.Windows.Forms.ToolStripButton();
+            this.butStundenZettel = new System.Windows.Forms.ToolStripButton();
             this.butAuftrag = new System.Windows.Forms.ToolStripButton();
             this.butKunde = new System.Windows.Forms.ToolStripButton();
             this.butMitarbeiter = new System.Windows.Forms.ToolStripButton();
@@ -63,7 +64,6 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLoeschen = new System.Windows.Forms.ToolStripMenuItem();
             this.suchControlMain = new easyAuftrag.View.SuchControl();
-            this.butStundenZettel = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
             this.cxtMain.SuspendLayout();
@@ -83,7 +83,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(0);
-            this.menuStrip1.Size = new System.Drawing.Size(670, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(784, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -123,19 +123,19 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.tvMain.Location = new System.Drawing.Point(13, 58);
             this.tvMain.Name = "tvMain";
-            treeNode1.Name = "Kunden";
-            treeNode1.Tag = "Kunden";
-            treeNode1.Text = "Kunden";
-            treeNode2.Name = "Mitarbeiter";
-            treeNode2.Tag = "Mitarbeiter";
-            treeNode2.Text = "Mitarbeiter";
-            treeNode3.Name = "Auftraege";
-            treeNode3.Tag = "Auftraege";
-            treeNode3.Text = "Aufträge";
+            treeNode4.Name = "Kunden";
+            treeNode4.Tag = "Kunden";
+            treeNode4.Text = "Kunden";
+            treeNode5.Name = "Mitarbeiter";
+            treeNode5.Tag = "Mitarbeiter";
+            treeNode5.Text = "Mitarbeiter";
+            treeNode6.Name = "Auftraege";
+            treeNode6.Tag = "Auftraege";
+            treeNode6.Text = "Aufträge";
             this.tvMain.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3});
+            treeNode4,
+            treeNode5,
+            treeNode6});
             this.tvMain.Size = new System.Drawing.Size(189, 441);
             this.tvMain.TabIndex = 6;
             this.tvMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tvMain_MouseUp);
@@ -152,7 +152,7 @@
             this.dgvMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMain.Location = new System.Drawing.Point(207, 188);
             this.dgvMain.Name = "dgvMain";
-            this.dgvMain.Size = new System.Drawing.Size(451, 311);
+            this.dgvMain.Size = new System.Drawing.Size(565, 311);
             this.dgvMain.TabIndex = 9;
             this.dgvMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DgvMain_MouseUp);
             // 
@@ -209,7 +209,7 @@
             this.butMitarbeiter});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(670, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(784, 25);
             this.toolStrip1.TabIndex = 10;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -230,6 +230,16 @@
             this.butAuftragZettel.Size = new System.Drawing.Size(97, 22);
             this.butAuftragZettel.Text = "Auftrag drucken";
             this.butAuftragZettel.Click += new System.EventHandler(this.ButAuftragZettel_Click);
+            // 
+            // butStundenZettel
+            // 
+            this.butStundenZettel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.butStundenZettel.Image = ((System.Drawing.Image)(resources.GetObject("butStundenZettel.Image")));
+            this.butStundenZettel.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.butStundenZettel.Name = "butStundenZettel";
+            this.butStundenZettel.Size = new System.Drawing.Size(150, 22);
+            this.butStundenZettel.Text = "Stundennachweis drucken";
+            this.butStundenZettel.Click += new System.EventHandler(this.ButStundenZettel_Click);
             // 
             // butAuftrag
             // 
@@ -265,7 +275,7 @@
             this.tssLabNummer});
             this.statusStrip1.Location = new System.Drawing.Point(0, 502);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(670, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(784, 22);
             this.statusStrip1.TabIndex = 11;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -324,27 +334,19 @@
             // 
             // suchControlMain
             // 
+            this.suchControlMain.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.suchControlMain.Location = new System.Drawing.Point(208, 52);
             this.suchControlMain.Name = "suchControlMain";
-            this.suchControlMain.Size = new System.Drawing.Size(455, 130);
+            this.suchControlMain.Size = new System.Drawing.Size(564, 130);
             this.suchControlMain.TabIndex = 12;
             this.suchControlMain.SuchEvent += new System.Action(this.TabelleNeu);
-            // 
-            // butStundenZettel
-            // 
-            this.butStundenZettel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.butStundenZettel.Image = ((System.Drawing.Image)(resources.GetObject("butStundenZettel.Image")));
-            this.butStundenZettel.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.butStundenZettel.Name = "butStundenZettel";
-            this.butStundenZettel.Size = new System.Drawing.Size(150, 22);
-            this.butStundenZettel.Text = "Stundennachweis drucken";
-            this.butStundenZettel.Click += new System.EventHandler(this.ButStundenZettel_Click);
             // 
             // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(670, 524);
+            this.ClientSize = new System.Drawing.Size(784, 524);
             this.Controls.Add(this.suchControlMain);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.toolStrip1);

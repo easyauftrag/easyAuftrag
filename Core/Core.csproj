@@ -60,6 +60,7 @@
     <Compile Include="Model\Mitarbeiter.cs" />
     <Compile Include="Model\StundenDoc.cs" />
     <Compile Include="Model\SucheInfo.cs" />
+    <Compile Include="Model\SucheRow.cs" />
     <Compile Include="Model\Taetigkeit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

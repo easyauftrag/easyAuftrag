@@ -66,6 +66,12 @@ namespace easyAuftrag
         {
             TabelleNeu();
             TreeViewNeu();
+            List<string> lstSpalten = new List<string>();
+            foreach (var i in dgvMain.Columns)
+            {
+                lstSpalten.Add(i.ToString());
+            }
+            suchControlMain.Spalten = lstSpalten;
         }
 
         /// <summary>
@@ -625,6 +631,10 @@ namespace easyAuftrag
             {
                 ErrorHandler.ErrorHandle(ex);
             }
+        }
+        private void suchControlMain_SuchEvent()
+        {
+            MessageBox.Show(suchControlMain.Suche);
         }
     }
 }

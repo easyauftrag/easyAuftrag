@@ -34,14 +34,24 @@ using System.Windows.Forms;
 
 namespace Core.Model
 {
-    public class SucheInfo
+    public class SucheRow
     {
-        public CheckBox CbErledigt { get; set; }
-        public CheckBox CbAbgerechnet { get; set; }
-        public ComboBox ComboSpalte { get; set; }
-        public TextBox TbSuche { get; set; }
-        public DateTimePicker DtpAnfang { get; set; }
-        public DateTimePicker DtpEnde { get; set; }
-        
+        public ComboBox LinkControl { get; set; }
+        public ComboBox SpalteControl { get; set; }
+        public TextBox ValueControl { get; set; }
+        public DateTimePicker AnfangControl { get; set; }
+        public DateTimePicker EndeControl { get; set; }
+
+        public string Text
+        {
+            get
+            {
+                return LinkControl.Text
+                    + " " + SpalteControl.Text
+                    + " " + ValueControl.Text
+                    + " " + AnfangControl.Text
+                    + " " + EndeControl.Text;
+            }
+        }
     }
 }
