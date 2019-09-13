@@ -32,10 +32,12 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Printing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace easyAuftrag.Logik
 {
@@ -99,24 +101,44 @@ namespace easyAuftrag.Logik
         /// </summary>
         private void printDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
+            //Test
+            XmlPrintMapperAuftrag mapper = LoadPrintMappings();
+
             e.Graphics.PageUnit = GraphicsUnit.Millimeter;
-
-            int charactersOnPage = 0;
-            int linesPerPage = 0;
+            
             Font font = new Font(FontFamily.GenericSansSerif,10.0F, FontStyle.Regular);
-            string stringToPrint = "Example";
+            
+            foreach (var item in mapper.MappingList)
+            {
+                switch (item.Name)
+                {
+                    case "AuftragNr":
+                        e.Graphics.DrawString(_druckDoc.AuftragNr, font, Brushes.Black, item.X, item.Y, StringFormat.GenericTypographic);
+                        break;
+                    case "KundeName":
+                        e.Graphics.DrawString(_druckDoc.KundeName, font, Brushes.Black, item.X, item.Y, StringFormat.GenericTypographic);
+                        break;
+                    case "KundeAnschrift":
+                        e.Graphics.DrawString(_druckDoc.KundeAnschrift, font, Brushes.Black, item.X, item.Y, StringFormat.GenericTypographic);
+                        break;
+                    case "KundeTelefon":
+                        e.Graphics.DrawString(_druckDoc.KundeTelefon, font, Brushes.Black, item.X, item.Y, StringFormat.GenericTypographic);
+                        break;
+                }
+            }
+            
+            int y = mapper.Start;
 
-            e.Graphics.MeasureString(stringToPrint, font, e.MarginBounds.Size, StringFormat.GenericTypographic, out charactersOnPage, out linesPerPage);
-
-            e.Graphics.DrawString(_druckDoc.AuftragNr, font, Brushes.Black, 124, 60, StringFormat.GenericTypographic);
-            e.Graphics.DrawString(_druckDoc.KundeName, font, Brushes.Black, 50, 75, StringFormat.GenericTypographic);
-            e.Graphics.DrawString(_druckDoc.KundeAnschrift, font, Brushes.Black, 45, 82, StringFormat.GenericTypographic);
-            e.Graphics.DrawString(_druckDoc.KundeTelefon, font, Brushes.Black, 160, 82, StringFormat.GenericTypographic);
-            int y = 115;
-            foreach (Taetigkeit t in _druckDoc.TatListe)
+            foreach (var item in mapper.TatList)
             {
                 string mitarbeiter = (from i in _druckDoc.MitList where t.MitarbeiterID == i.MitarbeiterID select i.Name).First();
 
+                switch (item.Name)
+                {
+                    // TODO fertig einbauen
+                    case
+                        break;
+                }
                 e.Graphics.DrawString(t.Datum.ToShortDateString(), font, Brushes.Black, 20, y, StringFormat.GenericTypographic);
                 e.Graphics.DrawString(mitarbeiter, font, Brushes.Black, 45, y, StringFormat.GenericTypographic);
                 e.Graphics.DrawString(t.Name, font, Brushes.Black, 75, y, StringFormat.GenericTypographic);
@@ -124,12 +146,42 @@ namespace easyAuftrag.Logik
                 e.Graphics.DrawString(t.EndZeit.ToString(), font, Brushes.Black, 170, y, StringFormat.GenericTypographic);
                 e.Graphics.DrawString( Math.Round(t.Minuten / 60, 1).ToString(), font, Brushes.Black, 185, y, StringFormat.GenericTypographic);
 
-                y += 6;
+                y += mapper.Inc;
             }
-            
-            stringToPrint = stringToPrint.Substring(charactersOnPage);
+        }
 
-            e.HasMorePages = (stringToPrint.Length > 0);
+        private XmlPrintMapperAuftrag LoadPrintMappings()
+        {
+            string path = Path.Combine(Application.StartupPath, "Print");
+            path = Path.Combine(path, "PrintAuftrag.xml");
+
+            XmlDocument xml = new XmlDocument();
+            xml.Load(path);
+
+            XmlNodeList mappinglstXmlItems = xml.GetElementsByTagName("printitem");
+            XmlNodeList tatlstXmlItems = xml.GetElementsByTagName("listitem");
+            XmlPrintMapperAuftrag printMA = new XmlPrintMapperAuftrag();
+            foreach (XmlNode node in mappinglstXmlItems)
+            {
+                PrintMapperItem printMI = new PrintMapperItem();
+                printMI.Name = node.Attributes["name"].Value;
+                printMI.X = Convert.ToInt32(node.Attributes["x"].Value);
+                printMI.Y = Convert.ToInt32(node.Attributes["y"].Value);
+
+                printMA.MappingList.Add(printMI);
+            }
+            foreach (XmlNode node in tatlstXmlItems)
+            {
+                PrintMapperTaetigkeit printMT = new PrintMapperTaetigkeit();
+                printMT.Name = node.Attributes["name"].Value;
+                printMT.X = Convert.ToInt32(node.Attributes["x"].Value);
+
+                printMA.TatList.Add(printMT);
+            }
+            printMA.Start = Convert.ToInt32(xml.GetElementsByTagName("printlist").Item(0).Attributes["start"].Value);
+            printMA.Inc = Convert.ToInt32(xml.GetElementsByTagName("printlist").Item(0).Attributes["inc"].Value);
+
+            return printMA;
         }
 
         /// <summary>
