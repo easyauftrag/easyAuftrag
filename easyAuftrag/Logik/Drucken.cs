@@ -131,15 +131,18 @@ namespace easyAuftrag.Logik
 
             foreach (var item in mapper.TatList)
             {
-                string mitarbeiter = (from i in _druckDoc.MitList where t.MitarbeiterID == i.MitarbeiterID select i.Name).First();
+                string mitarbeiter = (from i in _druckDoc.MitList
+                                      join t in _druckDoc.TatListe on i.MitarbeiterID equals t.MitarbeiterID
+                                      select i.Name).First();
 
                 switch (item.Name)
                 {
                     // TODO fertig einbauen
-                    case
+                    case "Datum":
+                        e.Graphics.DrawString(_druckDoc.TatListe.ElementAt(mapper.TatList.IndexOf(item)).Datum.ToString(), font, Brushes.Black, 20, y, StringFormat.GenericTypographic);
                         break;
                 }
-                e.Graphics.DrawString(t.Datum.ToShortDateString(), font, Brushes.Black, 20, y, StringFormat.GenericTypographic);
+                
                 e.Graphics.DrawString(mitarbeiter, font, Brushes.Black, 45, y, StringFormat.GenericTypographic);
                 e.Graphics.DrawString(t.Name, font, Brushes.Black, 75, y, StringFormat.GenericTypographic);
                 e.Graphics.DrawString(t.StartZeit.ToString(), font, Brushes.Black, 155, y, StringFormat.GenericTypographic);
