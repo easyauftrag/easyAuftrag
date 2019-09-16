@@ -96,18 +96,18 @@ namespace easyAuftrag.View
             DateTimePicker dtpAnfangVorlage = new DateTimePicker();
             DateTimePicker dtpEndeVorlage = new DateTimePicker();
 
-            comboLinkVorlage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            comboLinkVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             comboLinkVorlage.FormattingEnabled = true;
-            comboLinkVorlage.Location = new System.Drawing.Point(3, tbSuche.Location.Y + (_lstRow.Count) * 30);
+            comboLinkVorlage.Location = new Point(3, tbSuche.Location.Y + _lstRow.Count * 30);
             comboLinkVorlage.Name = "cmbLinkVorlage";
-            comboLinkVorlage.Size = new System.Drawing.Size(62, 21);
+            comboLinkVorlage.Size = new Size(62, 21);
             comboLinkVorlage.TabIndex = 7;
 
-            comboSpalteVorlage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            comboSpalteVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             comboSpalteVorlage.FormattingEnabled = true;
-            comboSpalteVorlage.Location = new System.Drawing.Point(71, comboSpalte.Location.Y + (_lstRow.Count) * 30);
+            comboSpalteVorlage.Location = new Point(71, comboSpalte.Location.Y + _lstRow.Count * 30);
             comboSpalteVorlage.Name = "comboSpalteVorlage";
-            comboSpalteVorlage.Size = new System.Drawing.Size(115, 21);
+            comboSpalteVorlage.Size = new Size(115, 21);
             comboSpalteVorlage.TabIndex = 4;
             comboSpalteVorlage.SelectedIndexChanged += comboSpalteVorlage_SelectedIndexChanged;
             foreach (var spalte in Spalten)
@@ -115,22 +115,22 @@ namespace easyAuftrag.View
                 comboSpalteVorlage.Items.Add(spalte);
             }
 
-            tbSucheVorlage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            tbSucheVorlage.Location = new System.Drawing.Point(327, tbSuche.Location.Y + (_lstRow.Count) * 30);
+            tbSucheVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            tbSucheVorlage.Location = new Point(327, tbSuche.Location.Y + _lstRow.Count * 30);
             tbSucheVorlage.Name = "txtValueVorlage";
-            tbSucheVorlage.Size = new System.Drawing.Size(168, 20);
+            tbSucheVorlage.Size = new Size(168, 20);
             tbSucheVorlage.TabIndex = 6;
 
-            dtpAnfangVorlage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            dtpAnfangVorlage.Location = new System.Drawing.Point(327, dtpAnfang.Location.Y + (_lstRow.Count) * 30);
+            dtpAnfangVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            dtpAnfangVorlage.Location = new Point(327, dtpAnfang.Location.Y + _lstRow.Count * 30);
             dtpAnfangVorlage.Name = "txtValueVorlage";
-            dtpAnfangVorlage.Size = new System.Drawing.Size(168, 20);
+            dtpAnfangVorlage.Size = new Size(168, 20);
             dtpAnfangVorlage.TabIndex = 6;
 
-            dtpEndeVorlage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            dtpEndeVorlage.Location = new System.Drawing.Point(375, dtpEnde.Location.Y + (_lstRow.Count) * 30);
+            dtpEndeVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            dtpEndeVorlage.Location = new Point(375, dtpEnde.Location.Y + _lstRow.Count * 30);
             dtpEndeVorlage.Name = "txtValueVorlage";
-            dtpEndeVorlage.Size = new System.Drawing.Size(168, 20);
+            dtpEndeVorlage.Size = new Size(168, 20);
             dtpEndeVorlage.TabIndex = 7;
 
         }
