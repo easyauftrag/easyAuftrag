@@ -101,8 +101,7 @@ namespace easyAuftrag.Logik
         /// </summary>
         private void printDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
-            //Test
-            XmlPrintMapperAuftrag mapper = LoadPrintMappings();
+            XmlPrintMapperAuftrag mapper = LoadPrintMappings("Auftrag");
 
             e.Graphics.PageUnit = GraphicsUnit.Millimeter;
             
@@ -129,34 +128,44 @@ namespace easyAuftrag.Logik
             
             int y = mapper.Start;
 
-            foreach (var item in mapper.TatList)
+            foreach (Taetigkeit t in _druckDoc.TatListe)
             {
-                string mitarbeiter = (from i in _druckDoc.MitList
-                                      join t in _druckDoc.TatListe on i.MitarbeiterID equals t.MitarbeiterID
-                                      select i.Name).First();
-
-                switch (item.Name)
+                foreach (var item in mapper.TatList)
                 {
-                    // TODO fertig einbauen
-                    case "Datum":
-                        e.Graphics.DrawString(_druckDoc.TatListe.ElementAt(mapper.TatList.IndexOf(item)).Datum.ToString(), font, Brushes.Black, 20, y, StringFormat.GenericTypographic);
-                        break;
-                }
-                
-                e.Graphics.DrawString(mitarbeiter, font, Brushes.Black, 45, y, StringFormat.GenericTypographic);
-                e.Graphics.DrawString(t.Name, font, Brushes.Black, 75, y, StringFormat.GenericTypographic);
-                e.Graphics.DrawString(t.StartZeit.ToString(), font, Brushes.Black, 155, y, StringFormat.GenericTypographic);
-                e.Graphics.DrawString(t.EndZeit.ToString(), font, Brushes.Black, 170, y, StringFormat.GenericTypographic);
-                e.Graphics.DrawString( Math.Round(t.Minuten / 60, 1).ToString(), font, Brushes.Black, 185, y, StringFormat.GenericTypographic);
+                    string mitarbeiter = (from i in _druckDoc.MitList
+                                          where i.MitarbeiterID == t.MitarbeiterID
+                                          select i.Name).First();
 
+                    switch (item.Name)
+                    {
+                        case "Datum":
+                            e.Graphics.DrawString(t.Datum.ToShortDateString(), font, Brushes.Black, item.X, y, StringFormat.GenericTypographic);
+                            break;
+                        case "Mitarbeiter":
+                            e.Graphics.DrawString(mitarbeiter, font, Brushes.Black, item.X, y, StringFormat.GenericTypographic);
+                            break;
+                        case "Beschreibung":
+                            e.Graphics.DrawString(t.Name, font, Brushes.Black, item.X, y, StringFormat.GenericTypographic);
+                            break;
+                        case "StartZeit":
+                            e.Graphics.DrawString(t.StartZeit.ToString(), font, Brushes.Black, item.X, y, StringFormat.GenericTypographic);
+                            break;
+                        case "EndZeit":
+                            e.Graphics.DrawString(t.EndZeit.ToString(), font, Brushes.Black, item.X, y, StringFormat.GenericTypographic);
+                            break;
+                        case "Stunden":
+                            e.Graphics.DrawString(Math.Round(t.Minuten / 60, 1).ToString(), font, Brushes.Black, item.X, y, StringFormat.GenericTypographic);
+                            break;
+                    }
+                }
                 y += mapper.Inc;
             }
         }
 
-        private XmlPrintMapperAuftrag LoadPrintMappings()
+        private XmlPrintMapperAuftrag LoadPrintMappings(string art)
         {
             string path = Path.Combine(Application.StartupPath, "Print");
-            path = Path.Combine(path, "PrintAuftrag.xml");
+            path = Path.Combine(path, "Print" + art + ".xml");
 
             XmlDocument xml = new XmlDocument();
             xml.Load(path);
@@ -164,6 +173,7 @@ namespace easyAuftrag.Logik
             XmlNodeList mappinglstXmlItems = xml.GetElementsByTagName("printitem");
             XmlNodeList tatlstXmlItems = xml.GetElementsByTagName("listitem");
             XmlPrintMapperAuftrag printMA = new XmlPrintMapperAuftrag();
+
             foreach (XmlNode node in mappinglstXmlItems)
             {
                 PrintMapperItem printMI = new PrintMapperItem();
@@ -193,39 +203,62 @@ namespace easyAuftrag.Logik
         /// </summary>
         private void printDocument_PrintStunden(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
+            XmlPrintMapperAuftrag mapper = LoadPrintMappings("Stunden");
             Config conf = new Config();
             conf.StundenSoll = 40;
-            string stringToPrint = "Example";
-            int charactersOnPage = 0;
-            int linesPerPage = 0;
             Font font = new Font(FontFamily.GenericSansSerif, 10.0F, FontStyle.Regular);
-            
             e.Graphics.PageUnit = GraphicsUnit.Millimeter;
+            foreach (var item in mapper.MappingList)
+            {
+                switch (item.Name)
+                {
+                    case "MitarbeiterName":
+                        e.Graphics.DrawString(_stundenDoc.Mitarbeiter.Name, font, Brushes.Black, item.X, item.Y, StringFormat.GenericTypographic);
+                        break;
+                    case "Anfang":
+                        e.Graphics.DrawString(_stundenDoc.Anfang.ToShortDateString(), font, Brushes.Black, item.X, item.Y, StringFormat.GenericTypographic);
+                        break;
+                    case "Ende":
+                        e.Graphics.DrawString(_stundenDoc.Ende.ToShortDateString(), font, Brushes.Black, item.X, item.Y, StringFormat.GenericTypographic);
+                        break;
+                    case "Sollstunden":
+                        e.Graphics.DrawString((_stundenDoc.Mitarbeiter.AuslastungStelle / 100 * conf.StundenSoll).ToString(), font, Brushes.Black, item.X, item.Y, StringFormat.GenericTypographic);
+                        break;
+                    case "Arbeitszeit":
+                        e.Graphics.DrawString(Berechnung.ArbeitsZeit(_stundenDoc).ToString(), font, Brushes.Black, item.X, item.Y, StringFormat.GenericTypographic);
+                        break;
+                }
+            }
+            int y = mapper.Start;
 
-            e.Graphics.MeasureString(stringToPrint, font, e.MarginBounds.Size, StringFormat.GenericTypographic, out charactersOnPage, out linesPerPage);
-
-            e.Graphics.DrawString(_stundenDoc.Mitarbeiter.Name, font, Brushes.Black, 60, 30, StringFormat.GenericTypographic);
-            e.Graphics.DrawString(_stundenDoc.Anfang.ToString(), font, Brushes.Black, 60, 45, StringFormat.GenericTypographic);
-            e.Graphics.DrawString(_stundenDoc.Ende.ToString(), font, Brushes.Black, 60, 60, StringFormat.GenericTypographic);
-            e.Graphics.DrawString((_stundenDoc.Mitarbeiter.AuslastungStelle / 100 * conf.StundenSoll).ToString(), font, Brushes.Black, 60, 75, StringFormat.GenericTypographic);
-            e.Graphics.DrawString(Berechnung.ArbeitsZeit(_stundenDoc).ToString(), font, Brushes.Black, 60, 90, StringFormat.GenericTypographic);
-
-            int y = 115;
             foreach (Taetigkeit t in _stundenDoc.Tatlist)
             {
-                e.Graphics.DrawString(t.Datum.ToShortDateString(), font, Brushes.Black, 20, y, StringFormat.GenericTypographic);
-                e.Graphics.DrawString(_stundenDoc.Mitarbeiter.Name, font, Brushes.Black, 45, y, StringFormat.GenericTypographic);
-                e.Graphics.DrawString(t.Name, font, Brushes.Black, 75, y, StringFormat.GenericTypographic);
-                e.Graphics.DrawString(t.StartZeit.ToString(), font, Brushes.Black, 155, y, StringFormat.GenericTypographic);
-                e.Graphics.DrawString(t.EndZeit.ToString(), font, Brushes.Black, 170, y, StringFormat.GenericTypographic);
-                e.Graphics.DrawString(Math.Round(t.Minuten / 60, 1).ToString(), font, Brushes.Black, 185, y, StringFormat.GenericTypographic);
-
-                y += 6;
+                foreach (var item in mapper.TatList)
+                {
+                    switch (item.Name)
+                    {
+                        case "Datum":
+                            e.Graphics.DrawString(t.Datum.ToShortDateString(), font, Brushes.Black, item.X, y, StringFormat.GenericTypographic);
+                            break;
+                        case "Mitarbeiter":
+                            e.Graphics.DrawString(_stundenDoc.Mitarbeiter.Name, font, Brushes.Black, item.X, y, StringFormat.GenericTypographic);
+                            break;
+                        case "Beschreibung":
+                            e.Graphics.DrawString(t.Name, font, Brushes.Black, item.X, y, StringFormat.GenericTypographic);
+                            break;
+                        case "StartZeit":
+                            e.Graphics.DrawString(t.StartZeit.ToString(), font, Brushes.Black, item.X, y, StringFormat.GenericTypographic);
+                            break;
+                        case "EndZeit":
+                            e.Graphics.DrawString(t.EndZeit.ToString(), font, Brushes.Black, item.X, y, StringFormat.GenericTypographic);
+                            break;
+                        case "Stunden":
+                            e.Graphics.DrawString(Math.Round(t.Minuten / 60, 1).ToString(), font, Brushes.Black, item.X, y, StringFormat.GenericTypographic);
+                            break;
+                    }
+                }
+                y += mapper.Inc;
             }
-
-            stringToPrint = stringToPrint.Substring(charactersOnPage);
-
-            e.HasMorePages = (stringToPrint.Length > 0);
         }
     }
 }

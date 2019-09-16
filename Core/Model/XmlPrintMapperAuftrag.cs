@@ -13,5 +13,11 @@ namespace Core.Model
         public int Start { get; set; }
         public int Inc { get; set; }
         public List<PrintMapperTaetigkeit> TatList { get; set; }
+
+        public XmlPrintMapperAuftrag()
+        {
+            MappingList = new List<PrintMapperItem>();
+            TatList = new List<PrintMapperTaetigkeit>();
+        }
     }
 }
