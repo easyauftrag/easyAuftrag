@@ -42,10 +42,10 @@ namespace easyAuftrag.View
     public partial class SuchControl : UserControl
     {
         public event Action SuchEvent;
-        public SucheInfo _sucheInfo = new SucheInfo();
+        public SucheInfo sucheInfo = new SucheInfo();
         private List<SucheRow> _lstRow = new List<SucheRow>();
         private List<string> _spalten = new List<string>();
-        public List<SucheRow> Suche { get; set; }
+        public List<SucheRow> Suche = new List<SucheRow>();
 
         public List<string> Spalten
         {
@@ -54,6 +54,14 @@ namespace easyAuftrag.View
             {
                 _spalten = value;
                 FillSpalten();
+            }
+        }
+
+        private void FillSpalten()
+        {
+            foreach (var spalte in Spalten)
+            {
+                comboSpalte.Items.Add(spalte);
             }
         }
 
@@ -70,22 +78,14 @@ namespace easyAuftrag.View
 
             };
             _lstRow.Add(row);
-            _sucheInfo.CbAbgerechnet = cbAbgerechnet;
-            _sucheInfo.CbErledigt = cbErledigt;
-            _sucheInfo.ComboSpalte = comboSpalte;
-            _sucheInfo.TbSuche = tbSuche;
-            _sucheInfo.DtpAnfang = dtpAnfang;
-            _sucheInfo.DtpEnde = dtpEnde;
-            _sucheInfo.DtpAnfang.Visible = false;
-            _sucheInfo.DtpEnde.Visible = false;
-        }
-
-        private void FillSpalten()
-        {
-            foreach (var spalte in Spalten)
-            {
-                comboSpalte.Items.Add(spalte);
-            }
+            sucheInfo.CbAbgerechnet = cbAbgerechnet;
+            sucheInfo.CbErledigt = cbErledigt;
+            sucheInfo.ComboSpalte = comboSpalte;
+            sucheInfo.TbSuche = tbSuche;
+            sucheInfo.DtpAnfang = dtpAnfang;
+            sucheInfo.DtpEnde = dtpEnde;
+            sucheInfo.DtpAnfang.Visible = false;
+            sucheInfo.DtpEnde.Visible = false;
         }
 
         private void AddControls()
@@ -103,6 +103,11 @@ namespace easyAuftrag.View
             comboLinkVorlage.Name = "comboLinkVorlage_" + _lstRow.Count.ToString();
             comboLinkVorlage.Size = new Size(56, 21);
             comboLinkVorlage.TabIndex = 2;
+            comboLinkVorlage.Items.AddRange(new object[]
+            {
+                "und",
+                "oder"
+            });
 
             comboSpalteVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             comboSpalteVorlage.FormattingEnabled = true;
@@ -182,27 +187,25 @@ namespace easyAuftrag.View
 
         private void ButSuche_Click(object sender, EventArgs e)
         {
-            Suche.Clear();
-            foreach (var item in _lstRow)
-            {
-                Suche.Add(item);
-            }
+            if (Suche != null)
+            { Suche.Clear(); };
+
+            Suche = _lstRow;
             SuchEvent?.Invoke();
         }
 
         private void CbErledigt_CheckedChanged(object sender, EventArgs e)
         {
-            Suche.Clear();
-            foreach (var item in _lstRow)
-            {
-                Suche.Add(item);
-            }
+            if (Suche != null)
+            { Suche.Clear(); };
+            Suche = _lstRow;
             SuchEvent?.Invoke();
         }
 
         private void CbAbgerechnet_CheckedChanged(object sender, EventArgs e)
         {
-            Suche.Clear();
+            if (Suche != null)
+            { Suche.Clear(); };
             foreach (var item in _lstRow)
             {
                 Suche.Add(item);

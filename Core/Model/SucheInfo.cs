@@ -38,6 +38,7 @@ namespace Core.Model
     {
         public CheckBox CbErledigt { get; set; }
         public CheckBox CbAbgerechnet { get; set; }
+        public ComboBox ComboLink { get; set; }
         public ComboBox ComboSpalte { get; set; }
         public TextBox TbSuche { get; set; }
         public DateTimePicker DtpAnfang { get; set; }

@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Kunden");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Mitarbeiter");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Aufträge");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Kunden");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Mitarbeiter");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Aufträge");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainView));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -123,19 +123,19 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.tvMain.Location = new System.Drawing.Point(13, 58);
             this.tvMain.Name = "tvMain";
-            treeNode4.Name = "Kunden";
-            treeNode4.Tag = "Kunden";
-            treeNode4.Text = "Kunden";
-            treeNode5.Name = "Mitarbeiter";
-            treeNode5.Tag = "Mitarbeiter";
-            treeNode5.Text = "Mitarbeiter";
-            treeNode6.Name = "Auftraege";
-            treeNode6.Tag = "Auftraege";
-            treeNode6.Text = "Aufträge";
+            treeNode1.Name = "Kunden";
+            treeNode1.Tag = "Kunden";
+            treeNode1.Text = "Kunden";
+            treeNode2.Name = "Mitarbeiter";
+            treeNode2.Tag = "Mitarbeiter";
+            treeNode2.Text = "Mitarbeiter";
+            treeNode3.Name = "Auftraege";
+            treeNode3.Tag = "Auftraege";
+            treeNode3.Text = "Aufträge";
             this.tvMain.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode4,
-            treeNode5,
-            treeNode6});
+            treeNode1,
+            treeNode2,
+            treeNode3});
             this.tvMain.Size = new System.Drawing.Size(189, 441);
             this.tvMain.TabIndex = 6;
             this.tvMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tvMain_MouseUp);
@@ -339,8 +339,10 @@
             this.suchControlMain.Location = new System.Drawing.Point(208, 52);
             this.suchControlMain.Name = "suchControlMain";
             this.suchControlMain.Size = new System.Drawing.Size(564, 130);
+            this.suchControlMain.Spalten = ((System.Collections.Generic.List<string>)(resources.GetObject("suchControlMain.Spalten")));
+            this.suchControlMain.Suche = null;
             this.suchControlMain.TabIndex = 12;
-            this.suchControlMain.SuchEvent += new System.Action(this.TabelleNeu);
+            this.suchControlMain.SuchEvent += new System.Action(this.suchControlMain_SuchEvent);
             // 
             // MainView
             // 

@@ -87,37 +87,37 @@ namespace easyAuftrag
                     var auftraege = (from a in db.Auftraege where a.Abgerechnet == false && a.Erledigt == true select a).ToList();
                     tssLabNummer.Text = auftraege.Count().ToString();
 
-                    if (!string.IsNullOrEmpty(suchControlMain._sucheInfo.TbSuche.Text))
+                    if (!string.IsNullOrEmpty(suchControlMain.sucheInfo.TbSuche.Text))
                     {
-                        if (suchControlMain._sucheInfo.CbErledigt.Checked && suchControlMain._sucheInfo.CbAbgerechnet.Checked)
+                        if (suchControlMain.sucheInfo.CbErledigt.Checked && suchControlMain.sucheInfo.CbAbgerechnet.Checked)
                         {
                             var auft = (from a in db.Auftraege
                                         join k in db.Kunden on a.KundeID equals k.KundeID
-                                        where a.Abgerechnet != suchControlMain._sucheInfo.CbAbgerechnet.Checked 
-                                        && a.Erledigt == suchControlMain._sucheInfo.CbErledigt.Checked
-                                        && a.AuftragNummer == suchControlMain._sucheInfo.TbSuche.Text | k.Name == suchControlMain._sucheInfo.TbSuche.Text
+                                        where a.Abgerechnet == false
+                                        && a.Erledigt == true
+                                        && a.AuftragNummer == suchControlMain.sucheInfo.TbSuche.Text | k.Name == suchControlMain.sucheInfo.TbSuche.Text
                                         select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
                             dgvMain.DataSource = auft;
                             dgvMain.Columns["auftragID"].Visible = false;
                             dgvMain.Columns["Name"].HeaderText = "Kundenname";
                         }
-                        else if (suchControlMain._sucheInfo.CbErledigt.Checked)
+                        else if (suchControlMain.sucheInfo.CbErledigt.Checked)
                         {
                             var auft = (from a in db.Auftraege
                                         join k in db.Kunden on a.KundeID equals k.KundeID
-                                        where a.Erledigt == suchControlMain._sucheInfo.CbErledigt.Checked
-                                        && a.AuftragNummer == suchControlMain._sucheInfo.TbSuche.Text | k.Name == suchControlMain._sucheInfo.TbSuche.Text
+                                        where a.Erledigt == true
+                                        && a.AuftragNummer == suchControlMain.sucheInfo.TbSuche.Text | k.Name == suchControlMain.sucheInfo.TbSuche.Text
                                         select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
                             dgvMain.DataSource = auft;
                             dgvMain.Columns["auftragID"].Visible = false;
                             dgvMain.Columns["Name"].HeaderText = "Kundenname";
                         }
-                        else if (suchControlMain._sucheInfo.CbAbgerechnet.Checked)
+                        else if (suchControlMain.sucheInfo.CbAbgerechnet.Checked)
                         {
                             var auft = (from a in db.Auftraege
                                         join k in db.Kunden on a.KundeID equals k.KundeID
-                                        where a.Abgerechnet == false 
-                                        && a.AuftragNummer == suchControlMain._sucheInfo.TbSuche.Text | k.Name == suchControlMain._sucheInfo.TbSuche.Text
+                                        where a.Abgerechnet == false
+                                        && a.AuftragNummer == suchControlMain.sucheInfo.TbSuche.Text | k.Name == suchControlMain.sucheInfo.TbSuche.Text
                                         select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
                             dgvMain.DataSource = auft;
                             dgvMain.Columns["auftragID"].Visible = false;
@@ -127,34 +127,37 @@ namespace easyAuftrag
                         {
                             var auft = (from a in db.Auftraege
                                         join k in db.Kunden on a.KundeID equals k.KundeID
-                                        where a.AuftragNummer == suchControlMain._sucheInfo.TbSuche.Text | k.Name == suchControlMain._sucheInfo.TbSuche.Text
+                                        where a.AuftragNummer == suchControlMain.sucheInfo.TbSuche.Text | k.Name == suchControlMain.sucheInfo.TbSuche.Text
                                         select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
                             dgvMain.DataSource = auft;
                             dgvMain.Columns["auftragID"].Visible = false;
                             dgvMain.Columns["Name"].HeaderText = "Kundenname";
                         }
                     }
-                    else if (suchControlMain._sucheInfo.CbErledigt.Checked && suchControlMain._sucheInfo.CbAbgerechnet.Checked)
+                    else if (suchControlMain.sucheInfo.CbErledigt.Checked && suchControlMain.sucheInfo.CbAbgerechnet.Checked)
                     {
-                        var auft = (from a in db.Auftraege join k in db.Kunden on a.KundeID equals k.KundeID
-                                    where a.Abgerechnet != suchControlMain._sucheInfo.CbAbgerechnet.Checked && a.Erledigt == suchControlMain._sucheInfo.CbErledigt.Checked
+                        var auft = (from a in db.Auftraege
+                                    join k in db.Kunden on a.KundeID equals k.KundeID
+                                    where a.Abgerechnet == false && a.Erledigt == true
                                     select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
                         dgvMain.DataSource = auft;
                         dgvMain.Columns["auftragID"].Visible = false;
                         dgvMain.Columns["Name"].HeaderText = "Kundenname";
                     }
-                    else if(suchControlMain._sucheInfo.CbErledigt.Checked)
+                    else if (suchControlMain.sucheInfo.CbErledigt.Checked)
                     {
-                        var auft = (from a in db.Auftraege join k in db.Kunden on a.KundeID equals k.KundeID
+                        var auft = (from a in db.Auftraege
+                                    join k in db.Kunden on a.KundeID equals k.KundeID
                                     where a.Erledigt == true
                                     select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
                         dgvMain.DataSource = auft;
                         dgvMain.Columns["auftragID"].Visible = false;
                         dgvMain.Columns["Name"].HeaderText = "Kundenname";
                     }
-                    else if(suchControlMain._sucheInfo.CbAbgerechnet.Checked)
+                    else if (suchControlMain.sucheInfo.CbAbgerechnet.Checked)
                     {
-                        var auft = (from a in db.Auftraege join k in db.Kunden on a.KundeID equals k.KundeID
+                        var auft = (from a in db.Auftraege
+                                    join k in db.Kunden on a.KundeID equals k.KundeID
                                     where a.Abgerechnet == false
                                     select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
                         dgvMain.DataSource = auft;
@@ -163,9 +166,10 @@ namespace easyAuftrag
                     }
                     else
                     {
-                        var auft = (from a in db.Auftraege join k in db.Kunden on a.KundeID equals k.KundeID
-                                    select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
-                        dgvMain.DataSource = auft;
+                        var auftr = (from a in db.Auftraege
+                                     join k in db.Kunden on a.KundeID equals k.KundeID
+                                     select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
+                        dgvMain.DataSource = auftr;
                         dgvMain.Columns["auftragID"].Visible = false;
                         dgvMain.Columns["Name"].HeaderText = "Kundenname";
                     }
@@ -635,7 +639,7 @@ namespace easyAuftrag
         }
         private void suchControlMain_SuchEvent()
         {
-            MessageBox.Show(suchControlMain.Suche.ToString());
+            TabelleNeu();
         }
     }
 }
