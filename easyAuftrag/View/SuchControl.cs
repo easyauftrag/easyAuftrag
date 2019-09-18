@@ -41,10 +41,11 @@ namespace easyAuftrag.View
 {
     public partial class SuchControl : UserControl
     {
-        public event Action SuchEvent;
-        public SucheInfo sucheInfo = new SucheInfo();
         private List<SucheRow> _lstRow = new List<SucheRow>();
         private List<string> _spalten = new List<string>();
+
+        public event Action SuchEvent;
+        public SucheInfo sucheInfo = new SucheInfo();
         public List<SucheRow> Suche = new List<SucheRow>();
 
         public List<string> Spalten
@@ -97,7 +98,7 @@ namespace easyAuftrag.View
             DateTimePicker dtpAnfangVorlage = new DateTimePicker();
             DateTimePicker dtpEndeVorlage = new DateTimePicker();
 
-            comboLinkVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            comboLinkVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             comboLinkVorlage.FormattingEnabled = true;
             comboLinkVorlage.Location = new Point(4, tbSuche.Location.Y + _lstRow.Count * 30);
             comboLinkVorlage.Name = "comboLinkVorlage_" + _lstRow.Count.ToString();
@@ -109,42 +110,41 @@ namespace easyAuftrag.View
                 "oder"
             });
 
-            comboSpalteVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            comboSpalteVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             comboSpalteVorlage.FormattingEnabled = true;
             comboSpalteVorlage.Location = new Point(66, comboSpalte.Location.Y + _lstRow.Count * 30);
             comboSpalteVorlage.Name = "comboSpalteVorlage_" + _lstRow.Count.ToString();
             comboSpalteVorlage.Size = new Size(133, 21);
             comboSpalteVorlage.TabIndex = 3;
-            comboSpalteVorlage.SelectedIndexChanged += comboSpalteVorlage_SelectedIndexChanged;
+            comboSpalteVorlage.SelectedIndexChanged += ComboSpalteVorlage_SelectedIndexChanged;
             foreach (var spalte in Spalten)
             {
                 comboSpalteVorlage.Items.Add(spalte);
             }
 
-
-            tbSucheVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            tbSucheVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             tbSucheVorlage.Location = new Point(205, tbSuche.Location.Y + _lstRow.Count * 30);
             tbSucheVorlage.Name = "tbSucheVorlage_" + _lstRow.Count.ToString();
             tbSucheVorlage.Size = new Size(274, 20);
             tbSucheVorlage.TabIndex = 4;
 
-            dtpAnfangVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            dtpAnfangVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             dtpAnfangVorlage.Location = new Point(205, dtpAnfang.Location.Y + _lstRow.Count * 30);
             dtpAnfangVorlage.Name = "dtpAnfangVorlage_" + _lstRow.Count.ToString();
             dtpAnfangVorlage.Size = new Size(134, 20);
             dtpAnfangVorlage.TabIndex = 5;
 
-            dtpEndeVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            dtpEndeVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             dtpEndeVorlage.Location = new Point(345, dtpEnde.Location.Y + _lstRow.Count * 30);
             dtpEndeVorlage.Name = "dtpEndeVorlage_" + _lstRow.Count.ToString();
             dtpEndeVorlage.Size = new Size(134, 20);
             dtpEndeVorlage.TabIndex = 6;
 
-            this.Controls.Add(comboLinkVorlage);
-            this.Controls.Add(tbSucheVorlage);
-            this.Controls.Add(comboSpalteVorlage);
-            this.Controls.Add(dtpAnfangVorlage);
-            this.Controls.Add(dtpEndeVorlage);
+            Controls.Add(comboLinkVorlage);
+            Controls.Add(tbSucheVorlage);
+            Controls.Add(comboSpalteVorlage);
+            Controls.Add(dtpAnfangVorlage);
+            Controls.Add(dtpEndeVorlage);
 
             row.LinkControl = comboLinkVorlage;
             row.SpalteControl = comboSpalteVorlage;
@@ -154,7 +154,7 @@ namespace easyAuftrag.View
             _lstRow.Add(row);
         }
 
-        private void comboSpalteVorlage_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboSpalteVorlage_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
@@ -187,29 +187,19 @@ namespace easyAuftrag.View
 
         private void ButSuche_Click(object sender, EventArgs e)
         {
-            if (Suche != null)
-            { Suche.Clear(); };
-
             Suche = _lstRow;
             SuchEvent?.Invoke();
         }
 
         private void CbErledigt_CheckedChanged(object sender, EventArgs e)
         {
-            if (Suche != null)
-            { Suche.Clear(); };
             Suche = _lstRow;
             SuchEvent?.Invoke();
         }
 
         private void CbAbgerechnet_CheckedChanged(object sender, EventArgs e)
         {
-            if (Suche != null)
-            { Suche.Clear(); };
-            foreach (var item in _lstRow)
-            {
-                Suche.Add(item);
-            }
+            Suche = _lstRow;
             SuchEvent?.Invoke();
         }
 

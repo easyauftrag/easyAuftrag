@@ -1,4 +1,5 @@
-﻿namespace easyAuftrag
+﻿
+namespace easyAuftrag
 {
     partial class MainView
     {
@@ -138,7 +139,7 @@
             treeNode3});
             this.tvMain.Size = new System.Drawing.Size(189, 441);
             this.tvMain.TabIndex = 6;
-            this.tvMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.tvMain_MouseUp);
+            this.tvMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TvMain_MouseUp);
             // 
             // dgvMain
             // 
@@ -306,7 +307,7 @@
             this.toolStripNeu.Name = "toolStripNeu";
             this.toolStripNeu.Size = new System.Drawing.Size(130, 22);
             this.toolStripNeu.Text = "Neu";
-            this.toolStripNeu.Click += new System.EventHandler(this.toolStripNeu_Click);
+            this.toolStripNeu.Click += new System.EventHandler(this.ToolStripNeu_Click);
             // 
             // toolStripSeparator1
             // 
@@ -318,7 +319,7 @@
             this.toolStripBearbeiten.Name = "toolStripBearbeiten";
             this.toolStripBearbeiten.Size = new System.Drawing.Size(130, 22);
             this.toolStripBearbeiten.Text = "Bearbeiten";
-            this.toolStripBearbeiten.Click += new System.EventHandler(this.toolStripBearbeiten_Click);
+            this.toolStripBearbeiten.Click += new System.EventHandler(this.ToolStripBearbeiten_Click);
             // 
             // toolStripSeparator2
             // 
@@ -330,7 +331,7 @@
             this.toolStripLoeschen.Name = "toolStripLoeschen";
             this.toolStripLoeschen.Size = new System.Drawing.Size(130, 22);
             this.toolStripLoeschen.Text = "Löschen";
-            this.toolStripLoeschen.Click += new System.EventHandler(this.toolStripLoeschen_Click);
+            this.toolStripLoeschen.Click += new System.EventHandler(this.ToolStripLoeschen_Click);
             // 
             // suchControlMain
             // 
@@ -342,7 +343,7 @@
             this.suchControlMain.Spalten = ((System.Collections.Generic.List<string>)(resources.GetObject("suchControlMain.Spalten")));
             this.suchControlMain.Suche = null;
             this.suchControlMain.TabIndex = 12;
-            this.suchControlMain.SuchEvent += new System.Action(this.suchControlMain_SuchEvent);
+            this.suchControlMain.SuchEvent += new System.Action(this.SuchControlMain_SuchEvent);
             // 
             // MainView
             // 

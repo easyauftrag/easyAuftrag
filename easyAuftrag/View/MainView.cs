@@ -48,6 +48,11 @@ namespace easyAuftrag
     public partial class MainView : Form
     {
         private Handler _handler = new Handler();
+        private string[] _suchName;
+        private string[] _suchString;
+        private string _suchKomplett;
+        private DateTime[] _suchAnfang;
+        private DateTime[] _suchEnde;
 
         /// <summary>
         /// Konstruktor für die <see cref="MainView"/>
@@ -196,28 +201,36 @@ namespace easyAuftrag
                     List<Kunde> kun = (from k in db.Kunden select k).ToList();
                     foreach (Kunde k in kun)
                     {
-                        TreeNode nKunde = new TreeNode(k.Name);
-                        nKunde.Tag = "Kunde_" + k.KundeID.ToString();
+                        TreeNode nKunde = new TreeNode(k.Name)
+                        {
+                            Tag = "Kunde_" + k.KundeID.ToString()
+                        };
                         tvMain.Nodes["Kunden"].Nodes.Add(nKunde);
                     }
                     List<Mitarbeiter> mit = (from m in db.Mitarbeiters select m).ToList();
                     foreach (Mitarbeiter m in mit)
                     {
-                        TreeNode nMitarbeiter = new TreeNode(m.Name);
-                        nMitarbeiter.Tag = "Mitarbeiter_" + m.MitarbeiterID.ToString();
+                        TreeNode nMitarbeiter = new TreeNode(m.Name)
+                        {
+                            Tag = "Mitarbeiter_" + m.MitarbeiterID.ToString()
+                        };
                         tvMain.Nodes["Mitarbeiter"].Nodes.Add(nMitarbeiter);
                     }
                     List<Auftrag> auf = (from a in db.Auftraege select a).ToList();
                     foreach (Auftrag a in auf)
                     {
-                        TreeNode nAuftrag = new TreeNode(a.AuftragNummer);
-                        nAuftrag.Tag = "Auftrag_" + a.AuftragID.ToString();
+                        TreeNode nAuftrag = new TreeNode(a.AuftragNummer)
+                        {
+                            Tag = "Auftrag_" + a.AuftragID.ToString()
+                        };
                         tvMain.Nodes["Auftraege"].Nodes.Add(nAuftrag);
                         List<Taetigkeit> tat = (from t in db.Taetigkeiten where t.AuftragID == a.AuftragID select t).ToList();
                         foreach (Taetigkeit t in tat)
                         {
-                            TreeNode nTaetigkeit = new TreeNode(t.Name);
-                            nTaetigkeit.Tag = "Taetigkeit_" + t.TaetigkeitID.ToString();
+                            TreeNode nTaetigkeit = new TreeNode(t.Name)
+                            {
+                                Tag = "Taetigkeit_" + t.TaetigkeitID.ToString()
+                            };
                             tvMain.Nodes["Auftraege"].LastNode.Nodes.Add(nTaetigkeit);
                         }
                     }
@@ -421,7 +434,7 @@ namespace easyAuftrag
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void tvMain_MouseUp(object sender, MouseEventArgs e)
+        private void TvMain_MouseUp(object sender, MouseEventArgs e)
         {
             try
             {
@@ -455,7 +468,7 @@ namespace easyAuftrag
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void toolStripNeu_Click(object sender, EventArgs e)
+        private void ToolStripNeu_Click(object sender, EventArgs e)
         {
             try
             {
@@ -519,7 +532,7 @@ namespace easyAuftrag
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void toolStripBearbeiten_Click(object sender, EventArgs e)
+        private void ToolStripBearbeiten_Click(object sender, EventArgs e)
         {
             try
             {
@@ -581,7 +594,7 @@ namespace easyAuftrag
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void toolStripLoeschen_Click(object sender, EventArgs e)
+        private void ToolStripLoeschen_Click(object sender, EventArgs e)
         {
             try
             {
@@ -637,9 +650,49 @@ namespace easyAuftrag
                 ErrorHandler.ErrorHandle(ex);
             }
         }
-        private void suchControlMain_SuchEvent()
+        private void SuchControlMain_SuchEvent()
         {
-            TabelleNeu();
+            using (var db = new EasyAuftragContext())
+            {
+                int index = 0;
+                foreach (var item in suchControlMain.Suche)
+                {
+                    
+                    switch (item.SpalteControl.Text)
+                    {
+                        case "AuftragNummer":
+                            _suchName[index] = "a.AuftragNummer";
+                            _suchString[index] = item.ValueControl.Text;
+                            break;
+                        case "Name":
+                            _suchName[index] = "k.Name";
+                            _suchString[index] = item.ValueControl.Text;
+                            break;
+                        case "Eingang":
+                            _suchName[index] = "a.Eingang";
+                            _suchAnfang[index] = item.AnfangControl.Value;
+                            _suchEnde[index] = item.EndeControl.Value;
+                            break;
+                        case "Erteilt":
+                            _suchName[index] = "a.Erteilt";
+                            _suchAnfang[index] = item.AnfangControl.Value;
+                            _suchEnde[index] = item.EndeControl.Value;
+                            break;
+                    }
+                    index++;
+                }
+                for (int i=0; i <= index; i++)
+                {
+                    _suchKomplett += _suchName[i] + " == " +  _suchString[i]
+                }
+                var auft1 = (from a in db.Auftraege
+                             join k in db.Kunden on a.KundeID equals k.KundeID
+                             where _suchName == _suchString 
+                             select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
+                dgvMain.DataSource = auft1;
+                dgvMain.Columns["auftragID"].Visible = false;
+                dgvMain.Columns["Name"].HeaderText = "Kundenname";
+            }
         }
     }
 }
