@@ -68,7 +68,7 @@ namespace easyAuftrag
             TreeViewNeu();
             List<string> lstSpalten = new List<string>();
             int s = dgvMain.Columns.Count;
-            for (int i = 1; i < s; i++)
+            for (int i = 1; i < (s-2); i++)
             {
                 lstSpalten.Add(dgvMain.Columns[i].ToString().Split('=')[1].Split(',')[0]);
             }
@@ -635,7 +635,7 @@ namespace easyAuftrag
         }
         private void suchControlMain_SuchEvent()
         {
-            MessageBox.Show(suchControlMain.Suche);
+            MessageBox.Show(suchControlMain.Suche.ToString());
         }
     }
 }

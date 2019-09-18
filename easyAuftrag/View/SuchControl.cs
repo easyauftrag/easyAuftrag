@@ -35,6 +35,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Core.Model;
+using Core;
 
 namespace easyAuftrag.View
 {
@@ -44,7 +45,7 @@ namespace easyAuftrag.View
         public SucheInfo _sucheInfo = new SucheInfo();
         private List<SucheRow> _lstRow = new List<SucheRow>();
         private List<string> _spalten = new List<string>();
-        public string Suche { get; set; }
+        public List<SucheRow> Suche { get; set; }
 
         public List<string> Spalten
         {
@@ -52,7 +53,7 @@ namespace easyAuftrag.View
             set
             {
                 _spalten = value;
-                FuelleSpalten();
+                FillSpalten();
             }
         }
 
@@ -61,7 +62,7 @@ namespace easyAuftrag.View
             InitializeComponent();
             SucheRow row = new SucheRow
             {
-                LinkControl = new ComboBox(),
+                LinkControl = comboLink,
                 SpalteControl = comboSpalte,
                 ValueControl = tbSuche,
                 AnfangControl = dtpAnfang,
@@ -79,7 +80,7 @@ namespace easyAuftrag.View
             _sucheInfo.DtpEnde.Visible = false;
         }
 
-        private void FuelleSpalten()
+        private void FillSpalten()
         {
             foreach (var spalte in Spalten)
             {
@@ -98,69 +99,136 @@ namespace easyAuftrag.View
 
             comboLinkVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             comboLinkVorlage.FormattingEnabled = true;
-            comboLinkVorlage.Location = new Point(3, tbSuche.Location.Y + _lstRow.Count * 30);
-            comboLinkVorlage.Name = "cmbLinkVorlage";
-            comboLinkVorlage.Size = new Size(62, 21);
-            comboLinkVorlage.TabIndex = 7;
+            comboLinkVorlage.Location = new Point(4, tbSuche.Location.Y + _lstRow.Count * 30);
+            comboLinkVorlage.Name = "comboLinkVorlage_" + _lstRow.Count.ToString();
+            comboLinkVorlage.Size = new Size(56, 21);
+            comboLinkVorlage.TabIndex = 2;
 
             comboSpalteVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             comboSpalteVorlage.FormattingEnabled = true;
-            comboSpalteVorlage.Location = new Point(71, comboSpalte.Location.Y + _lstRow.Count * 30);
-            comboSpalteVorlage.Name = "comboSpalteVorlage";
-            comboSpalteVorlage.Size = new Size(115, 21);
-            comboSpalteVorlage.TabIndex = 4;
+            comboSpalteVorlage.Location = new Point(66, comboSpalte.Location.Y + _lstRow.Count * 30);
+            comboSpalteVorlage.Name = "comboSpalteVorlage_" + _lstRow.Count.ToString();
+            comboSpalteVorlage.Size = new Size(133, 21);
+            comboSpalteVorlage.TabIndex = 3;
             comboSpalteVorlage.SelectedIndexChanged += comboSpalteVorlage_SelectedIndexChanged;
             foreach (var spalte in Spalten)
             {
                 comboSpalteVorlage.Items.Add(spalte);
             }
 
+
             tbSucheVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            tbSucheVorlage.Location = new Point(327, tbSuche.Location.Y + _lstRow.Count * 30);
-            tbSucheVorlage.Name = "txtValueVorlage";
-            tbSucheVorlage.Size = new Size(168, 20);
-            tbSucheVorlage.TabIndex = 6;
+            tbSucheVorlage.Location = new Point(205, tbSuche.Location.Y + _lstRow.Count * 30);
+            tbSucheVorlage.Name = "tbSucheVorlage_" + _lstRow.Count.ToString();
+            tbSucheVorlage.Size = new Size(274, 20);
+            tbSucheVorlage.TabIndex = 4;
 
             dtpAnfangVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            dtpAnfangVorlage.Location = new Point(327, dtpAnfang.Location.Y + _lstRow.Count * 30);
-            dtpAnfangVorlage.Name = "txtValueVorlage";
-            dtpAnfangVorlage.Size = new Size(168, 20);
-            dtpAnfangVorlage.TabIndex = 6;
+            dtpAnfangVorlage.Location = new Point(205, dtpAnfang.Location.Y + _lstRow.Count * 30);
+            dtpAnfangVorlage.Name = "dtpAnfangVorlage_" + _lstRow.Count.ToString();
+            dtpAnfangVorlage.Size = new Size(134, 20);
+            dtpAnfangVorlage.TabIndex = 5;
 
             dtpEndeVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            dtpEndeVorlage.Location = new Point(375, dtpEnde.Location.Y + _lstRow.Count * 30);
-            dtpEndeVorlage.Name = "txtValueVorlage";
-            dtpEndeVorlage.Size = new Size(168, 20);
-            dtpEndeVorlage.TabIndex = 7;
+            dtpEndeVorlage.Location = new Point(345, dtpEnde.Location.Y + _lstRow.Count * 30);
+            dtpEndeVorlage.Name = "dtpEndeVorlage_" + _lstRow.Count.ToString();
+            dtpEndeVorlage.Size = new Size(134, 20);
+            dtpEndeVorlage.TabIndex = 6;
 
+            this.Controls.Add(comboLinkVorlage);
+            this.Controls.Add(tbSucheVorlage);
+            this.Controls.Add(comboSpalteVorlage);
+            this.Controls.Add(dtpAnfangVorlage);
+            this.Controls.Add(dtpEndeVorlage);
+
+            row.LinkControl = comboLinkVorlage;
+            row.SpalteControl = comboSpalteVorlage;
+            row.ValueControl = tbSucheVorlage;
+            row.AnfangControl = dtpAnfangVorlage;
+            row.EndeControl = dtpEndeVorlage;
+            _lstRow.Add(row);
+        }
+
+        private void comboSpalteVorlage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (_lstRow.Count < 3)
+                {
+                    AddControls();
+                }
+                ComboBox cbNew = (ComboBox)sender;
+                int currentIndex = Convert.ToInt32(cbNew.Name.Split('_')[1]);
+                if (cbNew.SelectedItem.Equals("Eingang") || cbNew.SelectedItem.Equals("Erteilt"))
+                {
+                    _lstRow[currentIndex].AnfangControl.Visible = true;
+                    _lstRow[currentIndex].EndeControl.Visible = true;
+                    _lstRow[currentIndex].ValueControl.Visible = false;
+                }
+                else
+                {
+                    _lstRow[currentIndex].AnfangControl.Visible = false;
+                    _lstRow[currentIndex].EndeControl.Visible = false;
+                    _lstRow[currentIndex].ValueControl.Visible = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                ErrorHandler.ErrorHandle(ex);
+            }
+            
         }
 
         private void ButSuche_Click(object sender, EventArgs e)
-        { 
+        {
+            Suche.Clear();
+            foreach (var item in _lstRow)
+            {
+                Suche.Add(item);
+            }
             SuchEvent?.Invoke();
         }
 
         private void CbErledigt_CheckedChanged(object sender, EventArgs e)
         {
+            Suche.Clear();
             foreach (var item in _lstRow)
             {
-                Suche += item.Text + "\n";
+                Suche.Add(item);
             }
             SuchEvent?.Invoke();
         }
 
         private void CbAbgerechnet_CheckedChanged(object sender, EventArgs e)
         {
+            Suche.Clear();
+            foreach (var item in _lstRow)
+            {
+                Suche.Add(item);
+            }
             SuchEvent?.Invoke();
         }
-        private void comboSpalte_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            AddControls();
-        }
 
-        private void comboSpalteVorlage_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboSpalte_SelectedIndexChanged(object sender, EventArgs e)
         {
-            AddControls();
+            if (comboSpalte.SelectedItem.Equals("Eingang") || comboSpalte.SelectedItem.Equals("Erteilt"))
+            {
+                dtpAnfang.Visible = true;
+                dtpEnde.Visible = true;
+                tbSuche.Visible = false;
+            }
+            else
+            {
+                dtpAnfang.Visible = false;
+                dtpEnde.Visible = false;
+                tbSuche.Visible = true;
+            }
+            if (_lstRow.Count < 3)
+            {
+                AddControls();
+            }
+            
         }
     }
 }

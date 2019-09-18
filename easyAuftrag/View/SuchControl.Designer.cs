@@ -37,7 +37,7 @@
             this.comboSpalte = new System.Windows.Forms.ComboBox();
             this.labSpalte = new System.Windows.Forms.Label();
             this.labWert = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboLink = new System.Windows.Forms.ComboBox();
             this.labLink = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -101,6 +101,7 @@
             this.comboSpalte.Name = "comboSpalte";
             this.comboSpalte.Size = new System.Drawing.Size(133, 21);
             this.comboSpalte.TabIndex = 11;
+            this.comboSpalte.SelectedIndexChanged += new System.EventHandler(this.ComboSpalte_SelectedIndexChanged);
             // 
             // labSpalte
             // 
@@ -120,13 +121,13 @@
             this.labWert.TabIndex = 13;
             this.labWert.Text = "Wert";
             // 
-            // comboBox1
+            // comboLink
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(4, 44);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(56, 21);
-            this.comboBox1.TabIndex = 14;
+            this.comboLink.FormattingEnabled = true;
+            this.comboLink.Location = new System.Drawing.Point(4, 44);
+            this.comboLink.Name = "comboLink";
+            this.comboLink.Size = new System.Drawing.Size(56, 21);
+            this.comboLink.TabIndex = 14;
             // 
             // labLink
             // 
@@ -142,7 +143,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.labLink);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.comboLink);
             this.Controls.Add(this.labWert);
             this.Controls.Add(this.labSpalte);
             this.Controls.Add(this.comboSpalte);
@@ -170,7 +171,7 @@
         private System.Windows.Forms.ComboBox comboSpalte;
         private System.Windows.Forms.Label labSpalte;
         private System.Windows.Forms.Label labWert;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboLink;
         private System.Windows.Forms.Label labLink;
     }
 }

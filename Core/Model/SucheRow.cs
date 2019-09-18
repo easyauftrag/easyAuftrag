@@ -42,16 +42,5 @@ namespace Core.Model
         public DateTimePicker AnfangControl { get; set; }
         public DateTimePicker EndeControl { get; set; }
 
-        public string Text
-        {
-            get
-            {
-                return LinkControl.Text
-                    + " " + SpalteControl.Text
-                    + " " + ValueControl.Text
-                    + " " + AnfangControl.Text
-                    + " " + EndeControl.Text;
-            }
-        }
     }
 }
