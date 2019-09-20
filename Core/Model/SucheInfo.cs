@@ -43,6 +43,5 @@ namespace Core.Model
         public TextBox TbSuche { get; set; }
         public DateTimePicker DtpAnfang { get; set; }
         public DateTimePicker DtpEnde { get; set; }
-        
     }
 }

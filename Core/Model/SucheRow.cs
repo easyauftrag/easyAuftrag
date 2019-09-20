@@ -41,6 +41,8 @@ namespace Core.Model
         public TextBox ValueControl { get; set; }
         public DateTimePicker AnfangControl { get; set; }
         public DateTimePicker EndeControl { get; set; }
+        public CheckBox AbgerechnetControl { get; set; }
+        public CheckBox ErledigtControl { get; set; }
 
     }
 }

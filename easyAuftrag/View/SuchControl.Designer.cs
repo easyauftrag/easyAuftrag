@@ -44,7 +44,7 @@
             // cbErledigt
             // 
             this.cbErledigt.AutoSize = true;
-            this.cbErledigt.Location = new System.Drawing.Point(3, 3);
+            this.cbErledigt.Location = new System.Drawing.Point(205, 46);
             this.cbErledigt.Name = "cbErledigt";
             this.cbErledigt.Size = new System.Drawing.Size(110, 17);
             this.cbErledigt.TabIndex = 0;
@@ -55,7 +55,7 @@
             // cbAbgerechnet
             // 
             this.cbAbgerechnet.AutoSize = true;
-            this.cbAbgerechnet.Location = new System.Drawing.Point(119, 3);
+            this.cbAbgerechnet.Location = new System.Drawing.Point(205, 46);
             this.cbAbgerechnet.Name = "cbAbgerechnet";
             this.cbAbgerechnet.Size = new System.Drawing.Size(163, 17);
             this.cbAbgerechnet.TabIndex = 1;
