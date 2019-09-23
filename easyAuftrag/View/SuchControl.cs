@@ -43,10 +43,12 @@ namespace easyAuftrag.View
     {
         private List<SucheRow> _lstRow = new List<SucheRow>();
         private List<string> _spalten = new List<string>();
-
         public event Action SuchEvent;
         public List<SucheRow> Suche = new List<SucheRow>();
 
+        /// <summary>
+        /// Auslesen oder Befüllen der Spalten im <see cref="SuchControl"/>
+        /// </summary>
         public List<string> Spalten
         {
             get { return _spalten; }
@@ -57,14 +59,9 @@ namespace easyAuftrag.View
             }
         }
 
-        private void FillSpalten()
-        {
-            foreach (var spalte in Spalten)
-            {
-                comboSpalte.Items.Add(spalte);
-            }
-        }
-
+        /// <summary>
+        /// Konstruktor für das <see cref="SuchControl"/>
+        /// </summary>
         public SuchControl()
         {
             InitializeComponent();
@@ -79,6 +76,7 @@ namespace easyAuftrag.View
                 ErledigtControl = cbErledigt,
 
             };
+            row.LinkControl.Visible = false;
             row.AnfangControl.Visible = false;
             row.EndeControl.Visible = false;
             row.AbgerechnetControl.Visible = false;
@@ -86,6 +84,20 @@ namespace easyAuftrag.View
             _lstRow.Add(row);
         }
 
+        /// <summary>
+        /// Methode zum befüllen der <see cref="ComboBox"/> Spalten im <see cref="SuchControl"/>
+        /// </summary>
+        private void FillSpalten()
+        {
+            foreach (var spalte in Spalten)
+            {
+                comboSpalte.Items.Add(spalte);
+            }
+        }
+
+        /// <summary>
+        /// Methode zum Hinzufügen einer zusätzlichen Suchzeile im <see cref="SuchControl"/>
+        /// </summary>
         private void AddControls()
         {
             SucheRow row = new SucheRow();
@@ -96,7 +108,6 @@ namespace easyAuftrag.View
             DateTimePicker dtpEndeVorlage = new DateTimePicker();
             CheckBox cbAbgerechnetVorlage = new CheckBox();
             CheckBox cbErledigtVorlage = new CheckBox();
-
 
             comboLinkVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             comboLinkVorlage.FormattingEnabled = true;
@@ -169,66 +180,13 @@ namespace easyAuftrag.View
             row.EndeControl = dtpEndeVorlage;
             row.AbgerechnetControl = cbAbgerechnetVorlage;
             row.ErledigtControl = cbErledigtVorlage;
+
             _lstRow.Add(row);
         }
 
-        private void ComboSpalteVorlage_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if (_lstRow.Count < 3)
-                {
-                    AddControls();
-                }
-                ComboBox cbNew = (ComboBox)sender;
-                int currentIndex = Convert.ToInt32(cbNew.Name.Split('_')[1]);
-                if (cbNew.SelectedItem.Equals("Eingang") || cbNew.SelectedItem.Equals("Erteilt"))
-                {
-                    _lstRow[currentIndex].AnfangControl.Visible = true;
-                    _lstRow[currentIndex].EndeControl.Visible = true;
-                    _lstRow[currentIndex].ValueControl.Visible = false;
-                    _lstRow[currentIndex].AbgerechnetControl.Visible = false;
-                    _lstRow[currentIndex].ErledigtControl.Visible = false;
-                }
-                else if (cbNew.SelectedItem.Equals("Abgerechnet"))
-                {
-                    _lstRow[currentIndex].AbgerechnetControl.Visible = true;
-                    _lstRow[currentIndex].ErledigtControl.Visible = false;
-                    _lstRow[currentIndex].AnfangControl.Visible = false;
-                    _lstRow[currentIndex].EndeControl.Visible = false;
-                    _lstRow[currentIndex].ValueControl.Visible = false;
-                }
-                else if (cbNew.SelectedItem.Equals("Erledigt"))
-                {
-                    _lstRow[currentIndex].ErledigtControl.Visible = true;
-                    _lstRow[currentIndex].AbgerechnetControl.Visible = false;
-                    _lstRow[currentIndex].AnfangControl.Visible = false;
-                    _lstRow[currentIndex].EndeControl.Visible = false;
-                    _lstRow[currentIndex].ValueControl.Visible = false;
-                }
-                else
-                {
-                    _lstRow[currentIndex].ValueControl.Visible = true;
-                    _lstRow[currentIndex].AnfangControl.Visible = false;
-                    _lstRow[currentIndex].EndeControl.Visible = false;
-                    _lstRow[currentIndex].AbgerechnetControl.Visible = false;
-                    _lstRow[currentIndex].ErledigtControl.Visible = false;
-                }
-            }
-            catch (Exception ex)
-            {
-
-                ErrorHandler.ErrorHandle(ex);
-            }
-            
-        }
-
-        private void ButSuche_Click(object sender, EventArgs e)
-        {
-            Suche = _lstRow;
-            SuchEvent?.Invoke();
-        }
-
+        /// <summary>
+        /// Methode zum Ausblenden der nicht verwendeten Controls in der ersten Zeile des <see cref="SuchControl"/>
+        /// </summary>
         private void ComboSpalte_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboSpalte.SelectedItem.Equals("Eingang") || comboSpalte.SelectedItem.Equals("Erteilt"))
@@ -239,10 +197,18 @@ namespace easyAuftrag.View
                 cbAbgerechnet.Visible = false;
                 cbErledigt.Visible = false;
             }
-            else if (comboSpalte.SelectedItem.Equals("Abgerechnet") || comboSpalte.SelectedItem.Equals("Erledigt"))
+            else if (comboSpalte.SelectedItem.Equals("Abgerechnet"))
             {
                 cbAbgerechnet.Visible = true;
+                cbErledigt.Visible = false;
+                dtpAnfang.Visible = false;
+                dtpEnde.Visible = false;
+                tbSuche.Visible = false;
+            }
+            else if (comboSpalte.SelectedItem.Equals("Erledigt"))
+            {
                 cbErledigt.Visible = true;
+                cbAbgerechnet.Visible = false;
                 dtpAnfang.Visible = false;
                 dtpEnde.Visible = false;
                 tbSuche.Visible = false;
@@ -259,7 +225,62 @@ namespace easyAuftrag.View
             {
                 AddControls();
             }
-            
+        }
+
+        /// <summary>
+        /// Methode zum Ausblenden der nicht verwendeten Controls in den weiteren Zeilen des <see cref="SuchControl"/>
+        /// </summary>
+        private void ComboSpalteVorlage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox cbNew = (ComboBox)sender;
+            int currentIndex = Convert.ToInt32(cbNew.Name.Split('_')[1]);
+            if (cbNew.SelectedItem.Equals("Eingang") || cbNew.SelectedItem.Equals("Erteilt"))
+            {
+                _lstRow[currentIndex].AnfangControl.Visible = true;
+                _lstRow[currentIndex].EndeControl.Visible = true;
+                _lstRow[currentIndex].ValueControl.Visible = false;
+                _lstRow[currentIndex].AbgerechnetControl.Visible = false;
+                _lstRow[currentIndex].ErledigtControl.Visible = false;
+            }
+            else if (cbNew.SelectedItem.Equals("Abgerechnet"))
+            {
+                _lstRow[currentIndex].AbgerechnetControl.Visible = true;
+                _lstRow[currentIndex].ErledigtControl.Visible = false;
+                _lstRow[currentIndex].AnfangControl.Visible = false;
+                _lstRow[currentIndex].EndeControl.Visible = false;
+                _lstRow[currentIndex].ValueControl.Visible = false;
+            }
+            else if (cbNew.SelectedItem.Equals("Erledigt"))
+            {
+                _lstRow[currentIndex].ErledigtControl.Visible = true;
+                _lstRow[currentIndex].AbgerechnetControl.Visible = false;
+                _lstRow[currentIndex].AnfangControl.Visible = false;
+                _lstRow[currentIndex].EndeControl.Visible = false;
+                _lstRow[currentIndex].ValueControl.Visible = false;
+            }
+            else
+            {
+                _lstRow[currentIndex].ValueControl.Visible = true;
+                _lstRow[currentIndex].AnfangControl.Visible = false;
+                _lstRow[currentIndex].EndeControl.Visible = false;
+                _lstRow[currentIndex].AbgerechnetControl.Visible = false;
+                _lstRow[currentIndex].ErledigtControl.Visible = false;
+            }
+            if (_lstRow.Count < 3)
+            {
+                AddControls();
+            }
+        }
+
+        /// <summary>
+        /// Action beim Klick auf den "Suche" Button im <see cref="SuchControl"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButSuche_Click(object sender, EventArgs e)
+        {
+            Suche = _lstRow;
+            SuchEvent?.Invoke();
         }
     }
 }

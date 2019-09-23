@@ -66,19 +66,26 @@ namespace easyAuftrag
         /// <param name="e"></param>
         private void MainView_Load(object sender, EventArgs e)
         {
-            TabelleNeu();
-            TreeViewNeu();
-            List<string> lstSpalten = new List<string>();
-            int s = dgvMain.Columns.Count;
-            for (int i = 1; i < s; i++)
+            try
             {
-                lstSpalten.Add(dgvMain.Columns[i].ToString().Split('=')[1].Split(',')[0]);
+                TabelleNeu();
+                TreeViewNeu();
+                List<string> lstSpalten = new List<string>();
+                int s = dgvMain.Columns.Count;
+                for (int i = 1; i < s; i++)
+                {
+                    lstSpalten.Add(dgvMain.Columns[i].ToString().Split('=')[1].Split(',')[0]);
+                }
+                suchControlMain.Spalten = lstSpalten;
             }
-            suchControlMain.Spalten = lstSpalten;
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         /// <summary>
-        /// Methode zum laden und aktualisieren der Aufträge im <see cref="DataGridView"/>
+        /// Methode zum Laden und Aktualisieren der Aufträge im <see cref="DataGridView"/>
         /// </summary>
         public void TabelleNeu()
         {
@@ -88,7 +95,6 @@ namespace easyAuftrag
                 {
                     var auftraege = (from a in db.Auftraege where a.Abgerechnet == false && a.Erledigt == true select a).ToList();
                     tssLabNummer.Text = auftraege.Count().ToString();
-                    
                     var auftr = (from a in db.Auftraege
                                     join k in db.Kunden on a.KundeID equals k.KundeID
                                     select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
@@ -104,7 +110,7 @@ namespace easyAuftrag
         }
 
         /// <summary>
-        /// Methode zum laden und aktualisieren der Einträge im <see cref="TreeView"/>
+        /// Methode zum Laden und Aktualisieren der Einträge im <see cref="TreeView"/>
         /// </summary>
         private void TreeViewNeu()
         {
@@ -166,14 +172,21 @@ namespace easyAuftrag
         /// <param name="e"></param>
         private void ButKunde_Click(object sender, EventArgs e)
         {
-            KundeView kundeV = new KundeView("Neuer Kunde");
-            if (kundeV.ShowDialog() == DialogResult.OK)
-            {
-                _handler.KundeAnlegen(kundeV.KundenInfo);
+            try
+            { 
+                KundeView kundeV = new KundeView("Neuer Kunde");
+                if (kundeV.ShowDialog() == DialogResult.OK)
+                {
+                    _handler.KundeAnlegen(kundeV.KundenInfo);
+                }
+                this.BringToFront();
+                this.Activate();
+                TreeViewNeu();
             }
-            this.BringToFront();
-            this.Activate();
-            TreeViewNeu();
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         /// <summary>
@@ -183,14 +196,21 @@ namespace easyAuftrag
         /// <param name="e"></param>
         private void ButMitarbeiter_Click(object sender, EventArgs e)
         {
-            MitarbeiterView mitarbeiterV = new MitarbeiterView("Neuer Mitarbeiter");
-            if (mitarbeiterV.ShowDialog() == DialogResult.OK)
+            try
             {
-                _handler.MitarbeiterAnlegen(mitarbeiterV.MitarbeiterInfo);
+                MitarbeiterView mitarbeiterV = new MitarbeiterView("Neuer Mitarbeiter");
+                if (mitarbeiterV.ShowDialog() == DialogResult.OK)
+                {
+                    _handler.MitarbeiterAnlegen(mitarbeiterV.MitarbeiterInfo);
+                }
+                this.BringToFront();
+                this.Activate();
+                TreeViewNeu();
             }
-            this.BringToFront();
-            this.Activate();
-            TreeViewNeu();
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         /// <summary>
@@ -200,15 +220,22 @@ namespace easyAuftrag
         /// <param name="e"></param>
         private void ButAuftrag_Click(object sender, EventArgs e)
         {
-            AuftragView auftragV = new AuftragView("Neuer Auftrag");
-            if (auftragV.ShowDialog() == DialogResult.OK)
+            try
             {
-                _handler.AuftragAnlegen(auftragV.AuftragInfo);
+                AuftragView auftragV = new AuftragView("Neuer Auftrag");
+                if (auftragV.ShowDialog() == DialogResult.OK)
+                {
+                    _handler.AuftragAnlegen(auftragV.AuftragInfo);
+                }
+                this.BringToFront();
+                this.Activate();
+                TabelleNeu();
+                TreeViewNeu();
             }
-            this.BringToFront();
-            this.Activate();
-            TabelleNeu();
-            TreeViewNeu();
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         /// <summary>
@@ -231,15 +258,22 @@ namespace easyAuftrag
         /// <param name="e"></param>
         private void TSMIneu_Click(object sender, EventArgs e)
         {
-            AuftragView auftragV = new AuftragView("Neuer Auftrag");
-            if (auftragV.ShowDialog() == DialogResult.OK)
+            try
             {
-                _handler.AuftragAnlegen(auftragV.AuftragInfo);
+                AuftragView auftragV = new AuftragView("Neuer Auftrag");
+                if (auftragV.ShowDialog() == DialogResult.OK)
+                {
+                    _handler.AuftragAnlegen(auftragV.AuftragInfo);
+                }
+                this.BringToFront();
+                this.Activate();
+                TabelleNeu();
+                TreeViewNeu();
             }
-            this.BringToFront();
-            this.Activate();
-            TabelleNeu();
-            TreeViewNeu();
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         /// <summary>
@@ -249,19 +283,26 @@ namespace easyAuftrag
         /// <param name="e"></param>
         private void TSMIbearbeiten_Click(object sender, EventArgs e)
         {
-            if (dgvMain.SelectedRows.Count > 0)
+            try
             {
-                int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
-                AuftragView auftragV = new AuftragView("Auftrag Bearbeiten", auftrag: _handler.AuftragLaden(auftragID));
-                if (auftragV.ShowDialog() == DialogResult.OK)
+                if (dgvMain.SelectedRows.Count > 0)
                 {
-                    _handler.AuftragBearbeiten(auftragV.AuftragInfo, auftragID);
+                    int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
+                    AuftragView auftragV = new AuftragView("Auftrag Bearbeiten", auftrag: _handler.AuftragLaden(auftragID));
+                    if (auftragV.ShowDialog() == DialogResult.OK)
+                    {
+                        _handler.AuftragBearbeiten(auftragV.AuftragInfo, auftragID);
+                    }
                 }
+                this.BringToFront();
+                this.Activate();
+                TabelleNeu();
+                TreeViewNeu();
             }
-            this.BringToFront();
-            this.Activate();
-            TabelleNeu();
-            TreeViewNeu();
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         /// <summary>
@@ -271,19 +312,26 @@ namespace easyAuftrag
         /// <param name="e"></param>
         private void TSMIloeschen_Click(object sender, EventArgs e)
         {
-            if (dgvMain.SelectedRows.Count > 0)
+            try
             {
-                int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
-                AuftragView auftragV = new AuftragView("Auftrag Löschen", auftrag: _handler.AuftragLaden(auftragID));
-                if (auftragV.ShowDialog() == DialogResult.OK)
+                if (dgvMain.SelectedRows.Count > 0)
                 {
-                    _handler.AuftragLoeschen(auftragID);
+                    int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
+                    AuftragView auftragV = new AuftragView("Auftrag Löschen", auftrag: _handler.AuftragLaden(auftragID));
+                    if (auftragV.ShowDialog() == DialogResult.OK)
+                    {
+                        _handler.AuftragLoeschen(auftragID);
+                    }
                 }
+                this.BringToFront();
+                this.Activate();
+                TabelleNeu();
+                TreeViewNeu();
             }
-            this.BringToFront();
-            this.Activate();
-            TabelleNeu();
-            TreeViewNeu();
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         /// <summary>
@@ -319,14 +367,12 @@ namespace easyAuftrag
                         {
                             MitList.Add((from m in db.Mitarbeiters where m.MitarbeiterID == t.MitarbeiterID select m).First());
                         }
-
                         doc.AuftragNr = auftrag.AuftragNummer;
                         doc.KundeName = kunde.Name;
                         doc.KundeAnschrift = kunde.Strasse + " " + kunde.Hausnr + ", " + kunde.PLZ + " " + kunde.Wohnort;
                         doc.KundeTelefon = kunde.TelefonNr;
                         doc.TatListe = Tatlist;
                         doc.MitList = MitList;
-
                         Drucken druck = new Drucken();
                         druck.Druck(doc);
                     }
@@ -581,46 +627,53 @@ namespace easyAuftrag
                 ErrorHandler.ErrorHandle(ex);
             }
         }
+
+        /// <summary>
+        /// Methode zum Filtern der Aufträge in der <see cref="DataGridView"/> nach den Kriterien im <see cref="SuchControl"/>
+        /// </summary>
         private void SuchControlMain_SuchEvent()
         {
             try
             {
                 using (var db = new EasyAuftragContext())
                 {
-                    var auft = (from auf in db.Auftraege
-                                join k in db.Kunden on auf.KundeID equals k.KundeID
-                                select new { auf.AuftragID, auf.AuftragNummer, k.Name, auf.Eingang, auf.Erteilt, auf.Erledigt, auf.Abgerechnet }).ToList();
-
+                    var auft = (from a in db.Auftraege
+                                join k in db.Kunden on a.KundeID equals k.KundeID
+                                select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
                     foreach (var item in suchControlMain.Suche)
                     {
-                        if (!string.IsNullOrEmpty(item.SpalteControl.Text))
+                        if (item.LinkControl.Text == "und" || string.IsNullOrEmpty(item.LinkControl.Text))
                         {
-                            switch (item.SpalteControl.Text)
+                            if (!string.IsNullOrEmpty(item.SpalteControl.Text))
                             {
-                                case "AuftragNummer":
-                                    if (!string.IsNullOrEmpty(item.ValueControl.Text))
-                                    {
-                                        auft = auft.Where(p => p.AuftragNummer.Contains(item.ValueControl.Text)).ToList();
-                                    }
-                                    break;
-                                case "Name":
-                                    if (!string.IsNullOrEmpty(item.ValueControl.Text))
-                                    {
-                                        auft = auft.Where(p => p.Name.Contains(item.ValueControl.Text)).ToList();
-                                    }
-                                    break;
-                                case "Eingang":
-                                    auft = auft.Where(p => p.Eingang >= item.AnfangControl.Value && p.Eingang <= item.EndeControl.Value).ToList();
-                                    break;
-                                case "Erteilt":
-                                    auft = auft.Where(p => p.Erteilt >= item.AnfangControl.Value && p.Erteilt <= item.EndeControl.Value).ToList();
-                                    break;
-                                case "Abgerechnet":
-                                    auft = auft.Where(p => p.Abgerechnet != item.AbgerechnetControl.Checked).ToList();
-                                    break;
-                                case "Erledigt":
-                                    auft = auft.Where(p => p.Erledigt == item.ErledigtControl.Checked).ToList();
-                                    break;
+                                switch (item.SpalteControl.Text)
+                                {
+                                    case "AuftragNummer":
+                                        if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
+                                        {
+                                            auft = auft.Where(a => a.AuftragNummer.Contains(item.ValueControl.Text)).ToList();
+                                        }
+                                        break;
+                                    case "Name":
+                                        if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
+                                        {
+                                            auft = auft.Where(a => a.Name.Contains(item.ValueControl.Text)).ToList();
+                                        }
+                                        break;
+                                    case "Eingang":
+                                        auft = auft.Where(a => a.Eingang >= item.AnfangControl.Value && a.Eingang <= item.EndeControl.Value).ToList();
+                                        break;
+                                    case "Erteilt":
+                                        auft = auft.Where(a => a.Erteilt >= item.AnfangControl.Value && a.Erteilt <= item.EndeControl.Value).ToList();
+                                        break;
+                                    case "Abgerechnet":
+                                        auft = auft.Where(a => a.Abgerechnet != item.AbgerechnetControl.Checked).ToList();
+                                        break;
+                                    case "Erledigt":
+                                        auft = auft.Where(a => a.Erledigt == item.ErledigtControl.Checked).ToList();
+                                        break;
+                                }
+
                             }
                         }
                     }
