@@ -66,15 +66,22 @@ namespace easyAuftrag
         /// <param name="e"></param>
         private void MainView_Load(object sender, EventArgs e)
         {
-            TabelleNeu();
-            TreeViewNeu();
-            List<string> lstSpalten = new List<string>();
-            int s = dgvMain.Columns.Count;
-            for (int i = 1; i < s; i++)
+            try
             {
-                lstSpalten.Add(dgvMain.Columns[i].ToString().Split('=')[1].Split(',')[0]);
+                TabelleNeu();
+                TreeViewNeu();
+                List<string> lstSpalten = new List<string>();
+                int s = dgvMain.Columns.Count;
+                for (int i = 1; i < s; i++)
+                {
+                    lstSpalten.Add(dgvMain.Columns[i].ToString().Split('=')[1].Split(',')[0]);
+                }
+                suchControlMain.Spalten = lstSpalten;
             }
-            suchControlMain.Spalten = lstSpalten;
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         /// <summary>
@@ -166,14 +173,21 @@ namespace easyAuftrag
         /// <param name="e"></param>
         private void ButKunde_Click(object sender, EventArgs e)
         {
-            KundeView kundeV = new KundeView("Neuer Kunde");
-            if (kundeV.ShowDialog() == DialogResult.OK)
-            {
-                _handler.KundeAnlegen(kundeV.KundenInfo);
+            try
+            { 
+                KundeView kundeV = new KundeView("Neuer Kunde");
+                if (kundeV.ShowDialog() == DialogResult.OK)
+                {
+                    _handler.KundeAnlegen(kundeV.KundenInfo);
+                }
+                this.BringToFront();
+                this.Activate();
+                TreeViewNeu();
             }
-            this.BringToFront();
-            this.Activate();
-            TreeViewNeu();
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         /// <summary>
@@ -183,14 +197,21 @@ namespace easyAuftrag
         /// <param name="e"></param>
         private void ButMitarbeiter_Click(object sender, EventArgs e)
         {
-            MitarbeiterView mitarbeiterV = new MitarbeiterView("Neuer Mitarbeiter");
-            if (mitarbeiterV.ShowDialog() == DialogResult.OK)
+            try
             {
-                _handler.MitarbeiterAnlegen(mitarbeiterV.MitarbeiterInfo);
+                MitarbeiterView mitarbeiterV = new MitarbeiterView("Neuer Mitarbeiter");
+                if (mitarbeiterV.ShowDialog() == DialogResult.OK)
+                {
+                    _handler.MitarbeiterAnlegen(mitarbeiterV.MitarbeiterInfo);
+                }
+                this.BringToFront();
+                this.Activate();
+                TreeViewNeu();
             }
-            this.BringToFront();
-            this.Activate();
-            TreeViewNeu();
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         /// <summary>
@@ -200,15 +221,22 @@ namespace easyAuftrag
         /// <param name="e"></param>
         private void ButAuftrag_Click(object sender, EventArgs e)
         {
-            AuftragView auftragV = new AuftragView("Neuer Auftrag");
-            if (auftragV.ShowDialog() == DialogResult.OK)
+            try
             {
-                _handler.AuftragAnlegen(auftragV.AuftragInfo);
+                AuftragView auftragV = new AuftragView("Neuer Auftrag");
+                if (auftragV.ShowDialog() == DialogResult.OK)
+                {
+                    _handler.AuftragAnlegen(auftragV.AuftragInfo);
+                }
+                this.BringToFront();
+                this.Activate();
+                TabelleNeu();
+                TreeViewNeu();
             }
-            this.BringToFront();
-            this.Activate();
-            TabelleNeu();
-            TreeViewNeu();
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         /// <summary>
@@ -231,15 +259,22 @@ namespace easyAuftrag
         /// <param name="e"></param>
         private void TSMIneu_Click(object sender, EventArgs e)
         {
-            AuftragView auftragV = new AuftragView("Neuer Auftrag");
-            if (auftragV.ShowDialog() == DialogResult.OK)
+            try
             {
-                _handler.AuftragAnlegen(auftragV.AuftragInfo);
+                AuftragView auftragV = new AuftragView("Neuer Auftrag");
+                if (auftragV.ShowDialog() == DialogResult.OK)
+                {
+                    _handler.AuftragAnlegen(auftragV.AuftragInfo);
+                }
+                this.BringToFront();
+                this.Activate();
+                TabelleNeu();
+                TreeViewNeu();
             }
-            this.BringToFront();
-            this.Activate();
-            TabelleNeu();
-            TreeViewNeu();
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         /// <summary>
@@ -249,19 +284,26 @@ namespace easyAuftrag
         /// <param name="e"></param>
         private void TSMIbearbeiten_Click(object sender, EventArgs e)
         {
-            if (dgvMain.SelectedRows.Count > 0)
+            try
             {
-                int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
-                AuftragView auftragV = new AuftragView("Auftrag Bearbeiten", auftrag: _handler.AuftragLaden(auftragID));
-                if (auftragV.ShowDialog() == DialogResult.OK)
+                if (dgvMain.SelectedRows.Count > 0)
                 {
-                    _handler.AuftragBearbeiten(auftragV.AuftragInfo, auftragID);
+                    int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
+                    AuftragView auftragV = new AuftragView("Auftrag Bearbeiten", auftrag: _handler.AuftragLaden(auftragID));
+                    if (auftragV.ShowDialog() == DialogResult.OK)
+                    {
+                        _handler.AuftragBearbeiten(auftragV.AuftragInfo, auftragID);
+                    }
                 }
+                this.BringToFront();
+                this.Activate();
+                TabelleNeu();
+                TreeViewNeu();
             }
-            this.BringToFront();
-            this.Activate();
-            TabelleNeu();
-            TreeViewNeu();
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         /// <summary>
@@ -271,19 +313,26 @@ namespace easyAuftrag
         /// <param name="e"></param>
         private void TSMIloeschen_Click(object sender, EventArgs e)
         {
-            if (dgvMain.SelectedRows.Count > 0)
+            try
             {
-                int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
-                AuftragView auftragV = new AuftragView("Auftrag Löschen", auftrag: _handler.AuftragLaden(auftragID));
-                if (auftragV.ShowDialog() == DialogResult.OK)
+                if (dgvMain.SelectedRows.Count > 0)
                 {
-                    _handler.AuftragLoeschen(auftragID);
+                    int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
+                    AuftragView auftragV = new AuftragView("Auftrag Löschen", auftrag: _handler.AuftragLaden(auftragID));
+                    if (auftragV.ShowDialog() == DialogResult.OK)
+                    {
+                        _handler.AuftragLoeschen(auftragID);
+                    }
                 }
+                this.BringToFront();
+                this.Activate();
+                TabelleNeu();
+                TreeViewNeu();
             }
-            this.BringToFront();
-            this.Activate();
-            TabelleNeu();
-            TreeViewNeu();
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         /// <summary>
