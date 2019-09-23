@@ -587,9 +587,9 @@ namespace easyAuftrag
             {
                 using (var db = new EasyAuftragContext())
                 {
-                    var auft = (from auf in db.Auftraege
-                                join k in db.Kunden on auf.KundeID equals k.KundeID
-                                select new { auf.AuftragID, auf.AuftragNummer, k.Name, auf.Eingang, auf.Erteilt, auf.Erledigt, auf.Abgerechnet }).ToList();
+                    var auft = (from a in db.Auftraege
+                                join k in db.Kunden on a.KundeID equals k.KundeID
+                                select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
 
                     foreach (var item in suchControlMain.Suche)
                     {
@@ -600,26 +600,26 @@ namespace easyAuftrag
                                 case "AuftragNummer":
                                     if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
                                     {
-                                        auft = auft.Where(p => p.AuftragNummer.Contains(item.ValueControl.Text)).ToList();
+                                        auft = auft.Where(a => a.AuftragNummer.Contains(item.ValueControl.Text)).ToList();
                                     }
                                     break;
                                 case "Name":
                                     if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
                                     {
-                                        auft = auft.Where(p => p.Name.Contains(item.ValueControl.Text)).ToList();
+                                        auft = auft.Where(a => a.Name.Contains(item.ValueControl.Text)).ToList();
                                     }
                                     break;
                                 case "Eingang":
-                                    auft = auft.Where(p => p.Eingang >= item.AnfangControl.Value && p.Eingang <= item.EndeControl.Value).ToList();
+                                    auft = auft.Where(a => a.Eingang >= item.AnfangControl.Value && a.Eingang <= item.EndeControl.Value).ToList();
                                     break;
                                 case "Erteilt":
-                                    auft = auft.Where(p => p.Erteilt >= item.AnfangControl.Value && p.Erteilt <= item.EndeControl.Value).ToList();
+                                    auft = auft.Where(a => a.Erteilt >= item.AnfangControl.Value && a.Erteilt <= item.EndeControl.Value).ToList();
                                     break;
                                 case "Abgerechnet":
-                                    auft = auft.Where(p => p.Abgerechnet != item.AbgerechnetControl.Checked).ToList();
+                                    auft = auft.Where(a => a.Abgerechnet != item.AbgerechnetControl.Checked).ToList();
                                     break;
                                 case "Erledigt":
-                                    auft = auft.Where(p => p.Erledigt == item.ErledigtControl.Checked).ToList();
+                                    auft = auft.Where(a => a.Erledigt == item.ErledigtControl.Checked).ToList();
                                     break;
                             }
                         }
