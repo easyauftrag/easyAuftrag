@@ -32,6 +32,7 @@ using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Core;
 using Core.Model;
+using easyAuftrag;
 using System.Linq;
 
 namespace easyAuftragTest.Logik
