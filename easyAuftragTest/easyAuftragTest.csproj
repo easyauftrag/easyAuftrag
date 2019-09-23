@@ -65,7 +65,6 @@
     <Compile Include="Logik\BerechnungTest.cs" />
     <Compile Include="Logik\ExportTest.cs" />
     <Compile Include="Logik\HandlerTest.cs" />
-    <Compile Include="Model\AuftragTest.cs" />
     <Compile Include="Model\TaetigkeitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

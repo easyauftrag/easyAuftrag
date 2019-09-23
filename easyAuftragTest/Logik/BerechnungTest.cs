@@ -28,6 +28,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core.Model;
 using easyAuftrag.Logik;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -131,32 +132,113 @@ namespace easyAuftragTest.Logik
 
             double[] ergMitarbeiter1 =
             {
-                2089,
-                2255,
-                2089,
+                34.82,
+                37.58,
+                34.82,
                 0,
                 0
             };
+
+            /*
+             * 2089,
+             * 2255,
+             * 2089,
+             * 0,
+             * 0
+             */
 
             double[] ergMitarbeiter2 =
             {
                 0,
                 0,
-                2089,
-                486,
+                34.82,
+                8.1,
                 0
             };
 
+            /*
+             * 0,
+             * 0,
+             * 2089,
+             * 486,
+             * 0
+             */
+
+            StundenDoc stundenDoc1 = new StundenDoc();
+            stundenDoc1.Mitarbeiter = new Mitarbeiter();
+            stundenDoc1.Mitarbeiter.MitarbeiterID = 1;
+            stundenDoc1.Tatlist = (from t in testTaetigkeit where t.MitarbeiterID == stundenDoc1.Mitarbeiter.MitarbeiterID select t).ToList();
+
+            StundenDoc stundenDoc2 = new StundenDoc();
+            stundenDoc2.Mitarbeiter = new Mitarbeiter();
+            stundenDoc2.Mitarbeiter.MitarbeiterID = 2;
+            stundenDoc2.Tatlist = (from t in testTaetigkeit where t.MitarbeiterID == stundenDoc2.Mitarbeiter.MitarbeiterID select t).ToList();
+
             for (int i = 0; i < testDates.Length; i++)
             {
-                if (ergMitarbeiter1[i] != Berechnung.ArbeitsZeit(anfangTest[i], endeTest[i], testTaetigkeit, 1))
+                stundenDoc1.Tatlist = stundenDoc1.Tatlist.Where(t => t.Datum >= anfangTest[i]).ToList();
+                stundenDoc1.Tatlist = stundenDoc1.Tatlist.Where(t => t.Datum <= endeTest[i]).ToList();
+
+                if (ergMitarbeiter1[i] != Berechnung.ArbeitsZeit(stundenDoc1))
                 {
                     Assert.Fail();
                 }
-                if (ergMitarbeiter2[i] != Berechnung.ArbeitsZeit(anfangTest[i], endeTest[i], testTaetigkeit, 2))
+                if (ergMitarbeiter2[i] != Berechnung.ArbeitsZeit(stundenDoc2))
                 {
                     Assert.Fail();
                 }
+            }
+        }
+
+        [TestMethod]
+        public void AuftragZeitGesamtTest()
+        {
+            TimeSpan[] startTestZeit = new TimeSpan[]
+            {
+                new TimeSpan(0, 13, 0),
+                new TimeSpan(4, 21, 0),
+                new TimeSpan(12, 6, 0),
+                new TimeSpan(13, 46, 0)
+            };
+
+            TimeSpan[] endTestZeit = new TimeSpan[]
+            {
+                new TimeSpan(23, 54, 0),
+                new TimeSpan(21, 27, 0),
+                new TimeSpan(15, 12, 0),
+                new TimeSpan(13, 46, 0)
+            };
+
+            DateTime[] testDates = new DateTime[]
+            {
+                new DateTime(2019, 7, 18),
+                new DateTime(2019, 7, 18),
+                new DateTime(2019, 4, 27),
+                new DateTime(2017, 10, 30)
+            };
+
+            List<Taetigkeit> testTaetigkeit = new List<Taetigkeit>();
+
+            for (int i = 0; i < testDates.Length; i++)
+            {
+                testTaetigkeit.Add(new Taetigkeit()
+                {
+                    AuftragID = 345,
+                    MitarbeiterID = i,
+                    TaetigkeitID = i,
+                    Datum = testDates[i],
+                    Name = "Installation " + i,
+                    StartZeit = startTestZeit[i],
+                    EndZeit = endTestZeit[i]
+                }
+                );
+            }
+
+            double auftragZeitTest = 2255;
+
+            if (auftragZeitTest != Berechnung.AuftragZeitGesamt(testTaetigkeit))
+            {
+                Assert.Fail();
             }
         }
     }

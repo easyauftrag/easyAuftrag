@@ -112,7 +112,7 @@ namespace easyAuftragTest.Model
             double[] testResults =
             {
                 1421,
-                648,
+                1026,
                 186,
                 0
             };
