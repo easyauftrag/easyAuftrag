@@ -197,10 +197,18 @@ namespace easyAuftrag.View
                 cbAbgerechnet.Visible = false;
                 cbErledigt.Visible = false;
             }
-            else if (comboSpalte.SelectedItem.Equals("Abgerechnet") || comboSpalte.SelectedItem.Equals("Erledigt"))
+            else if (comboSpalte.SelectedItem.Equals("Abgerechnet"))
             {
                 cbAbgerechnet.Visible = true;
+                cbErledigt.Visible = false;
+                dtpAnfang.Visible = false;
+                dtpEnde.Visible = false;
+                tbSuche.Visible = false;
+            }
+            else if (comboSpalte.SelectedItem.Equals("Erledigt"))
+            {
                 cbErledigt.Visible = true;
+                cbAbgerechnet.Visible = false;
                 dtpAnfang.Visible = false;
                 dtpEnde.Visible = false;
                 tbSuche.Visible = false;
