@@ -648,7 +648,7 @@ namespace easyAuftrag
                     List<string> suchBedingungen = new List<string>();
                     foreach (var item in suchControlMain.Suche)
                     {
-                        if (string.IsNullOrEmpty(item.LinkControl.Text))
+                        if (string.IsNullOrWhiteSpace(item.LinkControl.Text))
                         {
                             if (!string.IsNullOrEmpty(item.SpalteControl.Text))
                             {
@@ -657,26 +657,40 @@ namespace easyAuftrag
                                     case "AuftragNummer":
                                         if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
                                         {
-                                            suchBedingungen.Add("(AuftragNummer.Contains(" + item.ValueControl.Text + "))");
+                                            suchBedingungen.Add("AuftragNummer == \"" + item.ValueControl.Text + "\"");
                                         }
                                         break;
                                     case "Name":
                                         if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
                                         {
-                                            suchBedingungen.Add("(Name.Contains(" + item.ValueControl.Text + "))");
+                                            suchBedingungen.Add("Name == \"" + item.ValueControl.Text + "\"");
                                         }
                                         break;
                                     case "Eingang":
-                                        suchBedingungen.Add("(Eingang >= " + item.AnfangControl.Value && Eingang <= item.EndeControl.Value)");
+                                        suchBedingungen.Add("Eingang >= DateTime(" 
+                                            + item.AnfangControl.Value.Year + "," 
+                                            + item.AnfangControl.Value.Month + "," 
+                                            + item.AnfangControl.Value.Day + ")"
+                                            + " && Eingang <= DateTime(" 
+                                            + item.EndeControl.Value.Year + "," 
+                                            + item.EndeControl.Value.Month + "," 
+                                            + item.EndeControl.Value.Day + ")");
                                         break;
                                     case "Erteilt":
-                                        suchBedingungen.Add("(Erteilt >= item.AnfangControl.Value && Erteilt <= item.EndeControl.Value)");
+                                        suchBedingungen.Add("Erteilt >= DateTime(" 
+                                            + item.AnfangControl.Value.Year + "," 
+                                            + item.AnfangControl.Value.Month + "," 
+                                            + item.AnfangControl.Value.Day + ")"
+                                            + " && Erteilt <= DateTime(" 
+                                            + item.EndeControl.Value.Year + "," 
+                                            + item.EndeControl.Value.Month + "," 
+                                            + item.EndeControl.Value.Day + ")");
                                         break;
                                     case "Abgerechnet":
-                                        suchBedingungen.Add("(Abgerechnet != item.AbgerechnetControl.Checked)");
+                                        suchBedingungen.Add("Abgerechnet != " + item.AbgerechnetControl.Checked);
                                         break;
                                     case "Erledigt":
-                                        suchBedingungen.Add("(Erledigt == item.ErledigtControl.Checked)");
+                                        suchBedingungen.Add("Erledigt == " + item.ErledigtControl.Checked);
                                         break;
                                 }
                             }
@@ -690,26 +704,40 @@ namespace easyAuftrag
                                     case "AuftragNummer":
                                         if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
                                         {
-                                            suchBedingungen.Add(" && (AuftragNummer.Contains(item.ValueControl.Text))");
+                                            suchBedingungen.Add(" && AuftragNummer == \"" + item.ValueControl.Text + "\"");
                                         }
                                         break;
                                     case "Name":
                                         if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
                                         {
-                                            suchBedingungen.Add(" && (Name.Contains(item.ValueControl.Text))");
+                                            suchBedingungen.Add(" && Name == \"" + item.ValueControl.Text + "\"");
                                         }
                                         break;
                                     case "Eingang":
-                                        suchBedingungen.Add(" && (Eingang >= item.AnfangControl.Value && Eingang <= item.EndeControl.Value)");
+                                        suchBedingungen.Add(" && Eingang >= DateTime(" 
+                                            + item.AnfangControl.Value.Year + "," 
+                                            + item.AnfangControl.Value.Month + "," 
+                                            + item.AnfangControl.Value.Day + ")"
+                                            + " && Eingang <= DateTime(" 
+                                            + item.EndeControl.Value.Year + "," 
+                                            + item.EndeControl.Value.Month + "," 
+                                            + item.EndeControl.Value.Day + ")");
                                         break;
                                     case "Erteilt":
-                                        suchBedingungen.Add(" && (Erteilt >= item.AnfangControl.Value && Erteilt <= item.EndeControl.Value)");
+                                        suchBedingungen.Add(" && Erteilt >= DateTime(" 
+                                            + item.AnfangControl.Value.Year + "," 
+                                            + item.AnfangControl.Value.Month + "," 
+                                            + item.AnfangControl.Value.Day + ")"
+                                            + " && Erteilt <= DateTime(" 
+                                            + item.EndeControl.Value.Year + "," 
+                                            + item.EndeControl.Value.Month + "," 
+                                            + item.EndeControl.Value.Day + ")");
                                         break;
                                     case "Abgerechnet":
-                                        suchBedingungen.Add(" && (Abgerechnet != item.AbgerechnetControl.Checked)");
+                                        suchBedingungen.Add(" && Abgerechnet != " + item.AbgerechnetControl.Checked);
                                         break;
                                     case "Erledigt":
-                                        suchBedingungen.Add(" && (Erledigt == item.ErledigtControl.Checked)");
+                                        suchBedingungen.Add(" && Erledigt == " + item.ErledigtControl.Checked);
                                         break;
                                 }
                             }
@@ -721,26 +749,40 @@ namespace easyAuftrag
                                 case "AuftragNummer":
                                     if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
                                     {
-                                        suchBedingungen.Add(" || (AuftragNummer.Contains(item.ValueControl.Text))");
+                                        suchBedingungen.Add(" || AuftragNummer == \"" + item.ValueControl.Text + "\"");
                                     }
                                     break;
                                 case "Name":
                                     if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
                                     {
-                                        suchBedingungen.Add(" || (Name.Contains(item.ValueControl.Text))");
+                                        suchBedingungen.Add(" || Name == \"" + item.ValueControl.Text + "\"");
                                     }
                                     break;
                                 case "Eingang":
-                                    suchBedingungen.Add(" || (Eingang >= item.AnfangControl.Value && Eingang <= item.EndeControl.Value)");
+                                    suchBedingungen.Add(" || (Eingang >= DateTime(" 
+                                        + item.AnfangControl.Value.Year + "," 
+                                        + item.AnfangControl.Value.Month + "," 
+                                        + item.AnfangControl.Value.Day + ")"
+                                        + " && Eingang <= DateTime(" 
+                                        + item.EndeControl.Value.Year + "," 
+                                        + item.EndeControl.Value.Month + "," 
+                                        + item.EndeControl.Value.Day + ")");
                                     break;
                                 case "Erteilt":
-                                    suchBedingungen.Add(" || (Erteilt >= item.AnfangControl.Value && Erteilt <= item.EndeControl.Value)");
+                                    suchBedingungen.Add(" || (Erteilt >= DateTime(" 
+                                        + item.AnfangControl.Value.Year + "," 
+                                        + item.AnfangControl.Value.Month + "," 
+                                        + item.AnfangControl.Value.Day + ")"
+                                        + " && Erteilt <= DateTime(" 
+                                        + item.EndeControl.Value.Year + "," 
+                                        + item.EndeControl.Value.Month + "," 
+                                        + item.EndeControl.Value.Day + ")");
                                     break;
                                 case "Abgerechnet":
-                                    suchBedingungen.Add(" || (Abgerechnet != item.AbgerechnetControl.Checked)");
+                                    suchBedingungen.Add(" || Abgerechnet != " + item.AbgerechnetControl.Checked);
                                     break;
                                 case "Erledigt":
-                                    suchBedingungen.Add(" || (Erledigt == item.ErledigtControl.Checked)");
+                                    suchBedingungen.Add(" || Erledigt == " + item.ErledigtControl.Checked);
                                     break;
                             }
                         }
