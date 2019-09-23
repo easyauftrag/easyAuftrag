@@ -120,6 +120,7 @@ namespace easyAuftrag.View
                 "und",
                 "oder"
             });
+            comboLinkVorlage.SelectedIndex = 0;
 
             comboSpalteVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             comboSpalteVorlage.FormattingEnabled = true;

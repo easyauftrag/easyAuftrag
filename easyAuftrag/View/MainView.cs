@@ -31,6 +31,7 @@ using Core.Model;
 using easyAuftrag.Logik;
 using easyAuftrag.View;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -87,6 +88,7 @@ namespace easyAuftrag
         /// <summary>
         /// Methode zum Laden und Aktualisieren der Aufträge im <see cref="DataGridView"/>
         /// </summary>
+        /// <seealso cref="EasyAuftragContext"/>
         public void TabelleNeu()
         {
             try
@@ -112,6 +114,7 @@ namespace easyAuftrag
         /// <summary>
         /// Methode zum Laden und Aktualisieren der Einträge im <see cref="TreeView"/>
         /// </summary>
+        /// <seealso cref="EasyAuftragContext"/>
         private void TreeViewNeu()
         {
             tvMain.Nodes["Kunden"].Nodes.Clear();
@@ -349,6 +352,7 @@ namespace easyAuftrag
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        /// <seealso cref="EasyAuftragContext"/>
         private void ButAuftragZettel_Click(object sender, EventArgs e)
         {
             try
@@ -631,6 +635,7 @@ namespace easyAuftrag
         /// <summary>
         /// Methode zum Filtern der Aufträge in der <see cref="DataGridView"/> nach den Kriterien im <see cref="SuchControl"/>
         /// </summary>
+        /// <seealso cref="EasyAuftragContext"/>
         private void SuchControlMain_SuchEvent()
         {
             try
@@ -640,9 +645,10 @@ namespace easyAuftrag
                     var auft = (from a in db.Auftraege
                                 join k in db.Kunden on a.KundeID equals k.KundeID
                                 select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
+                    List<string> suchBedingungen = new List<string>();
                     foreach (var item in suchControlMain.Suche)
                     {
-                        if (item.LinkControl.Text == "und" || string.IsNullOrEmpty(item.LinkControl.Text))
+                        if (string.IsNullOrEmpty(item.LinkControl.Text))
                         {
                             if (!string.IsNullOrEmpty(item.SpalteControl.Text))
                             {
@@ -651,32 +657,101 @@ namespace easyAuftrag
                                     case "AuftragNummer":
                                         if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
                                         {
-                                            auft = auft.Where(a => a.AuftragNummer.Contains(item.ValueControl.Text)).ToList();
+                                            suchBedingungen.Add("(AuftragNummer.Contains(" + item.ValueControl.Text + "))");
                                         }
                                         break;
                                     case "Name":
                                         if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
                                         {
-                                            auft = auft.Where(a => a.Name.Contains(item.ValueControl.Text)).ToList();
+                                            suchBedingungen.Add("(Name.Contains(" + item.ValueControl.Text + "))");
                                         }
                                         break;
                                     case "Eingang":
-                                        auft = auft.Where(a => a.Eingang >= item.AnfangControl.Value && a.Eingang <= item.EndeControl.Value).ToList();
+                                        suchBedingungen.Add("(Eingang >= " + item.AnfangControl.Value && Eingang <= item.EndeControl.Value)");
                                         break;
                                     case "Erteilt":
-                                        auft = auft.Where(a => a.Erteilt >= item.AnfangControl.Value && a.Erteilt <= item.EndeControl.Value).ToList();
+                                        suchBedingungen.Add("(Erteilt >= item.AnfangControl.Value && Erteilt <= item.EndeControl.Value)");
                                         break;
                                     case "Abgerechnet":
-                                        auft = auft.Where(a => a.Abgerechnet != item.AbgerechnetControl.Checked).ToList();
+                                        suchBedingungen.Add("(Abgerechnet != item.AbgerechnetControl.Checked)");
                                         break;
                                     case "Erledigt":
-                                        auft = auft.Where(a => a.Erledigt == item.ErledigtControl.Checked).ToList();
+                                        suchBedingungen.Add("(Erledigt == item.ErledigtControl.Checked)");
                                         break;
                                 }
-
+                            }
+                        }
+                        else if (item.LinkControl.Text == "und")
+                        {
+                            if (!string.IsNullOrEmpty(item.SpalteControl.Text))
+                            {
+                                switch (item.SpalteControl.Text)
+                                {
+                                    case "AuftragNummer":
+                                        if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
+                                        {
+                                            suchBedingungen.Add(" && (AuftragNummer.Contains(item.ValueControl.Text))");
+                                        }
+                                        break;
+                                    case "Name":
+                                        if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
+                                        {
+                                            suchBedingungen.Add(" && (Name.Contains(item.ValueControl.Text))");
+                                        }
+                                        break;
+                                    case "Eingang":
+                                        suchBedingungen.Add(" && (Eingang >= item.AnfangControl.Value && Eingang <= item.EndeControl.Value)");
+                                        break;
+                                    case "Erteilt":
+                                        suchBedingungen.Add(" && (Erteilt >= item.AnfangControl.Value && Erteilt <= item.EndeControl.Value)");
+                                        break;
+                                    case "Abgerechnet":
+                                        suchBedingungen.Add(" && (Abgerechnet != item.AbgerechnetControl.Checked)");
+                                        break;
+                                    case "Erledigt":
+                                        suchBedingungen.Add(" && (Erledigt == item.ErledigtControl.Checked)");
+                                        break;
+                                }
+                            }
+                        }
+                        else if (!string.IsNullOrEmpty(item.SpalteControl.Text))
+                        {
+                            switch (item.SpalteControl.Text)
+                            {
+                                case "AuftragNummer":
+                                    if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
+                                    {
+                                        suchBedingungen.Add(" || (AuftragNummer.Contains(item.ValueControl.Text))");
+                                    }
+                                    break;
+                                case "Name":
+                                    if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
+                                    {
+                                        suchBedingungen.Add(" || (Name.Contains(item.ValueControl.Text))");
+                                    }
+                                    break;
+                                case "Eingang":
+                                    suchBedingungen.Add(" || (Eingang >= item.AnfangControl.Value && Eingang <= item.EndeControl.Value)");
+                                    break;
+                                case "Erteilt":
+                                    suchBedingungen.Add(" || (Erteilt >= item.AnfangControl.Value && Erteilt <= item.EndeControl.Value)");
+                                    break;
+                                case "Abgerechnet":
+                                    suchBedingungen.Add(" || (Abgerechnet != item.AbgerechnetControl.Checked)");
+                                    break;
+                                case "Erledigt":
+                                    suchBedingungen.Add(" || (Erledigt == item.ErledigtControl.Checked)");
+                                    break;
                             }
                         }
                     }
+                    string finalSuche = "";
+                    foreach (var inhalt in suchBedingungen)
+                    {
+                        finalSuche += inhalt;
+                    }
+                    auft = auft.Where(finalSuche).ToList();
+
                     dgvMain.DataSource = auft;
                     dgvMain.Columns["auftragID"].Visible = false;
                     dgvMain.Columns["Name"].HeaderText = "Kundenname";

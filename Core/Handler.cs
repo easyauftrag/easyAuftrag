@@ -66,7 +66,7 @@ namespace Core
         /// </summary>
         /// <param name="kunde">aktualisierte Daten des Kunden</param>
         /// <param name="kundeID">Primärschlüssel des Kunden in der Datenbank</param>
-        /// /// <seealso cref="EasyAuftragContext"/>
+        /// <seealso cref="EasyAuftragContext"/>
         public void KundeBearbeiten(Kunde kunde, int kundeID)
         {
             try
@@ -347,6 +347,7 @@ namespace Core
         /// </summary>
         /// <param name="kundeID"></param>
         /// <returns>Kunde aus Datenbank</returns>
+        /// <seealso cref="EasyAuftragContext"/>
         public Kunde KundeLaden(int kundeID)
         {
             Kunde kund = new Kunde();
@@ -369,6 +370,7 @@ namespace Core
         /// </summary>
         /// <param name="auftragID"></param>
         /// <returns>Auftrag aus Datenbank</returns>
+        /// <seealso cref="EasyAuftragContext"/>
         public Auftrag AuftragLaden(int auftragID)
         {
             Auftrag auft = new Auftrag();
@@ -391,6 +393,7 @@ namespace Core
         /// </summary>
         /// <param name="mitarbeiterID"></param>
         /// <returns>Mitarbeiter aus Datenbank</returns>
+        /// <seealso cref="EasyAuftragContext"/>
         public Mitarbeiter MitarbeiterLaden(int mitarbeiterID)
         {
             Mitarbeiter mitarb = new Mitarbeiter();
@@ -413,6 +416,7 @@ namespace Core
         /// </summary>
         /// <param name="taetigkeitID"></param>
         /// <returns>Taetigkeit aus Datenbank</returns>
+        /// <seealso cref="EasyAuftragContext"/>
         public Taetigkeit TaetigkeitLaden(int taetigkeitID)
         {
             Taetigkeit tat = new Taetigkeit();
