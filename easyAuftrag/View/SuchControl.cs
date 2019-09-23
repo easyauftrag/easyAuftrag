@@ -45,7 +45,6 @@ namespace easyAuftrag.View
         private List<string> _spalten = new List<string>();
 
         public event Action SuchEvent;
-        public SucheInfo sucheInfo = new SucheInfo();
         public List<SucheRow> Suche = new List<SucheRow>();
 
         public List<string> Spalten
@@ -77,20 +76,14 @@ namespace easyAuftrag.View
                 AnfangControl = dtpAnfang,
                 EndeControl = dtpEnde,
                 AbgerechnetControl = cbAbgerechnet,
-                ErledigtControl = cbErledigt
+                ErledigtControl = cbErledigt,
 
             };
+            row.AnfangControl.Visible = false;
+            row.EndeControl.Visible = false;
+            row.AbgerechnetControl.Visible = false;
+            row.ErledigtControl.Visible = false;
             _lstRow.Add(row);
-            sucheInfo.CbAbgerechnet = cbAbgerechnet;
-            sucheInfo.CbErledigt = cbErledigt;
-            sucheInfo.ComboSpalte = comboSpalte;
-            sucheInfo.TbSuche = tbSuche;
-            sucheInfo.DtpAnfang = dtpAnfang;
-            sucheInfo.DtpEnde = dtpEnde;
-            sucheInfo.DtpAnfang.Visible = false;
-            sucheInfo.DtpEnde.Visible = false;
-            sucheInfo.CbAbgerechnet.Visible = false;
-            sucheInfo.CbErledigt.Visible = false;
         }
 
         private void AddControls()
@@ -151,12 +144,14 @@ namespace easyAuftrag.View
             cbAbgerechnetVorlage.Location = new Point(205, cbAbgerechnet.Location.Y + _lstRow.Count * 30);
             cbAbgerechnetVorlage.Name = "cbAbgerechnetVorlage_" + _lstRow.Count.ToString();
             cbAbgerechnetVorlage.Text = "Nicht abgerechnete Aufträge";
+            cbAbgerechnetVorlage.Size = new Size(274, 20);
             cbAbgerechnetVorlage.TabIndex = 7;
 
             cbErledigtVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             cbErledigtVorlage.Location = new Point(205, cbErledigt.Location.Y + _lstRow.Count * 30);
             cbErledigtVorlage.Name = "cbErledigtVorlage_" + _lstRow.Count.ToString();
             cbErledigtVorlage.Text = "Erledigte Aufträge";
+            cbErledigtVorlage.Size = new Size(274, 20);
             cbErledigtVorlage.TabIndex = 8;
 
             Controls.Add(comboLinkVorlage);
@@ -229,18 +224,6 @@ namespace easyAuftrag.View
         }
 
         private void ButSuche_Click(object sender, EventArgs e)
-        {
-            Suche = _lstRow;
-            SuchEvent?.Invoke();
-        }
-
-        private void CbErledigt_CheckedChanged(object sender, EventArgs e)
-        {
-            Suche = _lstRow;
-            SuchEvent?.Invoke();
-        }
-
-        private void CbAbgerechnet_CheckedChanged(object sender, EventArgs e)
         {
             Suche = _lstRow;
             SuchEvent?.Invoke();

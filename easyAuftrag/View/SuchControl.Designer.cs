@@ -50,7 +50,6 @@
             this.cbErledigt.TabIndex = 0;
             this.cbErledigt.Text = "Erledigte Aufträge";
             this.cbErledigt.UseVisualStyleBackColor = true;
-            this.cbErledigt.CheckedChanged += new System.EventHandler(this.CbErledigt_CheckedChanged);
             // 
             // cbAbgerechnet
             // 
@@ -61,7 +60,6 @@
             this.cbAbgerechnet.TabIndex = 1;
             this.cbAbgerechnet.Text = "Nicht abgerechnete Aufträge";
             this.cbAbgerechnet.UseVisualStyleBackColor = true;
-            this.cbAbgerechnet.CheckedChanged += new System.EventHandler(this.CbAbgerechnet_CheckedChanged);
             // 
             // tbSuche
             // 

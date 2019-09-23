@@ -37,6 +37,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Linq.Dynamic;
+using System.Linq.Dynamic.Core;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -302,31 +303,38 @@ namespace easyAuftrag
         /// <param name="e"></param>
         private void ButAuftragZettel_Click(object sender, EventArgs e)
         {
-            if (dgvMain.SelectedRows.Count > 0)
+            try
             {
-                int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
-                using (var db = new EasyAuftragContext())
+                if (dgvMain.SelectedRows.Count > 0)
                 {
-                    DruckDoc doc = new DruckDoc();
-                    Auftrag auftrag = (from a in db.Auftraege where a.AuftragID == auftragID select a).First();
-                    Kunde kunde = (from k in db.Kunden where k.KundeID == auftrag.KundeID select k).First();
-                    List<Taetigkeit> Tatlist = (from t in db.Taetigkeiten where t.AuftragID == auftrag.AuftragID select t).ToList();
-                    List<Mitarbeiter> MitList = new List<Mitarbeiter>();
-                    foreach (Taetigkeit t in Tatlist)
+                    int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
+                    using (var db = new EasyAuftragContext())
                     {
-                        MitList.Add((from m in db.Mitarbeiters where m.MitarbeiterID == t.MitarbeiterID select m).First());
+                        DruckDoc doc = new DruckDoc();
+                        Auftrag auftrag = (from a in db.Auftraege where a.AuftragID == auftragID select a).First();
+                        Kunde kunde = (from k in db.Kunden where k.KundeID == auftrag.KundeID select k).First();
+                        List<Taetigkeit> Tatlist = (from t in db.Taetigkeiten where t.AuftragID == auftrag.AuftragID select t).ToList();
+                        List<Mitarbeiter> MitList = new List<Mitarbeiter>();
+                        foreach (Taetigkeit t in Tatlist)
+                        {
+                            MitList.Add((from m in db.Mitarbeiters where m.MitarbeiterID == t.MitarbeiterID select m).First());
+                        }
+
+                        doc.AuftragNr = auftrag.AuftragNummer;
+                        doc.KundeName = kunde.Name;
+                        doc.KundeAnschrift = kunde.Strasse + " " + kunde.Hausnr + ", " + kunde.PLZ + " " + kunde.Wohnort;
+                        doc.KundeTelefon = kunde.TelefonNr;
+                        doc.TatListe = Tatlist;
+                        doc.MitList = MitList;
+
+                        Drucken druck = new Drucken();
+                        druck.Druck(doc);
                     }
-
-                    doc.AuftragNr = auftrag.AuftragNummer;
-                    doc.KundeName = kunde.Name;
-                    doc.KundeAnschrift = kunde.Strasse + " " + kunde.Hausnr + ", " + kunde.PLZ + " " + kunde.Wohnort;
-                    doc.KundeTelefon = kunde.TelefonNr;
-                    doc.TatListe = Tatlist;
-                    doc.MitList = MitList;
-
-                    Drucken druck = new Drucken();
-                    druck.Druck(doc);
                 }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
             }
         }
 
@@ -337,11 +345,18 @@ namespace easyAuftrag
         /// <param name="e"></param>
         private void ButStundenZettel_Click(object sender, EventArgs e)
         {
-            StundenView stundV = new StundenView();
-            if (stundV.ShowDialog() == DialogResult.OK)
+            try
             {
-                Drucken druck = new Drucken();
-                druck.StundenDruck(stundV.stundenDoc);
+                StundenView stundV = new StundenView();
+                if (stundV.ShowDialog() == DialogResult.OK)
+                {
+                    Drucken druck = new Drucken();
+                    druck.StundenDruck(stundV.stundenDoc);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
             }
         }
 
@@ -568,107 +583,55 @@ namespace easyAuftrag
         }
         private void SuchControlMain_SuchEvent()
         {
-            string[] suchName = new string[3];
-            string[] suchString = new string[3];
-            string suchKomplett = "";
-            string[] suchAnfang = new string[3];
-            string[] suchEnde = new string[3];
-            string[] suchCheck = new string[3];
-
-            int index = 0;
-            foreach (var item in suchControlMain.Suche)
-            {  
-                switch (item.SpalteControl.Text)
-                {
-                    case "AuftragNummer":
-                        suchName[index] = "AuftragNummer";
-                        suchString[index] = item.ValueControl.Text.ToString();
-                        break;
-                    case "Name":
-                        suchName[index] = "Name";
-                        suchString[index] = item.ValueControl.Text.ToString();
-                        break;
-                    case "Eingang":
-                        suchName[index] = "Eingang";
-                        suchAnfang[index] = item.AnfangControl.Value.ToShortDateString();
-                        suchEnde[index] = item.EndeControl.Value.ToShortDateString();
-                        break;
-                    case "Erteilt":
-                        suchName[index] = "Erteilt";
-                        suchAnfang[index] = item.AnfangControl.Value.ToShortDateString();
-                        suchEnde[index] = item.EndeControl.Value.ToShortDateString();
-                        break;
-                    case "Abgerechnet":
-                        suchName[index] = "Abgerechnet";
-                        suchCheck[index] = item.AbgerechnetControl.Checked.ToString();
-                        break;
-                    case "Erledigt":
-                        suchName[index] = "Erledigt";
-                        suchCheck[index] = item.ErledigtControl.Checked.ToString();
-                        break;
-                }
-                index++;
-            }
-            index = 0;
-            foreach (var item in suchControlMain.Suche)
+            try
             {
-                if (!string.IsNullOrEmpty(suchName[index]))
+                using (var db = new EasyAuftragContext())
                 {
-                    suchKomplett += suchName[index];
-                }
-                if (!string.IsNullOrEmpty(suchString[index]))
-                {
-                    suchKomplett += " == \"" + suchString[index] + "\"";
-                }
-                if (!string.IsNullOrEmpty(suchAnfang[index]))
-                {
-                    suchKomplett += " >= " 
-                        + "DateTime.ParseExact(\"" 
-                        + suchAnfang[index] 
-                        + "\", \"dd.MM.yyyy\", System.Globalization.CultureInfo.InvariantCulture)";//
-                }
-                if (!string.IsNullOrEmpty(suchEnde[index]))
-                {
-                    suchKomplett += " AND " 
-                        + suchName[index] 
-                        + " <= " 
-                        + "DateTime.ParseExact(\"" 
-                        + suchEnde[index] 
-                        + "\", \"dd.MM.yyyy\")";//, System.Globalization.CultureInfo.InvariantCulture
-                }
-                if (!string.IsNullOrEmpty(suchCheck[index]))
-                {
-                    suchKomplett += " == " + suchCheck[index];
-                }
-                if (index < suchControlMain.Suche.Count()-1)
-                {
-                    suchKomplett += " AND ";
-                }
-                else
-                {
-                    suchKomplett += " ";
-                }
-                index++;
-            }
-            string sqlString = "from a in db.Auftraege join k in db.Kunden on a.KundeID equals k.KundeID where" + suchKomplett +
-                "select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }";
-            /*var auft = db.Auftraege.Join(db.Kunden,
-                                            a => a.KundeID,
-                                            k => k.KundeID,
-                                            (a,k) => new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet })
-                                    .Where(suchKomplett).ToList();*/
+                    var auft = (from auf in db.Auftraege
+                                join k in db.Kunden on auf.KundeID equals k.KundeID
+                                select new { auf.AuftragID, auf.AuftragNummer, k.Name, auf.Eingang, auf.Erteilt, auf.Erledigt, auf.Abgerechnet }).ToList();
 
-            using (var db = new EasyAuftragContext())
+                    foreach (var item in suchControlMain.Suche)
+                    {
+                        if (!string.IsNullOrEmpty(item.SpalteControl.Text))
+                        {
+                            switch (item.SpalteControl.Text)
+                            {
+                                case "AuftragNummer":
+                                    if (!string.IsNullOrEmpty(item.ValueControl.Text))
+                                    {
+                                        auft = auft.Where(p => p.AuftragNummer.Contains(item.ValueControl.Text)).ToList();
+                                    }
+                                    break;
+                                case "Name":
+                                    if (!string.IsNullOrEmpty(item.ValueControl.Text))
+                                    {
+                                        auft = auft.Where(p => p.Name.Contains(item.ValueControl.Text)).ToList();
+                                    }
+                                    break;
+                                case "Eingang":
+                                    auft = auft.Where(p => p.Eingang >= item.AnfangControl.Value && p.Eingang <= item.EndeControl.Value).ToList();
+                                    break;
+                                case "Erteilt":
+                                    auft = auft.Where(p => p.Erteilt >= item.AnfangControl.Value && p.Erteilt <= item.EndeControl.Value).ToList();
+                                    break;
+                                case "Abgerechnet":
+                                    auft = auft.Where(p => p.Abgerechnet != item.AbgerechnetControl.Checked).ToList();
+                                    break;
+                                case "Erledigt":
+                                    auft = auft.Where(p => p.Erledigt == item.ErledigtControl.Checked).ToList();
+                                    break;
+                            }
+                        }
+                    }
+                    dgvMain.DataSource = auft;
+                    dgvMain.Columns["auftragID"].Visible = false;
+                    dgvMain.Columns["Name"].HeaderText = "Kundenname";
+                }
+            }
+            catch (Exception ex)
             {
-                var auft = (from a in db.Auftraege
-                            join k in db.Kunden on a.KundeID equals k.KundeID
-                            select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet })
-                            .Where(suchKomplett).ToList();
-                
-                dgvMain.DataSource = auft;
-                dgvMain.Columns["auftragID"].Visible = false;
-                dgvMain.Columns["Name"].HeaderText = "Kundenname";
-                
+                ErrorHandler.ErrorHandle(ex);
             }
         }
     }
