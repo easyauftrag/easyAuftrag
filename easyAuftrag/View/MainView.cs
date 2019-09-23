@@ -598,13 +598,13 @@ namespace easyAuftrag
                             switch (item.SpalteControl.Text)
                             {
                                 case "AuftragNummer":
-                                    if (!string.IsNullOrEmpty(item.ValueControl.Text))
+                                    if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
                                     {
                                         auft = auft.Where(p => p.AuftragNummer.Contains(item.ValueControl.Text)).ToList();
                                     }
                                     break;
                                 case "Name":
-                                    if (!string.IsNullOrEmpty(item.ValueControl.Text))
+                                    if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
                                     {
                                         auft = auft.Where(p => p.Name.Contains(item.ValueControl.Text)).ToList();
                                     }
