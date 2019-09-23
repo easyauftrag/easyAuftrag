@@ -85,7 +85,7 @@ namespace easyAuftrag
         }
 
         /// <summary>
-        /// Methode zum laden und aktualisieren der Aufträge im <see cref="DataGridView"/>
+        /// Methode zum Laden und Aktualisieren der Aufträge im <see cref="DataGridView"/>
         /// </summary>
         public void TabelleNeu()
         {
@@ -95,7 +95,6 @@ namespace easyAuftrag
                 {
                     var auftraege = (from a in db.Auftraege where a.Abgerechnet == false && a.Erledigt == true select a).ToList();
                     tssLabNummer.Text = auftraege.Count().ToString();
-                    
                     var auftr = (from a in db.Auftraege
                                     join k in db.Kunden on a.KundeID equals k.KundeID
                                     select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
@@ -111,7 +110,7 @@ namespace easyAuftrag
         }
 
         /// <summary>
-        /// Methode zum laden und aktualisieren der Einträge im <see cref="TreeView"/>
+        /// Methode zum Laden und Aktualisieren der Einträge im <see cref="TreeView"/>
         /// </summary>
         private void TreeViewNeu()
         {
@@ -368,14 +367,12 @@ namespace easyAuftrag
                         {
                             MitList.Add((from m in db.Mitarbeiters where m.MitarbeiterID == t.MitarbeiterID select m).First());
                         }
-
                         doc.AuftragNr = auftrag.AuftragNummer;
                         doc.KundeName = kunde.Name;
                         doc.KundeAnschrift = kunde.Strasse + " " + kunde.Hausnr + ", " + kunde.PLZ + " " + kunde.Wohnort;
                         doc.KundeTelefon = kunde.TelefonNr;
                         doc.TatListe = Tatlist;
                         doc.MitList = MitList;
-
                         Drucken druck = new Drucken();
                         druck.Druck(doc);
                     }
@@ -630,6 +627,10 @@ namespace easyAuftrag
                 ErrorHandler.ErrorHandle(ex);
             }
         }
+
+        /// <summary>
+        /// Methode zum Filtern der Aufträge in der <see cref="DataGridView"/> nach den Kriterien im <see cref="SuchControl"/>
+        /// </summary>
         private void SuchControlMain_SuchEvent()
         {
             try
@@ -639,37 +640,40 @@ namespace easyAuftrag
                     var auft = (from a in db.Auftraege
                                 join k in db.Kunden on a.KundeID equals k.KundeID
                                 select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
-
                     foreach (var item in suchControlMain.Suche)
                     {
-                        if (!string.IsNullOrEmpty(item.SpalteControl.Text))
+                        if (item.LinkControl.Text == "und" || string.IsNullOrEmpty(item.LinkControl.Text))
                         {
-                            switch (item.SpalteControl.Text)
+                            if (!string.IsNullOrEmpty(item.SpalteControl.Text))
                             {
-                                case "AuftragNummer":
-                                    if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
-                                    {
-                                        auft = auft.Where(a => a.AuftragNummer.Contains(item.ValueControl.Text)).ToList();
-                                    }
-                                    break;
-                                case "Name":
-                                    if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
-                                    {
-                                        auft = auft.Where(a => a.Name.Contains(item.ValueControl.Text)).ToList();
-                                    }
-                                    break;
-                                case "Eingang":
-                                    auft = auft.Where(a => a.Eingang >= item.AnfangControl.Value && a.Eingang <= item.EndeControl.Value).ToList();
-                                    break;
-                                case "Erteilt":
-                                    auft = auft.Where(a => a.Erteilt >= item.AnfangControl.Value && a.Erteilt <= item.EndeControl.Value).ToList();
-                                    break;
-                                case "Abgerechnet":
-                                    auft = auft.Where(a => a.Abgerechnet != item.AbgerechnetControl.Checked).ToList();
-                                    break;
-                                case "Erledigt":
-                                    auft = auft.Where(a => a.Erledigt == item.ErledigtControl.Checked).ToList();
-                                    break;
+                                switch (item.SpalteControl.Text)
+                                {
+                                    case "AuftragNummer":
+                                        if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
+                                        {
+                                            auft = auft.Where(a => a.AuftragNummer.Contains(item.ValueControl.Text)).ToList();
+                                        }
+                                        break;
+                                    case "Name":
+                                        if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
+                                        {
+                                            auft = auft.Where(a => a.Name.Contains(item.ValueControl.Text)).ToList();
+                                        }
+                                        break;
+                                    case "Eingang":
+                                        auft = auft.Where(a => a.Eingang >= item.AnfangControl.Value && a.Eingang <= item.EndeControl.Value).ToList();
+                                        break;
+                                    case "Erteilt":
+                                        auft = auft.Where(a => a.Erteilt >= item.AnfangControl.Value && a.Erteilt <= item.EndeControl.Value).ToList();
+                                        break;
+                                    case "Abgerechnet":
+                                        auft = auft.Where(a => a.Abgerechnet != item.AbgerechnetControl.Checked).ToList();
+                                        break;
+                                    case "Erledigt":
+                                        auft = auft.Where(a => a.Erledigt == item.ErledigtControl.Checked).ToList();
+                                        break;
+                                }
+
                             }
                         }
                     }
