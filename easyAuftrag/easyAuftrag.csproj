@@ -73,12 +73,6 @@
     <Compile Include="View\AuftragView.Designer.cs">
       <DependentUpon>AuftragView.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Auswertung.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="View\Auswertung.Designer.cs">
-      <DependentUpon>Auswertung.cs</DependentUpon>
-    </Compile>
     <Compile Include="View\ExportView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,9 +131,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\AuftragView.resx">
       <DependentUpon>AuftragView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="View\Auswertung.resx">
-      <DependentUpon>Auswertung.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ExportView.resx">
       <DependentUpon>ExportView.cs</DependentUpon>
