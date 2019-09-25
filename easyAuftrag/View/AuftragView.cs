@@ -93,6 +93,10 @@ namespace easyAuftrag.View
         {
             InitializeComponent();
             Text = titel;
+            if (titel == "Auftrag Löschen")
+            {
+                butSpeichern.Text = "Löschen";
+            }
             AuftragInfo = auftrag;
             using (var db = new EasyAuftragContext())
             {

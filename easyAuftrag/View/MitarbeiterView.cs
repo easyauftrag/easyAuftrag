@@ -74,7 +74,11 @@ namespace easyAuftrag.View
         public MitarbeiterView(string titel, Mitarbeiter mitarbeiter)
         {
             InitializeComponent();
-            Text = titel;
+            Text = titel; 
+            if (titel == "Mitarbeiter Löschen")
+            {
+                butSpeichern.Text = "Löschen";
+            }
             MitarbeiterInfo = mitarbeiter;
             FillControls(MitarbeiterInfo);
         }

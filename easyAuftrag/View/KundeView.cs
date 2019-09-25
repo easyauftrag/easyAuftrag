@@ -80,7 +80,10 @@ namespace easyAuftrag.View
         public KundeView(string titel, Kunde kunde)
         {
             InitializeComponent();
-            Text = titel;
+            Text = titel; if (titel == "Kunde Löschen")
+            {
+                butSpeichern.Text = "Löschen";
+            }
             KundenInfo = kunde;
             FillControls(KundenInfo);
             using (var db = new EasyAuftragContext())
