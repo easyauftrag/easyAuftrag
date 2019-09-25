@@ -44,7 +44,28 @@ namespace Austausch
 
         public void AuftragSchreiben(string exportPfad, List<Auftrag> lstAuftrag)
         {
-            throw new NotImplementedException();
+            try
+            {
+                TextWriter writer = new StreamWriter(exportPfad);
+                writer.WriteLine("AuftragID; AuftragNummer; KundeID; Eingang; Erteilt; Erledigt; Abgerechnet");
+                foreach (var item in lstAuftrag)
+                {
+                    writer.WriteLine(item.AuftragID + "; "
+                        + item.AuftragNummer + "; "
+                        + item.KundeID + "; "
+                        + item.Eingang + "; "
+                        + item.Erteilt + "; "
+                        + item.Erledigt + "; "
+                        + item.Abgerechnet);
+
+                    writer.Flush();
+                    writer.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         public List<Kunde> KundeLesen(string importPfad)
@@ -80,7 +101,28 @@ namespace Austausch
 
         public void KundeSchreiben(string exportPfad, List<Kunde> lstKunde)
         {
-            throw new NotImplementedException();
+            try
+            {
+                TextWriter writer = new StreamWriter(exportPfad);
+                writer.WriteLine("KundeID; Name; Strasse; Hausnr; PLZ; Wohnort; TelefonNr");
+                foreach (var item in lstKunde)
+                {
+                    writer.WriteLine(item.KundeID + "; "
+                        + item.Name + "; "
+                        + item.Strasse + "; "
+                        + item.Hausnr + "; "
+                        + item.PLZ + "; "
+                        + item.Wohnort + "; "
+                        + item.TelefonNr);
+
+                    writer.Flush();
+                    writer.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         public List<Mitarbeiter> MitarbeiterLesen(string importPfad)
@@ -117,7 +159,29 @@ namespace Austausch
 
         public void MitarbeiterSchreiben(string exportPfad, List<Mitarbeiter> lstMitarbeiter)
         {
-            throw new NotImplementedException();
+            try
+            {
+                TextWriter writer = new StreamWriter(exportPfad);
+                writer.WriteLine("MitarbeiterID; Name; TelefonNr; Strasse; Hausnr; PLZ; Wohnort; AuslastungStelle");
+                foreach (var item in lstMitarbeiter)
+                {
+                    writer.WriteLine(item.MitarbeiterID + "; "
+                        + item.Name + "; "
+                        + item.TelefonNr + "; "
+                        + item.Strasse + "; "
+                        + item.Hausnr + "; "
+                        + item.PLZ + "; "
+                        + item.Wohnort + "; "
+                        + item.AuslastungStelle);
+
+                    writer.Flush();
+                    writer.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         public List<Taetigkeit> TaetigkeitLesen(string importPfad)
@@ -153,7 +217,28 @@ namespace Austausch
 
         public void TaetigkeitSchreiben(string exportPfad, List<Taetigkeit> lstTaetigkeit)
         {
-            throw new NotImplementedException();
+            try
+            {
+                TextWriter writer = new StreamWriter(exportPfad);
+                writer.WriteLine("TaetigkeitID; AuftragID; MitarbeiterID; Datum; Name; StartZeit; EndZeit");
+                foreach (var item in lstTaetigkeit)
+                {
+                    writer.WriteLine(item.TaetigkeitID + "; "
+                        + item.AuftragID + "; "
+                        + item.MitarbeiterID + "; "
+                        + item.Datum + "; "
+                        + item.Name + "; "
+                        + item.StartZeit + "; "
+                        + item.EndZeit);
+
+                    writer.Flush();
+                    writer.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
     }
 }
