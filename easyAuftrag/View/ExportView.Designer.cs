@@ -35,10 +35,10 @@
             this.rdbXML = new System.Windows.Forms.RadioButton();
             this.rdbCSV = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.rdbTaetigkeit = new System.Windows.Forms.RadioButton();
             this.rdbMitarbeiter = new System.Windows.Forms.RadioButton();
             this.rdbKunde = new System.Windows.Forms.RadioButton();
             this.rdbAuftrag = new System.Windows.Forms.RadioButton();
-            this.rdbTaetigkeit = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -104,6 +104,7 @@
             // rdbCSV
             // 
             this.rdbCSV.AutoSize = true;
+            this.rdbCSV.Checked = true;
             this.rdbCSV.Location = new System.Drawing.Point(6, 19);
             this.rdbCSV.Name = "rdbCSV";
             this.rdbCSV.Size = new System.Drawing.Size(79, 17);
@@ -125,6 +126,18 @@
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Art auswählen";
+            // 
+            // rdbTaetigkeit
+            // 
+            this.rdbTaetigkeit.AutoSize = true;
+            this.rdbTaetigkeit.Location = new System.Drawing.Point(6, 88);
+            this.rdbTaetigkeit.Name = "rdbTaetigkeit";
+            this.rdbTaetigkeit.Size = new System.Drawing.Size(78, 17);
+            this.rdbTaetigkeit.TabIndex = 6;
+            this.rdbTaetigkeit.TabStop = true;
+            this.rdbTaetigkeit.Text = "Tätigkeiten";
+            this.rdbTaetigkeit.UseVisualStyleBackColor = true;
+            this.rdbTaetigkeit.CheckedChanged += new System.EventHandler(this.rdbTaetigkeit_CheckedChanged);
             // 
             // rdbMitarbeiter
             // 
@@ -153,6 +166,7 @@
             // rdbAuftrag
             // 
             this.rdbAuftrag.AutoSize = true;
+            this.rdbAuftrag.Checked = true;
             this.rdbAuftrag.Location = new System.Drawing.Point(6, 19);
             this.rdbAuftrag.Name = "rdbAuftrag";
             this.rdbAuftrag.Size = new System.Drawing.Size(65, 17);
@@ -161,18 +175,6 @@
             this.rdbAuftrag.Text = "Aufträge";
             this.rdbAuftrag.UseVisualStyleBackColor = true;
             this.rdbAuftrag.CheckedChanged += new System.EventHandler(this.rdbAuftrag_CheckedChanged);
-            // 
-            // rdbTaetigkeit
-            // 
-            this.rdbTaetigkeit.AutoSize = true;
-            this.rdbTaetigkeit.Location = new System.Drawing.Point(6, 88);
-            this.rdbTaetigkeit.Name = "rdbTaetigkeit";
-            this.rdbTaetigkeit.Size = new System.Drawing.Size(78, 17);
-            this.rdbTaetigkeit.TabIndex = 6;
-            this.rdbTaetigkeit.TabStop = true;
-            this.rdbTaetigkeit.Text = "Tätigkeiten";
-            this.rdbTaetigkeit.UseVisualStyleBackColor = true;
-            this.rdbTaetigkeit.CheckedChanged += new System.EventHandler(this.rdbTaetigkeit_CheckedChanged);
             // 
             // ExportView
             // 

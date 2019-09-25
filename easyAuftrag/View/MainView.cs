@@ -939,7 +939,17 @@ namespace easyAuftrag
                                 if (cSVConfig.ShowDialog() == DialogResult.OK)
                                 {
                                     AustauschCSV austauschCSV = new AustauschCSV(cSVConfig.Typen.TrennerDezimal, cSVConfig.Typen.TrennerDaten);
-                                    dgvMain.DataSource = austauschCSV.AuftragLesen(dlgImport.FileName);
+                                    var aufListe = austauschCSV.AuftragLesen(dlgImport.FileName);
+                                    ImportBestaetigenView import = new ImportBestaetigenView(aufListe);
+                                    if (import.ShowDialog() == DialogResult.OK)
+                                    {
+                                        foreach (Auftrag auf in aufListe)
+                                        {
+                                            _handler.AuftragAnlegen(auf);
+                                        }
+                                        TabelleNeu();
+                                        TreeViewNeu();
+                                    }
                                 }
                             }
                         }
@@ -950,7 +960,17 @@ namespace easyAuftrag
                             if (dlgImport.ShowDialog() == DialogResult.OK)
                             {
                                 AustauschXML austauschXML = new AustauschXML();
-                                dgvMain.DataSource = austauschXML.AuftragLesen(dlgImport.FileName);
+                                var aufListe = austauschXML.AuftragLesen(dlgImport.FileName);
+                                ImportBestaetigenView import = new ImportBestaetigenView(aufListe);
+                                if (import.ShowDialog() == DialogResult.OK)
+                                {
+                                    foreach (Auftrag auf in aufListe)
+                                    {
+                                        _handler.AuftragAnlegen(auf);
+                                    }
+                                    TabelleNeu();
+                                    TreeViewNeu();
+                                }
                             }
                         }
                         else if (importV.DateiFormat == ExportView.Format.JSON)
@@ -960,7 +980,17 @@ namespace easyAuftrag
                             if (dlgImport.ShowDialog() == DialogResult.OK)
                             {
                                 AustauschJSON austauschJSON = new AustauschJSON();
-                                dgvMain.DataSource = austauschJSON.AuftragLesen(dlgImport.FileName);
+                                var aufListe = austauschJSON.AuftragLesen(dlgImport.FileName);
+                                ImportBestaetigenView import = new ImportBestaetigenView(aufListe);
+                                if (import.ShowDialog() == DialogResult.OK)
+                                {
+                                    foreach (Auftrag auf in aufListe)
+                                    {
+                                        _handler.AuftragAnlegen(auf);
+                                    }
+                                    TabelleNeu();
+                                    TreeViewNeu();
+                                }
                             }
                         }
                     }
@@ -977,7 +1007,16 @@ namespace easyAuftrag
                                 if (cSVConfig.ShowDialog() == DialogResult.OK)
                                 {
                                     AustauschCSV austauschCSV = new AustauschCSV(cSVConfig.Typen.TrennerDezimal, cSVConfig.Typen.TrennerDaten);
-                                    dgvMain.DataSource = austauschCSV.KundeLesen(dlgImport.FileName);
+                                    var kunListe = austauschCSV.KundeLesen(dlgImport.FileName);
+                                    ImportBestaetigenView import = new ImportBestaetigenView(kunListe);
+                                    if (import.ShowDialog() == DialogResult.OK)
+                                    {
+                                        foreach (Kunde kun in kunListe)
+                                        {
+                                            _handler.KundeAnlegen(kun);
+                                        }
+                                        TreeViewNeu();
+                                    }
                                 }
                             }
                         }
@@ -988,7 +1027,16 @@ namespace easyAuftrag
                             if (dlgImport.ShowDialog() == DialogResult.OK)
                             {
                                 AustauschXML austauschXML = new AustauschXML();
-                                dgvMain.DataSource = austauschXML.KundeLesen(dlgImport.FileName);
+                                var kunListe = austauschXML.KundeLesen(dlgImport.FileName);
+                                ImportBestaetigenView import = new ImportBestaetigenView(kunListe);
+                                if (import.ShowDialog() == DialogResult.OK)
+                                {
+                                    foreach (Kunde kun in kunListe)
+                                    {
+                                        _handler.KundeAnlegen(kun);
+                                    }
+                                    TreeViewNeu();
+                                }
                             }
                         }
                         else if (importV.DateiFormat == ExportView.Format.JSON)
@@ -998,7 +1046,16 @@ namespace easyAuftrag
                             if (dlgImport.ShowDialog() == DialogResult.OK)
                             {
                                 AustauschJSON austauschJSON = new AustauschJSON();
-                                dgvMain.DataSource = austauschJSON.KundeLesen(dlgImport.FileName);
+                                var kunListe = austauschJSON.KundeLesen(dlgImport.FileName);
+                                ImportBestaetigenView import = new ImportBestaetigenView(kunListe);
+                                if (import.ShowDialog() == DialogResult.OK)
+                                {
+                                    foreach (Kunde kun in kunListe)
+                                    {
+                                        _handler.KundeAnlegen(kun);
+                                    }
+                                    TreeViewNeu();
+                                }
                             }
                         }
                     }
@@ -1015,7 +1072,16 @@ namespace easyAuftrag
                                 if (cSVConfig.ShowDialog() == DialogResult.OK)
                                 {
                                     AustauschCSV austauschCSV = new AustauschCSV(cSVConfig.Typen.TrennerDezimal, cSVConfig.Typen.TrennerDaten);
-                                    dgvMain.DataSource = austauschCSV.MitarbeiterLesen(dlgImport.FileName);
+                                    var mitListe = austauschCSV.MitarbeiterLesen(dlgImport.FileName);
+                                    ImportBestaetigenView import = new ImportBestaetigenView(mitListe);
+                                    if (import.ShowDialog() == DialogResult.OK)
+                                    {
+                                        foreach (Mitarbeiter mit in mitListe)
+                                        {
+                                            _handler.MitarbeiterAnlegen(mit);
+                                        }
+                                        TreeViewNeu();
+                                    }
                                 }
                             }
                         }
@@ -1026,7 +1092,16 @@ namespace easyAuftrag
                             if (dlgImport.ShowDialog() == DialogResult.OK)
                             {
                                 AustauschXML austauschXML = new AustauschXML();
-                                dgvMain.DataSource = austauschXML.MitarbeiterLesen(dlgImport.FileName);
+                                var mitListe = austauschXML.MitarbeiterLesen(dlgImport.FileName);
+                                ImportBestaetigenView import = new ImportBestaetigenView(mitListe);
+                                if (import.ShowDialog() == DialogResult.OK)
+                                {
+                                    foreach (Mitarbeiter mit in mitListe)
+                                    {
+                                        _handler.MitarbeiterAnlegen(mit);
+                                    }
+                                    TreeViewNeu();
+                                }
                             }
                         }
                         else if (importV.DateiFormat == ExportView.Format.JSON)
@@ -1036,7 +1111,16 @@ namespace easyAuftrag
                             if (dlgImport.ShowDialog() == DialogResult.OK)
                             {
                                 AustauschJSON austauschJSON = new AustauschJSON();
-                                dgvMain.DataSource = austauschJSON.MitarbeiterLesen(dlgImport.FileName);
+                                var mitListe = austauschJSON.MitarbeiterLesen(dlgImport.FileName);
+                                ImportBestaetigenView import = new ImportBestaetigenView(mitListe);
+                                if (import.ShowDialog() == DialogResult.OK)
+                                {
+                                    foreach (Mitarbeiter mit in mitListe)
+                                    {
+                                        _handler.MitarbeiterAnlegen(mit);
+                                    }
+                                    TreeViewNeu();
+                                }
                             }
                         }
                     }
@@ -1053,7 +1137,16 @@ namespace easyAuftrag
                                 if (cSVConfig.ShowDialog() == DialogResult.OK)
                                 {
                                     AustauschCSV austauschCSV = new AustauschCSV(cSVConfig.Typen.TrennerDezimal, cSVConfig.Typen.TrennerDaten);
-                                    dgvMain.DataSource = austauschCSV.TaetigkeitLesen(dlgImport.FileName);
+                                    var tatListe = austauschCSV.TaetigkeitLesen(dlgImport.FileName);
+                                    ImportBestaetigenView import = new ImportBestaetigenView(tatListe);
+                                    if (import.ShowDialog() == DialogResult.OK)
+                                    {
+                                        foreach (Taetigkeit tat in tatListe)
+                                        {
+                                            _handler.TaetigkeitAnlegen(tat);
+                                        }
+                                        TreeViewNeu();
+                                    }
                                 }
                             }
                         }
@@ -1064,7 +1157,16 @@ namespace easyAuftrag
                             if (dlgImport.ShowDialog() == DialogResult.OK)
                             {
                                 AustauschXML austauschXML = new AustauschXML();
-                                dgvMain.DataSource = austauschXML.TaetigkeitLesen(dlgImport.FileName);
+                                var tatListe = austauschXML.TaetigkeitLesen(dlgImport.FileName);
+                                ImportBestaetigenView import = new ImportBestaetigenView(tatListe);
+                                if(import.ShowDialog() == DialogResult.OK)
+                                {
+                                    foreach (Taetigkeit tat in tatListe)
+                                    {
+                                        _handler.TaetigkeitAnlegen(tat);
+                                    }
+                                    TreeViewNeu();
+                                }
                             }
                         }
                         else if (importV.DateiFormat == ExportView.Format.JSON)
@@ -1074,7 +1176,16 @@ namespace easyAuftrag
                             if (dlgImport.ShowDialog() == DialogResult.OK)
                             {
                                 AustauschJSON austauschJSON = new AustauschJSON();
-                                dgvMain.DataSource = austauschJSON.TaetigkeitLesen(dlgImport.FileName);
+                                var tatListe = austauschJSON.TaetigkeitLesen(dlgImport.FileName);
+                                ImportBestaetigenView import = new ImportBestaetigenView(tatListe);
+                                if (import.ShowDialog() == DialogResult.OK)
+                                {
+                                    foreach (Taetigkeit tat in tatListe)
+                                    {
+                                        _handler.TaetigkeitAnlegen(tat);
+                                    }
+                                    TreeViewNeu();
+                                }
                             }
                         }
                     }

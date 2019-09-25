@@ -56,6 +56,10 @@ namespace easyAuftrag.View
         {
             InitializeComponent();
             Text = titel;
+            if(titel == "Import")
+            {
+                butSpeichern.Text = "Laden";
+            }
         }
 
         /// <summary>
