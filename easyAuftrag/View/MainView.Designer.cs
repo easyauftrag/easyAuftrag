@@ -30,9 +30,9 @@ namespace easyAuftrag
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Kunden");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Mitarbeiter");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Aufträge");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Kunden");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Mitarbeiter");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Aufträge");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainView));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,6 +65,7 @@ namespace easyAuftrag
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLoeschen = new System.Windows.Forms.ToolStripMenuItem();
             this.suchControlMain = new easyAuftrag.View.SuchControl();
+            this.butImport = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
             this.cxtMain.SuspendLayout();
@@ -124,19 +125,19 @@ namespace easyAuftrag
             | System.Windows.Forms.AnchorStyles.Left)));
             this.tvMain.Location = new System.Drawing.Point(13, 58);
             this.tvMain.Name = "tvMain";
-            treeNode1.Name = "Kunden";
-            treeNode1.Tag = "Kunden";
-            treeNode1.Text = "Kunden";
-            treeNode2.Name = "Mitarbeiter";
-            treeNode2.Tag = "Mitarbeiter";
-            treeNode2.Text = "Mitarbeiter";
-            treeNode3.Name = "Auftraege";
-            treeNode3.Tag = "Auftraege";
-            treeNode3.Text = "Aufträge";
+            treeNode4.Name = "Kunden";
+            treeNode4.Tag = "Kunden";
+            treeNode4.Text = "Kunden";
+            treeNode5.Name = "Mitarbeiter";
+            treeNode5.Tag = "Mitarbeiter";
+            treeNode5.Text = "Mitarbeiter";
+            treeNode6.Name = "Auftraege";
+            treeNode6.Tag = "Auftraege";
+            treeNode6.Text = "Aufträge";
             this.tvMain.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3});
+            treeNode4,
+            treeNode5,
+            treeNode6});
             this.tvMain.Size = new System.Drawing.Size(189, 441);
             this.tvMain.TabIndex = 6;
             this.tvMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TvMain_MouseUp);
@@ -203,6 +204,7 @@ namespace easyAuftrag
             // 
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.butExport,
+            this.butImport,
             this.butAuftragZettel,
             this.butStundenZettel,
             this.butAuftrag,
@@ -341,9 +343,17 @@ namespace easyAuftrag
             this.suchControlMain.Name = "suchControlMain";
             this.suchControlMain.Size = new System.Drawing.Size(564, 130);
             this.suchControlMain.Spalten = ((System.Collections.Generic.List<string>)(resources.GetObject("suchControlMain.Spalten")));
-            this.suchControlMain.Suche = null;
             this.suchControlMain.TabIndex = 12;
             this.suchControlMain.SuchEvent += new System.Action(this.SuchControlMain_SuchEvent);
+            // 
+            // butImport
+            // 
+            this.butImport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.butImport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.butImport.Name = "butImport";
+            this.butImport.Size = new System.Drawing.Size(77, 22);
+            this.butImport.Text = "Datei Import";
+            this.butImport.Click += new System.EventHandler(this.butImport_Click);
             // 
             // MainView
             // 
@@ -407,6 +417,7 @@ namespace easyAuftrag
         private System.Windows.Forms.ToolStripMenuItem toolStripLoeschen;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton butStundenZettel;
+        private System.Windows.Forms.ToolStripButton butImport;
     }
 }
 

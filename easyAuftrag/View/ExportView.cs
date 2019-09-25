@@ -44,12 +44,18 @@ namespace easyAuftrag.View
     /// <seealso cref="Logik.Export"/>
     public partial class ExportView : Form
     {
+        public enum Format { CSV, XML, JSON }
+        public enum Art { Auftrag, Kunde, Mitarbeiter, Taetigkeit }
+        public Format DateiFormat { get; set; }
+        public Art ExportArt { get; set; }
+
         /// <summary>
         /// Konstruktor für die <see cref="ExportView"/>
         /// </summary>
-        public ExportView()
+        public ExportView(string titel)
         {
             InitializeComponent();
+            Text = titel;
         }
 
         /// <summary>
@@ -61,6 +67,68 @@ namespace easyAuftrag.View
         {
             this.DialogResult = DialogResult.Cancel;
             this.Hide();
+        }
+
+        private void rdbCSV_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdbCSV.Checked)
+            {
+                DateiFormat = Format.CSV;
+            }
+        }
+
+        private void rdbXML_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdbXML.Checked)
+            {
+                DateiFormat = Format.XML;
+            }
+        }
+
+        private void rdbJSON_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdbJSON.Checked)
+            {
+                DateiFormat = Format.JSON;
+            }
+        }
+
+        private void butSpeichern_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+            this.Hide();
+        }
+
+        private void rdbAuftrag_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdbAuftrag.Checked)
+            {
+                ExportArt = Art.Auftrag;
+            }
+        }
+
+        private void rdbKunde_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdbKunde.Checked)
+            {
+                ExportArt = Art.Kunde;
+            }
+        }
+
+        private void rdbMitarbeiter_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdbMitarbeiter.Checked)
+            {
+                ExportArt = Art.Mitarbeiter;
+            }
+        }
+
+        private void rdbTaetigkeit_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdbTaetigkeit.Checked)
+            {
+                ExportArt = Art.Taetigkeit;
+            }
         }
     }
 }

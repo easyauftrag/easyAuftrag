@@ -42,6 +42,7 @@ using System.Linq.Dynamic.Core;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Austausch;
 
 namespace easyAuftrag
 {
@@ -98,8 +99,8 @@ namespace easyAuftrag
                     var auftraege = (from a in db.Auftraege where a.Abgerechnet == false && a.Erledigt == true select a).ToList();
                     tssLabNummer.Text = auftraege.Count().ToString();
                     var auftr = (from a in db.Auftraege
-                                    join k in db.Kunden on a.KundeID equals k.KundeID
-                                    select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
+                                 join k in db.Kunden on a.KundeID equals k.KundeID
+                                 select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
                     dgvMain.DataSource = auftr;
                     dgvMain.Columns["auftragID"].Visible = false;
                     dgvMain.Columns["Name"].HeaderText = "Kundenname";
@@ -176,7 +177,7 @@ namespace easyAuftrag
         private void ButKunde_Click(object sender, EventArgs e)
         {
             try
-            { 
+            {
                 KundeView kundeV = new KundeView("Neuer Kunde");
                 if (kundeV.ShowDialog() == DialogResult.OK)
                 {
@@ -344,7 +345,120 @@ namespace easyAuftrag
         /// <param name="e"></param>
         private void ButExport_Click(object sender, EventArgs e)
         {
+            ExportView exportV = new ExportView("Export");
+            if (exportV.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    using (var db = new EasyAuftragContext())
+                    {
+                        List<Auftrag> auftraege = new List<Auftrag>();
+                        List<Kunde> kunden = new List<Kunde>();
+                        List<Mitarbeiter> mitarbeiters = new List<Mitarbeiter>();
+                        List<Taetigkeit> taetigkeiten = new List<Taetigkeit>();
 
+                        SaveFileDialog dlg = new SaveFileDialog();
+                        if (exportV.DateiFormat == ExportView.Format.CSV)
+                        {
+                            dlg.Filter = "CSV|*.csv|All Files|*.*|Text File|*.txt";
+                            dlg.DefaultExt = "*.csv*";
+
+                            CSVConfig cSVConfig = new CSVConfig();
+                            if (dlg.ShowDialog() == DialogResult.OK)
+                            {
+                                if (cSVConfig.ShowDialog() == DialogResult.OK)
+                                {
+                                    AustauschCSV austauschCSV = new AustauschCSV(cSVConfig.Typen.TrennerDezimal, cSVConfig.Typen.TrennerDaten);
+                                    if (exportV.ExportArt == ExportView.Art.Auftrag)
+                                    {
+                                        auftraege = (from a in db.Auftraege select a).ToList();
+                                        austauschCSV.AuftragSchreiben(dlg.FileName, auftraege);
+                                    }
+                                    else if (exportV.ExportArt == ExportView.Art.Kunde)
+                                    {
+                                        kunden = (from k in db.Kunden select k).ToList();
+                                        austauschCSV.KundeSchreiben(dlg.FileName, kunden);
+                                    }
+                                    else if (exportV.ExportArt == ExportView.Art.Mitarbeiter)
+                                    {
+                                        mitarbeiters = (from m in db.Mitarbeiters select m).ToList();
+                                        austauschCSV.MitarbeiterSchreiben(dlg.FileName, mitarbeiters);
+                                    }
+                                    else if (exportV.ExportArt == ExportView.Art.Taetigkeit)
+                                    {
+                                        taetigkeiten = (from t in db.Taetigkeiten select t).ToList();
+                                        austauschCSV.TaetigkeitSchreiben(dlg.FileName, taetigkeiten);
+                                    }
+                                }
+                            }
+                        }
+                        else if (exportV.DateiFormat == ExportView.Format.XML)
+                        {
+                            dlg.Filter = "XML|*.xml|All Files|*.*|Text File|*.txt";
+                            dlg.DefaultExt = "*.xml*";
+
+                            if (dlg.ShowDialog() == DialogResult.OK)
+                            {
+                                AustauschXML austauschXML = new AustauschXML();
+                                if (exportV.ExportArt == ExportView.Art.Auftrag)
+                                {
+                                    auftraege = (from a in db.Auftraege select a).ToList();
+                                    austauschXML.AuftragSchreiben(dlg.FileName, auftraege);
+                                }
+                                else if (exportV.ExportArt == ExportView.Art.Kunde)
+                                {
+                                    kunden = (from k in db.Kunden select k).ToList();
+                                    austauschXML.KundeSchreiben(dlg.FileName, kunden);
+                                }
+                                else if (exportV.ExportArt == ExportView.Art.Mitarbeiter)
+                                {
+                                    mitarbeiters = (from m in db.Mitarbeiters select m).ToList();
+                                    austauschXML.MitarbeiterSchreiben(dlg.FileName, mitarbeiters);
+                                }
+                                else if (exportV.ExportArt == ExportView.Art.Taetigkeit)
+                                {
+                                    taetigkeiten = (from t in db.Taetigkeiten select t).ToList();
+                                    austauschXML.TaetigkeitSchreiben(dlg.FileName, taetigkeiten);
+                                }
+                            }
+                        }
+                        else if (exportV.DateiFormat == ExportView.Format.JSON)
+                        {
+                            dlg.Filter = "JSON|*.json|All Files|*.*|Text File|*.txt";
+                            dlg.DefaultExt = "*.json*";
+
+                            if (dlg.ShowDialog() == DialogResult.OK)
+                            {
+                                AustauschJSON austauschJSON = new AustauschJSON();
+                                if (exportV.ExportArt == ExportView.Art.Auftrag)
+                                {
+                                    auftraege = (from a in db.Auftraege select a).ToList();
+                                    austauschJSON.AuftragSchreiben(dlg.FileName, auftraege);
+                                }
+                                else if (exportV.ExportArt == ExportView.Art.Kunde)
+                                {
+                                    kunden = (from k in db.Kunden select k).ToList();
+                                    austauschJSON.KundeSchreiben(dlg.FileName, kunden);
+                                }
+                                else if (exportV.ExportArt == ExportView.Art.Mitarbeiter)
+                                {
+                                    mitarbeiters = (from m in db.Mitarbeiters select m).ToList();
+                                    austauschJSON.MitarbeiterSchreiben(dlg.FileName, mitarbeiters);
+                                }
+                                else if (exportV.ExportArt == ExportView.Art.Taetigkeit)
+                                {
+                                    taetigkeiten = (from t in db.Taetigkeiten select t).ToList();
+                                    austauschJSON.TaetigkeitSchreiben(dlg.FileName, taetigkeiten);
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ErrorHandler.ErrorHandle(ex);
+                }
+            }
         }
 
         /// <summary>
@@ -490,7 +604,7 @@ namespace easyAuftrag
                 }
                 if (item[0].ToLower().StartsWith("tae"))
                 {
-                    string[] itemParent = tvMain.SelectedNode.Parent.Tag.ToString().Split('_') ;
+                    string[] itemParent = tvMain.SelectedNode.Parent.Tag.ToString().Split('_');
                     AuftragView auftragV = new AuftragView("Auftrag Bearbeiten", auftrag: _handler.AuftragLaden(Convert.ToInt32(itemParent[1])));
                     if (auftragV.ShowDialog() == DialogResult.OK)
                     {
@@ -667,23 +781,23 @@ namespace easyAuftrag
                                         }
                                         break;
                                     case "Eingang":
-                                        suchBedingungen.Add("Eingang >= DateTime(" 
-                                            + item.AnfangControl.Value.Year + "," 
-                                            + item.AnfangControl.Value.Month + "," 
+                                        suchBedingungen.Add("Eingang >= DateTime("
+                                            + item.AnfangControl.Value.Year + ","
+                                            + item.AnfangControl.Value.Month + ","
                                             + item.AnfangControl.Value.Day + ")"
-                                            + " && Eingang <= DateTime(" 
-                                            + item.EndeControl.Value.Year + "," 
-                                            + item.EndeControl.Value.Month + "," 
+                                            + " && Eingang <= DateTime("
+                                            + item.EndeControl.Value.Year + ","
+                                            + item.EndeControl.Value.Month + ","
                                             + item.EndeControl.Value.Day + ")");
                                         break;
                                     case "Erteilt":
-                                        suchBedingungen.Add("Erteilt >= DateTime(" 
-                                            + item.AnfangControl.Value.Year + "," 
-                                            + item.AnfangControl.Value.Month + "," 
+                                        suchBedingungen.Add("Erteilt >= DateTime("
+                                            + item.AnfangControl.Value.Year + ","
+                                            + item.AnfangControl.Value.Month + ","
                                             + item.AnfangControl.Value.Day + ")"
-                                            + " && Erteilt <= DateTime(" 
-                                            + item.EndeControl.Value.Year + "," 
-                                            + item.EndeControl.Value.Month + "," 
+                                            + " && Erteilt <= DateTime("
+                                            + item.EndeControl.Value.Year + ","
+                                            + item.EndeControl.Value.Month + ","
                                             + item.EndeControl.Value.Day + ")");
                                         break;
                                     case "Abgerechnet":
@@ -714,23 +828,23 @@ namespace easyAuftrag
                                         }
                                         break;
                                     case "Eingang":
-                                        suchBedingungen.Add(" && Eingang >= DateTime(" 
-                                            + item.AnfangControl.Value.Year + "," 
-                                            + item.AnfangControl.Value.Month + "," 
+                                        suchBedingungen.Add(" && Eingang >= DateTime("
+                                            + item.AnfangControl.Value.Year + ","
+                                            + item.AnfangControl.Value.Month + ","
                                             + item.AnfangControl.Value.Day + ")"
-                                            + " && Eingang <= DateTime(" 
-                                            + item.EndeControl.Value.Year + "," 
-                                            + item.EndeControl.Value.Month + "," 
+                                            + " && Eingang <= DateTime("
+                                            + item.EndeControl.Value.Year + ","
+                                            + item.EndeControl.Value.Month + ","
                                             + item.EndeControl.Value.Day + ")");
                                         break;
                                     case "Erteilt":
-                                        suchBedingungen.Add(" && Erteilt >= DateTime(" 
-                                            + item.AnfangControl.Value.Year + "," 
-                                            + item.AnfangControl.Value.Month + "," 
+                                        suchBedingungen.Add(" && Erteilt >= DateTime("
+                                            + item.AnfangControl.Value.Year + ","
+                                            + item.AnfangControl.Value.Month + ","
                                             + item.AnfangControl.Value.Day + ")"
-                                            + " && Erteilt <= DateTime(" 
-                                            + item.EndeControl.Value.Year + "," 
-                                            + item.EndeControl.Value.Month + "," 
+                                            + " && Erteilt <= DateTime("
+                                            + item.EndeControl.Value.Year + ","
+                                            + item.EndeControl.Value.Month + ","
                                             + item.EndeControl.Value.Day + ")");
                                         break;
                                     case "Abgerechnet":
@@ -759,23 +873,23 @@ namespace easyAuftrag
                                     }
                                     break;
                                 case "Eingang":
-                                    suchBedingungen.Add(" || (Eingang >= DateTime(" 
-                                        + item.AnfangControl.Value.Year + "," 
-                                        + item.AnfangControl.Value.Month + "," 
+                                    suchBedingungen.Add(" || (Eingang >= DateTime("
+                                        + item.AnfangControl.Value.Year + ","
+                                        + item.AnfangControl.Value.Month + ","
                                         + item.AnfangControl.Value.Day + ")"
-                                        + " && Eingang <= DateTime(" 
-                                        + item.EndeControl.Value.Year + "," 
-                                        + item.EndeControl.Value.Month + "," 
+                                        + " && Eingang <= DateTime("
+                                        + item.EndeControl.Value.Year + ","
+                                        + item.EndeControl.Value.Month + ","
                                         + item.EndeControl.Value.Day + ")");
                                     break;
                                 case "Erteilt":
-                                    suchBedingungen.Add(" || (Erteilt >= DateTime(" 
-                                        + item.AnfangControl.Value.Year + "," 
-                                        + item.AnfangControl.Value.Month + "," 
+                                    suchBedingungen.Add(" || (Erteilt >= DateTime("
+                                        + item.AnfangControl.Value.Year + ","
+                                        + item.AnfangControl.Value.Month + ","
                                         + item.AnfangControl.Value.Day + ")"
-                                        + " && Erteilt <= DateTime(" 
-                                        + item.EndeControl.Value.Year + "," 
-                                        + item.EndeControl.Value.Month + "," 
+                                        + " && Erteilt <= DateTime("
+                                        + item.EndeControl.Value.Year + ","
+                                        + item.EndeControl.Value.Month + ","
                                         + item.EndeControl.Value.Day + ")");
                                     break;
                                 case "Abgerechnet":
@@ -802,6 +916,173 @@ namespace easyAuftrag
             catch (Exception ex)
             {
                 ErrorHandler.ErrorHandle(ex);
+            }
+        }
+
+        private void butImport_Click(object sender, EventArgs e)
+        {
+            ExportView importV = new ExportView("Import");
+            if (importV.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    if (importV.ExportArt == ExportView.Art.Auftrag)
+                    {
+                        OpenFileDialog dlgImport = new OpenFileDialog();
+                        if (importV.DateiFormat == ExportView.Format.CSV)
+                        {
+                            dlgImport.Filter = "CSV|*.csv|All Files|*.*";
+                            dlgImport.DefaultExt = "*.csv*";
+                            CSVConfig cSVConfig = new CSVConfig();
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                if (cSVConfig.ShowDialog() == DialogResult.OK)
+                                {
+                                    AustauschCSV austauschCSV = new AustauschCSV(cSVConfig.Typen.TrennerDezimal, cSVConfig.Typen.TrennerDaten);
+                                    dgvMain.DataSource = austauschCSV.AuftragLesen(dlgImport.FileName);
+                                }
+                            }
+                        }
+                        else if (importV.DateiFormat == ExportView.Format.XML)
+                        {
+                            dlgImport.Filter = "XML|*.xml|All Files|*.*";
+                            dlgImport.DefaultExt = "*.xml*";
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                AustauschXML austauschXML = new AustauschXML();
+                                dgvMain.DataSource = austauschXML.AuftragLesen(dlgImport.FileName);
+                            }
+                        }
+                        else if (importV.DateiFormat == ExportView.Format.JSON)
+                        {
+                            dlgImport.Filter = "JSON|*.json|All Files|*.*";
+                            dlgImport.DefaultExt = "*.json*";
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                AustauschJSON austauschJSON = new AustauschJSON();
+                                dgvMain.DataSource = austauschJSON.AuftragLesen(dlgImport.FileName);
+                            }
+                        }
+                    }
+                    else if (importV.ExportArt == ExportView.Art.Kunde)
+                    {
+                        OpenFileDialog dlgImport = new OpenFileDialog();
+                        if (importV.DateiFormat == ExportView.Format.CSV)
+                        {
+                            dlgImport.Filter = "CSV|*.csv|All Files|*.*";
+                            dlgImport.DefaultExt = "*.csv*";
+                            CSVConfig cSVConfig = new CSVConfig();
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                if (cSVConfig.ShowDialog() == DialogResult.OK)
+                                {
+                                    AustauschCSV austauschCSV = new AustauschCSV(cSVConfig.Typen.TrennerDezimal, cSVConfig.Typen.TrennerDaten);
+                                    dgvMain.DataSource = austauschCSV.KundeLesen(dlgImport.FileName);
+                                }
+                            }
+                        }
+                        else if (importV.DateiFormat == ExportView.Format.XML)
+                        {
+                            dlgImport.Filter = "XML|*.xml|All Files|*.*";
+                            dlgImport.DefaultExt = "*.xml*";
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                AustauschXML austauschXML = new AustauschXML();
+                                dgvMain.DataSource = austauschXML.KundeLesen(dlgImport.FileName);
+                            }
+                        }
+                        else if (importV.DateiFormat == ExportView.Format.JSON)
+                        {
+                            dlgImport.Filter = "JSON|*.json|All Files|*.*";
+                            dlgImport.DefaultExt = "*.json*";
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                AustauschJSON austauschJSON = new AustauschJSON();
+                                dgvMain.DataSource = austauschJSON.KundeLesen(dlgImport.FileName);
+                            }
+                        }
+                    }
+                    else if (importV.ExportArt == ExportView.Art.Mitarbeiter)
+                    {
+                        OpenFileDialog dlgImport = new OpenFileDialog();
+                        if (importV.DateiFormat == ExportView.Format.CSV)
+                        {
+                            dlgImport.Filter = "CSV|*.csv|All Files|*.*";
+                            dlgImport.DefaultExt = "*.csv*";
+                            CSVConfig cSVConfig = new CSVConfig();
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                if (cSVConfig.ShowDialog() == DialogResult.OK)
+                                {
+                                    AustauschCSV austauschCSV = new AustauschCSV(cSVConfig.Typen.TrennerDezimal, cSVConfig.Typen.TrennerDaten);
+                                    dgvMain.DataSource = austauschCSV.MitarbeiterLesen(dlgImport.FileName);
+                                }
+                            }
+                        }
+                        else if (importV.DateiFormat == ExportView.Format.XML)
+                        {
+                            dlgImport.Filter = "XML|*.xml|All Files|*.*";
+                            dlgImport.DefaultExt = "*.xml*";
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                AustauschXML austauschXML = new AustauschXML();
+                                dgvMain.DataSource = austauschXML.MitarbeiterLesen(dlgImport.FileName);
+                            }
+                        }
+                        else if (importV.DateiFormat == ExportView.Format.JSON)
+                        {
+                            dlgImport.Filter = "JSON|*.json|All Files|*.*";
+                            dlgImport.DefaultExt = "*.json*";
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                AustauschJSON austauschJSON = new AustauschJSON();
+                                dgvMain.DataSource = austauschJSON.MitarbeiterLesen(dlgImport.FileName);
+                            }
+                        }
+                    }
+                    else if (importV.ExportArt == ExportView.Art.Taetigkeit)
+                    {
+                        OpenFileDialog dlgImport = new OpenFileDialog();
+                        if (importV.DateiFormat == ExportView.Format.CSV)
+                        {
+                            dlgImport.Filter = "CSV|*.csv|All Files|*.*";
+                            dlgImport.DefaultExt = "*.csv*";
+                            CSVConfig cSVConfig = new CSVConfig();
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                if (cSVConfig.ShowDialog() == DialogResult.OK)
+                                {
+                                    AustauschCSV austauschCSV = new AustauschCSV(cSVConfig.Typen.TrennerDezimal, cSVConfig.Typen.TrennerDaten);
+                                    dgvMain.DataSource = austauschCSV.TaetigkeitLesen(dlgImport.FileName);
+                                }
+                            }
+                        }
+                        else if (importV.DateiFormat == ExportView.Format.XML)
+                        {
+                            dlgImport.Filter = "XML|*.xml|All Files|*.*";
+                            dlgImport.DefaultExt = "*.xml*";
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                AustauschXML austauschXML = new AustauschXML();
+                                dgvMain.DataSource = austauschXML.TaetigkeitLesen(dlgImport.FileName);
+                            }
+                        }
+                        else if (importV.DateiFormat == ExportView.Format.JSON)
+                        {
+                            dlgImport.Filter = "JSON|*.json|All Files|*.*";
+                            dlgImport.DefaultExt = "*.json*";
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                AustauschJSON austauschJSON = new AustauschJSON();
+                                dgvMain.DataSource = austauschJSON.TaetigkeitLesen(dlgImport.FileName);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ErrorHandler.ErrorHandle(ex);
+                }
             }
         }
     }

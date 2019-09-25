@@ -76,6 +76,12 @@
     <Compile Include="View\AuftragView.Designer.cs">
       <DependentUpon>AuftragView.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\CSVConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\CSVConfig.Designer.cs">
+      <DependentUpon>CSVConfig.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\ExportView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -134,6 +140,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\AuftragView.resx">
       <DependentUpon>AuftragView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\CSVConfig.resx">
+      <DependentUpon>CSVConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ExportView.resx">
       <DependentUpon>ExportView.cs</DependentUpon>
@@ -194,6 +203,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Austausch\Austausch.csproj">
+      <Project>{39113283-5a2e-437c-a919-e5c3992fc94b}</Project>
+      <Name>Austausch</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{5ca1d2ba-8007-4458-bb9a-b6456dae22b9}</Project>
       <Name>Core</Name>

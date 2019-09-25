@@ -278,7 +278,7 @@ namespace Austausch
                     taetigkeit.TaetigkeitID = Convert.ToInt32(item.Attributes["TaetigkeitID"].Value);
                     taetigkeit.AuftragID = Convert.ToInt32(item.Attributes["AuftragID"].Value);
                     taetigkeit.MitarbeiterID = Convert.ToInt32(item.Attributes["MitarbeiterID"].Value);
-                    taetigkeit.Datum = DateTime.Parse(item.Attributes["Strasse"].Value);
+                    taetigkeit.Datum = DateTime.Parse(item.Attributes["Datum"].Value);
                     taetigkeit.Name = item.Attributes["Name"].Value.Trim();
                     taetigkeit.StartZeit = TimeSpan.Parse(item.Attributes["StartZeit"].Value);
                     taetigkeit.EndZeit = TimeSpan.Parse(item.Attributes["EndZeit"].Value);
