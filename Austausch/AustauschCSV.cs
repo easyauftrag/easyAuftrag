@@ -8,7 +8,7 @@ using Core;
 using Core.Model;
 
 namespace Austausch
-{//
+{
     public class AustauschCSV : IAustausch
     {
         public List<Auftrag> AuftragLesen(string importPfad)
@@ -42,7 +42,7 @@ namespace Austausch
             return lstAuftrag;
         }
 
-        public void AuftragSchreiben(string exportPfad, List<Kunde> lstAuftrag)
+        public void AuftragSchreiben(string exportPfad, List<Auftrag> lstAuftrag)
         {
             throw new NotImplementedException();
         }
