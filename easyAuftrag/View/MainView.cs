@@ -70,14 +70,20 @@ namespace easyAuftrag
         {
             try
             {
+                // Laden der Aufträge ins DataGridView
                 TabelleNeu();
+                // Laden aller Daten ins TreeView
                 TreeViewNeu();
+                // Liste der Spaltennamen
                 List<string> lstSpalten = new List<string>();
+                // Anzahl der Spalten im DataGridView
                 int s = dgvMain.Columns.Count;
                 for (int i = 1; i < s; i++)
                 {
-                    lstSpalten.Add(dgvMain.Columns[i].ToString().Split('=')[1].Split(',')[0]);
+                    // Auslesen der Spaltennamen aus dem DataGridView
+                    lstSpalten.Add(dgvMain.Columns[i].HeaderText);
                 }
+                // Bereitstellen der Spaltennamen in der ComboBox im SuchControl
                 suchControlMain.Spalten = lstSpalten;
             }
             catch (Exception ex)
@@ -96,13 +102,19 @@ namespace easyAuftrag
             {
                 using (var db = new EasyAuftragContext())
                 {
-                    var auftraege = (from a in db.Auftraege where a.Abgerechnet == false && a.Erledigt == true select a).ToList();
-                    tssLabNummer.Text = auftraege.Count().ToString();
+                    // Laden aller aufträge
                     var auftr = (from a in db.Auftraege
                                  join k in db.Kunden on a.KundeID equals k.KundeID
                                  select new { a.AuftragID, a.AuftragNummer, k.Name, a.Eingang, a.Erteilt, a.Erledigt, a.Abgerechnet }).ToList();
+                    // Herausfiltern der erledigten und nicht abgerechneten Aufträge
+                    var auftraege = auftr.Where(a => a.Abgerechnet == false && a.Erledigt == true).ToList();
+                    // Anzeige im Statusbalken, wieviele erledigte Aufträge noch abgerechnet werden müssen.
+                    tssLabNummer.Text = auftraege.Count().ToString();
+                    // Einfügen aller Aufträge ins DataGridView
                     dgvMain.DataSource = auftr;
+                    // AuftragID wird später benötigt, soll aber für den User nicht sichtbar sein
                     dgvMain.Columns["auftragID"].Visible = false;
+                    // Spaltenname "Name" zur besseren Erkenntlichkeit in "Kundenname" ändern
                     dgvMain.Columns["Name"].HeaderText = "Kundenname";
                 }
             }
@@ -118,6 +130,7 @@ namespace easyAuftrag
         /// <seealso cref="EasyAuftragContext"/>
         private void TreeViewNeu()
         {
+            // Setzen der Grundknoten
             tvMain.Nodes["Kunden"].Nodes.Clear();
             tvMain.Nodes["Mitarbeiter"].Nodes.Clear();
             tvMain.Nodes["Auftraege"].Nodes.Clear();
@@ -125,39 +138,51 @@ namespace easyAuftrag
             {
                 using (var db = new EasyAuftragContext())
                 {
+                    // Laden aller Kunden
                     List<Kunde> kun = (from k in db.Kunden select k).ToList();
                     foreach (Kunde k in kun)
                     {
+                        // Setzen des Tags
                         TreeNode nKunde = new TreeNode(k.Name)
                         {
                             Tag = "Kunde_" + k.KundeID.ToString()
                         };
+                        // Hinzufügen zum TreeView
                         tvMain.Nodes["Kunden"].Nodes.Add(nKunde);
                     }
+                    // Laden aller Mitarbeiter
                     List<Mitarbeiter> mit = (from m in db.Mitarbeiters select m).ToList();
                     foreach (Mitarbeiter m in mit)
                     {
+                        // Setzen des Tags
                         TreeNode nMitarbeiter = new TreeNode(m.Name)
                         {
                             Tag = "Mitarbeiter_" + m.MitarbeiterID.ToString()
                         };
+                        // Hinzufügen zum TreeView
                         tvMain.Nodes["Mitarbeiter"].Nodes.Add(nMitarbeiter);
                     }
+                    // Laden aller Aufträge
                     List<Auftrag> auf = (from a in db.Auftraege select a).ToList();
                     foreach (Auftrag a in auf)
                     {
+                        // Setzen des Tags
                         TreeNode nAuftrag = new TreeNode(a.AuftragNummer)
                         {
                             Tag = "Auftrag_" + a.AuftragID.ToString()
                         };
+                        // Hinzufügen zum TreeView
                         tvMain.Nodes["Auftraege"].Nodes.Add(nAuftrag);
+                        // Laden aller Tätigkeiten, die zum aktiven Auftrag gehören
                         List<Taetigkeit> tat = (from t in db.Taetigkeiten where t.AuftragID == a.AuftragID select t).ToList();
                         foreach (Taetigkeit t in tat)
                         {
+                            // Setzen des Tags
                             TreeNode nTaetigkeit = new TreeNode(t.Name)
                             {
                                 Tag = "Taetigkeit_" + t.TaetigkeitID.ToString()
                             };
+                            // Hinzufügen zum TreeView
                             tvMain.Nodes["Auftraege"].LastNode.Nodes.Add(nTaetigkeit);
                         }
                     }
@@ -178,14 +203,7 @@ namespace easyAuftrag
         {
             try
             {
-                KundeView kundeV = new KundeView("Neuer Kunde");
-                if (kundeV.ShowDialog() == DialogResult.OK)
-                {
-                    _handler.KundeAnlegen(kundeV.KundenInfo);
-                }
-                this.BringToFront();
-                this.Activate();
-                TreeViewNeu();
+                NeuerKunde();
             }
             catch (Exception ex)
             {
@@ -202,14 +220,7 @@ namespace easyAuftrag
         {
             try
             {
-                MitarbeiterView mitarbeiterV = new MitarbeiterView("Neuer Mitarbeiter");
-                if (mitarbeiterV.ShowDialog() == DialogResult.OK)
-                {
-                    _handler.MitarbeiterAnlegen(mitarbeiterV.MitarbeiterInfo);
-                }
-                this.BringToFront();
-                this.Activate();
-                TreeViewNeu();
+                NeuerMitarbeiter();
             }
             catch (Exception ex)
             {
@@ -226,15 +237,7 @@ namespace easyAuftrag
         {
             try
             {
-                AuftragView auftragV = new AuftragView("Neuer Auftrag");
-                if (auftragV.ShowDialog() == DialogResult.OK)
-                {
-                    _handler.AuftragAnlegen(auftragV.AuftragInfo);
-                }
-                this.BringToFront();
-                this.Activate();
-                TabelleNeu();
-                TreeViewNeu();
+                NeuerAuftrag();
             }
             catch (Exception ex)
             {
@@ -251,6 +254,7 @@ namespace easyAuftrag
         {
             if (e.Button == MouseButtons.Right)
             {
+                // Anzeigen des Kontextmenus für die DataGridView
                 cxtMain.Show(dgvMain, e.X, e.Y);
             }
         }
@@ -264,15 +268,7 @@ namespace easyAuftrag
         {
             try
             {
-                AuftragView auftragV = new AuftragView("Neuer Auftrag");
-                if (auftragV.ShowDialog() == DialogResult.OK)
-                {
-                    _handler.AuftragAnlegen(auftragV.AuftragInfo);
-                }
-                this.BringToFront();
-                this.Activate();
-                TabelleNeu();
-                TreeViewNeu();
+                NeuerAuftrag();
             }
             catch (Exception ex)
             {
@@ -292,26 +288,8 @@ namespace easyAuftrag
                 if (dgvMain.SelectedRows.Count > 0)
                 {
                     int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
-                    AuftragView auftragV = new AuftragView("Auftrag Bearbeiten", auftrag: _handler.AuftragLaden(auftragID, out bool success));
-                    if (success == false)
-                    {
-                        MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
-                    }
-                    else
-                    {
-                        if (auftragV.ShowDialog() == DialogResult.OK)
-                        {
-                            if (!_handler.AuftragBearbeiten(auftragV.AuftragInfo, auftragID))
-                            {
-                                MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
-                            }
-                        }
-                    }
+                    BearbeitenAuftrag(auftragID);
                 }
-                this.BringToFront();
-                this.Activate();
-                TabelleNeu();
-                TreeViewNeu();
             }
             catch (Exception ex)
             {
@@ -331,26 +309,8 @@ namespace easyAuftrag
                 if (dgvMain.SelectedRows.Count > 0)
                 {
                     int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
-                    AuftragView auftragV = new AuftragView("Auftrag Löschen", auftrag: _handler.AuftragLaden(auftragID, out bool success));
-                    if (success == false)
-                    {
-                        MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
-                    }
-                    else
-                    {
-                        if (auftragV.ShowDialog() == DialogResult.OK)
-                        {
-                            if(!_handler.AuftragLoeschen(auftragID))
-                            {
-                                MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
-                            }
-                        }
-                    }
+                    LoeschenAuftrag(auftragID);
                 }
-                this.BringToFront();
-                this.Activate();
-                TabelleNeu();
-                TreeViewNeu();
             }
             catch (Exception ex)
             {
@@ -365,6 +325,7 @@ namespace easyAuftrag
         /// <param name="e"></param>
         private void ButExport_Click(object sender, EventArgs e)
         {
+            // Öffnen der "Export" Fensters
             ExportView exportV = new ExportView("Export");
             if (exportV.ShowDialog() == DialogResult.OK)
             {
@@ -377,12 +338,14 @@ namespace easyAuftrag
                         List<Mitarbeiter> mitarbeiters = new List<Mitarbeiter>();
                         List<Taetigkeit> taetigkeiten = new List<Taetigkeit>();
 
+                        // Öffnen eines Windows Speichern Fensters
                         SaveFileDialog dlg = new SaveFileDialog();
                         if (exportV.DateiFormat == ExportView.Format.CSV)
                         {
                             dlg.Filter = "CSV|*.csv|All Files|*.*|Text File|*.txt";
                             dlg.DefaultExt = "*.csv*";
 
+                            // Öffnen des Konfigurationsfensters für die .csv Datei
                             CSVConfig cSVConfig = new CSVConfig();
                             if (dlg.ShowDialog() == DialogResult.OK)
                             {
@@ -391,22 +354,30 @@ namespace easyAuftrag
                                     AustauschCSV austauschCSV = new AustauschCSV(cSVConfig.Typen.TrennerDezimal, cSVConfig.Typen.TrennerDaten);
                                     if (exportV.ExportArt == ExportView.Art.Auftrag)
                                     {
+                                        // Laden aller Aufträge aus der Datenbank
                                         auftraege = (from a in db.Auftraege select a).ToList();
+                                        // Schreiben der .csv Datei
                                         austauschCSV.AuftragSchreiben(dlg.FileName, auftraege);
                                     }
                                     else if (exportV.ExportArt == ExportView.Art.Kunde)
                                     {
+                                        // Laden aller Kunden aus der Datenbank
                                         kunden = (from k in db.Kunden select k).ToList();
+                                        // Schreiben der .csv Datei
                                         austauschCSV.KundeSchreiben(dlg.FileName, kunden);
                                     }
                                     else if (exportV.ExportArt == ExportView.Art.Mitarbeiter)
                                     {
+                                        // Laden aller Mitarbeiter aus der Datenbank
                                         mitarbeiters = (from m in db.Mitarbeiters select m).ToList();
+                                        // Schreiben der .csv Datei
                                         austauschCSV.MitarbeiterSchreiben(dlg.FileName, mitarbeiters);
                                     }
                                     else if (exportV.ExportArt == ExportView.Art.Taetigkeit)
                                     {
+                                        // Laden aller Tätigkeiten aus der Datenbank
                                         taetigkeiten = (from t in db.Taetigkeiten select t).ToList();
+                                        // Schreiben der .csv Datei
                                         austauschCSV.TaetigkeitSchreiben(dlg.FileName, taetigkeiten);
                                     }
                                 }
@@ -422,22 +393,30 @@ namespace easyAuftrag
                                 AustauschXML austauschXML = new AustauschXML();
                                 if (exportV.ExportArt == ExportView.Art.Auftrag)
                                 {
+                                    // Laden aller Aufträge aus der Datenbank
                                     auftraege = (from a in db.Auftraege select a).ToList();
+                                    // Schreiben der .xml Datei
                                     austauschXML.AuftragSchreiben(dlg.FileName, auftraege);
                                 }
                                 else if (exportV.ExportArt == ExportView.Art.Kunde)
                                 {
+                                    // Laden aller Kunden aus der Datenbank
                                     kunden = (from k in db.Kunden select k).ToList();
+                                    // Schreiben der .xml Datei
                                     austauschXML.KundeSchreiben(dlg.FileName, kunden);
                                 }
                                 else if (exportV.ExportArt == ExportView.Art.Mitarbeiter)
                                 {
+                                    // Laden aller Mitarbeiter aus der Datenbank
                                     mitarbeiters = (from m in db.Mitarbeiters select m).ToList();
+                                    // Schreiben der .xml Datei
                                     austauschXML.MitarbeiterSchreiben(dlg.FileName, mitarbeiters);
                                 }
                                 else if (exportV.ExportArt == ExportView.Art.Taetigkeit)
                                 {
+                                    // Laden aller Tätigkeiten aus der Datenbank
                                     taetigkeiten = (from t in db.Taetigkeiten select t).ToList();
+                                    // Schreiben der .xml Datei
                                     austauschXML.TaetigkeitSchreiben(dlg.FileName, taetigkeiten);
                                 }
                             }
@@ -452,22 +431,30 @@ namespace easyAuftrag
                                 AustauschJSON austauschJSON = new AustauschJSON();
                                 if (exportV.ExportArt == ExportView.Art.Auftrag)
                                 {
+                                    // Laden aller Aufträge aus der Datenbank
                                     auftraege = (from a in db.Auftraege select a).ToList();
+                                    // Schreiben der .json Datei
                                     austauschJSON.AuftragSchreiben(dlg.FileName, auftraege);
                                 }
                                 else if (exportV.ExportArt == ExportView.Art.Kunde)
                                 {
+                                    // Laden aller Kunden aus der Datenbank
                                     kunden = (from k in db.Kunden select k).ToList();
+                                    // Schreiben der .json Datei
                                     austauschJSON.KundeSchreiben(dlg.FileName, kunden);
                                 }
                                 else if (exportV.ExportArt == ExportView.Art.Mitarbeiter)
                                 {
+                                    // Laden aller Mitarbeiter aus der Datenbank
                                     mitarbeiters = (from m in db.Mitarbeiters select m).ToList();
+                                    // Schreiben der .json Datei
                                     austauschJSON.MitarbeiterSchreiben(dlg.FileName, mitarbeiters);
                                 }
                                 else if (exportV.ExportArt == ExportView.Art.Taetigkeit)
                                 {
+                                    // Laden aller Tätigkeiten aus der Datenbank
                                     taetigkeiten = (from t in db.Taetigkeiten select t).ToList();
+                                    // Schreiben der .json Datei
                                     austauschJSON.TaetigkeitSchreiben(dlg.FileName, taetigkeiten);
                                 }
                             }
@@ -590,49 +577,28 @@ namespace easyAuftrag
                 string[] item = tvMain.SelectedNode.Tag.ToString().Split('_');
                 if (item[0].ToLower().StartsWith("kun"))
                 {
-                    KundeView kundeV = new KundeView("Neuer Kunde");
-                    if (kundeV.ShowDialog() == DialogResult.OK)
-                    {
-                        _handler.KundeAnlegen(kundeV.KundenInfo);
-                    }
-                    this.BringToFront();
-                    this.Activate();
-                    TreeViewNeu();
+                    NeuerKunde();
                 }
                 if (item[0].ToLower().StartsWith("mit"))
                 {
-                    MitarbeiterView mitarbeiterV = new MitarbeiterView("Neuer Mitarbeiter");
-                    if (mitarbeiterV.ShowDialog() == DialogResult.OK)
-                    {
-                        _handler.MitarbeiterAnlegen(mitarbeiterV.MitarbeiterInfo);
-                    }
-                    this.BringToFront();
-                    this.Activate();
-                    TreeViewNeu();
+                    NeuerMitarbeiter();
                 }
                 if (item[0].ToLower().StartsWith("auf"))
                 {
-                    AuftragView auftragV = new AuftragView("Neuer Auftrag");
-                    if (auftragV.ShowDialog() == DialogResult.OK)
-                    {
-                        _handler.AuftragAnlegen(auftragV.AuftragInfo);
-                    }
-                    this.BringToFront();
-                    this.Activate();
-                    TabelleNeu();
-                    TreeViewNeu();
+                    NeuerAuftrag();
                 }
                 if (item[0].ToLower().StartsWith("tae"))
                 {
                     string[] itemParent = tvMain.SelectedNode.Parent.Tag.ToString().Split('_');
-                    AuftragView auftragV = new AuftragView("Auftrag Bearbeiten", auftrag: _handler.AuftragLaden(Convert.ToInt32(itemParent[1]), out bool success));
+                    int auftragID = Convert.ToInt32(itemParent[1]);
+                    AuftragView auftragV = new AuftragView("Auftrag Bearbeiten", auftrag: _handler.AuftragLaden(auftragID, out bool success));
                     if (success == false)
                     {
                         MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
                     }
                     else if (auftragV.ShowDialog() == DialogResult.OK)
                     {
-                        if(!_handler.AuftragBearbeiten(auftragV.AuftragInfo, Convert.ToInt32(itemParent[1])))
+                        if(!_handler.AuftragBearbeiten(auftragV.AuftragInfo, auftragID))
                         {
                             MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
                         }
@@ -697,22 +663,8 @@ namespace easyAuftrag
                 }
                 if (item[0].ToLower().StartsWith("auf"))
                 {
-                    AuftragView auftragV = new AuftragView("Auftrag Bearbeiten", auftrag: _handler.AuftragLaden(Convert.ToInt32(item[1]), out bool success));
-                    if (success == false)
-                    {
-                        MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
-                    }
-                    else if (auftragV.ShowDialog() == DialogResult.OK)
-                    {
-                        if(!_handler.AuftragBearbeiten(auftragV.AuftragInfo, Convert.ToInt32(item[1])))
-                        {
-                            MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
-                        }
-                    }
-                    this.BringToFront();
-                    this.Activate();
-                    TabelleNeu();
-                    TreeViewNeu();
+                    int auftragID = Convert.ToInt32(item[1]);
+                    BearbeitenAuftrag(auftragID);
                 }
                 if (item[0].ToLower().StartsWith("tae"))
                 {
@@ -787,22 +739,8 @@ namespace easyAuftrag
                 }
                 if (item[0].ToLower().StartsWith("auf"))
                 {
-                    AuftragView auftragV = new AuftragView("Auftrag Löschen", auftrag: _handler.AuftragLaden(Convert.ToInt32(item[1]), out bool success));
-                    if (success == false)
-                    {
-                        MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
-                    }
-                    else if (auftragV.ShowDialog() == DialogResult.OK)
-                    {
-                        if(!_handler.AuftragLoeschen(Convert.ToInt32(item[1])))
-                        {
-                            MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
-                        }
-                    }
-                    this.BringToFront();
-                    this.Activate();
-                    TabelleNeu();
-                    TreeViewNeu();
+                    int auftragID = Convert.ToInt32(item[1]);
+                    LoeschenAuftrag(auftragID);
                 }
                 if (item[0].ToLower().StartsWith("tae"))
                 {
@@ -850,47 +788,6 @@ namespace easyAuftrag
                             if (!string.IsNullOrEmpty(item.SpalteControl.Text))
                             {
                                 suchBedingungen.Add(SuchStringBuild(item, " "));
-                                /*switch (item.SpalteControl.Text)
-                                {
-                                    case "AuftragNummer":
-                                        if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
-                                        {
-                                            suchBedingungen.Add("AuftragNummer == \"" + item.ValueControl.Text + "\"");
-                                        }
-                                        break;
-                                    case "Name":
-                                        if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
-                                        {
-                                            suchBedingungen.Add("Name == \"" + item.ValueControl.Text + "\"");
-                                        }
-                                        break;
-                                    case "Eingang":
-                                        suchBedingungen.Add("Eingang >= DateTime("
-                                            + item.AnfangControl.Value.Year + ","
-                                            + item.AnfangControl.Value.Month + ","
-                                            + item.AnfangControl.Value.Day + ")"
-                                            + " && Eingang <= DateTime("
-                                            + item.EndeControl.Value.Year + ","
-                                            + item.EndeControl.Value.Month + ","
-                                            + item.EndeControl.Value.Day + ")");
-                                        break;
-                                    case "Erteilt":
-                                        suchBedingungen.Add("Erteilt >= DateTime("
-                                            + item.AnfangControl.Value.Year + ","
-                                            + item.AnfangControl.Value.Month + ","
-                                            + item.AnfangControl.Value.Day + ")"
-                                            + " && Erteilt <= DateTime("
-                                            + item.EndeControl.Value.Year + ","
-                                            + item.EndeControl.Value.Month + ","
-                                            + item.EndeControl.Value.Day + ")");
-                                        break;
-                                    case "Abgerechnet":
-                                        suchBedingungen.Add("Abgerechnet != " + item.AbgerechnetControl.Checked);
-                                        break;
-                                    case "Erledigt":
-                                        suchBedingungen.Add("Erledigt == " + item.ErledigtControl.Checked);
-                                        break;
-                                }*/
                             }
                         }
                         else if (item.LinkControl.Text == "und")
@@ -898,93 +795,11 @@ namespace easyAuftrag
                             if (!string.IsNullOrEmpty(item.SpalteControl.Text))
                             {
                                 suchBedingungen.Add(SuchStringBuild(item, " && "));
-                                /*switch (item.SpalteControl.Text)
-                                {
-                                    case "AuftragNummer":
-                                        if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
-                                        {
-                                            suchBedingungen.Add(" && AuftragNummer == \"" + item.ValueControl.Text + "\"");
-                                        }
-                                        break;
-                                    case "Name":
-                                        if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
-                                        {
-                                            suchBedingungen.Add(" && Name == \"" + item.ValueControl.Text + "\"");
-                                        }
-                                        break;
-                                    case "Eingang":
-                                        suchBedingungen.Add(" && Eingang >= DateTime("
-                                            + item.AnfangControl.Value.Year + ","
-                                            + item.AnfangControl.Value.Month + ","
-                                            + item.AnfangControl.Value.Day + ")"
-                                            + " && Eingang <= DateTime("
-                                            + item.EndeControl.Value.Year + ","
-                                            + item.EndeControl.Value.Month + ","
-                                            + item.EndeControl.Value.Day + ")");
-                                        break;
-                                    case "Erteilt":
-                                        suchBedingungen.Add(" && Erteilt >= DateTime("
-                                            + item.AnfangControl.Value.Year + ","
-                                            + item.AnfangControl.Value.Month + ","
-                                            + item.AnfangControl.Value.Day + ")"
-                                            + " && Erteilt <= DateTime("
-                                            + item.EndeControl.Value.Year + ","
-                                            + item.EndeControl.Value.Month + ","
-                                            + item.EndeControl.Value.Day + ")");
-                                        break;
-                                    case "Abgerechnet":
-                                        suchBedingungen.Add(" && Abgerechnet != " + item.AbgerechnetControl.Checked);
-                                        break;
-                                    case "Erledigt":
-                                        suchBedingungen.Add(" && Erledigt == " + item.ErledigtControl.Checked);
-                                        break;
-                                }*/
                             }
                         }
                         else if (!string.IsNullOrEmpty(item.SpalteControl.Text))
                         {
                             suchBedingungen.Add(SuchStringBuild(item, " || "));
-                            /*switch (item.SpalteControl.Text)
-                            {
-                                case "AuftragNummer":
-                                    if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
-                                    {
-                                        suchBedingungen.Add(" || AuftragNummer == \"" + item.ValueControl.Text + "\"");
-                                    }
-                                    break;
-                                case "Name":
-                                    if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
-                                    {
-                                        suchBedingungen.Add(" || Name == \"" + item.ValueControl.Text + "\"");
-                                    }
-                                    break;
-                                case "Eingang":
-                                    suchBedingungen.Add(" || (Eingang >= DateTime("
-                                        + item.AnfangControl.Value.Year + ","
-                                        + item.AnfangControl.Value.Month + ","
-                                        + item.AnfangControl.Value.Day + ")"
-                                        + " && Eingang <= DateTime("
-                                        + item.EndeControl.Value.Year + ","
-                                        + item.EndeControl.Value.Month + ","
-                                        + item.EndeControl.Value.Day + ")");
-                                    break;
-                                case "Erteilt":
-                                    suchBedingungen.Add(" || (Erteilt >= DateTime("
-                                        + item.AnfangControl.Value.Year + ","
-                                        + item.AnfangControl.Value.Month + ","
-                                        + item.AnfangControl.Value.Day + ")"
-                                        + " && Erteilt <= DateTime("
-                                        + item.EndeControl.Value.Year + ","
-                                        + item.EndeControl.Value.Month + ","
-                                        + item.EndeControl.Value.Day + ")");
-                                    break;
-                                case "Abgerechnet":
-                                    suchBedingungen.Add(" || Abgerechnet != " + item.AbgerechnetControl.Checked);
-                                    break;
-                                case "Erledigt":
-                                    suchBedingungen.Add(" || Erledigt == " + item.ErledigtControl.Checked);
-                                    break;
-                            }*/
                         }
                     }
                     string finalSuche = "";
@@ -1329,6 +1144,101 @@ namespace easyAuftrag
                     ErrorHandler.ErrorHandle(ex);
                 }
             }
+        }
+
+        private void NeuerAuftrag()
+        {
+            // Öffnen des "Auftrag" Fensters
+            AuftragView auftragV = new AuftragView("Neuer Auftrag");
+            if (auftragV.ShowDialog() == DialogResult.OK)
+            {
+                // Hinzufügen des Auftrags zur Datenbank
+                _handler.AuftragAnlegen(auftragV.AuftragInfo);
+            }
+            // Auf MainView zurückgehen
+            this.BringToFront();
+            this.Activate();
+            // Aktualisieren der DataGridView und des TreeView, um den neuen Auftrag mit einzubeziehen
+            TabelleNeu();
+            TreeViewNeu();
+        }
+        private void BearbeitenAuftrag(int auftragID)
+        {
+            // Öffnen des "Auftrag" Fensters und Laden der Daten des Auftrags in die Felder
+            AuftragView auftragV = new AuftragView("Auftrag Bearbeiten", auftrag: _handler.AuftragLaden(auftragID, out bool success));
+            if (success == false)
+            {
+                MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
+            }
+            else if (auftragV.ShowDialog() == DialogResult.OK)
+            {
+                // Aktualisieren der Datenbank mit den neuen Werten des Auftrags
+                if (!_handler.AuftragBearbeiten(auftragV.AuftragInfo, auftragID))
+                {
+                    MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
+                }
+            }
+            // Auf MainView zurückgehen
+            this.BringToFront();
+            this.Activate();
+            // Aktualisieren der DataGridView und des TreeView, um den bearbeiteten Auftrag mit einzubeziehen
+            TabelleNeu();
+            TreeViewNeu();
+        }
+        private void LoeschenAuftrag(int auftragID)
+        {
+            // Öffnen des "Auftrag" Fensters und Laden der Daten des Auftrags in die Felder
+            AuftragView auftragV = new AuftragView("Auftrag Löschen", auftrag: _handler.AuftragLaden(auftragID, out bool success));
+            if (success == false)
+            {
+                MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
+            }
+            else
+            {
+                if (auftragV.ShowDialog() == DialogResult.OK)
+                {
+                    // Löschen des Auftrags
+                    if (!_handler.AuftragLoeschen(auftragID))
+                    {
+                        MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
+                    }
+                }
+            }// Auf MainView zurückgehen
+            this.BringToFront();
+            this.Activate();
+            // Aktualisieren der DataGridView und des TreeView, um den gelöschten Auftrag mit einzubeziehen
+            TabelleNeu();
+            TreeViewNeu();
+        }
+        private void NeuerKunde()
+        {
+            // Öffnen des "Kunde" Fensters
+            KundeView kundeV = new KundeView("Neuer Kunde");
+            if (kundeV.ShowDialog() == DialogResult.OK)
+            {
+                // Hinzufügen des Kunden zur Datenbank
+                _handler.KundeAnlegen(kundeV.KundenInfo);
+            }
+            // Auf MainView zurückgehen
+            this.BringToFront();
+            this.Activate();
+            // Aktualisieren des TreeView, um den neuen Kunden mit einzubeziehen
+            TreeViewNeu();
+        }
+        private void NeuerMitarbeiter()
+        {
+            // Öffnen des "Mitarbeiter" Fensters
+            MitarbeiterView mitarbeiterV = new MitarbeiterView("Neuer Mitarbeiter");
+            if (mitarbeiterV.ShowDialog() == DialogResult.OK)
+            {
+                // Hinzufügen des Mitarbeiters zur Datenbank
+                _handler.MitarbeiterAnlegen(mitarbeiterV.MitarbeiterInfo);
+            }
+            // Auf MainView zurückgehen
+            this.BringToFront();
+            this.Activate();
+            // Aktualisieren des TreeView, um den neuen Mitarbeiter mit einzubeziehen
+            TreeViewNeu();
         }
     }
 }
