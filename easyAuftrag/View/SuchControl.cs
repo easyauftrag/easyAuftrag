@@ -44,7 +44,7 @@ namespace easyAuftrag.View
         private List<SucheRow> _lstRow = new List<SucheRow>();
         private List<string> _spalten = new List<string>();
         public event Action SuchEvent;
-        public List<SucheRow> Suche = new List<SucheRow>();
+        public List<SucheRow> Suche { get; set; }
 
         /// <summary>
         /// Auslesen oder Befüllen der Spalten im <see cref="SuchControl"/>
@@ -65,6 +65,7 @@ namespace easyAuftrag.View
         public SuchControl()
         {
             InitializeComponent();
+            Suche = new List<SucheRow>();
             SucheRow row = new SucheRow
             {
                 LinkControl = comboLink,

@@ -34,14 +34,38 @@ using System.Windows.Forms;
 
 namespace Core.Model
 {
+    /// <summary>
+    /// Model-Klasse zum Erzeugen von Zeilen Objekten für die UserControl SuchControl
+    /// </summary>
     public class SucheRow
     {
+        /// <summary>
+        /// Logische Verknüpfung der Zeilen (null, und, oder)
+        /// </summary>
         public ComboBox LinkControl { get; set; }
+        /// <summary>
+        /// Auswahl der Tabellenspalte
+        /// </summary>
         public ComboBox SpalteControl { get; set; }
+        /// <summary>
+        /// Suchwert falls Textwert
+        /// </summary>
         public TextBox ValueControl { get; set; }
+        /// <summary>
+        /// Anfangssuchwert falls Datum
+        /// </summary>
         public DateTimePicker AnfangControl { get; set; }
+        /// <summary>
+        /// Endsuchwertwert der Tabellenspalte falls Datum
+        /// </summary>
         public DateTimePicker EndeControl { get; set; }
-        public CheckBox AbgerechnetControl { get; set; }
+        /// <summary>
+        /// Suchwert der Tabellenspalte falls Abgerechnet
+        /// </summary>
+        public CheckBox AbgerechnetControl { get; set; }        // Ist es nötig, für Abgerechnet und Erledigt zwei unterschiedliche CheckBoxen zu haben?
+        /// <summary>
+        /// Suchwert der Tabellenspalte falls Erledigt
+        /// </summary>
         public CheckBox ErledigtControl { get; set; }
 
     }

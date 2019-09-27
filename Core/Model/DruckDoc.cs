@@ -34,7 +34,7 @@ using System.Threading.Tasks;
 namespace Core.Model
 {
     /// <summary>
-    /// Model-Klasse zum Erstellen von DruckDocobjekten
+    /// Model-Klasse zum Erstellen von DruckDoc Objekten
     /// </summary>
     public class DruckDoc
     {

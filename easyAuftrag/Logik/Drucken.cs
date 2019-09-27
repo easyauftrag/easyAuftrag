@@ -46,7 +46,13 @@ namespace easyAuftrag.Logik
     /// </summary>
     public class Drucken
     {
+        /// <summary>
+        /// Hier werden die Informationen des zu druckenden Auftrags gespeichert
+        /// </summary>
         private DruckDoc _druckDoc = new DruckDoc();
+        /// <summary>
+        /// Hier werden die Informationen des zu druckenden Stundenzettels gespeichert
+        /// </summary>
         private StundenDoc _stundenDoc = new StundenDoc();
 
         /// <summary>
@@ -101,14 +107,19 @@ namespace easyAuftrag.Logik
         /// </summary>
         private void printDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
+            // Lädt die Positionen der zu druckenden Elemente aus der XML Datei
             XmlPrintMapperAuftrag mapper = LoadPrintMappings("Auftrag");
 
+            // setzt die Einheit auf Millimeter
             e.Graphics.PageUnit = GraphicsUnit.Millimeter;
             
+            // setzt die Schriftart und Größe
             Font font = new Font(FontFamily.GenericSansSerif,10.0F, FontStyle.Regular);
             
+            // geht durch die Elemente in der Mappinglist und zeichnet die Informationen zum Auftrag entsprechend der auf das Dokument
             foreach (var item in mapper.MappingList)
             {
+                // unterscheidet, um welche Information es sich handelt
                 switch (item.Name)
                 {
                     case "AuftragNr":
@@ -126,16 +137,21 @@ namespace easyAuftrag.Logik
                 }
             }
             
+            // setzt die Y-Koordinate für die Tätigkeiten
             int y = mapper.Start;
 
+            // geht durch die Tätigkeiten und zeichnet diese auf das Dokument
             foreach (Taetigkeit t in _druckDoc.TatListe)
             {
+                // geht durch die Mapping Liste der Tätigkeiten und zeichnet diese ensprechend der Koordinaten auf das Dokument
                 foreach (var item in mapper.TatList)
                 {
+                    // selektiert den Mitarbeiter aus der Mitarbeiter Liste
                     string mitarbeiter = (from i in _druckDoc.MitList
                                           where i.MitarbeiterID == t.MitarbeiterID
                                           select i.Name).First();
 
+                    // unterscheidet, um welche Information der Tätigkeit es sich handelt
                     switch (item.Name)
                     {
                         case "Datum":
@@ -158,22 +174,34 @@ namespace easyAuftrag.Logik
                             break;
                     }
                 }
+
+                // Erhöht die Y-Koordinate entsprechend dem Zeilenabstand
                 y += mapper.Inc;
             }
         }
 
+        /// <summary>
+        /// Liest die Positionen der zu druckenden Elemente aus der entsprechenden XML Datei aus.
+        /// </summary>
+        /// <param name="art">Art des zu druckenden Dokuments (Auftrag oder Stundenzettel)</param>
+        /// <returns></returns>
         private XmlPrintMapperAuftrag LoadPrintMappings(string art)
         {
+            // legt den Pfad zum Ordner der XML Datei fest
             string path = Path.Combine(Application.StartupPath, "Print");
+            // gibt den Namen der XML Datei in den Pfad
             path = Path.Combine(path, "Print" + art + ".xml");
 
+            // lädt XML
             XmlDocument xml = new XmlDocument();
             xml.Load(path);
 
+            // filtert XML nach Tags und fügt die Elemente in Listen
             XmlNodeList mappinglstXmlItems = xml.GetElementsByTagName("printitem");
             XmlNodeList tatlstXmlItems = xml.GetElementsByTagName("listitem");
             XmlPrintMapperAuftrag printMA = new XmlPrintMapperAuftrag();
 
+            // geht durch die Nodes und speichert das Layout in einem XMLPrintMapperAuftrag
             foreach (XmlNode node in mappinglstXmlItems)
             {
                 PrintMapperItem printMI = new PrintMapperItem();
@@ -203,14 +231,22 @@ namespace easyAuftrag.Logik
         /// </summary>
         private void printDocument_PrintStunden(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
+            // Lädt die Positionen der zu druckenden Elemente aus der XML Datei
             XmlPrintMapperAuftrag mapper = LoadPrintMappings("Stunden");
             //TODO Config Datei erstellen, die Stundensoll enthält.
             Config conf = new Config();
             conf.StundenSoll = 40;
+
+            // setzt die Schriftart und Größe
             Font font = new Font(FontFamily.GenericSansSerif, 10.0F, FontStyle.Regular);
+
+            // setzt die Einheit auf Millimeter
             e.Graphics.PageUnit = GraphicsUnit.Millimeter;
+
+            // geht durch die Elemente in der Mappinglist und zeichnet die Informationen des Stundenzettels entsprechend der auf das Dokument
             foreach (var item in mapper.MappingList)
             {
+                // unterscheidet, um welche Information es sich handelt
                 switch (item.Name)
                 {
                     case "MitarbeiterName":
@@ -230,10 +266,14 @@ namespace easyAuftrag.Logik
                         break;
                 }
             }
+
+            // setzt die Y-Koordinate der Tätigkeiten
             int y = mapper.Start;
 
+            // geht durch die Tätigkeiten und zeichnet diese auf das Dokument
             foreach (Taetigkeit t in _stundenDoc.Tatlist)
             {
+                // geht durch die Mapping Lsite der Tätigkeiten und zeichnet diese entsprechend auf das Dokument
                 foreach (var item in mapper.TatList)
                 {
                     switch (item.Name)
@@ -258,6 +298,7 @@ namespace easyAuftrag.Logik
                             break;
                     }
                 }
+                // Erhöht die Y-Koordinate entsprechend dem Zeilenabstand
                 y += mapper.Inc;
             }
         }
