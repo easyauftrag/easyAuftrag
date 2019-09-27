@@ -292,10 +292,20 @@ namespace easyAuftrag
                 if (dgvMain.SelectedRows.Count > 0)
                 {
                     int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
-                    AuftragView auftragV = new AuftragView("Auftrag Bearbeiten", auftrag: _handler.AuftragLaden(auftragID));
-                    if (auftragV.ShowDialog() == DialogResult.OK)
+                    AuftragView auftragV = new AuftragView("Auftrag Bearbeiten", auftrag: _handler.AuftragLaden(auftragID, out bool success));
+                    if (success == false)
                     {
-                        _handler.AuftragBearbeiten(auftragV.AuftragInfo, auftragID);
+                        MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
+                    }
+                    else
+                    {
+                        if (auftragV.ShowDialog() == DialogResult.OK)
+                        {
+                            if (!_handler.AuftragBearbeiten(auftragV.AuftragInfo, auftragID))
+                            {
+                                MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
+                            }
+                        }
                     }
                 }
                 this.BringToFront();
@@ -321,10 +331,20 @@ namespace easyAuftrag
                 if (dgvMain.SelectedRows.Count > 0)
                 {
                     int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
-                    AuftragView auftragV = new AuftragView("Auftrag Löschen", auftrag: _handler.AuftragLaden(auftragID));
-                    if (auftragV.ShowDialog() == DialogResult.OK)
+                    AuftragView auftragV = new AuftragView("Auftrag Löschen", auftrag: _handler.AuftragLaden(auftragID, out bool success));
+                    if (success == false)
                     {
-                        _handler.AuftragLoeschen(auftragID);
+                        MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
+                    }
+                    else
+                    {
+                        if (auftragV.ShowDialog() == DialogResult.OK)
+                        {
+                            if(!_handler.AuftragLoeschen(auftragID))
+                            {
+                                MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
+                            }
+                        }
                     }
                 }
                 this.BringToFront();
@@ -605,10 +625,17 @@ namespace easyAuftrag
                 if (item[0].ToLower().StartsWith("tae"))
                 {
                     string[] itemParent = tvMain.SelectedNode.Parent.Tag.ToString().Split('_');
-                    AuftragView auftragV = new AuftragView("Auftrag Bearbeiten", auftrag: _handler.AuftragLaden(Convert.ToInt32(itemParent[1])));
-                    if (auftragV.ShowDialog() == DialogResult.OK)
+                    AuftragView auftragV = new AuftragView("Auftrag Bearbeiten", auftrag: _handler.AuftragLaden(Convert.ToInt32(itemParent[1]), out bool success));
+                    if (success == false)
                     {
-                        _handler.AuftragBearbeiten(auftragV.AuftragInfo, Convert.ToInt32(itemParent[1]));
+                        MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
+                    }
+                    else if (auftragV.ShowDialog() == DialogResult.OK)
+                    {
+                        if(!_handler.AuftragBearbeiten(auftragV.AuftragInfo, Convert.ToInt32(itemParent[1])))
+                        {
+                            MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
+                        }
                     }
                     this.BringToFront();
                     this.Activate();
@@ -634,10 +661,17 @@ namespace easyAuftrag
                 string[] item = tvMain.SelectedNode.Tag.ToString().Split('_');
                 if (item[0].ToLower().StartsWith("kun"))
                 {
-                    KundeView kundeV = new KundeView("Kunde Bearbeiten", kunde: _handler.KundeLaden(Convert.ToInt32(item[1])));
-                    if (kundeV.ShowDialog() == DialogResult.OK)
+                    KundeView kundeV = new KundeView("Kunde Bearbeiten", kunde: _handler.KundeLaden(Convert.ToInt32(item[1]), out bool success));
+                    if (success == false)
                     {
-                        _handler.KundeBearbeiten(kundeV.KundenInfo, Convert.ToInt32(item[1]));
+                        MessageBox.Show("Kunde nicht in der Datenbank gefunden");
+                    }
+                    else if (kundeV.ShowDialog() == DialogResult.OK)
+                    {
+                        if(!_handler.KundeBearbeiten(kundeV.KundenInfo, Convert.ToInt32(item[1])))
+                        {
+                            MessageBox.Show("Kunde nicht in der Datenbank gefunden");
+                        }
                     }
                     this.BringToFront();
                     this.Activate();
@@ -645,10 +679,17 @@ namespace easyAuftrag
                 }
                 if (item[0].ToLower().StartsWith("mit"))
                 {
-                    MitarbeiterView mitarbeiterV = new MitarbeiterView("Mitarbeiter Bearbeiten", mitarbeiter: _handler.MitarbeiterLaden(Convert.ToInt32(item[1])));
-                    if (mitarbeiterV.ShowDialog() == DialogResult.OK)
+                    MitarbeiterView mitarbeiterV = new MitarbeiterView("Mitarbeiter Bearbeiten", mitarbeiter: _handler.MitarbeiterLaden(Convert.ToInt32(item[1]), out bool success));
+                    if (success == false)
                     {
-                        _handler.MitarbeiterBearbeiten(mitarbeiterV.MitarbeiterInfo, Convert.ToInt32(item[1]));
+                        MessageBox.Show("Mitarbeiter nicht in der Datenbank gefunden");
+                    }
+                    else if (mitarbeiterV.ShowDialog() == DialogResult.OK)
+                    {
+                        if(!_handler.MitarbeiterBearbeiten(mitarbeiterV.MitarbeiterInfo, Convert.ToInt32(item[1])))
+                        {
+                            MessageBox.Show("Mitarbeiter nicht in der Datenbank gefunden");
+                        }
                     }
                     this.BringToFront();
                     this.Activate();
@@ -656,10 +697,17 @@ namespace easyAuftrag
                 }
                 if (item[0].ToLower().StartsWith("auf"))
                 {
-                    AuftragView auftragV = new AuftragView("Auftrag Bearbeiten", auftrag: _handler.AuftragLaden(Convert.ToInt32(item[1])));
-                    if (auftragV.ShowDialog() == DialogResult.OK)
+                    AuftragView auftragV = new AuftragView("Auftrag Bearbeiten", auftrag: _handler.AuftragLaden(Convert.ToInt32(item[1]), out bool success));
+                    if (success == false)
                     {
-                        _handler.AuftragBearbeiten(auftragV.AuftragInfo, Convert.ToInt32(item[1]));
+                        MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
+                    }
+                    else if (auftragV.ShowDialog() == DialogResult.OK)
+                    {
+                        if(!_handler.AuftragBearbeiten(auftragV.AuftragInfo, Convert.ToInt32(item[1])))
+                        {
+                            MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
+                        }
                     }
                     this.BringToFront();
                     this.Activate();
@@ -668,10 +716,17 @@ namespace easyAuftrag
                 }
                 if (item[0].ToLower().StartsWith("tae"))
                 {
-                    TaetigkeitView taetigkeitV = new TaetigkeitView("Tätigkeit Bearbeiten", taetigkeit: _handler.TaetigkeitLaden(Convert.ToInt32(item[1])));
-                    if (taetigkeitV.ShowDialog() == DialogResult.OK)
+                    TaetigkeitView taetigkeitV = new TaetigkeitView("Tätigkeit Bearbeiten", taetigkeit: _handler.TaetigkeitLaden(Convert.ToInt32(item[1]), out bool success));
+                    if (success == false)
                     {
-                        _handler.TaetigkeitBearbeiten(taetigkeitV.TaetigkeitInfo, Convert.ToInt32(item[1]));
+                        MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
+                    }
+                    else if (taetigkeitV.ShowDialog() == DialogResult.OK)
+                    {
+                        if(!_handler.TaetigkeitBearbeiten(taetigkeitV.TaetigkeitInfo, Convert.ToInt32(item[1])))
+                        {
+                            MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
+                        }
                     }
                     this.BringToFront();
                     this.Activate();
@@ -696,10 +751,17 @@ namespace easyAuftrag
                 string[] item = tvMain.SelectedNode.Tag.ToString().Split('_');
                 if (item[0].ToLower().StartsWith("kun"))
                 {
-                    KundeView kundeV = new KundeView("Kunde Löschen", kunde: _handler.KundeLaden(Convert.ToInt32(item[1])));
-                    if (kundeV.ShowDialog() == DialogResult.OK)
+                    KundeView kundeV = new KundeView("Kunde Löschen", kunde: _handler.KundeLaden(Convert.ToInt32(item[1]), out bool success));
+                    if (success == false)
                     {
-                        _handler.KundeLoeschen(Convert.ToInt32(item[1]));
+                        MessageBox.Show("Kunde nicht in der Datenbank gefunden");
+                    }
+                    else if (kundeV.ShowDialog() == DialogResult.OK)
+                    {
+                        if (!_handler.KundeLoeschen(Convert.ToInt32(item[1])))
+                        {
+                            MessageBox.Show("Kunde nicht in der Datenbank gefunden");
+                        }
                     }
                     this.BringToFront();
                     this.Activate();
@@ -707,10 +769,17 @@ namespace easyAuftrag
                 }
                 if (item[0].ToLower().StartsWith("mit"))
                 {
-                    MitarbeiterView mitarbeiterV = new MitarbeiterView("Mitarbeiter Löschen", mitarbeiter: _handler.MitarbeiterLaden(Convert.ToInt32(item[1])));
-                    if (mitarbeiterV.ShowDialog() == DialogResult.OK)
+                    MitarbeiterView mitarbeiterV = new MitarbeiterView("Mitarbeiter Löschen", mitarbeiter: _handler.MitarbeiterLaden(Convert.ToInt32(item[1]), out bool success));
+                    if (success == false)
                     {
-                        _handler.MitarbeiterLoeschen(Convert.ToInt32(item[1]));
+                        MessageBox.Show("Mitarbeiter nicht in der Datenbank gefunden");
+                    }
+                    else if (mitarbeiterV.ShowDialog() == DialogResult.OK)
+                    {
+                        if(!_handler.MitarbeiterLoeschen(Convert.ToInt32(item[1])))
+                        {
+                            MessageBox.Show("Mitarbeiter nicht in der Datenbank gefunden");
+                        }
                     }
                     this.BringToFront();
                     this.Activate();
@@ -718,10 +787,17 @@ namespace easyAuftrag
                 }
                 if (item[0].ToLower().StartsWith("auf"))
                 {
-                    AuftragView auftragV = new AuftragView("Auftrag Löschen", auftrag: _handler.AuftragLaden(Convert.ToInt32(item[1])));
-                    if (auftragV.ShowDialog() == DialogResult.OK)
+                    AuftragView auftragV = new AuftragView("Auftrag Löschen", auftrag: _handler.AuftragLaden(Convert.ToInt32(item[1]), out bool success));
+                    if (success == false)
                     {
-                        _handler.AuftragLoeschen(Convert.ToInt32(item[1]));
+                        MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
+                    }
+                    else if (auftragV.ShowDialog() == DialogResult.OK)
+                    {
+                        if(!_handler.AuftragLoeschen(Convert.ToInt32(item[1])))
+                        {
+                            MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
+                        }
                     }
                     this.BringToFront();
                     this.Activate();
@@ -730,10 +806,17 @@ namespace easyAuftrag
                 }
                 if (item[0].ToLower().StartsWith("tae"))
                 {
-                    TaetigkeitView taetigkeitV = new TaetigkeitView("Tätigkeit Löschen", taetigkeit: _handler.TaetigkeitLaden(Convert.ToInt32(item[1])));
-                    if (taetigkeitV.ShowDialog() == DialogResult.OK)
+                    TaetigkeitView taetigkeitV = new TaetigkeitView("Tätigkeit Löschen", taetigkeit: _handler.TaetigkeitLaden(Convert.ToInt32(item[1]), out bool success));
+                    if (success == false)
                     {
-                        _handler.TaetigkeitLoeschen(Convert.ToInt32(item[1]));
+                        MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
+                    }
+                    else if (taetigkeitV.ShowDialog() == DialogResult.OK)
+                    {
+                        if(!_handler.TaetigkeitLoeschen(Convert.ToInt32(item[1])))
+                        {
+                            MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
+                        }
                     }
                     this.BringToFront();
                     this.Activate();
@@ -766,7 +849,8 @@ namespace easyAuftrag
                         {
                             if (!string.IsNullOrEmpty(item.SpalteControl.Text))
                             {
-                                switch (item.SpalteControl.Text)
+                                suchBedingungen.Add(SuchStringBuild(item, " "));
+                                /*switch (item.SpalteControl.Text)
                                 {
                                     case "AuftragNummer":
                                         if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
@@ -806,14 +890,15 @@ namespace easyAuftrag
                                     case "Erledigt":
                                         suchBedingungen.Add("Erledigt == " + item.ErledigtControl.Checked);
                                         break;
-                                }
+                                }*/
                             }
                         }
                         else if (item.LinkControl.Text == "und")
                         {
                             if (!string.IsNullOrEmpty(item.SpalteControl.Text))
                             {
-                                switch (item.SpalteControl.Text)
+                                suchBedingungen.Add(SuchStringBuild(item, " && "));
+                                /*switch (item.SpalteControl.Text)
                                 {
                                     case "AuftragNummer":
                                         if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
@@ -853,12 +938,13 @@ namespace easyAuftrag
                                     case "Erledigt":
                                         suchBedingungen.Add(" && Erledigt == " + item.ErledigtControl.Checked);
                                         break;
-                                }
+                                }*/
                             }
                         }
                         else if (!string.IsNullOrEmpty(item.SpalteControl.Text))
                         {
-                            switch (item.SpalteControl.Text)
+                            suchBedingungen.Add(SuchStringBuild(item, " || "));
+                            /*switch (item.SpalteControl.Text)
                             {
                                 case "AuftragNummer":
                                     if (!string.IsNullOrWhiteSpace(item.ValueControl.Text))
@@ -898,7 +984,7 @@ namespace easyAuftrag
                                 case "Erledigt":
                                     suchBedingungen.Add(" || Erledigt == " + item.ErledigtControl.Checked);
                                     break;
-                            }
+                            }*/
                         }
                     }
                     string finalSuche = "";
@@ -919,6 +1005,54 @@ namespace easyAuftrag
             }
         }
 
+        private string SuchStringBuild (SucheRow row, string verknuepfung)
+        {
+            string suchBedingungen = "";
+            switch (row.SpalteControl.Text)
+            {
+                case "AuftragNummer":
+                    if (!string.IsNullOrWhiteSpace(row.ValueControl.Text))
+                    {
+                        suchBedingungen += verknuepfung + "AuftragNummer == \"" + row.ValueControl.Text + "\"";
+                    }
+                    break;
+                case "Name":
+                    if (!string.IsNullOrWhiteSpace(row.ValueControl.Text))
+                    {
+                        suchBedingungen += verknuepfung + "Name == \"" + row.ValueControl.Text + "\"";
+                    }
+                    break;
+                case "Eingang":
+                    suchBedingungen += verknuepfung + "Eingang >= DateTime("
+                        + row.AnfangControl.Value.Year + ","
+                        + row.AnfangControl.Value.Month + ","
+                        + row.AnfangControl.Value.Day + ")"
+                        + " && Eingang <= DateTime("
+                        + row.EndeControl.Value.Year + ","
+                        + row.EndeControl.Value.Month + ","
+                        + row.EndeControl.Value.Day + ")";
+                    break;
+                case "Erteilt":
+                    suchBedingungen += verknuepfung + "Erteilt >= DateTime("
+                        + row.AnfangControl.Value.Year + ","
+                        + row.AnfangControl.Value.Month + ","
+                        + row.AnfangControl.Value.Day + ")"
+                        + " && Erteilt <= DateTime("
+                        + row.EndeControl.Value.Year + ","
+                        + row.EndeControl.Value.Month + ","
+                        + row.EndeControl.Value.Day + ")";
+                    break;
+                case "Abgerechnet":
+                    suchBedingungen += verknuepfung + "Abgerechnet != " + row.AbgerechnetControl.Checked;
+                    break;
+                case "Erledigt":
+                    suchBedingungen += verknuepfung + "Erledigt == " + row.ErledigtControl.Checked;
+                    break;
+            }
+            return suchBedingungen;
+        }
+
+        //TODO Doku
         private void butImport_Click(object sender, EventArgs e)
         {
             ExportView importV = new ExportView("Import");

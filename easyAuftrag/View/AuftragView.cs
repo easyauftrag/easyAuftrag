@@ -61,7 +61,7 @@ namespace easyAuftrag.View
         /// </value>
         public Auftrag AuftragInfo { get; set; }
 
-        private List<Taetigkeit> Tatlist { get; set; }
+        private List<Taetigkeit> _tatlist = new List<Taetigkeit>();
         private BindingSource Bs = new BindingSource();
         private Handler _handler = new Handler();
 
@@ -100,10 +100,10 @@ namespace easyAuftrag.View
             AuftragInfo = auftrag;
             using (var db = new EasyAuftragContext())
             {
-                Tatlist = (from t in db.Taetigkeiten where t.AuftragID == auftrag.AuftragID select t).ToList();
+                _tatlist = (from t in db.Taetigkeiten where t.AuftragID == auftrag.AuftragID select t).ToList();
             }
             FillControls(AuftragInfo);
-            Bs.DataSource = Tatlist;
+            Bs.DataSource = _tatlist;
             dgvAuftrag.DataSource = Bs;
             dgvAuftrag.Columns["TaetigkeitID"].Visible = false;
         }
@@ -151,7 +151,7 @@ namespace easyAuftrag.View
             dtpErteilt.Value = auftrag.Erteilt;
             cbErledigt.Checked = auftrag.Erledigt;
             cbAbgerechnet.Checked = auftrag.Abgerechnet;
-            tbGesamt.Text = Math.Round((Berechnung.AuftragZeitGesamt(Tatlist)/60), 2).ToString();
+            tbGesamt.Text = Math.Round((Berechnung.AuftragZeitGesamt(_tatlist)/60), 2).ToString();
         }
 
         /// <summary>
@@ -235,10 +235,17 @@ namespace easyAuftrag.View
         private void BearbeitenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedRows[0].Cells["TaetigkeitID"].Value);
-            TaetigkeitView taetigkeitV = new TaetigkeitView("Tätigkeit Bearbeiten", taetigkeit: _handler.TaetigkeitLaden(taetigkeitID));
-            if (taetigkeitV.ShowDialog() == DialogResult.OK)
+            TaetigkeitView taetigkeitV = new TaetigkeitView("Tätigkeit Bearbeiten", taetigkeit: _handler.TaetigkeitLaden(taetigkeitID, out bool success));
+            if (success == false)
             {
-                _handler.TaetigkeitBearbeiten(taetigkeitV.TaetigkeitInfo, taetigkeitID);
+                MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
+            }
+            else if (taetigkeitV.ShowDialog() == DialogResult.OK)
+            {
+                if (!_handler.TaetigkeitBearbeiten(taetigkeitV.TaetigkeitInfo, taetigkeitID))
+                {
+                    MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
+                }
             }
             this.BringToFront();
             this.Activate();
@@ -252,10 +259,17 @@ namespace easyAuftrag.View
         private void LöschenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedRows[0].Cells["TaetigkeitID"].Value);
-            TaetigkeitView taetigkeitV = new TaetigkeitView("Tätigkeit Löschen", taetigkeit: _handler.TaetigkeitLaden(taetigkeitID));
-            if (taetigkeitV.ShowDialog() == DialogResult.OK)
+            TaetigkeitView taetigkeitV = new TaetigkeitView("Tätigkeit Löschen", taetigkeit: _handler.TaetigkeitLaden(taetigkeitID, out bool success));
+            if (success == false)
             {
-                _handler.TaetigkeitLoeschen(taetigkeitID);
+                MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
+            }
+            else if (taetigkeitV.ShowDialog() == DialogResult.OK)
+            {
+                if (!_handler.TaetigkeitLoeschen(taetigkeitID))
+                {
+                    MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
+                }
             }
             this.BringToFront();
             this.Activate();

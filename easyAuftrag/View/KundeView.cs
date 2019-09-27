@@ -58,8 +58,8 @@ namespace easyAuftrag.View
         /// </value>
         public Kunde KundenInfo { get; set; }
 
-        private List<Adresse> Adrlist { get; set; }
-        private BindingSource Bs = new BindingSource();
+        private List<Adresse> _adrlist = new List<Adresse>();
+        private BindingSource _bind = new BindingSource();
 
         /// <summary>
         /// Konstruktor für die <see cref="KundeView"/>
@@ -88,10 +88,10 @@ namespace easyAuftrag.View
             FillControls(KundenInfo);
             using (var db = new EasyAuftragContext())
             {
-                Adrlist = (from t in db.Adressen where t.KundeID == kunde.KundeID select t).ToList();
+                _adrlist = (from t in db.Adressen where t.KundeID == kunde.KundeID select t).ToList();
             }
-            Bs.DataSource = Adrlist;
-            dgvKunde.DataSource = Bs;
+            _bind.DataSource = _adrlist;
+            dgvKunde.DataSource = _bind;
         }
 
         /// <summary>
@@ -166,7 +166,7 @@ namespace easyAuftrag.View
             if (adresseV.ShowDialog() == DialogResult.OK)
             {
                 KundenInfo.WeitereAdressen.Add(adresseV.AdresseInfo);
-                Bs.Add(adresseV.AdresseInfo);
+                _bind.Add(adresseV.AdresseInfo);
             }
             this.BringToFront();
             this.Activate();

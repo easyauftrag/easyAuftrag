@@ -67,7 +67,7 @@ namespace Core
         /// <param name="kunde">aktualisierte Daten des Kunden</param>
         /// <param name="kundeID">Primärschlüssel des Kunden in der Datenbank</param>
         /// <seealso cref="EasyAuftragContext"/>
-        public void KundeBearbeiten(Kunde kunde, int kundeID)
+        public bool KundeBearbeiten(Kunde kunde, int kundeID)
         {
             try
             {
@@ -82,12 +82,18 @@ namespace Core
                         db.Kunden.Find(kundeID).Wohnort = kunde.Wohnort;
                         db.Kunden.Find(kundeID).TelefonNr = kunde.TelefonNr;
                         db.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
             }
             catch (Exception ex)
             {
                 ErrorHandler.ErrorHandle(ex);
+                return false;
             }
         }
 
@@ -96,7 +102,7 @@ namespace Core
         /// </summary>
         /// <param name="kundeID">Primärschlüssel des Kunden in der Datenbank</param>
         /// <seealso cref="EasyAuftragContext"/>
-        public void KundeLoeschen(int kundeID)
+        public bool KundeLoeschen(int kundeID)
         {
             try
             {
@@ -106,12 +112,18 @@ namespace Core
                     {
                         db.Kunden.Remove(db.Kunden.Find(kundeID));
                         db.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
             }
             catch (Exception ex)
             {
                 ErrorHandler.ErrorHandle(ex);
+                    return false;
             }
         }
 
@@ -142,7 +154,7 @@ namespace Core
         /// <param name="auftrag">aktualisierte Daten des Auftrags</param>
         /// <param name="auftragID">Primärschlüssel des Auftrags in der Datenbank</param>
         /// <seealso cref="EasyAuftragContext"/>
-        public void AuftragBearbeiten(Auftrag auftrag, int auftragID)
+        public bool AuftragBearbeiten(Auftrag auftrag, int auftragID)
         {
             try
             {
@@ -158,12 +170,18 @@ namespace Core
                         db.Auftraege.Find(auftragID).Abgerechnet = auftrag.Abgerechnet;
                         db.Auftraege.Find(auftragID).KundeID = auftrag.KundeID;
                         db.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
             }
             catch (Exception ex)
             {
                 ErrorHandler.ErrorHandle(ex);
+                return false;
             }
         }
 
@@ -172,7 +190,7 @@ namespace Core
         /// </summary>
         /// <param name="auftragID">Primärschlüssel des Auftrags in der Datenbank</param>
         /// <seealso cref="EasyAuftragContext"/>
-        public void AuftragLoeschen(int auftragID)
+        public bool AuftragLoeschen(int auftragID)
         {
             try
             {
@@ -182,12 +200,18 @@ namespace Core
                     {
                         db.Auftraege.Remove(db.Auftraege.Find(auftragID));
                         db.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
             }
             catch (Exception ex)
             {
                 ErrorHandler.ErrorHandle(ex);
+                return false;
             }
         }
 
@@ -218,7 +242,7 @@ namespace Core
         /// <param name="mitarbeiter">aktualisierte Daten des Mitarbeiters</param>
         /// <param name="mitarbeiterID">Primärschlüssel des Mitarbeiters in der Datenbank</param>
         /// <seealso cref="EasyAuftragContext"/>
-        public void MitarbeiterBearbeiten(Mitarbeiter mitarbeiter, int mitarbeiterID)
+        public bool MitarbeiterBearbeiten(Mitarbeiter mitarbeiter, int mitarbeiterID)
         {
             try
             {
@@ -234,12 +258,18 @@ namespace Core
                         db.Mitarbeiters.Find(mitarbeiterID).TelefonNr = mitarbeiter.TelefonNr;
                         db.Mitarbeiters.Find(mitarbeiterID).AuslastungStelle = mitarbeiter.AuslastungStelle;
                         db.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
             }
             catch (Exception ex)
             {
                 ErrorHandler.ErrorHandle(ex);
+                return false;
             }
         }
 
@@ -248,7 +278,7 @@ namespace Core
         /// </summary>
         /// <param name="mitarbeiterID">Primärschlüssel des Mitarbeiters in der Datenbank</param>
         /// <seealso cref="EasyAuftragContext"/>
-        public void MitarbeiterLoeschen(int mitarbeiterID)
+        public bool MitarbeiterLoeschen(int mitarbeiterID)
         {
             try
             {
@@ -258,12 +288,18 @@ namespace Core
                     {
                         db.Mitarbeiters.Remove(db.Mitarbeiters.Find(mitarbeiterID));
                         db.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
             }
             catch (Exception ex)
             {
                 ErrorHandler.ErrorHandle(ex);
+                return false;
             }
         }
 
@@ -294,7 +330,7 @@ namespace Core
         /// <param name="taetigkeit">aktualisierte Daten der Tätigkeit</param>
         /// <param name="taetigkeitID">Primärschlüssel der Tätigkeit in der Datenbank</param>
         /// <seealso cref="EasyAuftragContext"/>
-        public void TaetigkeitBearbeiten(Taetigkeit taetigkeit, int taetigkeitID)
+        public bool TaetigkeitBearbeiten(Taetigkeit taetigkeit, int taetigkeitID)
         {
             try
             {
@@ -309,12 +345,18 @@ namespace Core
                         db.Taetigkeiten.Find(taetigkeitID).StartZeit = taetigkeit.StartZeit;
                         db.Taetigkeiten.Find(taetigkeitID).EndZeit = taetigkeit.EndZeit;
                         db.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
             }
             catch (Exception ex)
             {
                 ErrorHandler.ErrorHandle(ex);
+                return false;
             }
         }
 
@@ -323,7 +365,7 @@ namespace Core
         /// </summary>
         /// <param name="taetigkeitID">Primärschlüssel der Tätigkeit in der Datenbank</param>
         /// <seealso cref="EasyAuftragContext"/>
-        public void TaetigkeitLoeschen(int taetigkeitID)
+        public bool TaetigkeitLoeschen(int taetigkeitID)
         {
             try
             {
@@ -333,12 +375,18 @@ namespace Core
                     {
                         db.Taetigkeiten.Remove(db.Taetigkeiten.Find(taetigkeitID));
                         db.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
             }
             catch (Exception ex)
             {
                 ErrorHandler.ErrorHandle(ex);
+                return false;
             }
         }
 
@@ -348,19 +396,28 @@ namespace Core
         /// <param name="kundeID"></param>
         /// <returns>Kunde aus Datenbank</returns>
         /// <seealso cref="EasyAuftragContext"/>
-        public Kunde KundeLaden(int kundeID)
+        public Kunde KundeLaden(int kundeID, out bool success)
         {
             Kunde kund = new Kunde();
             try
             {
                 using (var db = new EasyAuftragContext())
                 {
-                    kund = (from k in db.Kunden select k).First(k => k.KundeID == kundeID);
+                    if (db.Kunden.Find(kundeID) != null)
+                    {
+                        kund = (from k in db.Kunden select k).First(k => k.KundeID == kundeID);
+                        success = true;
+                    }
+                    else
+                    {
+                        success = false;
+                    }
                 }
             }
             catch (Exception ex)
             {
                 ErrorHandler.ErrorHandle(ex);
+                success = false;
             }
             return kund;
         }
@@ -371,19 +428,28 @@ namespace Core
         /// <param name="auftragID"></param>
         /// <returns>Auftrag aus Datenbank</returns>
         /// <seealso cref="EasyAuftragContext"/>
-        public Auftrag AuftragLaden(int auftragID)
+        public Auftrag AuftragLaden(int auftragID, out bool success)
         {
             Auftrag auft = new Auftrag();
             try
             {
                 using (var db = new EasyAuftragContext())
                 {
-                    auft = (from k in db.Auftraege select k).First(k => k.AuftragID == auftragID);
+                    if (db.Auftraege.Find(auftragID) != null)
+                    {
+                        auft = (from k in db.Auftraege select k).First(k => k.AuftragID == auftragID);
+                        success = true;
+                    }
+                    else
+                    {
+                        success = false;
+                    }
                 }
             }
             catch (Exception ex)
             {
                 ErrorHandler.ErrorHandle(ex);
+                success = false;
             }
             return auft;
         }
@@ -394,19 +460,28 @@ namespace Core
         /// <param name="mitarbeiterID"></param>
         /// <returns>Mitarbeiter aus Datenbank</returns>
         /// <seealso cref="EasyAuftragContext"/>
-        public Mitarbeiter MitarbeiterLaden(int mitarbeiterID)
+        public Mitarbeiter MitarbeiterLaden(int mitarbeiterID, out bool success)
         {
             Mitarbeiter mitarb = new Mitarbeiter();
             try
             {
                 using (var db = new EasyAuftragContext())
                 {
-                    mitarb = (from k in db.Mitarbeiters select k).First(k => k.MitarbeiterID == mitarbeiterID);
+                    if (db.Mitarbeiters.Find(mitarbeiterID) != null)
+                    {
+                        mitarb = (from k in db.Mitarbeiters select k).First(k => k.MitarbeiterID == mitarbeiterID);
+                        success = true;
+                    }
+                    else
+                    {
+                        success = false;
+                    }
                 }
             }
             catch (Exception ex)
             {
                 ErrorHandler.ErrorHandle(ex);
+                success = false;
             }
             return mitarb;
         }
@@ -417,19 +492,28 @@ namespace Core
         /// <param name="taetigkeitID"></param>
         /// <returns>Taetigkeit aus Datenbank</returns>
         /// <seealso cref="EasyAuftragContext"/>
-        public Taetigkeit TaetigkeitLaden(int taetigkeitID)
+        public Taetigkeit TaetigkeitLaden(int taetigkeitID, out bool success)
         {
             Taetigkeit tat = new Taetigkeit();
             try
             {
                 using (var db = new EasyAuftragContext())
                 {
-                    tat = (from k in db.Taetigkeiten select k).First(k => k.TaetigkeitID == taetigkeitID);
+                    if (db.Taetigkeiten.Find(taetigkeitID) != null)
+                    {
+                        tat = (from k in db.Taetigkeiten select k).First(k => k.TaetigkeitID == taetigkeitID);
+                        success = true;
+                    }
+                    else
+                    {
+                        success = false;
+                    }
                 }
             }
             catch (Exception ex)
             {
                 ErrorHandler.ErrorHandle(ex);
+                success = false;
             }
             return tat;
         }

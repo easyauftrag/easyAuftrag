@@ -46,8 +46,8 @@ namespace easyAuftrag.Logik
     /// </summary>
     public class Drucken
     {
-        DruckDoc _druckDoc = new DruckDoc();
-        StundenDoc _stundenDoc = new StundenDoc();
+        private DruckDoc _druckDoc = new DruckDoc();
+        private StundenDoc _stundenDoc = new StundenDoc();
 
         /// <summary>
         /// Konstruktor für die <see cref="Drucken"/> Klasse
@@ -204,6 +204,7 @@ namespace easyAuftrag.Logik
         private void printDocument_PrintStunden(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             XmlPrintMapperAuftrag mapper = LoadPrintMappings("Stunden");
+            //TODO Config Datei erstellen, die Stundensoll enthält.
             Config conf = new Config();
             conf.StundenSoll = 40;
             Font font = new Font(FontFamily.GenericSansSerif, 10.0F, FontStyle.Regular);

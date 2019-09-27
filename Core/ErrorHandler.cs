@@ -57,38 +57,45 @@ namespace Core
         /// <seealso cref="System.IO"/>
         public static void ErrorHandle(Exception ex)
         {
-            // Mit StringBuilder Infos über Fehler zusammenstellen
-            StringBuilder info = new StringBuilder();
-            info.Append("Error");
-            info.Append(" ");
-            info.Append(System.DateTime.Now.ToShortDateString());
-            info.Append(" ");
-            info.Append(ex.Message);
-            info.Append("\n");
-            if (ex.TargetSite != null)
+            try
             {
-                info.Append(ex.TargetSite.ReflectedType.ToString());
+                // Mit StringBuilder Infos über Fehler zusammenstellen
+                StringBuilder info = new StringBuilder();
+                info.Append("Error");
+                info.Append(" ");
+                info.Append(System.DateTime.Now.ToShortDateString());
+                info.Append(" ");
+                info.Append(ex.Message);
                 info.Append("\n");
-                info.Append(ex.TargetSite.Name);
-                info.Append("\n");
-                info.Append(ex.StackTrace);
+                if (ex.TargetSite != null)
+                {
+                    info.Append(ex.TargetSite.ReflectedType.ToString());
+                    info.Append("\n");
+                    info.Append(ex.TargetSite.Name);
+                    info.Append("\n");
+                    info.Append(ex.StackTrace);
+                }
+                // Ausgeben in MessageBox - TODO auskommentieren wenn produktiv
+                MessageBox.Show(info.ToString());
+
+                // Ausgabe im Logfile
+                string pfad = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "easyAuftrag");
+
+                if (!Directory.Exists(pfad))
+                {
+                    Directory.CreateDirectory(pfad);
+                }
+                pfad = Path.Combine(pfad, "error.log");
+                TextWriter writer = new StreamWriter(pfad, true);
+                writer.WriteLine(info);
+                writer.WriteLine();
+                writer.Flush();
+                writer.Close();
             }
-            // Ausgeben in MessageBox - TODO auskommentieren wenn produktiv
-            MessageBox.Show(info.ToString());
-
-            // Ausgabe im Logfile
-            string pfad = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "easyAuftrag");
-
-            if (!Directory.Exists(pfad))
+            catch (Exception exep)
             {
-                Directory.CreateDirectory(pfad);
+                MessageBox.Show(exep.Message);
             }
-            pfad = Path.Combine(pfad, "error.log");
-            TextWriter writer = new StreamWriter(pfad, true);
-            writer.WriteLine(info);
-            writer.WriteLine();
-            writer.Flush();
-            writer.Close();
         }
     }
 }
