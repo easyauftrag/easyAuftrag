@@ -535,7 +535,7 @@ namespace easyAuftrag
                 if (stundV.ShowDialog() == DialogResult.OK)
                 {
                     Drucken druck = new Drucken();
-                    druck.StundenDruck(stundV.stundenDoc);
+                    druck.StundenDruck(stundV.StuDoc);
                 }
             }
             catch (Exception ex)

@@ -56,7 +56,7 @@ namespace easyAuftrag.View
         /// Wird durch <see cref="FillStunden"/> gefüllt
         /// und gibt seine Daten an <see cref="FillControls"/>, um sie in der View anzuzeigen.
         /// </value>
-        public StundenDoc stundenDoc = new StundenDoc();
+        public StundenDoc StuDoc { get; set; }
 
         /// <summary>
         /// Konstruktor für die <see cref="StundenView"/>
@@ -64,6 +64,7 @@ namespace easyAuftrag.View
         public StundenView()
         {
             InitializeComponent();
+            StuDoc = new StundenDoc();
             using (var db = new EasyAuftragContext())
             {
                 var mitarbeiter = (from k in db.Mitarbeiters select new { ID = k.MitarbeiterID, mName = k.Name }).ToList();
@@ -74,23 +75,24 @@ namespace easyAuftrag.View
         }
 
         /// <summary>
-        /// Packt die Eingaben in den Controls in ein <see cref="StundenDoc"/>.
+        /// Packt die Eingaben in den Controls in ein <see cref="Core.Model.StundenDoc"/>.
         /// </summary>
-        /// <returns>StundenDoc aus den Eingaben in den Controls</returns>
+        /// <returns>StuDoc aus den Eingaben in den Controls</returns>
         public void FillStunden()
         {
             try
             {
-                stundenDoc.Anfang = dtpAnfang.Value;
-                stundenDoc.Ende = dtpEnde.Value;
+                StuDoc.Anfang = dtpAnfang.Value;
+                StuDoc.Ende = dtpEnde.Value;
                 int mID = Convert.ToInt32(cbMitarbeiter.SelectedValue);
                 using (var db = new EasyAuftragContext())
                 {
-                    stundenDoc.Mitarbeiter = (from m in db.Mitarbeiters where m.MitarbeiterID == mID select m).First();
-                    stundenDoc.Tatlist = (from t in db.Taetigkeiten where t.MitarbeiterID == stundenDoc.Mitarbeiter.MitarbeiterID select t).ToList();
-
-                    stundenDoc.Tatlist = stundenDoc.Tatlist.Where(t => t.Datum >= stundenDoc.Anfang).ToList();
-                    stundenDoc.Tatlist = stundenDoc.Tatlist.Where(t => t.Datum <= stundenDoc.Ende).ToList();
+                    StuDoc.Mitarbeiter = (from m in db.Mitarbeiters where m.MitarbeiterID == mID select m).First();
+                    StuDoc.Tatlist = (from t in db.Taetigkeiten 
+                                          where t.MitarbeiterID == StuDoc.Mitarbeiter.MitarbeiterID 
+                                          && t.Datum >= StuDoc.Anfang 
+                                          && t.Datum <= StuDoc.Ende
+                                          select t).ToList();
                 }
             }
             catch (Exception ex)
@@ -101,7 +103,7 @@ namespace easyAuftrag.View
 
         /// <summary>
         /// Zeigt den Stundensoll, die geleisteten Stunden 
-        /// und die Liste der Tätigkeiten aus dem <see cref="StundenDoc"/> in den Controls an.
+        /// und die Liste der Tätigkeiten aus dem <see cref="Core.Model.StundenDoc"/> in den Controls an.
         /// </summary>
         public void FillControls()
         {
@@ -109,9 +111,9 @@ namespace easyAuftrag.View
             {
                 Config conf = new Config();
                 conf.StundenSoll = 40;
-                tbSoll.Text = (stundenDoc.Mitarbeiter.AuslastungStelle/100 * conf.StundenSoll).ToString();
-                tbGeleistet.Text = Berechnung.ArbeitsZeit(stundenDoc).ToString();
-                dgvStunden.DataSource = stundenDoc.Tatlist;
+                tbSoll.Text = (StuDoc.Mitarbeiter.AuslastungStelle/100 * conf.StundenSoll).ToString();
+                tbGeleistet.Text = Berechnung.ArbeitsZeit(StuDoc).ToString();
+                dgvStunden.DataSource = StuDoc.Tatlist;
                 dgvStunden.Columns["TaetigkeitID"].Visible = false;
             }
             catch (Exception ex)
