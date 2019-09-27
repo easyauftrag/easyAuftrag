@@ -10,46 +10,77 @@ using Core.Model;
 
 namespace Austausch
 {
+    /// <summary>
+    /// Klasse mit Methoden zum Schreiben und Lesen von CSV Dateien
+    /// </summary>
     public class AustauschCSV : IAustausch
     {
+        /// <summary>
+        /// Datentrenner in der CSV Datei, standardmäßig ein Semikolon
+        /// </summary>
         private string _datenTrenner = ";";
+        /// <summary>
+        /// CultureInfo zum Definieren des Dezimaltrenners in der CSV Datei
+        /// </summary>
         private CultureInfo _culture = new CultureInfo("de-DE");
 
+        /// <summary>
+        /// Konstruktor zum Erstellen eines AustauschCSV Objekts.
+        /// Legt den Dezimal- und Datentrenner für den In-/Export im CSV Format fest.
+        /// </summary>
+        /// <param name="trennerDezimal">Dezimaltrenner für In-/Export im CSV Format</param>
+        /// <param name="trennerDaten">Datentrenner für In-/Export im CSV Format</param>
         public AustauschCSV(CSVConfigTypen.DezimalTrenner trennerDezimal, CSVConfigTypen.DatenTrenner trennerDaten)
         {
+            // Falls der Dezimaltrenner auf Komma gesetzt wurde, wird _culture auf de-DE gesetzt
             if (trennerDezimal == CSVConfigTypen.DezimalTrenner.Komma)
             {
                 _culture = new CultureInfo("de-DE");
             }
-            if (trennerDezimal == CSVConfigTypen.DezimalTrenner.Punkt)
+            // Falls der Dezimaltrenner auf Punkt gesetzt wurde, wird _culture auf en-US gesetzt
+            else if (trennerDezimal == CSVConfigTypen.DezimalTrenner.Punkt)
             {
                 _culture = new CultureInfo("en-US");
             }
+            // Falls der Datentrenner auf Semikolon gesetzt wurde, wird _datenTrenner auf ";" gesetzt
             if (trennerDaten == CSVConfigTypen.DatenTrenner.Semikolon)
             {
                 _datenTrenner = ";";
             }
-            if (trennerDaten == CSVConfigTypen.DatenTrenner.Komma)
+            // Falls der Datentrenner auf Komma gesetzt wurde, wird _datenTrenner auf "," gesetzt
+            else if (trennerDaten == CSVConfigTypen.DatenTrenner.Komma)
             {
                 _datenTrenner = ",";
             }
-            if (trennerDaten == CSVConfigTypen.DatenTrenner.Tab)
+            // Falls der Datentrenner auf Tabulator gesetzt wurde, wird _datenTrenner auf "\t" gesetzt
+            else if (trennerDaten == CSVConfigTypen.DatenTrenner.Tab)
             {
                 _datenTrenner = "\t";
             }
         }
 
+        /// <summary>
+        /// Liest Aufträge aus einer CSV Datei
+        /// </summary>
+        /// <param name="importPfad">Pfad der CSV Datei</param>
+        /// <returns>Liste von Auftragsobjekten</returns>
         public List<Auftrag> AuftragLesen(string importPfad)
         {
             List<Auftrag> lstAuftrag = new List<Auftrag>();
             try
             {
+                // Erzeugt einen StreamReader für die Datei
                 TextReader reader = new StreamReader(importPfad);
+                // Deklariert und initialisiert die Variable line mit der ersten Zeile der CSV Datei, also dem Header, welchen wir nicht auslesen wollen
                 string line = reader.ReadLine();
 
+                // Solange die Zeile noch Daten enthält wird sie weiter ausgelesen und in eine Liste von Aufträgen geschrieben
                 while (!string.IsNullOrEmpty(line = reader.ReadLine()))
                 {
+                    // Die Zeile wird am Datentrenner in ein Array aus Strings aufgespalten
                     string[] auftragItems = line.Split(_datenTrenner.ToCharArray());
+
+                    // Die Daten in den Zellen des Arrays werden in die einzelnen Eigenschaften eines Auftragobjekts geschrieben
                     Auftrag auftrag = new Auftrag();
                     auftrag.AuftragID = Convert.ToInt32(string.Format(auftragItems[0]), _culture);
                     auftrag.AuftragNummer = auftragItems[1].Trim();
@@ -59,6 +90,7 @@ namespace Austausch
                     auftrag.Erledigt = Convert.ToBoolean(auftragItems[5]);
                     auftrag.Abgerechnet = Convert.ToBoolean(auftragItems[6]);
 
+                    // Das Auftragsobjekt wird einer Liste von Aufträgen angefügt
                     lstAuftrag.Add(auftrag);
                 }
 
@@ -67,15 +99,25 @@ namespace Austausch
             {
                 ErrorHandler.ErrorHandle(ex);
             }
+            // Die Liste wird zurückgegeben
             return lstAuftrag;
         }
 
+        /// <summary>
+        /// Schreibt Aufträge in eine CSV Datei
+        /// </summary>
+        /// <param name="exportPfad">Pfad der CSV Datei</param>
+        /// <param name="lstAuftrag">Liste von Auftragsobjekten</param>
         public void AuftragSchreiben(string exportPfad, List<Auftrag> lstAuftrag)
         {
             try
             {
+                // Erzeugt einen StreamWriter für die Datei
                 TextWriter writer = new StreamWriter(exportPfad);
+                // Schreibt den Header der Datei
                 writer.WriteLine("AuftragID; AuftragNummer; KundeID; Eingang; Erteilt; Erledigt; Abgerechnet");
+
+                // Geht durch die Aufträge in der Liste und schreibt diese Zeile für Zeile in die CSV Datei
                 foreach (var item in lstAuftrag)
                 {
                     writer.WriteLine(item.AuftragID.ToString(_culture) + _datenTrenner
@@ -96,17 +138,28 @@ namespace Austausch
             }
         }
 
+        /// <summary>
+        /// Liest Kunden aus einer CSV Datei
+        /// </summary>
+        /// <param name="importPfad">Pfad der CSV Datei</param>
+        /// <returns>Liste von Kundenobjekten</returns>
         public List<Kunde> KundeLesen(string importPfad)
         {
             List<Kunde> lstKunde = new List<Kunde>();
             try
             {
+                // Erzeugt einen StreamReader für die Datei
                 TextReader reader = new StreamReader(importPfad);
+                // Deklariert und initialisiert die Variable line mit der ersten Zeile der CSV Datei, also dem Header, welchen wir nicht auslesen wollen
                 string line = reader.ReadLine();
 
+                // Solange die Zeile noch Daten enthält wird sie weiter ausgelesen und in eine Liste von Kunden geschrieben
                 while (!string.IsNullOrEmpty(line = reader.ReadLine()))
                 {
+                    // Die Zeile wird am Datentrenner in ein Array aus Strings aufgespalten
                     string[] kundeItems = line.Split(_datenTrenner.ToCharArray());
+
+                    // Die Daten in den Zellen des Arrays werden in die einzelnen Eigenschaften eines Kundenobjekts geschrieben
                     Kunde kunde = new Kunde();
                     kunde.KundeID = Convert.ToInt32(string.Format(kundeItems[0]), _culture);
                     kunde.Name = kundeItems[1].Trim();
@@ -116,6 +169,7 @@ namespace Austausch
                     kunde.Wohnort = kundeItems[5].Trim();
                     kunde.TelefonNr = kundeItems[6].Trim();
 
+                    // Das Kundenobjekt wird einer Liste von Kunden angefügt
                     lstKunde.Add(kunde);
                 }
 
@@ -124,15 +178,25 @@ namespace Austausch
             {
                 ErrorHandler.ErrorHandle(ex);
             }
+            // Die Liste wird zurückgegeben
             return lstKunde;
         }
 
+        /// <summary>
+        /// Schreibt Kunden in eine CSV Datei
+        /// </summary>
+        /// <param name="exportPfad">Pfad der CSV Datei</param>
+        /// <param name="lstKunde">Liste von Kundenobjekten</param>
         public void KundeSchreiben(string exportPfad, List<Kunde> lstKunde)
         {
             try
             {
+                // Erzeugt einen StreamWriter für die Datei
                 TextWriter writer = new StreamWriter(exportPfad);
+                // Schreibt den Header der Datei
                 writer.WriteLine("KundeID; Name; Strasse; Hausnr; PLZ; Wohnort; TelefonNr");
+
+                // Geht durch die Kunden in der Liste und schreibt diese Zeile für Zeile in die CSV Datei
                 foreach (var item in lstKunde)
                 {
                     writer.WriteLine(item.KundeID.ToString(_culture) + _datenTrenner
@@ -153,17 +217,28 @@ namespace Austausch
             }
         }
 
+        /// <summary>
+        /// Liest Mitarbeiter aus einer CSV Datei
+        /// </summary>
+        /// <param name="importPfad">Pfad der CSV Datei</param>
+        /// <returns>Liste von Mitarbeiterobjekten</returns>
         public List<Mitarbeiter> MitarbeiterLesen(string importPfad)
         {
             List<Mitarbeiter> lstMitarbeiter = new List<Mitarbeiter>();
             try
             {
+                // Erzeugt einen StreamReader für die Datei
                 TextReader reader = new StreamReader(importPfad);
+                // Deklariert und initialisiert die Variable line mit der ersten Zeile der CSV Datei, also dem Header, welchen wir nicht auslesen wollen
                 string line = reader.ReadLine();
 
+                // Solange die Zeile noch Daten enthält wird sie weiter ausgelesen und in eine Liste von Mitarbeitern geschrieben
                 while (!string.IsNullOrEmpty(line = reader.ReadLine()))
                 {
+                    // Die Zeile wird am Datentrenner in ein Array aus Strings aufgespalten
                     string[] mitarbeiterItems = line.Split(_datenTrenner.ToCharArray());
+
+                    // Die Daten in den Zellen des Arrays werden in die einzelnen Eigenschaften eines Mitarbeiterobjekts geschrieben
                     Mitarbeiter mitarbeiter = new Mitarbeiter();
                     mitarbeiter.MitarbeiterID = Convert.ToInt32(string.Format(mitarbeiterItems[0]), _culture);
                     mitarbeiter.Name = mitarbeiterItems[1].Trim();
@@ -174,6 +249,7 @@ namespace Austausch
                     mitarbeiter.Wohnort = mitarbeiterItems[6].Trim();
                     mitarbeiter.AuslastungStelle = Convert.ToInt32(string.Format(mitarbeiterItems[7]), _culture);
 
+                    // Das Mitarbeiterobjekt wird zu einer Liste von Mitarbeitern hinzugefügt
                     lstMitarbeiter.Add(mitarbeiter);
                 }
 
@@ -182,15 +258,25 @@ namespace Austausch
             {
                 ErrorHandler.ErrorHandle(ex);
             }
+            // Die Liste wird zurückgegeben
             return lstMitarbeiter;
         }
 
+        /// <summary>
+        /// Schreibt Mitarbeiter in eine CSV Datei
+        /// </summary>
+        /// <param name="exportPfad">Pfad der CSV Datei</param>
+        /// <param name="lstMitarbeiter">Liste von Mitarbeiterobjekten</param>
         public void MitarbeiterSchreiben(string exportPfad, List<Mitarbeiter> lstMitarbeiter)
         {
             try
             {
+                // Erzeugt einen StreamWriter für die Datei
                 TextWriter writer = new StreamWriter(exportPfad);
+                // Schreibt den Header der Datei
                 writer.WriteLine("MitarbeiterID; Name; TelefonNr; Strasse; Hausnr; PLZ; Wohnort; AuslastungStelle");
+
+                // Geht durch die Liste und schreibt die Objekte Zeile für Zeile in die Datei
                 foreach (var item in lstMitarbeiter)
                 {
                     writer.WriteLine(item.MitarbeiterID.ToString(_culture) + _datenTrenner
@@ -212,17 +298,29 @@ namespace Austausch
             }
         }
 
+        /// <summary>
+        /// Liest Tätigkeiten aus Einer CSV Datei
+        /// </summary>
+        /// <param name="importPfad">Pfad zur CSV Datei</param>
+        /// <returns>Liste von Taetigkeitsobjekten</returns>
         public List<Taetigkeit> TaetigkeitLesen(string importPfad)
         {
             List<Taetigkeit> lstTaetigkeit = new List<Taetigkeit>();
             try
             {
+                // Erzeugt einen StreamReader für die Datei
                 TextReader reader = new StreamReader(importPfad);
+
+                // Deklariert und initialisiert die Variable line mit der ersten Zeile der CSV Datei, also dem Header, welchen wir nicht auslesen wollen
                 string line = reader.ReadLine();
 
+                // Solange die Zeile noch Daten enthält wird sie weiter ausgelesen und in eine Liste von Tätigkeiten geschrieben
                 while (!string.IsNullOrEmpty(line = reader.ReadLine()))
                 {
+                    // Die Zeile wird am Datentrenner in ein Array aus Strings aufgespalten
                     string[] taetigkeitItems = line.Split(_datenTrenner.ToCharArray());
+
+                    // Die Daten in den Zellen des Arrays werden in die einzelnen Eigenschaften eines Taetigkeitsobjekts geschrieben
                     Taetigkeit taetigkeit = new Taetigkeit();
                     taetigkeit.TaetigkeitID = Convert.ToInt32(string.Format(taetigkeitItems[0]), _culture);
                     taetigkeit.AuftragID = Convert.ToInt32(string.Format(taetigkeitItems[1]), _culture);
@@ -232,6 +330,7 @@ namespace Austausch
                     taetigkeit.StartZeit = TimeSpan.Parse(taetigkeitItems[5]);
                     taetigkeit.EndZeit = TimeSpan.Parse(taetigkeitItems[6]);
 
+                    // Die Tätigkeit wird der Tätigkeitsliste hinzugefügt
                     lstTaetigkeit.Add(taetigkeit);
                 }
 
@@ -240,15 +339,25 @@ namespace Austausch
             {
                 ErrorHandler.ErrorHandle(ex);
             }
+            // Die Liste wird zurückgegeben
             return lstTaetigkeit;
         }
 
+        /// <summary>
+        /// Schreibt Tätigkeiten in eine CSV Datei
+        /// </summary>
+        /// <param name="exportPfad">Pfad zur CSV Datei</param>
+        /// <param name="lstTaetigkeit">Liste von Taetigkeitsobjekten</param>
         public void TaetigkeitSchreiben(string exportPfad, List<Taetigkeit> lstTaetigkeit)
         {
             try
             {
+                // Erzeugt einen StreamWriter für die Datei
                 TextWriter writer = new StreamWriter(exportPfad);
+                // Schreibt den Header in die Datei
                 writer.WriteLine("TaetigkeitID; AuftragID; MitarbeiterID; Datum; Name; StartZeit; EndZeit");
+
+                // Schreibt jedes Element der Liste Zeile für Zeile in die Datei
                 foreach (var item in lstTaetigkeit)
                 {
                     writer.WriteLine(item.TaetigkeitID.ToString(_culture) + _datenTrenner

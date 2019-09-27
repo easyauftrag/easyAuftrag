@@ -19,9 +19,7 @@ namespace easyAuftrag.View
         public CSVConfig()
         {
             InitializeComponent();
-            Typen = new CSVConfigTypen();
-            Typen.TrennerDezimal = CSVConfigTypen.DezimalTrenner.Komma;
-            Typen.TrennerDaten = CSVConfigTypen.DatenTrenner.Semikolon;
+            Typen = new CSVConfigTypen(CSVConfigTypen.DezimalTrenner.Komma, CSVConfigTypen.DatenTrenner.Semikolon);
         }
 
         private void butOK_Click(object sender, EventArgs e)
