@@ -29,6 +29,7 @@ namespace easyAuftrag.View
             InitializeComponent();
             // Initialisiert die Eigenschaft Typen mit den Default Werten
             Typen = new CSVConfigTypen(CSVConfigTypen.DezimalTrenner.Komma, CSVConfigTypen.DatenTrenner.Semikolon);
+            rbKomma.Enabled = false;
         }
 
         /// <summary>
@@ -65,6 +66,7 @@ namespace easyAuftrag.View
             if (rbPunkt.Checked)
             {
                 Typen.TrennerDezimal = CSVConfigTypen.DezimalTrenner.Punkt;
+                rbKomma.Enabled = true;
             }
         }
 
@@ -81,6 +83,9 @@ namespace easyAuftrag.View
             if (rbKommaDezi.Checked)
             {
                 Typen.TrennerDezimal = CSVConfigTypen.DezimalTrenner.Komma;
+                rbKomma.Checked = false;
+                rbKomma.Enabled = false;
+                rbSemikolon.Checked = true;
             }
 
         }
