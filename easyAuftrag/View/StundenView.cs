@@ -33,10 +33,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace easyAuftrag.View
 {
@@ -110,7 +112,12 @@ namespace easyAuftrag.View
             try
             {
                 Config conf = new Config();
-                conf.StundenSoll = 40;
+                XmlDocument xml = new XmlDocument();
+                string configPath = Path.Combine(Application.StartupPath, "Config");
+                configPath = Path.Combine(configPath, "Config.xml");
+                xml.Load(configPath);
+                conf.StundenSoll = Convert.ToDouble(xml.Attributes["StundenSoll"].Value);
+
                 tbSoll.Text = (StuDoc.Mitarbeiter.AuslastungStelle/100 * conf.StundenSoll).ToString();
                 tbGeleistet.Text = Berechnung.ArbeitsZeit(StuDoc).ToString();
                 dgvStunden.DataSource = StuDoc.Tatlist;

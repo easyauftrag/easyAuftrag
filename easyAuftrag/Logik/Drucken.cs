@@ -188,7 +188,7 @@ namespace easyAuftrag.Logik
         private XmlPrintMapperAuftrag LoadPrintMappings(string art)
         {
             // Festlegen des Ordnerpfads der XML Datei
-            string path = Path.Combine(Application.StartupPath, "Print");
+            string path = Path.Combine(Application.StartupPath, "Config");
             // gibt den Namen der XML Datei in den Pfad
             path = Path.Combine(path, "Print" + art + ".xml");
 
