@@ -10,19 +10,30 @@ using Core;
 
 namespace Austausch
 {
+    /// <summary>
+    /// Klasse mit Methoden zum Schreiben und Lesen von JSON Dateien
+    /// </summary>
     public class AustauschJSON : IAustausch
     {
+        /// <summary>
+        /// Liest Aufträge aus eine JSON Datei
+        /// </summary>
+        /// <param name="importPfad">Pfad der JSON Datei</param>
+        /// <returns>Liste mit Auftragsobjekten</returns>
         public List<Auftrag> AuftragLesen(string importPfad)
         {
             List<Auftrag> lstAuftrag = new List<Auftrag>();
             try
             {
+                // Erzeugt einen StreamReader für die Datei und liest diese in einen String
                 TextReader reader = new StreamReader(importPfad);
                 string json = reader.ReadToEnd();
                 reader.Close();
 
+                // Liest den String in ein JSON Array
                 JArray jauftraege = JArray.Parse(json);
 
+                // Konvertiert die das JSON Array in eine Liste mit Aufträgen
                 lstAuftrag = jauftraege.Select(a => new Auftrag
                 {
                     AuftragID = (int)a["AuftragID"],
@@ -40,16 +51,23 @@ namespace Austausch
             {
                 ErrorHandler.ErrorHandle(ex);
             }
+            // Gibt die Liste zurück
             return lstAuftrag;
         }
     
-
+        /// <summary>
+        /// Schreibt Aufträge in eine JSON Datei
+        /// </summary>
+        /// <param name="exportPfad">Pfad der JSON Datei</param>
+        /// <param name="lstAuftrag">Liste mit Auftragsobjekten</param>
         public void AuftragSchreiben(string exportPfad, List<Auftrag> lstAuftrag)
         {
             try
             {
+                // Konvertiert die Liste in ein Array und dieses in einen String im JSON Format
                 var json = JsonConvert.SerializeObject(lstAuftrag.ToArray());
 
+                // Schreibt den String in die Datei
                 File.WriteAllText(exportPfad, json);
             }
             catch (Exception ex)
@@ -58,17 +76,25 @@ namespace Austausch
             }
         }
 
+        /// <summary>
+        /// Liest Kunden aus einer JSON Datei
+        /// </summary>
+        /// <param name="importPfad">Pfad der JSON Datei</param>
+        /// <returns>Liste mit Kundenobjekten</returns>
         public List<Kunde> KundeLesen(string importPfad)
         {
             List<Kunde> lstKunde = new List<Kunde>();
             try
             {
+                // Erzeugt einen StreamReader für die Datei und liest diese in einen String
                 TextReader reader = new StreamReader(importPfad);
                 string json = reader.ReadToEnd();
                 reader.Close();
 
+                // Liest den String in ein JSON Array
                 JArray jkunden = JArray.Parse(json);
 
+                // Konvertiert das JSON Array in eine Liste mit Kunden
                 lstKunde = jkunden.Select(k => new Kunde
                 {
                     KundeID = (int)k["KundeID"],
@@ -86,15 +112,23 @@ namespace Austausch
             {
                 ErrorHandler.ErrorHandle(ex);
             }
+            // Gibt die Liste zurück
             return lstKunde;
         }
 
+        /// <summary>
+        /// Schreibt Kunden in eine JSON Datei
+        /// </summary>
+        /// <param name="exportPfad">Pfad der JSON Datei</param>
+        /// <param name="lstKunde">Liste mit Kundenobjekten</param>
         public void KundeSchreiben(string exportPfad, List<Kunde> lstKunde)
         {
             try
             {
+                // Konvertiert die Liste in ein Array und dieses in einen String im JSON Format
                 var json = JsonConvert.SerializeObject(lstKunde.ToArray());
 
+                // Schreibt den String in die Datei
                 File.WriteAllText(exportPfad, json);
             }
             catch (Exception ex)
@@ -103,17 +137,25 @@ namespace Austausch
             }
         }
 
+        /// <summary>
+        /// Liest Mitarbeiter aus einer JSON Datei
+        /// </summary>
+        /// <param name="importPfad">Pfad der JSON Datei</param>
+        /// <returns>Liste mit Mitarbeiterobjekten</returns>
         public List<Mitarbeiter> MitarbeiterLesen(string importPfad)
         {
             List<Mitarbeiter> lstMitarbeiter = new List<Mitarbeiter>();
             try
             {
+                // Erzeugt einen StreamReader für die Datei und liest diese in einen String
                 TextReader reader = new StreamReader(importPfad);
                 string json = reader.ReadToEnd();
                 reader.Close();
 
+                // Liest den String in ein JSON Array
                 JArray jmitarbeiters = JArray.Parse(json);
 
+                // Konvertiert das JSON Array in eine Liste mit Mitarbeitern
                 lstMitarbeiter = jmitarbeiters.Select(m => new Mitarbeiter
                 {
                     MitarbeiterID = (int)m["MitarbeiterID"],
@@ -131,15 +173,23 @@ namespace Austausch
             {
                 ErrorHandler.ErrorHandle(ex);
             }
+            // Gibt die Liste zurück
             return lstMitarbeiter;
         }
 
+        /// <summary>
+        /// Schreibt Mitarbeiter in eine JSON Datei
+        /// </summary>
+        /// <param name="exportPfad">Pfad der JSON Datei</param>
+        /// <param name="lstMitarbeiter">Liste mit Mitarbeiterobjekten</param>
         public void MitarbeiterSchreiben(string exportPfad, List<Mitarbeiter> lstMitarbeiter)
         {
             try
             {
+                // Konvertiert die Liste in ein Array und dieses in einen String im JSON Format
                 var json = JsonConvert.SerializeObject(lstMitarbeiter.ToArray());
 
+                // Schreibt den String in die Datei
                 File.WriteAllText(exportPfad, json);
             }
             catch (Exception ex)
@@ -148,17 +198,25 @@ namespace Austausch
             }
         }
 
+        /// <summary>
+        /// Liest Tätigkeiten aus einer JSON Datei
+        /// </summary>
+        /// <param name="importPfad">Pfad der JSON Datei</param>
+        /// <returns>Liste mit Taetigkeitsobjekten</returns>
         public List<Taetigkeit> TaetigkeitLesen(string importPfad)
         {
             List<Taetigkeit> lstTaetigkeit = new List<Taetigkeit>();
             try
             {
+                // Erzeugt einen StreamReader für die Datei und liest diese in einen String
                 TextReader reader = new StreamReader(importPfad);
                 string json = reader.ReadToEnd();
                 reader.Close();
 
+                // Liest den String in ein JSON Array
                 JArray jtaetigkeiten = JArray.Parse(json);
 
+                // Konvertiert das JSON Array in eine Liste mit Tätigkeiten
                 lstTaetigkeit = jtaetigkeiten.Select(t => new Taetigkeit
                 {
                     TaetigkeitID = (int)t["TaetigkeitID"],
@@ -176,15 +234,23 @@ namespace Austausch
             {
                 ErrorHandler.ErrorHandle(ex);
             }
+            // Gibt die Liste zurück
             return lstTaetigkeit;
         }
 
+        /// <summary>
+        /// Schreibt Tätigkeiten in eine JSON Datei
+        /// </summary>
+        /// <param name="exportPfad">Pfad der JSON Datei</param>
+        /// <param name="lstTaetigkeit">Liste mit Taetigkeitsobjekten</param>
         public void TaetigkeitSchreiben(string exportPfad, List<Taetigkeit> lstTaetigkeit)
         {
             try
             {
+                // Konvertiert die Liste in ein Array und dieses in einen String im JSON Format
                 var json = JsonConvert.SerializeObject(lstTaetigkeit.ToArray());
 
+                // Schreibt den String in die Datei
                 File.WriteAllText(exportPfad, json);
             }
             catch (Exception ex)
