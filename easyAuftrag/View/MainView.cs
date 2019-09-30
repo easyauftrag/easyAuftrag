@@ -836,8 +836,8 @@ namespace easyAuftrag
         /// <summary>
         /// Methode zum Schreiben eines String aus einer Zeile im <see cref="SuchControl"/>
         /// </summary>
-        /// <param name="row"></param>
-        /// <param name="verknuepfung"></param>
+        /// <param name="row">Eine Zeile des <see cref="SuchControl"/></param>
+        /// <param name="verknuepfung">Verknüfung UND (&&) oder ODER (||)</param>
         private string SuchStringBuild (SucheRow row, string verknuepfung)
         {
             string suchBedingungen = "";
@@ -1124,7 +1124,7 @@ namespace easyAuftrag
         /// <summary>
         /// Methode zum Bearbeiten eines Auftrags
         /// </summary>
-        /// <param name="auftragID"></param>
+        /// <param name="auftragID">ID des zu bearbeitenden Auftrags</param>
         private void BearbeitenAuftrag(int auftragID)
         {
             // Öffnen des "Auftrag" Fensters und Laden der Daten des Auftrags in die Felder
@@ -1151,7 +1151,7 @@ namespace easyAuftrag
         /// <summary>
         /// Methode zum Löschen eines Auftrags
         /// </summary>
-        /// <param name="auftragID"></param>
+        /// <param name="auftragID">ID des zu löschenden Auftrags</param>
         private void LoeschenAuftrag(int auftragID)
         {
             // Öffnen des "Auftrag" Fensters und Laden der Daten des Auftrags in die Felder
@@ -1216,7 +1216,7 @@ namespace easyAuftrag
         /// <summary>
         /// Methode zum Importieren von Aufträgen
         /// </summary>
-        /// <param name="aufListe"></param>
+        /// <param name="aufListe">Liste der zu importierenden Aufträge</param>
         private void ImportAuftrag(List<Auftrag> aufListe)
         {
             // Öffnen des "Import bestätigen" Fensters mit den Daten der Aufträge
@@ -1239,7 +1239,7 @@ namespace easyAuftrag
         /// <summary>
         /// Methode zum Importieren von Kunden
         /// </summary>
-        /// <param name="kunListe"></param>
+        /// <param name="kunListe">Liste der zu importierenden Kunden</param>
         private void ImportKunde(List<Kunde> kunListe)
         {
             // Öffnen des "Import bestätigen" Fensters mit den Daten der Kunden
@@ -1261,7 +1261,7 @@ namespace easyAuftrag
         /// <summary>
         /// Methode zum Importieren von Mitarbeitern
         /// </summary>
-        /// <param name="mitListe"></param>
+        /// <param name="mitListe">Liste der zu importierenden Mitarbeiter</param>
         private void ImportMitarbeiter(List<Mitarbeiter> mitListe)
         {
             // Öffnen des "Import bestätigen" Fensters mit den Daten der Mitarbeiter
@@ -1282,7 +1282,7 @@ namespace easyAuftrag
         }/// <summary>
          /// Methode zum Importieren von Tätigkeiten
          /// </summary>
-         /// <param name="tatListe"></param>
+         /// <param name="tatListe">Liste der zu importierenden Tätigkeiten</param>
         private void ImportTaetigkeit(List<Taetigkeit> tatListe)
         {
             // Öffnen des "Import bestätigen" Fensters mit den Daten der Tätigkeiten
