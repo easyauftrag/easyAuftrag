@@ -38,205 +38,143 @@ namespace easyAuftragTest.Logik
     [TestClass]
     public class BerechnungTest
     {
+        /// <summary>
+        /// Methode zum Testen von <see cref="Berechnung.ArbeitsZeit(StundenDoc)"/>
+        /// </summary>
         [TestMethod]
         public void ArbeitsZeitTest()
         {
-            DateTime[] anfangTest = new DateTime[]
+            // Tätigkeitsliste erstellen und jeweils zwei Einträge für Mitarbeiter 1 und Mitarbeiter 2 erstellen
+            List<Taetigkeit> testTaetigkeiten = new List<Taetigkeit>();
+
+            testTaetigkeiten.Add(new Taetigkeit()
             {
-                new DateTime(2019, 1, 29),  // 1
-                new DateTime(2018, 4, 8),   // 2
-                new DateTime(2016, 6, 27),  // 3
-            };
-
-            DateTime[] endeTest = new DateTime[]
-            {
-                new DateTime(2019, 9, 15),  // 1
-                new DateTime(2019, 1, 30),  // 2
-                new DateTime(2018, 7, 27),  // 3
-            };
-
-            DateTime[] testDatesM1 = new DateTime[]
-            {
-                new DateTime(2019, 9, 9),   // 1
-                new DateTime(2019, 1, 30),  // 1,2
-                new DateTime(2018, 6, 29),  // 2,3
-                new DateTime(2018, 6, 27),  // 2,3
-                new DateTime(2017, 12, 4)   // 3
-            };
-
-            DateTime[] testDatesM2 = new DateTime[]
-            {
-                new DateTime(2019, 2, 5),   // 1
-                new DateTime(2018, 7, 28),  // 2
-                new DateTime(2018, 6, 27),  // 2,3
-                new DateTime(2018, 4, 7),   // 3
-                new DateTime(2017, 10, 16)  // 3
-            };
-
-            TimeSpan[] startTestZeit = new TimeSpan[]
-            {
-                new TimeSpan(0, 13, 0),
-                new TimeSpan(4, 21, 0),
-                new TimeSpan(12, 6, 0),
-                new TimeSpan(13, 46, 0),
-                new TimeSpan(19, 32, 0)
-            };
-
-            /*
-             * 1421 min
-             * 1026 min
-             * 186 min
-             * 0 min
-             * 449 min
-             */
-
-            TimeSpan[] endTestZeit = new TimeSpan[]
-            {
-                new TimeSpan(23, 54, 0),
-                new TimeSpan(21, 27, 0),
-                new TimeSpan(15, 12, 0),
-                new TimeSpan(13, 46, 0),
-                new TimeSpan(23, 55, 0)
-            };
-
-            List<Taetigkeit> testTaetigkeit = new List<Taetigkeit>();
-
-            for (int i = 0; i < testDatesM1.Length; i++)
-            {
-                testTaetigkeit.Add(new Taetigkeit()
-                {
-                    AuftragID = i,
-                    MitarbeiterID = 1,
-                    TaetigkeitID = i,
-                    Datum = testDatesM1[i],
-                    Name = "Installation " + i,
-                    StartZeit = startTestZeit[i],
-                    EndZeit = endTestZeit[i]
-                }
-                );
+                AuftragID = 1,
+                MitarbeiterID = 1,
+                TaetigkeitID = 1,
+                Datum = new DateTime(2017, 12, 4),
+                Name = "Installation 1 M1",
+                StartZeit = new TimeSpan(21, 13, 0),
+                EndZeit = new TimeSpan(23, 54, 0)
             }
+            );
 
-            for (int i = testDatesM2.Length - 1; i >= 0; i--)
+            testTaetigkeiten.Add(new Taetigkeit()
             {
-                testTaetigkeit.Add(new Taetigkeit()
-                {
-                    AuftragID = i,
-                    MitarbeiterID = 2,
-                    TaetigkeitID = i,
-                    Datum = testDatesM2[i],
-                    Name = "Installation " + (i + 5),
-                    StartZeit = startTestZeit[i],
-                    EndZeit = endTestZeit[i]
-                }
-                );
+                AuftragID = 2,
+                MitarbeiterID = 1,
+                TaetigkeitID = 2,
+                Datum = new DateTime(2019, 9, 9),
+                Name = "Installation 2 M1",
+                StartZeit = new TimeSpan(13, 46, 0),
+                EndZeit = new TimeSpan(19, 32, 0)
             }
+            );
 
-            double[] ergMitarbeiter1 =
+            testTaetigkeiten.Add(new Taetigkeit()
             {
-                40.78,
-                20.2,
-                7.48
-            };
+                AuftragID = 3,
+                MitarbeiterID = 2,
+                TaetigkeitID = 3,
+                Datum = new DateTime(2018, 5, 17),
+                Name = "Installation 1 M2",
+                StartZeit = new TimeSpan(5, 29, 0),
+                EndZeit = new TimeSpan(11, 28,0)
+            }
+            );
 
-            /*
-             * 2447,
-             * 1212,
-             * 263
-             */
-
-            double[] ergMitarbeiter2 =
+            testTaetigkeiten.Add(new Taetigkeit()
             {
-                23.68,
-                20.2,
-                7.48
-            };
+                AuftragID = 2,
+                MitarbeiterID = 2,
+                TaetigkeitID = 4,
+                Datum = new DateTime(2019, 1, 4),
+                Name = "Installation 2 M2",
+                StartZeit = new TimeSpan(17, 7, 0),
+                EndZeit = new TimeSpan(22, 56, 0)
+            }
+            );
 
-            /*
-             * 1421,
-             * 1212,
-             * 263
-             */
-
-            for (int i = 0; i < anfangTest.Length; i++)
+            // Neues StundenDoc für Mitarbeiter 1 erstellen
+            StundenDoc stundenDocM1 = new StundenDoc
             {
-                StundenDoc stundenDoc1 = new StundenDoc
+                Mitarbeiter = new Mitarbeiter
                 {
-                    Mitarbeiter = new Mitarbeiter()
-                };
-                stundenDoc1.Mitarbeiter.MitarbeiterID = 1;
-                stundenDoc1.Tatlist = (from t in testTaetigkeit where t.MitarbeiterID == stundenDoc1.Mitarbeiter.MitarbeiterID select t).ToList();
-
-                stundenDoc1.Tatlist = stundenDoc1.Tatlist.Where(t => t.Datum >= anfangTest[i]).ToList();
-                stundenDoc1.Tatlist = stundenDoc1.Tatlist.Where(t => t.Datum <= endeTest[i]).ToList();
-
-                StundenDoc stundenDoc2 = new StundenDoc
-                {
-                    Mitarbeiter = new Mitarbeiter()
-                };
-                stundenDoc2.Mitarbeiter.MitarbeiterID = 2;
-                stundenDoc2.Tatlist = (from t in testTaetigkeit where t.MitarbeiterID == stundenDoc2.Mitarbeiter.MitarbeiterID select t).ToList();
-
-                stundenDoc2.Tatlist = stundenDoc2.Tatlist.Where(t => t.Datum >= anfangTest[i]).ToList();
-                stundenDoc2.Tatlist = stundenDoc2.Tatlist.Where(t => t.Datum <= endeTest[i]).ToList();
-
-                if (ergMitarbeiter1[i] != Berechnung.ArbeitsZeit(stundenDoc1))
-                {
-                    Assert.Fail();
+                    MitarbeiterID = 1
                 }
-                if (ergMitarbeiter2[i] != Berechnung.ArbeitsZeit(stundenDoc2))
+            };
+            // Tätigkeistliste nach Mitarbeiter 1, Anfangs- und Enddatum filtern
+            stundenDocM1.Tatlist = (from t in testTaetigkeiten where t.MitarbeiterID == stundenDocM1.Mitarbeiter.MitarbeiterID && t.Datum >= new DateTime(2017, 12, 4) && t.Datum <= new DateTime(2018, 10, 20) select t).ToList();
+
+            // Neues StundenDoc für Mitarbeiter 2 erstellen
+            StundenDoc stundenDocM2 = new StundenDoc
+            {
+                Mitarbeiter = new Mitarbeiter
                 {
-                    Assert.Fail();
+                    MitarbeiterID = 2
                 }
+            };
+            // Tätigkeistliste nach Mitarbeiter 2, Anfangs- und Enddatum filtern
+            stundenDocM2.Tatlist = (from t in testTaetigkeiten where t.MitarbeiterID == stundenDocM2.Mitarbeiter.MitarbeiterID && t.Datum >= new DateTime(2018, 5, 17) && t.Datum <= new DateTime(2019, 1, 4) select t).ToList();
+
+            // Berechnung der Arbeitszeit überprüfen
+            if (Berechnung.ArbeitsZeit(stundenDocM1) != 2.68)
+            {
+                Assert.Fail();
+            }
+            if (Berechnung.ArbeitsZeit(stundenDocM2) != 11.8)
+            {
+                Assert.Fail();
             }
         }
 
+        /// <summary>
+        /// Methode zum Testen von <see cref="Berechnung.AuftragZeitGesamt(List{Taetigkeit})"/>
+        /// </summary>
         [TestMethod]
         public void AuftragZeitGesamtTest()
         {
-            TimeSpan[] startTestZeit = new TimeSpan[]
-            {
-                new TimeSpan(0, 13, 0),
-                new TimeSpan(4, 21, 0),
-                new TimeSpan(12, 6, 0),
-                new TimeSpan(13, 46, 0)
-            };
+            // Taetigkeitsliste mit drei Einträgen für Auftrag 345 erstellen
+            List<Taetigkeit> testTaetigkeiten = new List<Taetigkeit>();
 
-            TimeSpan[] endTestZeit = new TimeSpan[]
+            testTaetigkeiten.Add(new Taetigkeit()
             {
-                new TimeSpan(23, 54, 0),
-                new TimeSpan(21, 27, 0),
-                new TimeSpan(15, 12, 0),
-                new TimeSpan(13, 46, 0)
-            };
-
-            DateTime[] testDates = new DateTime[]
-            {
-                new DateTime(2019, 7, 18),
-                new DateTime(2019, 7, 18),
-                new DateTime(2019, 4, 27),
-                new DateTime(2017, 10, 30)
-            };
-
-            List<Taetigkeit> testTaetigkeit = new List<Taetigkeit>();
-
-            for (int i = 0; i < testDates.Length; i++)
-            {
-                testTaetigkeit.Add(new Taetigkeit()
-                {
-                    AuftragID = 345,
-                    MitarbeiterID = i,
-                    TaetigkeitID = i,
-                    Datum = testDates[i],
-                    Name = "Installation " + i,
-                    StartZeit = startTestZeit[i],
-                    EndZeit = endTestZeit[i]
-                }
-                );
+                AuftragID = 345,
+                MitarbeiterID = 1,
+                TaetigkeitID = 1,
+                Datum = new DateTime(2019, 7, 18),
+                Name = "Installation 1",
+                StartZeit = new TimeSpan(4, 21, 0),
+                EndZeit = new TimeSpan(13, 46, 0)
             }
+            );
 
-            double auftragZeitTest = 2633;
+            testTaetigkeiten.Add(new Taetigkeit()
+            {
+                AuftragID = 345,
+                MitarbeiterID = 2,
+                TaetigkeitID = 2,
+                Datum = new DateTime(2018, 4, 27),
+                Name = "Installation 2",
+                StartZeit = new TimeSpan(12, 6, 0),
+                EndZeit = new TimeSpan(15, 12, 0)
+            }
+            );
 
-            if (auftragZeitTest != Berechnung.AuftragZeitGesamt(testTaetigkeit))
+            testTaetigkeiten.Add(new Taetigkeit()
+            {
+                AuftragID = 345,
+                MitarbeiterID = 1,
+                TaetigkeitID = 3,
+                Datum = new DateTime(2017, 10, 30),
+                Name = "Installation 3",
+                StartZeit = new TimeSpan(16, 14, 0),
+                EndZeit = new TimeSpan(22, 38, 0)
+            }
+            );
+
+            // Berechnung der Gesamtzeit für den Auftrag prüfen
+            if (Berechnung.AuftragZeitGesamt(testTaetigkeiten) != 1135)
             {
                 Assert.Fail();
             }

@@ -88,11 +88,16 @@ namespace easyAuftragTest.Model
         //
         #endregion
 
+        /// <summary>
+        /// Methode zum Testen der Berechnung von <see cref="Taetigkeit.Minuten"/>
+        /// </summary>
         [TestMethod]
         public void ZeitBerechnenTest()
         {
+            // neue Tätigkeit erzeugen
             Taetigkeit tatTest = new Taetigkeit();
 
+            // Array mit StartZeiten festlegen
             TimeSpan[] startTestZeit = new TimeSpan[]
             {
                 new TimeSpan(0, 13, 0),
@@ -101,6 +106,7 @@ namespace easyAuftragTest.Model
                 new TimeSpan(13, 46, 0)
             };
 
+            // Array mit EndZeiten festlegen
             TimeSpan[] endTestZeit = new TimeSpan[]
             {
                 new TimeSpan(23, 54, 0),
@@ -109,6 +115,7 @@ namespace easyAuftragTest.Model
                 new TimeSpan(13, 46, 0)
             };
 
+            // Array mit Testergebnissen festlegen
             double[] testResults =
             {
                 1421,
@@ -117,7 +124,8 @@ namespace easyAuftragTest.Model
                 0
             };
 
-            for (int i = 0; i < startTestZeit.Length; i++)
+            // Durch Arrays loopen, Start- und EndZeit festlegen, und Taetigkeit.Minuten mit den Testergebnissen vergleichen
+            for (int i = 0; i < 4; i++)
             {
                 tatTest.StartZeit = startTestZeit[i];
                 tatTest.EndZeit = endTestZeit[i];

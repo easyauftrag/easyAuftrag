@@ -104,12 +104,12 @@ namespace easyAuftragTest.Logik
                 // neuen Kunden anlegen
                 Kunde kundeTest = new Kunde
                 {
-                    Hausnr = "test",
-                    Name = "test",
-                    PLZ = "test",
-                    Strasse = "test",
-                    TelefonNr = "test",
-                    Wohnort = "test"
+                    Hausnr = "25",
+                    Name = "Musterfirma24",
+                    PLZ = "79112",
+                    Strasse = "Teststr.",
+                    TelefonNr = "+49 761 1234",
+                    Wohnort = "Musterstadt"
                 };
                 _handler.KundeAnlegen(kundeTest);
 
@@ -133,12 +133,12 @@ namespace easyAuftragTest.Logik
                 // Kunde mit max ID, da vorheriger Kunde gelöscht sein könnte
                 Kunde kundeMaxIDTest = new Kunde
                 {
-                    Hausnr = "test",
-                    Name = "test",
-                    PLZ = "test",
-                    Strasse = "test",
-                    TelefonNr = "test",
-                    Wohnort = "test"
+                    Hausnr = "118",
+                    Name = "Max Mustermann",
+                    PLZ = "79136",
+                    Strasse = "Musterallee",
+                    TelefonNr = "0 (049) 0987 654321",
+                    Wohnort = "Mußburg"
                 };
                 _handler.KundeAnlegen(kundeMaxIDTest);
 
@@ -148,12 +148,12 @@ namespace easyAuftragTest.Logik
                 // neuer Kunde zum Vergleich der max ID
                 Kunde kundeTestMaxIDTestNeu = new Kunde
                 {
-                    Hausnr = "test1234",
-                    Name = "test2345",
-                    PLZ = "test3456",
-                    Strasse = "test4567",
-                    TelefonNr = "test5678",
-                    Wohnort = "test6789"
+                    Hausnr = "59",
+                    Name = "Maia Musterfrau",
+                    PLZ = "73523",
+                    Strasse = "Am Marktplatz",
+                    TelefonNr = "01673/86923245",
+                    Wohnort = "Merzig (Saar)"
                 };
                 _handler.KundeAnlegen(kundeTestMaxIDTestNeu);
 
@@ -177,12 +177,12 @@ namespace easyAuftragTest.Logik
                 // Kunde mit max ID zum Vergleich der Daten
                 Kunde kundeMaxIDTest = new Kunde
                 {
-                    Hausnr = "test1234",
-                    Name = "test2345",
-                    PLZ = "test3456",
-                    Strasse = "test4567",
-                    TelefonNr = "test5678",
-                    Wohnort = "test6789"
+                    Hausnr = "1838",
+                    Name = "Timo Template",
+                    PLZ = "10946",
+                    Strasse = "Zampastraße",
+                    TelefonNr = "0235 243214",
+                    Wohnort = "Berlin"
                 };
                 _handler.KundeAnlegen(kundeMaxIDTest);
 
@@ -228,27 +228,35 @@ namespace easyAuftragTest.Logik
                 // Kunde mit max ID zum Vergleich der Daten
                 Kunde kundeMaxIDTest = new Kunde
                 {
-                    Hausnr = "test1234",
-                    Name = "test2345",
-                    PLZ = "test3456",
-                    Strasse = "test4567",
-                    TelefonNr = "test5678",
-                    Wohnort = "test6789"
+                    Hausnr = "46b",
+                    Name = "Sören Testerson",
+                    PLZ = "52847",
+                    Strasse = "Fichtenweg",
+                    TelefonNr = "01686/461832",
+                    Wohnort = "Örtlingen"
                 };
                 _handler.KundeAnlegen(kundeMaxIDTest);
 
                 // bearbeiteter Kunde in DB speichern
                 Kunde kundeBearbTest = new Kunde
                 {
-                    Hausnr = "test9876",
-                    Name = "test8765",
-                    PLZ = "test7654",
-                    Strasse = "test6543",
-                    TelefonNr = "test5432",
-                    Wohnort = "test4321"
+                    Hausnr = "67",
+                    Name = "Testerson Company",
+                    PLZ = "74564",
+                    Strasse = "Bergstraße",
+                    TelefonNr = "01268 / 212256",
+                    Wohnort = "Rosenthal"
                 };
                 int maxID = (from k in db.Kunden orderby k.KundeID ascending select k.KundeID).ToList().Last();
-                _handler.KundeBearbeiten(kundeBearbTest, maxID);
+
+                bool success = false;
+                success = _handler.KundeBearbeiten(kundeBearbTest, maxID);
+
+                // Falls success false ist, schlägt der Test fehl
+                if (!success)
+                {
+                    Assert.Fail();
+                }
 
                 // Kunde mit max ID aus DB ziehen
                 Kunde kundeVergleich = (from k in db.Kunden orderby k.KundeID ascending where k.KundeID == maxID select k).ToList().Last();
@@ -293,12 +301,12 @@ namespace easyAuftragTest.Logik
                 // Kunde hinzufügen
                 Kunde kundeTest = new Kunde
                 {
-                    Hausnr = "test1234",
-                    Name = "test2345",
-                    PLZ = "test3456",
-                    Strasse = "test4567",
-                    TelefonNr = "test5678",
-                    Wohnort = "test6789"
+                    Hausnr = "74",
+                    Name = "Martina Musterfrau",
+                    PLZ = "35682",
+                    Strasse = "Malergasse",
+                    TelefonNr = "0184466687",
+                    Wohnort = "Nördlingen"
                 };
                 _handler.KundeAnlegen(kundeTest);
 
@@ -308,8 +316,15 @@ namespace easyAuftragTest.Logik
                 // anzahl der Kunden herausfinden
                 int anzahlKunden = (from k in db.Kunden select k).ToList().Count();
 
+                bool success = false;
                 // angelegten Kunden löschen
-                _handler.KundeLoeschen(maxID);
+                success = _handler.KundeLoeschen(maxID);
+
+                // Falls success false ist, schlägt der Test fehl
+                if (!success)
+                {
+                    Assert.Fail();
+                }
 
                 // überprüfen, ob jetzt ein Kunde weniger in der DB ist
                 if (anzahlKunden - 1 != (from k in db.Kunden select k).ToList().Count())
@@ -331,20 +346,28 @@ namespace easyAuftragTest.Logik
                 // Kunde hinzufügen
                 Kunde kundeTest = new Kunde
                 {
-                    Hausnr = "test1234",
-                    Name = "test2345",
-                    PLZ = "test3456",
-                    Strasse = "test4567",
-                    TelefonNr = "test5678",
-                    Wohnort = "test6789"
+                    Hausnr = "82",
+                    Name = "Tobias Tester",
+                    PLZ = "73173",
+                    Strasse = "Hauptstr.",
+                    TelefonNr = "0269252",
+                    Wohnort = "Rosslau"
                 };
                 _handler.KundeAnlegen(kundeTest);
 
                 // ID des angelegten Kunden herausfinden
                 int maxID = (from k in db.Kunden orderby k.KundeID ascending select k.KundeID).ToList().Last();
 
+                bool success = false;
+
                 // angelegten Kunden löschen
-                _handler.KundeLoeschen(maxID);
+                success = _handler.KundeLoeschen(maxID);
+
+                // Falls success false ist, schlägt der Test fehl
+                if (!success)
+                {
+                    Assert.Fail();
+                }
 
                 // Versuch, gelöschten Kunden aufzurufen
                 kundeTest = (from k in db.Kunden where k.KundeID == maxID select k).ToList().First();
@@ -373,7 +396,7 @@ namespace easyAuftragTest.Logik
                 Auftrag auftragTest = new Auftrag
                 {
                     Abgerechnet = false,
-                    AuftragNummer = "Irgendein Auftrag",
+                    AuftragNummer = "Auftrag_74",
                     Eingang = new DateTime(2019, 8, 14),
                     Erledigt = true,
                     Erteilt = new DateTime(2019, 8, 14),
@@ -402,7 +425,7 @@ namespace easyAuftragTest.Logik
                 Auftrag auftragMaxIDTest = new Auftrag
                 {
                     Abgerechnet = false,
-                    AuftragNummer = "test",
+                    AuftragNummer = "AZ-HG4",
                     Eingang = new DateTime(2019, 8, 14),
                     Erledigt = true,
                     Erteilt = new DateTime(2019, 8, 14),
@@ -417,7 +440,7 @@ namespace easyAuftragTest.Logik
                 Auftrag auftragMaxIDTestNeu = new Auftrag
                 {
                     Abgerechnet = false,
-                    AuftragNummer = "test1234567",
+                    AuftragNummer = "012345",
                     Eingang = new DateTime(2019, 8, 14),
                     Erledigt = true,
                     Erteilt = new DateTime(2019, 8, 14),
@@ -498,7 +521,7 @@ namespace easyAuftragTest.Logik
                 Auftrag aufragMaxIDTest = new Auftrag
                 {
                     Abgerechnet = false,
-                    AuftragNummer = "test10234",
+                    AuftragNummer = "Auftrag#20",
                     Eingang = new DateTime(2019, 8, 14),
                     Erledigt = false,
                     Erteilt = new DateTime(2019, 8, 14),
@@ -510,14 +533,22 @@ namespace easyAuftragTest.Logik
                 Auftrag auftragBearbTest = new Auftrag
                 {
                     Abgerechnet = true,
-                    AuftragNummer = "testBearbeitet",
+                    AuftragNummer = "Auftrag#20_bearb",
                     Eingang = new DateTime(2018, 7, 15),
                     Erledigt = true,
                     Erteilt = new DateTime(2018, 7, 15),
                     KundeID = 2
                 };
                 int maxID = (from a in db.Auftraege orderby a.AuftragID ascending select a.AuftragID).ToList().Last();
-                _handler.AuftragBearbeiten(auftragBearbTest, maxID);
+
+                bool success = false;
+                success = _handler.AuftragBearbeiten(auftragBearbTest, maxID);
+
+                // Falls success false ist, schlägt der Test fehl
+                if (!success)
+                {
+                    Assert.Fail();
+                }
 
                 // Auftrag mit max ID aus DB ziehen
                 Auftrag auftragVergleich = (from a in db.Auftraege orderby a.AuftragID ascending where a.AuftragID == maxID select a).ToList().Last();
@@ -563,7 +594,7 @@ namespace easyAuftragTest.Logik
                 Auftrag auftragTest = new Auftrag
                 {
                     Abgerechnet = true,
-                    AuftragNummer = "IrgendeinAuftragLöschenTest",
+                    AuftragNummer = "auftrag.97924",
                     Eingang = new DateTime(2018, 7, 15),
                     Erledigt = true,
                     Erteilt = new DateTime(2018, 7, 15),
@@ -577,8 +608,16 @@ namespace easyAuftragTest.Logik
                 // Anzahl der Aufträge herausfinden
                 int anzahlAuftraege = (from a in db.Auftraege select a).ToList().Count();
 
+                bool success = false;
+
                 // angelegten Auftrag löschen
-                _handler.AuftragLoeschen(maxID);
+                success = _handler.AuftragLoeschen(maxID);
+
+                // Falls success false ist, schlägt der Test fehl
+                if (!success)
+                {
+                    Assert.Fail();
+                }
 
                 // überprüfen, ob jetzt ein Auftrag weniger in der DB ist
                 if (anzahlAuftraege - 1 != (from a in db.Auftraege select a).ToList().Count())
@@ -601,7 +640,7 @@ namespace easyAuftragTest.Logik
                 Auftrag auftragTest = new Auftrag
                 {
                     Abgerechnet = true,
-                    AuftragNummer = "AuftragLöschenTest",
+                    AuftragNummer = "Heizung einbauen",
                     Eingang = new DateTime(2018, 7, 15),
                     Erledigt = true,
                     Erteilt = new DateTime(2018, 7, 15),
@@ -615,8 +654,16 @@ namespace easyAuftragTest.Logik
                 // Versuch, gelöschten Auftrag aufzurufen
                 auftragTest = (from a in db.Auftraege where a.AuftragID == maxID select a).ToList().First();
 
+                bool success = false;
+
                 // angelegten Auftrag löschen
-                _handler.AuftragLoeschen(maxID);
+                success = _handler.AuftragLoeschen(maxID);
+
+                // Falls success false ist, schlägt der Test fehl
+                if (!success)
+                {
+                    Assert.Fail();
+                }
 
                 // Versuch, gelöschten Auftrag aufzurufen
                 auftragTest = (from a in db.Auftraege where a.AuftragID == maxID select a).ToList().First();
@@ -644,12 +691,12 @@ namespace easyAuftragTest.Logik
                 // neuen Mitarbeiter anlegen
                 Mitarbeiter mitarbeiterTest = new Mitarbeiter
                 {
-                    Hausnr = "test",
-                    Name = "test",
-                    PLZ = "test",
-                    Strasse = "test",
-                    TelefonNr = "test",
-                    Wohnort = "test"
+                    Hausnr = "93",
+                    Name = "Otto Template",
+                    PLZ = "65185",
+                    Strasse = "Rheinstrasse",
+                    TelefonNr = "0611 586437",
+                    Wohnort = "Wiesbaden"
                 };
                 _handler.MitarbeiterAnlegen(mitarbeiterTest);
 
@@ -673,12 +720,12 @@ namespace easyAuftragTest.Logik
                 // Mitarbeiter mit max ID, da vorheriger Mitarbeiter gelöscht sein könnte
                 Mitarbeiter mitarbeiterMaxIDTest = new Mitarbeiter
                 {
-                    Hausnr = "test",
-                    Name = "test",
-                    PLZ = "test",
-                    Strasse = "test",
-                    TelefonNr = "test",
-                    Wohnort = "test"
+                    Hausnr = "1",
+                    Name = "Heinz Muster",
+                    PLZ = "94646",
+                    Strasse = "Im Wiesengrund",
+                    TelefonNr = "08526667",
+                    Wohnort = "Neukirchen"
                 };
                 _handler.MitarbeiterAnlegen(mitarbeiterMaxIDTest);
 
@@ -688,12 +735,12 @@ namespace easyAuftragTest.Logik
                 // neuer Mitarbeiter zum Vergleich der max ID
                 Mitarbeiter mitarbeiterTestMaxIDTestNeu = new Mitarbeiter
                 {
-                    Hausnr = "test1234",
-                    Name = "test2345",
-                    PLZ = "test3456",
-                    Strasse = "test4567",
-                    TelefonNr = "test5678",
-                    Wohnort = "test6789"
+                    Hausnr = "946",
+                    Name = "Jürgen",
+                    PLZ = "26431",
+                    Strasse = "Kirchgasse",
+                    TelefonNr = "06468723",
+                    Wohnort = "Fuchstal"
                 };
                 _handler.MitarbeiterAnlegen(mitarbeiterTestMaxIDTestNeu);
 
@@ -717,12 +764,12 @@ namespace easyAuftragTest.Logik
                 // Mitarbeiter mit max ID zum Vergleich der Daten
                 Mitarbeiter mitarbeiterMaxIDTest = new Mitarbeiter
                 {
-                    Hausnr = "test1234",
-                    Name = "test2345",
-                    PLZ = "test3456",
-                    Strasse = "test4567",
-                    TelefonNr = "test5678",
-                    Wohnort = "test6789"
+                    Hausnr = "399",
+                    Name = "Milla Musterfrau",
+                    PLZ = "94638",
+                    Strasse = "Obere Saitengasse",
+                    TelefonNr = "08314654100",
+                    Wohnort = "Ulm"
                 };
                 _handler.MitarbeiterAnlegen(mitarbeiterMaxIDTest);
 
@@ -768,27 +815,36 @@ namespace easyAuftragTest.Logik
                 // Mitarbeiter mit max ID zum Vergleich der Daten
                 Mitarbeiter mitarbeiterMaxIDTest = new Mitarbeiter
                 {
-                    Hausnr = "test1234",
-                    Name = "test2345",
-                    PLZ = "test3456",
-                    Strasse = "test4567",
-                    TelefonNr = "test5678",
-                    Wohnort = "test6789"
+                    Hausnr = "7",
+                    Name = "Max Mustermann",
+                    PLZ = "94646",
+                    Strasse = "Um die Ecke",
+                    TelefonNr = "0123456",
+                    Wohnort = "Musterstadt"
                 };
                 _handler.MitarbeiterAnlegen(mitarbeiterMaxIDTest);
 
                 // bearbeiteter Mitarbeiter in DB speichern
                 Mitarbeiter mitarbeiterBearbTest = new Mitarbeiter
                 {
-                    Hausnr = "test9876",
-                    Name = "test8765",
-                    PLZ = "test7654",
-                    Strasse = "test6543",
-                    TelefonNr = "test5432",
-                    Wohnort = "test4321"
+                    Hausnr = "9",
+                    Name = "Max Tester",
+                    PLZ = "46648",
+                    Strasse = "Teststr.",
+                    TelefonNr = "35465",
+                    Wohnort = "Eisenach"
                 };
                 int maxID = (from m in db.Mitarbeiters orderby m.MitarbeiterID ascending select m.MitarbeiterID).ToList().Last();
-                _handler.MitarbeiterBearbeiten(mitarbeiterBearbTest, maxID);
+
+                bool success = false;
+
+                success = _handler.MitarbeiterBearbeiten(mitarbeiterBearbTest, maxID);
+
+                // Falls success false ist, schlägt der Test fehl
+                if (!success)
+                {
+                    Assert.Fail();
+                }
 
                 // Mitarbeiter mit max ID aus DB ziehen
                 Mitarbeiter mitarbeiterVergleich = (from m in db.Mitarbeiters orderby m.MitarbeiterID ascending where m.MitarbeiterID == maxID select m).ToList().Last();
@@ -833,12 +889,12 @@ namespace easyAuftragTest.Logik
                 // Mitarbeiter hinzufügen
                 Mitarbeiter mitarbeiterTest = new Mitarbeiter
                 {
-                    Hausnr = "test1234",
-                    Name = "test2345",
-                    PLZ = "test3456",
-                    Strasse = "test4567",
-                    TelefonNr = "test5678",
-                    Wohnort = "test6789"
+                    Hausnr = "39",
+                    Name = "Max Mustermann",
+                    PLZ = "34856",
+                    Strasse = "Holzweg",
+                    TelefonNr = "02446958",
+                    Wohnort = "Teststadt"
                 };
                 _handler.MitarbeiterAnlegen(mitarbeiterTest);
 
@@ -847,9 +903,17 @@ namespace easyAuftragTest.Logik
 
                 // anzahl der Mitarbeiter herausfinden
                 int anzahlMitarbeiter = (from m in db.Mitarbeiters select m).ToList().Count();
-
+                
+                bool success = false;
+                
                 // angelegten Mitarbeiter löschen
-                _handler.MitarbeiterLoeschen(maxID);
+                success = _handler.MitarbeiterLoeschen(maxID);
+
+                // Falls success false ist, schlägt der Test fehl
+                if (!success)
+                {
+                    Assert.Fail();
+                }
 
                 // überprüfen, ob jetzt ein Mitarbeiter weniger in der DB ist
                 if (anzahlMitarbeiter - 1 != (from m in db.Mitarbeiters select m).ToList().Count())
@@ -871,20 +935,28 @@ namespace easyAuftragTest.Logik
                 // Mitarbeiter hinzufügen
                 Mitarbeiter mitarbeiterTest = new Mitarbeiter
                 {
-                    Hausnr = "test1234",
-                    Name = "test2345",
-                    PLZ = "test3456",
-                    Strasse = "test4567",
-                    TelefonNr = "test5678",
-                    Wohnort = "test6789"
+                    Hausnr = "78",
+                    Name = "Matthias Mustermann",
+                    PLZ = "64979",
+                    Strasse = "Musterstraße",
+                    TelefonNr = "014987676",
+                    Wohnort = "Testort"
                 };
                 _handler.MitarbeiterAnlegen(mitarbeiterTest);
 
                 // ID des angelegten Mitarbeiters herausfinden
                 int maxID = (from m in db.Mitarbeiters orderby m.MitarbeiterID ascending select m.MitarbeiterID).ToList().Last();
 
+                bool success = false;
+
                 // angelegten Mitarbeiter löschen
-                _handler.MitarbeiterLoeschen(maxID);
+                success = _handler.MitarbeiterLoeschen(maxID);
+
+                // Falls success false ist, schlägt der Test fehl
+                if (!success)
+                {
+                    Assert.Fail();
+                }
 
                 // Versuch, gelöschten Mitarbeiter aufzurufen
                 mitarbeiterTest = (from m in db.Mitarbeiters where m.MitarbeiterID == maxID select m).ToList().First();
@@ -915,7 +987,7 @@ namespace easyAuftragTest.Logik
                     AuftragID = 1,
                     Datum = new DateTime(2019, 8, 14),
                     MitarbeiterID = 1,
-                    Name = "Irgendeine Tätigkeit",
+                    Name = "Heizungskessel einbauen",
                     StartZeit = new TimeSpan(12, 44, 0),
                     EndZeit = new TimeSpan(15, 23, 14)
                 };
@@ -944,7 +1016,7 @@ namespace easyAuftragTest.Logik
                     AuftragID = 2,
                     Datum = new DateTime(2019, 8, 14),
                     MitarbeiterID = 3,
-                    Name = "TaetigkeitIDExistiertTest1",
+                    Name = "Wand mauern",
                     StartZeit = new TimeSpan(12, 44, 0),
                     EndZeit = new TimeSpan(15, 23, 14)
                 };
@@ -959,7 +1031,7 @@ namespace easyAuftragTest.Logik
                     AuftragID = 2,
                     Datum = new DateTime(2019, 8, 14),
                     MitarbeiterID = 3,
-                    Name = "TaetigkeitIDExistiertTest2",
+                    Name = "Wand einreißen",
                     StartZeit = new TimeSpan(12, 44, 0),
                     EndZeit = new TimeSpan(15, 23, 14)
                 };
@@ -988,7 +1060,7 @@ namespace easyAuftragTest.Logik
                     AuftragID = 2,
                     Datum = new DateTime(2019, 8, 14),
                     MitarbeiterID = 3,
-                    Name = "TaetigkeitAnlegenDatenTest",
+                    Name = "Häusle baue",
                     StartZeit = new TimeSpan(12, 44, 0),
                     EndZeit = new TimeSpan(15, 23, 14)
                 };
@@ -1039,7 +1111,7 @@ namespace easyAuftragTest.Logik
                     AuftragID = 2,
                     Datum = new DateTime(2019, 8, 14),
                     MitarbeiterID = 3,
-                    Name = "TaetigkeitBearbeiten",
+                    Name = "Dach versiegeln",
                     StartZeit = new TimeSpan(12, 44, 0),
                     EndZeit = new TimeSpan(15, 23, 14)
                 };
@@ -1051,12 +1123,21 @@ namespace easyAuftragTest.Logik
                     AuftragID = 1,
                     Datum = new DateTime(2018, 5, 14),
                     MitarbeiterID = 1,
-                    Name = "bearbeitete Taetigkeit",
+                    Name = "Dach decken",
                     StartZeit = new TimeSpan(17, 43, 0),
                     EndZeit = new TimeSpan(23, 23, 54)
                 };
                 int maxID = (from k in db.Taetigkeiten orderby k.TaetigkeitID ascending select k.TaetigkeitID).ToList().Last();
-                _handler.TaetigkeitBearbeiten(taetigkeitBearbTest, maxID);
+
+                bool success = false;
+
+                success = _handler.TaetigkeitBearbeiten(taetigkeitBearbTest, maxID);
+
+                // Falls success false ist, schlägt der Test fehl
+                if (!success)
+                {
+                    Assert.Fail();
+                }
 
                 // Taetigkeit mit max ID aus DB ziehen
                 Taetigkeit taetigkeitVergleich = (from t in db.Taetigkeiten orderby t.TaetigkeitID ascending where t.TaetigkeitID == maxID select t).ToList().Last();
@@ -1104,7 +1185,7 @@ namespace easyAuftragTest.Logik
                     AuftragID = 1,
                     Datum = new DateTime(2018, 5, 14),
                     MitarbeiterID = 1,
-                    Name = "IrgendeineTaetigkeitLoeschen",
+                    Name = "Neu verputzen",
                     StartZeit = new TimeSpan(17, 43, 0),
                     EndZeit = new TimeSpan(23, 23, 54)
                 };
@@ -1116,8 +1197,16 @@ namespace easyAuftragTest.Logik
                 // anzahl der Taetigkeiten herausfinden
                 int anzahlTaetigkeiten = (from t in db.Taetigkeiten select t).ToList().Count();
 
+                bool success = false;
+
                 // angelegte Taetigkeit löschen
-                _handler.TaetigkeitLoeschen(maxID);
+                success = _handler.TaetigkeitLoeschen(maxID);
+
+                // Falls success false ist, schlägt der Test fehl
+                if (!success)
+                {
+                    Assert.Fail();
+                }
 
                 // überprüfen, ob jetzt eine Taetigkeit weniger in der DB ist
                 if (anzahlTaetigkeiten - 1 != (from t in db.Taetigkeiten select t).ToList().Count())
@@ -1142,7 +1231,7 @@ namespace easyAuftragTest.Logik
                     AuftragID = 1,
                     Datum = new DateTime(2018, 5, 14),
                     MitarbeiterID = 1,
-                    Name = "TaetigkeitLoeschenTest",
+                    Name = "Fliesen legen",
                     StartZeit = new TimeSpan(17, 43, 0),
                     EndZeit = new TimeSpan(23, 23, 54)
                 };
@@ -1151,8 +1240,16 @@ namespace easyAuftragTest.Logik
                 // ID der angelegten Taetigkeit herausfinden
                 int maxID = (from t in db.Taetigkeiten orderby t.TaetigkeitID ascending select t.TaetigkeitID).ToList().Last();
 
+                bool success = false;
+                
                 // angelegte Taetigkeit löschen
-                _handler.TaetigkeitLoeschen(maxID);
+                success = _handler.TaetigkeitLoeschen(maxID);
+
+                // Falls success false ist, schlägt der Test fehl
+                if (!success)
+                {
+                    Assert.Fail();
+                }
 
                 // Versuch, gelöschte Taetigkeit aufzurufen
                 taetigkeitTest = (from t in db.Taetigkeiten where t.TaetigkeitID == maxID select t).ToList().First();
@@ -1177,20 +1274,29 @@ namespace easyAuftragTest.Logik
                 // neuen Kunden anlegen
                 Kunde kundeTest = new Kunde
                 {
-                    Hausnr = "test1",
-                    Name = "test2",
-                    PLZ = "test3",
-                    Strasse = "test4",
-                    TelefonNr = "test5",
-                    Wohnort = "test6"
+                    Hausnr = "8",
+                    Name = "Monika Muster",
+                    PLZ = "16497",
+                    Strasse = "Eichenweg",
+                    TelefonNr = "080949964",
+                    Wohnort = "Storz"
                 };
                 _handler.KundeAnlegen(kundeTest);
 
                 // max ID herausfinden
                 int kundeMaxID = (from k in db.Kunden orderby k.KundeID ascending select k.KundeID).ToList().Last();
 
+                // success initialisieren
+                bool success = false;
+
                 // Kunde laden
-                Kunde kundeGeladen = _handler.KundeLaden(kundeMaxID);
+                Kunde kundeGeladen = _handler.KundeLaden(kundeMaxID, out success);
+
+                // Falls success false ist, schlägt der Test fehl
+                if (!success)
+                {
+                    Assert.Fail();
+                }
 
                 // Eigenschaften des Kunden vergleichen
                 if (kundeTest.Hausnr != kundeGeladen.Hausnr)
@@ -1233,7 +1339,7 @@ namespace easyAuftragTest.Logik
                 Auftrag auftragTest = new Auftrag
                 {
                     Abgerechnet = false,
-                    AuftragNummer = "LadenTest",
+                    AuftragNummer = "AU-66$15",
                     Eingang = new DateTime(2019, 8, 14),
                     Erledigt = false,
                     Erteilt = new DateTime(2019, 8, 14),
@@ -1244,8 +1350,17 @@ namespace easyAuftragTest.Logik
                 // max ID herausfinden
                 int auftragMaxID = (from a in db.Auftraege orderby a.AuftragID ascending select a.AuftragID).ToList().Last();
 
+                // success initialisieren
+                bool success = false;
+
                 // Auftrag laden
-                Auftrag auftragGeladen = _handler.AuftragLaden(auftragMaxID);
+                Auftrag auftragGeladen = _handler.AuftragLaden(auftragMaxID, out success);
+                
+                // Falls success false ist, schlägt der Test fehl
+                if (!success)
+                {
+                    Assert.Fail();
+                }
 
                 // Eigenschaften des Auftrags vergleichen
                 if (auftragGeladen.Abgerechnet != auftragTest.Abgerechnet)
@@ -1287,20 +1402,29 @@ namespace easyAuftragTest.Logik
                 // neuen Mitarbeiter anlegen
                 Mitarbeiter mitarbeiterTest = new Mitarbeiter
                 {
-                    Hausnr = "test1",
-                    Name = "test2",
-                    PLZ = "test3",
-                    Strasse = "test4",
-                    TelefonNr = "test5",
-                    Wohnort = "test6"
+                    Hausnr = "32",
+                    Name = "Jan Test",
+                    PLZ = "25449",
+                    Strasse = "Dobel",
+                    TelefonNr = "06987525",
+                    Wohnort = "Holzach"
                 };
                 _handler.MitarbeiterAnlegen(mitarbeiterTest);
 
                 // max ID herausfinden
                 int mitarbeiterMaxID = (from m in db.Mitarbeiters orderby m.MitarbeiterID ascending select m.MitarbeiterID).ToList().Last();
 
+                // success initialisieren
+                bool success = false;
+
                 // Mitarbeiter laden
-                Mitarbeiter mitarbeiterGeladen = _handler.MitarbeiterLaden(mitarbeiterMaxID);
+                Mitarbeiter mitarbeiterGeladen = _handler.MitarbeiterLaden(mitarbeiterMaxID, out success);
+
+                // Falls success false ist, schlägt der Test fehl
+                if (!success)
+                {
+                    Assert.Fail();
+                }
 
                 // Eigenschaften des Kunden vergleichen
                 if (mitarbeiterTest.Hausnr != mitarbeiterGeladen.Hausnr)
@@ -1345,7 +1469,7 @@ namespace easyAuftragTest.Logik
                     AuftragID = 2,
                     Datum = new DateTime(2019, 8, 14),
                     MitarbeiterID = 3,
-                    Name = "Taetigkeit Laden",
+                    Name = "Wand streichen",
                     StartZeit = new TimeSpan(12, 44, 0),
                     EndZeit = new TimeSpan(15, 23, 14)
                 };
@@ -1354,8 +1478,17 @@ namespace easyAuftragTest.Logik
                 // max ID herausfinden
                 int taetigkeitMaxID = (from t in db.Taetigkeiten orderby t.TaetigkeitID ascending select t.TaetigkeitID).ToList().Last();
 
+                // success initialisieren
+                bool success = false;
+
                 // Taetigkeit laden
-                Taetigkeit taetigkeitGeladen = _handler.TaetigkeitLaden(taetigkeitMaxID);
+                Taetigkeit taetigkeitGeladen = _handler.TaetigkeitLaden(taetigkeitMaxID, out success);
+
+                // Falls success false ist, schlägt der Test fehl
+                if (!success)
+                {
+                    Assert.Fail();
+                }
 
                 // Eigenschaften des Kunden vergleichen
                 if (taetigkeitGeladen.AuftragID != taetigkeitTest.AuftragID)
