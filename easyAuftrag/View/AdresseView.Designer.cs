@@ -149,8 +149,9 @@
             this.Controls.Add(this.tbStraße);
             this.Controls.Add(this.butSpeichern);
             this.Controls.Add(this.butAbbr);
+            this.MinimumSize = new System.Drawing.Size(473, 201);
             this.Name = "AdresseView";
-            this.Text = "AdresseView";
+            this.Text = "Adresse";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -52,7 +52,7 @@
             // butSpeichern
             // 
             this.butSpeichern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butSpeichern.Location = new System.Drawing.Point(269, 221);
+            this.butSpeichern.Location = new System.Drawing.Point(105, 201);
             this.butSpeichern.Name = "butSpeichern";
             this.butSpeichern.Size = new System.Drawing.Size(75, 23);
             this.butSpeichern.TabIndex = 7;
@@ -63,7 +63,7 @@
             // butAbbr
             // 
             this.butAbbr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAbbr.Location = new System.Drawing.Point(350, 221);
+            this.butAbbr.Location = new System.Drawing.Point(186, 201);
             this.butAbbr.Name = "butAbbr";
             this.butAbbr.Size = new System.Drawing.Size(75, 23);
             this.butAbbr.TabIndex = 8;
@@ -77,7 +77,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbStadt.Location = new System.Drawing.Point(105, 92);
             this.tbStadt.Name = "tbStadt";
-            this.tbStadt.Size = new System.Drawing.Size(320, 20);
+            this.tbStadt.Size = new System.Drawing.Size(156, 20);
             this.tbStadt.TabIndex = 3;
             // 
             // tbHaus
@@ -86,7 +86,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbHaus.Location = new System.Drawing.Point(105, 65);
             this.tbHaus.Name = "tbHaus";
-            this.tbHaus.Size = new System.Drawing.Size(320, 20);
+            this.tbHaus.Size = new System.Drawing.Size(156, 20);
             this.tbHaus.TabIndex = 2;
             // 
             // labStadt
@@ -140,7 +140,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbTelefon.Location = new System.Drawing.Point(105, 145);
             this.tbTelefon.Name = "tbTelefon";
-            this.tbTelefon.Size = new System.Drawing.Size(320, 20);
+            this.tbTelefon.Size = new System.Drawing.Size(156, 20);
             this.tbTelefon.TabIndex = 5;
             // 
             // tbPLZ
@@ -149,7 +149,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbPLZ.Location = new System.Drawing.Point(105, 118);
             this.tbPLZ.Name = "tbPLZ";
-            this.tbPLZ.Size = new System.Drawing.Size(320, 20);
+            this.tbPLZ.Size = new System.Drawing.Size(156, 20);
             this.tbPLZ.TabIndex = 4;
             // 
             // tbStraße
@@ -158,7 +158,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbStraße.Location = new System.Drawing.Point(105, 39);
             this.tbStraße.Name = "tbStraße";
-            this.tbStraße.Size = new System.Drawing.Size(320, 20);
+            this.tbStraße.Size = new System.Drawing.Size(156, 20);
             this.tbStraße.TabIndex = 1;
             // 
             // tbName
@@ -167,7 +167,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbName.Location = new System.Drawing.Point(105, 12);
             this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(320, 20);
+            this.tbName.Size = new System.Drawing.Size(156, 20);
             this.tbName.TabIndex = 0;
             // 
             // labName
@@ -185,7 +185,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbAuslastung.Location = new System.Drawing.Point(105, 172);
             this.tbAuslastung.Name = "tbAuslastung";
-            this.tbAuslastung.Size = new System.Drawing.Size(320, 20);
+            this.tbAuslastung.Size = new System.Drawing.Size(156, 20);
             this.tbAuslastung.TabIndex = 6;
             // 
             // labAuslastung
@@ -205,7 +205,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(437, 256);
+            this.ClientSize = new System.Drawing.Size(273, 236);
             this.Controls.Add(this.labAuslastung);
             this.Controls.Add(this.tbAuslastung);
             this.Controls.Add(this.tbStadt);
@@ -222,6 +222,7 @@
             this.Controls.Add(this.labName);
             this.Controls.Add(this.butAbbr);
             this.Controls.Add(this.butSpeichern);
+            this.MinimumSize = new System.Drawing.Size(289, 275);
             this.Name = "MitarbeiterView";
             this.Text = "Mitarbeiter";
             ((System.ComponentModel.ISupportInitialize)(this.errorInfo)).EndInit();

@@ -44,7 +44,7 @@
             // butOK
             // 
             this.butOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butOK.Location = new System.Drawing.Point(383, 273);
+            this.butOK.Location = new System.Drawing.Point(13, 223);
             this.butOK.Name = "butOK";
             this.butOK.Size = new System.Drawing.Size(75, 23);
             this.butOK.TabIndex = 0;
@@ -55,7 +55,7 @@
             // butAbbrechen
             // 
             this.butAbbrechen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAbbrechen.Location = new System.Drawing.Point(464, 273);
+            this.butAbbrechen.Location = new System.Drawing.Point(94, 223);
             this.butAbbrechen.Name = "butAbbrechen";
             this.butAbbrechen.Size = new System.Drawing.Size(75, 23);
             this.butAbbrechen.TabIndex = 1;
@@ -69,7 +69,7 @@
             this.groupBox1.Controls.Add(this.rbPunkt);
             this.groupBox1.Location = new System.Drawing.Point(13, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(526, 112);
+            this.groupBox1.Size = new System.Drawing.Size(156, 86);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Dezimaltrenner";
@@ -103,9 +103,9 @@
             this.groupBox2.Controls.Add(this.rbTab);
             this.groupBox2.Controls.Add(this.rbSemikolon);
             this.groupBox2.Controls.Add(this.rbKomma);
-            this.groupBox2.Location = new System.Drawing.Point(13, 131);
+            this.groupBox2.Location = new System.Drawing.Point(12, 105);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(526, 136);
+            this.groupBox2.Size = new System.Drawing.Size(156, 110);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datentrenner";
@@ -149,11 +149,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(551, 308);
+            this.ClientSize = new System.Drawing.Size(181, 258);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.butAbbrechen);
             this.Controls.Add(this.butOK);
+            this.MinimumSize = new System.Drawing.Size(197, 297);
             this.Name = "CSVConfig";
             this.Text = "CSVConfig";
             this.groupBox1.ResumeLayout(false);

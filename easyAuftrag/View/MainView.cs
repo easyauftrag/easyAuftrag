@@ -882,11 +882,11 @@ namespace easyAuftrag
                     break;
                 case "Abgerechnet":
                     // Zusammensetzen des SuchString
-                    suchBedingungen += verknuepfung + "Abgerechnet != " + row.AbgerechnetControl.Checked;
+                    suchBedingungen += verknuepfung + "Abgerechnet != " + row.CheckControl.Checked;
                     break;
                 case "Erledigt":
                     // Zusammensetzen des SuchString
-                    suchBedingungen += verknuepfung + "Erledigt == " + row.ErledigtControl.Checked;
+                    suchBedingungen += verknuepfung + "Erledigt == " + row.CheckControl.Checked;
                     break;
             }
             // Rückgabe des SuchString

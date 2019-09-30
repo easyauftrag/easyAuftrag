@@ -36,18 +36,19 @@
             // 
             // dgvImport
             // 
-            this.dgvImport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.dgvImport.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvImport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvImport.Location = new System.Drawing.Point(13, 13);
             this.dgvImport.Name = "dgvImport";
-            this.dgvImport.Size = new System.Drawing.Size(775, 396);
+            this.dgvImport.Size = new System.Drawing.Size(759, 357);
             this.dgvImport.TabIndex = 0;
             // 
             // butAbbrechen
             // 
             this.butAbbrechen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAbbrechen.Location = new System.Drawing.Point(712, 415);
+            this.butAbbrechen.Location = new System.Drawing.Point(696, 376);
             this.butAbbrechen.Name = "butAbbrechen";
             this.butAbbrechen.Size = new System.Drawing.Size(75, 23);
             this.butAbbrechen.TabIndex = 1;
@@ -58,7 +59,7 @@
             // butSpeichern
             // 
             this.butSpeichern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butSpeichern.Location = new System.Drawing.Point(631, 415);
+            this.butSpeichern.Location = new System.Drawing.Point(615, 376);
             this.butSpeichern.Name = "butSpeichern";
             this.butSpeichern.Size = new System.Drawing.Size(75, 23);
             this.butSpeichern.TabIndex = 2;
@@ -70,10 +71,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(784, 411);
             this.Controls.Add(this.butSpeichern);
             this.Controls.Add(this.butAbbrechen);
             this.Controls.Add(this.dgvImport);
+            this.MinimumSize = new System.Drawing.Size(800, 450);
             this.Name = "ImportBestaetigenView";
             this.Text = "In Datenbank schreiben?";
             ((System.ComponentModel.ISupportInitialize)(this.dgvImport)).EndInit();
