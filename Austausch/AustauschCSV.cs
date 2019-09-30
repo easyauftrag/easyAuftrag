@@ -13,6 +13,7 @@ namespace Austausch
     /// <summary>
     /// Klasse mit Methoden zum Schreiben und Lesen von CSV Dateien
     /// </summary>
+    /// <seealso cref="IAustausch"/>
     public class AustauschCSV : IAustausch
     {
         /// <summary>
@@ -20,7 +21,7 @@ namespace Austausch
         /// </summary>
         private string _datenTrenner = ";";
         /// <summary>
-        /// CultureInfo zum Definieren des Dezimaltrenners in der CSV Datei
+        /// <see cref="CultureInfo"/> zum Definieren des Dezimaltrenners in der CSV Datei
         /// </summary>
         private CultureInfo _culture = new CultureInfo("de-DE");
 
@@ -30,6 +31,7 @@ namespace Austausch
         /// </summary>
         /// <param name="trennerDezimal">Dezimaltrenner für In-/Export im CSV Format</param>
         /// <param name="trennerDaten">Datentrenner für In-/Export im CSV Format</param>
+        /// <seealso cref="CSVConfigTypen"/>
         public AustauschCSV(CSVConfigTypen.DezimalTrenner trennerDezimal, CSVConfigTypen.DatenTrenner trennerDaten)
         {
             // Falls der Dezimaltrenner auf Komma gesetzt wurde, wird _culture auf de-DE gesetzt
@@ -64,6 +66,7 @@ namespace Austausch
         /// </summary>
         /// <param name="importPfad">Pfad der CSV Datei</param>
         /// <returns>Liste von Auftragsobjekten</returns>
+        /// <seealso cref="Auftrag"/>
         public List<Auftrag> AuftragLesen(string importPfad)
         {
             List<Auftrag> lstAuftrag = new List<Auftrag>();
@@ -108,6 +111,7 @@ namespace Austausch
         /// </summary>
         /// <param name="exportPfad">Pfad der CSV Datei</param>
         /// <param name="lstAuftrag">Liste von Auftragsobjekten</param>
+        /// <seealso cref="Auftrag"/>
         public void AuftragSchreiben(string exportPfad, List<Auftrag> lstAuftrag)
         {
             try
@@ -143,6 +147,7 @@ namespace Austausch
         /// </summary>
         /// <param name="importPfad">Pfad der CSV Datei</param>
         /// <returns>Liste von Kundenobjekten</returns>
+        /// <seealso cref="Kunde"/>
         public List<Kunde> KundeLesen(string importPfad)
         {
             List<Kunde> lstKunde = new List<Kunde>();
@@ -187,6 +192,7 @@ namespace Austausch
         /// </summary>
         /// <param name="exportPfad">Pfad der CSV Datei</param>
         /// <param name="lstKunde">Liste von Kundenobjekten</param>
+        /// <seealso cref="Kunde"/>
         public void KundeSchreiben(string exportPfad, List<Kunde> lstKunde)
         {
             try
@@ -222,6 +228,7 @@ namespace Austausch
         /// </summary>
         /// <param name="importPfad">Pfad der CSV Datei</param>
         /// <returns>Liste von Mitarbeiterobjekten</returns>
+        /// <seealso cref="Mitarbeiter"/>
         public List<Mitarbeiter> MitarbeiterLesen(string importPfad)
         {
             List<Mitarbeiter> lstMitarbeiter = new List<Mitarbeiter>();
@@ -267,6 +274,7 @@ namespace Austausch
         /// </summary>
         /// <param name="exportPfad">Pfad der CSV Datei</param>
         /// <param name="lstMitarbeiter">Liste von Mitarbeiterobjekten</param>
+        /// <seealso cref="Mitarbeiter"/>
         public void MitarbeiterSchreiben(string exportPfad, List<Mitarbeiter> lstMitarbeiter)
         {
             try
@@ -303,6 +311,7 @@ namespace Austausch
         /// </summary>
         /// <param name="importPfad">Pfad zur CSV Datei</param>
         /// <returns>Liste von Taetigkeitsobjekten</returns>
+        /// <seealso cref="Taetigkeit"/>
         public List<Taetigkeit> TaetigkeitLesen(string importPfad)
         {
             List<Taetigkeit> lstTaetigkeit = new List<Taetigkeit>();
@@ -348,6 +357,7 @@ namespace Austausch
         /// </summary>
         /// <param name="exportPfad">Pfad zur CSV Datei</param>
         /// <param name="lstTaetigkeit">Liste von Taetigkeitsobjekten</param>
+        /// <seealso cref="Taetigkeit"/>
         public void TaetigkeitSchreiben(string exportPfad, List<Taetigkeit> lstTaetigkeit)
         {
             try

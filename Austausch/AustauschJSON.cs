@@ -13,6 +13,7 @@ namespace Austausch
     /// <summary>
     /// Klasse mit Methoden zum Schreiben und Lesen von JSON Dateien
     /// </summary>
+    /// <seealso cref="IAustausch"/>
     public class AustauschJSON : IAustausch
     {
         /// <summary>
@@ -20,6 +21,7 @@ namespace Austausch
         /// </summary>
         /// <param name="importPfad">Pfad der JSON Datei</param>
         /// <returns>Liste mit Auftragsobjekten</returns>
+        /// <seealso cref="Auftrag"/>
         public List<Auftrag> AuftragLesen(string importPfad)
         {
             List<Auftrag> lstAuftrag = new List<Auftrag>();
@@ -54,12 +56,13 @@ namespace Austausch
             // Gibt die Liste zurück
             return lstAuftrag;
         }
-    
+
         /// <summary>
         /// Schreibt Aufträge in eine JSON Datei
         /// </summary>
         /// <param name="exportPfad">Pfad der JSON Datei</param>
         /// <param name="lstAuftrag">Liste mit Auftragsobjekten</param>
+        /// <seealso cref="Auftrag"/>
         public void AuftragSchreiben(string exportPfad, List<Auftrag> lstAuftrag)
         {
             try
@@ -81,6 +84,7 @@ namespace Austausch
         /// </summary>
         /// <param name="importPfad">Pfad der JSON Datei</param>
         /// <returns>Liste mit Kundenobjekten</returns>
+        /// <seealso cref="Kunde"/>
         public List<Kunde> KundeLesen(string importPfad)
         {
             List<Kunde> lstKunde = new List<Kunde>();
@@ -121,6 +125,7 @@ namespace Austausch
         /// </summary>
         /// <param name="exportPfad">Pfad der JSON Datei</param>
         /// <param name="lstKunde">Liste mit Kundenobjekten</param>
+        /// <seealso cref="Kunde"/>
         public void KundeSchreiben(string exportPfad, List<Kunde> lstKunde)
         {
             try
@@ -142,6 +147,7 @@ namespace Austausch
         /// </summary>
         /// <param name="importPfad">Pfad der JSON Datei</param>
         /// <returns>Liste mit Mitarbeiterobjekten</returns>
+        /// <seealso cref="Mitarbeiter"/>
         public List<Mitarbeiter> MitarbeiterLesen(string importPfad)
         {
             List<Mitarbeiter> lstMitarbeiter = new List<Mitarbeiter>();
@@ -182,6 +188,7 @@ namespace Austausch
         /// </summary>
         /// <param name="exportPfad">Pfad der JSON Datei</param>
         /// <param name="lstMitarbeiter">Liste mit Mitarbeiterobjekten</param>
+        /// <seealso cref="Mitarbeiter"/>
         public void MitarbeiterSchreiben(string exportPfad, List<Mitarbeiter> lstMitarbeiter)
         {
             try
@@ -203,6 +210,7 @@ namespace Austausch
         /// </summary>
         /// <param name="importPfad">Pfad der JSON Datei</param>
         /// <returns>Liste mit Taetigkeitsobjekten</returns>
+        /// <seealso cref="Taetigkeit"/>
         public List<Taetigkeit> TaetigkeitLesen(string importPfad)
         {
             List<Taetigkeit> lstTaetigkeit = new List<Taetigkeit>();
@@ -243,6 +251,7 @@ namespace Austausch
         /// </summary>
         /// <param name="exportPfad">Pfad der JSON Datei</param>
         /// <param name="lstTaetigkeit">Liste mit Taetigkeitsobjekten</param>
+        /// <seealso cref="Taetigkeit"/>
         public void TaetigkeitSchreiben(string exportPfad, List<Taetigkeit> lstTaetigkeit)
         {
             try
