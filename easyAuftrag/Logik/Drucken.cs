@@ -107,19 +107,19 @@ namespace easyAuftrag.Logik
         /// </summary>
         private void printDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
-            // Lädt die Positionen der zu druckenden Elemente aus der XML Datei
+            // Laden der Positionen der zu druckenden Elemente aus der XML Datei
             XmlPrintMapperAuftrag mapper = LoadPrintMappings("Auftrag");
 
-            // setzt die Einheit auf Millimeter
+            // Setzen der Einheit auf Millimeter
             e.Graphics.PageUnit = GraphicsUnit.Millimeter;
             
-            // setzt die Schriftart und Größe
+            // Setzen der Schriftart und Größe
             Font font = new Font(FontFamily.GenericSansSerif,10.0F, FontStyle.Regular);
             
-            // geht durch die Elemente in der Mappinglist und zeichnet die Informationen zum Auftrag entsprechend der auf das Dokument
+            // Elemente in der Mappinglist werden auf das Dokument gezeichnet
             foreach (var item in mapper.MappingList)
             {
-                // unterscheidet, um welche Information es sich handelt
+                // Unterscheiden, um welche Information es sich handelt
                 switch (item.Name)
                 {
                     case "AuftragNr":
@@ -137,21 +137,21 @@ namespace easyAuftrag.Logik
                 }
             }
             
-            // setzt die Y-Koordinate für die Tätigkeiten
+            // Setzen der Y-Koordinate für die Tätigkeiten
             int y = mapper.Start;
 
-            // geht durch die Tätigkeiten und zeichnet diese auf das Dokument
+            // Alle Tätigkeiten auf das Dokument zeichen
             foreach (Taetigkeit t in _druckDoc.TatListe)
             {
-                // geht durch die Mapping Liste der Tätigkeiten und zeichnet diese ensprechend der Koordinaten auf das Dokument
+                // Mapping Liste wird ensprechend der Koordinaten auf das Dokument gezeichnet
                 foreach (var item in mapper.TatList)
                 {
-                    // selektiert den Mitarbeiter aus der Mitarbeiter Liste
+                    // Selektieren des Mitarbeiter aus der Mitarbeiter Liste
                     string mitarbeiter = (from i in _druckDoc.MitList
                                           where i.MitarbeiterID == t.MitarbeiterID
                                           select i.Name).First();
 
-                    // unterscheidet, um welche Information der Tätigkeit es sich handelt
+                    // Unterscheiden, um welche Information der Tätigkeit es sich handelt
                     switch (item.Name)
                     {
                         case "Datum":
@@ -175,33 +175,33 @@ namespace easyAuftrag.Logik
                     }
                 }
 
-                // Erhöht die Y-Koordinate entsprechend dem Zeilenabstand
+                // Erhöhen der Y-Koordinate entsprechend dem Zeilenabstand
                 y += mapper.Inc;
             }
         }
 
         /// <summary>
-        /// Liest die Positionen der zu druckenden Elemente aus der entsprechenden XML Datei aus.
+        /// Lesen der Positionen der zu druckenden Elemente aus der entsprechenden XML Datei.
         /// </summary>
         /// <param name="art">Art des zu druckenden Dokuments (Auftrag oder Stundenzettel)</param>
         /// <returns></returns>
         private XmlPrintMapperAuftrag LoadPrintMappings(string art)
         {
-            // legt den Pfad zum Ordner der XML Datei fest
+            // Festlegen des Ordnerpfads der XML Datei
             string path = Path.Combine(Application.StartupPath, "Print");
             // gibt den Namen der XML Datei in den Pfad
             path = Path.Combine(path, "Print" + art + ".xml");
 
-            // lädt XML
+            // Laden der XML Datei
             XmlDocument xml = new XmlDocument();
             xml.Load(path);
 
-            // filtert XML nach Tags und fügt die Elemente in Listen
+            // Filtern der XML nach Tags und Hinzufügen der Elemente in Listen
             XmlNodeList mappinglstXmlItems = xml.GetElementsByTagName("printitem");
             XmlNodeList tatlstXmlItems = xml.GetElementsByTagName("listitem");
             XmlPrintMapperAuftrag printMA = new XmlPrintMapperAuftrag();
 
-            // geht durch die Nodes und speichert das Layout in einem XMLPrintMapperAuftrag
+            // Speichern des Layouts in einem XMLPrintMapperAuftrag
             foreach (XmlNode node in mappinglstXmlItems)
             {
                 PrintMapperItem printMI = new PrintMapperItem();
@@ -231,75 +231,85 @@ namespace easyAuftrag.Logik
         /// </summary>
         private void printDocument_PrintStunden(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
-            // Lädt die Positionen der zu druckenden Elemente aus der XML Datei
+            // Laden der Positionen der zu druckenden Elemente aus der XML Datei
             XmlPrintMapperAuftrag mapper = LoadPrintMappings("Stunden");
             //TODO Config Datei erstellen, die Stundensoll enthält.
-            Config conf = new Config();
-            conf.StundenSoll = 40;
-
-            // setzt die Schriftart und Größe
-            Font font = new Font(FontFamily.GenericSansSerif, 10.0F, FontStyle.Regular);
-
-            // setzt die Einheit auf Millimeter
-            e.Graphics.PageUnit = GraphicsUnit.Millimeter;
-
-            // geht durch die Elemente in der Mappinglist und zeichnet die Informationen des Stundenzettels entsprechend der auf das Dokument
-            foreach (var item in mapper.MappingList)
+            try
             {
-                // unterscheidet, um welche Information es sich handelt
-                switch (item.Name)
-                {
-                    case "MitarbeiterName":
-                        e.Graphics.DrawString(_stundenDoc.Mitarbeiter.Name, font, Brushes.Black, item.X, item.Y, StringFormat.GenericTypographic);
-                        break;
-                    case "Anfang":
-                        e.Graphics.DrawString(_stundenDoc.Anfang.ToShortDateString(), font, Brushes.Black, item.X, item.Y, StringFormat.GenericTypographic);
-                        break;
-                    case "Ende":
-                        e.Graphics.DrawString(_stundenDoc.Ende.ToShortDateString(), font, Brushes.Black, item.X, item.Y, StringFormat.GenericTypographic);
-                        break;
-                    case "Sollstunden":
-                        e.Graphics.DrawString((_stundenDoc.Mitarbeiter.AuslastungStelle / 100 * conf.StundenSoll).ToString(), font, Brushes.Black, item.X, item.Y, StringFormat.GenericTypographic);
-                        break;
-                    case "Arbeitszeit":
-                        e.Graphics.DrawString(Berechnung.ArbeitsZeit(_stundenDoc).ToString(), font, Brushes.Black, item.X, item.Y, StringFormat.GenericTypographic);
-                        break;
-                }
-            }
+                Config conf = new Config();
+                XmlDocument xml = new XmlDocument();
+                string configPath = Path.Combine(Application.StartupPath, "Config");
+                configPath = Path.Combine(configPath, "Config.xml");
+                xml.Load(configPath);
+                conf.StundenSoll = Convert.ToDouble(xml.Attributes["StundenSoll"].Value);
+            
+                // Setzen der Schriftart und Größe
+                Font font = new Font(FontFamily.GenericSansSerif, 10.0F, FontStyle.Regular);
 
-            // setzt die Y-Koordinate der Tätigkeiten
-            int y = mapper.Start;
+                // Setzen der Einheit auf Millimeter
+                e.Graphics.PageUnit = GraphicsUnit.Millimeter;
 
-            // geht durch die Tätigkeiten und zeichnet diese auf das Dokument
-            foreach (Taetigkeit t in _stundenDoc.Tatlist)
-            {
-                // geht durch die Mapping Lsite der Tätigkeiten und zeichnet diese entsprechend auf das Dokument
-                foreach (var item in mapper.TatList)
+                // Elemente in der Mappinglist wird entsprechend der Informationen des Stundenzettels auf das Dokument gezeichnet 
+                foreach (var item in mapper.MappingList)
                 {
+                    // Unterscheiden, um welche Information es sich handelt
                     switch (item.Name)
                     {
-                        case "Datum":
-                            e.Graphics.DrawString(t.Datum.ToShortDateString(), font, Brushes.Black, item.X, y, StringFormat.GenericTypographic);
+                        case "MitarbeiterName":
+                            e.Graphics.DrawString(_stundenDoc.Mitarbeiter.Name, font, Brushes.Black, item.X, item.Y, StringFormat.GenericTypographic);
                             break;
-                        case "Mitarbeiter":
-                            e.Graphics.DrawString(_stundenDoc.Mitarbeiter.Name, font, Brushes.Black, item.X, y, StringFormat.GenericTypographic);
+                        case "Anfang":
+                            e.Graphics.DrawString(_stundenDoc.Anfang.ToShortDateString(), font, Brushes.Black, item.X, item.Y, StringFormat.GenericTypographic);
                             break;
-                        case "Beschreibung":
-                            e.Graphics.DrawString(t.Name, font, Brushes.Black, item.X, y, StringFormat.GenericTypographic);
+                        case "Ende":
+                            e.Graphics.DrawString(_stundenDoc.Ende.ToShortDateString(), font, Brushes.Black, item.X, item.Y, StringFormat.GenericTypographic);
                             break;
-                        case "StartZeit":
-                            e.Graphics.DrawString(t.StartZeit.ToString(), font, Brushes.Black, item.X, y, StringFormat.GenericTypographic);
+                        case "Sollstunden":
+                            e.Graphics.DrawString((_stundenDoc.Mitarbeiter.AuslastungStelle / 100 * conf.StundenSoll).ToString(), font, Brushes.Black, item.X, item.Y, StringFormat.GenericTypographic);
                             break;
-                        case "EndZeit":
-                            e.Graphics.DrawString(t.EndZeit.ToString(), font, Brushes.Black, item.X, y, StringFormat.GenericTypographic);
-                            break;
-                        case "Stunden":
-                            e.Graphics.DrawString(Math.Round(t.Minuten / 60, 1).ToString(), font, Brushes.Black, item.X, y, StringFormat.GenericTypographic);
+                        case "Arbeitszeit":
+                            e.Graphics.DrawString(Berechnung.ArbeitsZeit(_stundenDoc).ToString(), font, Brushes.Black, item.X, item.Y, StringFormat.GenericTypographic);
                             break;
                     }
                 }
-                // Erhöht die Y-Koordinate entsprechend dem Zeilenabstand
-                y += mapper.Inc;
+                // Setzen der Y-Koordinate der Tätigkeiten
+                int y = mapper.Start;
+
+                // Alle Tätigkeiten werden auf das Dokument gezeichnet
+                foreach (Taetigkeit t in _stundenDoc.Tatlist)
+                {
+                    // Mapping Liste der Tätigkeiten wird auf das Dokument gezeichnet
+                    foreach (var item in mapper.TatList)
+                    {
+                        switch (item.Name)
+                        {
+                            case "Datum":
+                                e.Graphics.DrawString(t.Datum.ToShortDateString(), font, Brushes.Black, item.X, y, StringFormat.GenericTypographic);
+                                break;
+                            case "Mitarbeiter":
+                                e.Graphics.DrawString(_stundenDoc.Mitarbeiter.Name, font, Brushes.Black, item.X, y, StringFormat.GenericTypographic);
+                                break;
+                            case "Beschreibung":
+                                e.Graphics.DrawString(t.Name, font, Brushes.Black, item.X, y, StringFormat.GenericTypographic);
+                                break;
+                            case "StartZeit":
+                                e.Graphics.DrawString(t.StartZeit.ToString(), font, Brushes.Black, item.X, y, StringFormat.GenericTypographic);
+                                break;
+                            case "EndZeit":
+                                e.Graphics.DrawString(t.EndZeit.ToString(), font, Brushes.Black, item.X, y, StringFormat.GenericTypographic);
+                                break;
+                            case "Stunden":
+                                e.Graphics.DrawString(Math.Round(t.Minuten / 60, 1).ToString(), font, Brushes.Black, item.X, y, StringFormat.GenericTypographic);
+                                break;
+                        }
+                    }
+                    // Erhöhen der Y-Koordinate entsprechend dem Zeilenabstand
+                    y += mapper.Inc;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
             }
         }
     }
