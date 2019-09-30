@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Austausch;
+using System.IO;
 
 namespace easyAuftragTest.Austausch
 {
@@ -63,6 +64,10 @@ namespace easyAuftragTest.Austausch
         public void AuftragLesenTest()
         {
             AustauschCSV austauschCSV = new AustauschCSV(CSVConfigTypen.DezimalTrenner.Komma, CSVConfigTypen.DatenTrenner.Semikolon);
+
+            string path = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, "Test");
+            path = Path.Combine(path, "CSV");
+            austauschCSV.AuftragLesen(path);
         }
 
         [TestMethod]
