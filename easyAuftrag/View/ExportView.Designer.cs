@@ -46,7 +46,7 @@
             // butAbbr
             // 
             this.butAbbr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAbbr.Location = new System.Drawing.Point(304, 257);
+            this.butAbbr.Location = new System.Drawing.Point(93, 277);
             this.butAbbr.Name = "butAbbr";
             this.butAbbr.Size = new System.Drawing.Size(75, 23);
             this.butAbbr.TabIndex = 2;
@@ -57,7 +57,7 @@
             // butSpeichern
             // 
             this.butSpeichern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butSpeichern.Location = new System.Drawing.Point(223, 257);
+            this.butSpeichern.Location = new System.Drawing.Point(12, 277);
             this.butSpeichern.Name = "butSpeichern";
             this.butSpeichern.Size = new System.Drawing.Size(75, 23);
             this.butSpeichern.TabIndex = 1;
@@ -70,9 +70,9 @@
             this.groupBox1.Controls.Add(this.rdbJSON);
             this.groupBox1.Controls.Add(this.rdbXML);
             this.groupBox1.Controls.Add(this.rdbCSV);
-            this.groupBox1.Location = new System.Drawing.Point(12, 141);
+            this.groupBox1.Location = new System.Drawing.Point(12, 158);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(202, 100);
+            this.groupBox1.Size = new System.Drawing.Size(156, 113);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Speichern als";
@@ -122,7 +122,7 @@
             this.groupBox2.Controls.Add(this.rdbAuftrag);
             this.groupBox2.Location = new System.Drawing.Point(12, 13);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(200, 113);
+            this.groupBox2.Size = new System.Drawing.Size(156, 139);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Art auswählen";
@@ -180,11 +180,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(391, 292);
+            this.ClientSize = new System.Drawing.Size(180, 312);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.butAbbr);
             this.Controls.Add(this.butSpeichern);
+            this.MinimumSize = new System.Drawing.Size(196, 351);
             this.Name = "ExportView";
             this.Text = "Export";
             this.groupBox1.ResumeLayout(false);

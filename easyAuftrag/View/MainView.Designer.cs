@@ -50,6 +50,7 @@ namespace easyAuftrag
             this.TSMIloeschen = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.butExport = new System.Windows.Forms.ToolStripButton();
+            this.butImport = new System.Windows.Forms.ToolStripButton();
             this.butAuftragZettel = new System.Windows.Forms.ToolStripButton();
             this.butStundenZettel = new System.Windows.Forms.ToolStripButton();
             this.butAuftrag = new System.Windows.Forms.ToolStripButton();
@@ -65,7 +66,6 @@ namespace easyAuftrag
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLoeschen = new System.Windows.Forms.ToolStripMenuItem();
             this.suchControlMain = new easyAuftrag.View.SuchControl();
-            this.butImport = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
             this.cxtMain.SuspendLayout();
@@ -225,6 +225,15 @@ namespace easyAuftrag
             this.butExport.Text = "Datei Export";
             this.butExport.Click += new System.EventHandler(this.ButExport_Click);
             // 
+            // butImport
+            // 
+            this.butImport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.butImport.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.butImport.Name = "butImport";
+            this.butImport.Size = new System.Drawing.Size(77, 22);
+            this.butImport.Text = "Datei Import";
+            this.butImport.Click += new System.EventHandler(this.butImport_Click);
+            // 
             // butAuftragZettel
             // 
             this.butAuftragZettel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -346,15 +355,6 @@ namespace easyAuftrag
             this.suchControlMain.TabIndex = 12;
             this.suchControlMain.SuchEvent += new System.Action(this.SuchControlMain_SuchEvent);
             // 
-            // butImport
-            // 
-            this.butImport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.butImport.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.butImport.Name = "butImport";
-            this.butImport.Size = new System.Drawing.Size(77, 22);
-            this.butImport.Text = "Datei Import";
-            this.butImport.Click += new System.EventHandler(this.butImport_Click);
-            // 
             // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -367,6 +367,7 @@ namespace easyAuftrag
             this.Controls.Add(this.tvMain);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
+            this.MinimumSize = new System.Drawing.Size(800, 563);
             this.Name = "MainView";
             this.Text = "Main";
             this.Load += new System.EventHandler(this.MainView_Load);

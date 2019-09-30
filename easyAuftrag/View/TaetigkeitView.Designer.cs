@@ -89,7 +89,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbEnde.Location = new System.Drawing.Point(90, 120);
             this.tbEnde.Name = "tbEnde";
-            this.tbEnde.Size = new System.Drawing.Size(316, 20);
+            this.tbEnde.Size = new System.Drawing.Size(201, 20);
             this.tbEnde.TabIndex = 4;
             this.tbEnde.Text = "HH:MM";
             this.tbEnde.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -100,7 +100,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpDatum.Location = new System.Drawing.Point(90, 40);
             this.dtpDatum.Name = "dtpDatum";
-            this.dtpDatum.Size = new System.Drawing.Size(316, 20);
+            this.dtpDatum.Size = new System.Drawing.Size(201, 20);
             this.dtpDatum.TabIndex = 1;
             // 
             // cbMitarbeiter
@@ -110,7 +110,7 @@
             this.cbMitarbeiter.FormattingEnabled = true;
             this.cbMitarbeiter.Location = new System.Drawing.Point(90, 13);
             this.cbMitarbeiter.Name = "cbMitarbeiter";
-            this.cbMitarbeiter.Size = new System.Drawing.Size(316, 21);
+            this.cbMitarbeiter.Size = new System.Drawing.Size(201, 21);
             this.cbMitarbeiter.TabIndex = 0;
             // 
             // tbStart
@@ -119,7 +119,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbStart.Location = new System.Drawing.Point(90, 92);
             this.tbStart.Name = "tbStart";
-            this.tbStart.Size = new System.Drawing.Size(316, 20);
+            this.tbStart.Size = new System.Drawing.Size(201, 20);
             this.tbStart.TabIndex = 3;
             this.tbStart.Text = "HH:MM";
             this.tbStart.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -127,7 +127,7 @@
             // butAbbr
             // 
             this.butAbbr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAbbr.Location = new System.Drawing.Point(331, 152);
+            this.butAbbr.Location = new System.Drawing.Point(216, 148);
             this.butAbbr.Name = "butAbbr";
             this.butAbbr.Size = new System.Drawing.Size(75, 23);
             this.butAbbr.TabIndex = 6;
@@ -138,7 +138,7 @@
             // butSpeichern
             // 
             this.butSpeichern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butSpeichern.Location = new System.Drawing.Point(250, 152);
+            this.butSpeichern.Location = new System.Drawing.Point(135, 148);
             this.butSpeichern.Name = "butSpeichern";
             this.butSpeichern.Size = new System.Drawing.Size(75, 23);
             this.butSpeichern.TabIndex = 5;
@@ -152,7 +152,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbName.Location = new System.Drawing.Point(90, 66);
             this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(316, 20);
+            this.tbName.Size = new System.Drawing.Size(201, 20);
             this.tbName.TabIndex = 2;
             // 
             // labBeschreibung
@@ -172,7 +172,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(418, 187);
+            this.ClientSize = new System.Drawing.Size(303, 183);
             this.Controls.Add(this.tbName);
             this.Controls.Add(this.labBeschreibung);
             this.Controls.Add(this.butAbbr);
@@ -185,6 +185,7 @@
             this.Controls.Add(this.tbEnde);
             this.Controls.Add(this.dtpDatum);
             this.Controls.Add(this.cbMitarbeiter);
+            this.MinimumSize = new System.Drawing.Size(319, 222);
             this.Name = "TaetigkeitView";
             this.Text = "Taetigkeit";
             ((System.ComponentModel.ISupportInitialize)(this.errorInfo)).EndInit();

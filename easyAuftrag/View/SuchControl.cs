@@ -73,15 +73,13 @@ namespace easyAuftrag.View
                 ValueControl = tbSuche,
                 AnfangControl = dtpAnfang,
                 EndeControl = dtpEnde,
-                AbgerechnetControl = cbAbgerechnet,
-                ErledigtControl = cbErledigt,
+                CheckControl = cbSuche,
 
             };
             row.LinkControl.Visible = false;
             row.AnfangControl.Visible = false;
             row.EndeControl.Visible = false;
-            row.AbgerechnetControl.Visible = false;
-            row.ErledigtControl.Visible = false;
+            row.CheckControl.Visible = false;
             _lstRow.Add(row);
         }
 
@@ -107,7 +105,7 @@ namespace easyAuftrag.View
             TextBox tbSucheVorlage = new TextBox();
             DateTimePicker dtpAnfangVorlage = new DateTimePicker();
             DateTimePicker dtpEndeVorlage = new DateTimePicker();
-            CheckBox cbAbgerechnetVorlage = new CheckBox();
+            CheckBox cbSucheVorlage = new CheckBox();
             CheckBox cbErledigtVorlage = new CheckBox();
 
             comboLinkVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Left;
@@ -141,47 +139,37 @@ namespace easyAuftrag.View
             tbSucheVorlage.Size = new Size(274, 20);
             tbSucheVorlage.TabIndex = 4;
 
-            dtpAnfangVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+            dtpAnfangVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             dtpAnfangVorlage.Location = new Point(205, dtpAnfang.Location.Y + _lstRow.Count * 30);
             dtpAnfangVorlage.Name = "dtpAnfangVorlage_" + _lstRow.Count.ToString();
             dtpAnfangVorlage.Size = new Size(134, 20);
             dtpAnfangVorlage.TabIndex = 5;
 
-            dtpEndeVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+            dtpEndeVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             dtpEndeVorlage.Location = new Point(345, dtpEnde.Location.Y + _lstRow.Count * 30);
             dtpEndeVorlage.Name = "dtpEndeVorlage_" + _lstRow.Count.ToString();
             dtpEndeVorlage.Size = new Size(134, 20);
             dtpEndeVorlage.TabIndex = 6;
 
-            cbAbgerechnetVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-            cbAbgerechnetVorlage.Location = new Point(205, cbAbgerechnet.Location.Y + _lstRow.Count * 30);
-            cbAbgerechnetVorlage.Name = "cbAbgerechnetVorlage_" + _lstRow.Count.ToString();
-            cbAbgerechnetVorlage.Text = "Nicht abgerechnete Aufträge";
-            cbAbgerechnetVorlage.Size = new Size(274, 20);
-            cbAbgerechnetVorlage.TabIndex = 7;
-
-            cbErledigtVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Left;
-            cbErledigtVorlage.Location = new Point(205, cbErledigt.Location.Y + _lstRow.Count * 30);
-            cbErledigtVorlage.Name = "cbErledigtVorlage_" + _lstRow.Count.ToString();
-            cbErledigtVorlage.Text = "Erledigte Aufträge";
-            cbErledigtVorlage.Size = new Size(274, 20);
-            cbErledigtVorlage.TabIndex = 8;
+            cbSucheVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            cbSucheVorlage.Location = new Point(205, cbSuche.Location.Y + _lstRow.Count * 30);
+            cbSucheVorlage.Name = "cbSucheVorlage_" + _lstRow.Count.ToString();
+            cbSucheVorlage.Size = new Size(274, 20);
+            cbSucheVorlage.TabIndex = 7;
 
             Controls.Add(comboLinkVorlage);
             Controls.Add(tbSucheVorlage);
             Controls.Add(comboSpalteVorlage);
             Controls.Add(dtpAnfangVorlage);
             Controls.Add(dtpEndeVorlage);
-            Controls.Add(cbAbgerechnetVorlage);
-            Controls.Add(cbErledigtVorlage);
+            Controls.Add(cbSucheVorlage);
 
             row.LinkControl = comboLinkVorlage;
             row.SpalteControl = comboSpalteVorlage;
             row.ValueControl = tbSucheVorlage;
             row.AnfangControl = dtpAnfangVorlage;
             row.EndeControl = dtpEndeVorlage;
-            row.AbgerechnetControl = cbAbgerechnetVorlage;
-            row.ErledigtControl = cbErledigtVorlage;
+            row.CheckControl = cbSucheVorlage;
 
             _lstRow.Add(row);
         }
@@ -196,21 +184,20 @@ namespace easyAuftrag.View
                 dtpAnfang.Visible = true;
                 dtpEnde.Visible = true;
                 tbSuche.Visible = false;
-                cbAbgerechnet.Visible = false;
-                cbErledigt.Visible = false;
+                cbSuche.Visible = false;
             }
             else if (comboSpalte.SelectedItem.Equals("Abgerechnet"))
             {
-                cbAbgerechnet.Visible = true;
-                cbErledigt.Visible = false;
+                cbSuche.Text = "Nicht abgerechnete Aufträge";
+                cbSuche.Visible = true;
                 dtpAnfang.Visible = false;
                 dtpEnde.Visible = false;
                 tbSuche.Visible = false;
             }
             else if (comboSpalte.SelectedItem.Equals("Erledigt"))
             {
-                cbErledigt.Visible = true;
-                cbAbgerechnet.Visible = false;
+                cbSuche.Text = "Erledigte Aufträge";
+                cbSuche.Visible = true;
                 dtpAnfang.Visible = false;
                 dtpEnde.Visible = false;
                 tbSuche.Visible = false;
@@ -220,8 +207,7 @@ namespace easyAuftrag.View
                 tbSuche.Visible = true;
                 dtpAnfang.Visible = false;
                 dtpEnde.Visible = false;
-                cbAbgerechnet.Visible = false;
-                cbErledigt.Visible = false;
+                cbSuche.Visible = false;
             }
             if (_lstRow.Count < 3)
             {
@@ -241,21 +227,20 @@ namespace easyAuftrag.View
                 _lstRow[currentIndex].AnfangControl.Visible = true;
                 _lstRow[currentIndex].EndeControl.Visible = true;
                 _lstRow[currentIndex].ValueControl.Visible = false;
-                _lstRow[currentIndex].AbgerechnetControl.Visible = false;
-                _lstRow[currentIndex].ErledigtControl.Visible = false;
+                _lstRow[currentIndex].CheckControl.Visible = false;
             }
             else if (cbNew.SelectedItem.Equals("Abgerechnet"))
             {
-                _lstRow[currentIndex].AbgerechnetControl.Visible = true;
-                _lstRow[currentIndex].ErledigtControl.Visible = false;
+                _lstRow[currentIndex].CheckControl.Text = "Nicht abgerechnete Aufträge";
+                _lstRow[currentIndex].CheckControl.Visible = true;
                 _lstRow[currentIndex].AnfangControl.Visible = false;
                 _lstRow[currentIndex].EndeControl.Visible = false;
                 _lstRow[currentIndex].ValueControl.Visible = false;
             }
             else if (cbNew.SelectedItem.Equals("Erledigt"))
             {
-                _lstRow[currentIndex].ErledigtControl.Visible = true;
-                _lstRow[currentIndex].AbgerechnetControl.Visible = false;
+                _lstRow[currentIndex].CheckControl.Text = "Erledigte Aufträge";
+                _lstRow[currentIndex].CheckControl.Visible = true;
                 _lstRow[currentIndex].AnfangControl.Visible = false;
                 _lstRow[currentIndex].EndeControl.Visible = false;
                 _lstRow[currentIndex].ValueControl.Visible = false;
@@ -265,8 +250,7 @@ namespace easyAuftrag.View
                 _lstRow[currentIndex].ValueControl.Visible = true;
                 _lstRow[currentIndex].AnfangControl.Visible = false;
                 _lstRow[currentIndex].EndeControl.Visible = false;
-                _lstRow[currentIndex].AbgerechnetControl.Visible = false;
-                _lstRow[currentIndex].ErledigtControl.Visible = false;
+                _lstRow[currentIndex].CheckControl.Visible = false;
             }
             if (_lstRow.Count < 3)
             {

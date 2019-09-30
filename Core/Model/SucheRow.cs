@@ -56,17 +56,13 @@ namespace Core.Model
         /// </summary>
         public DateTimePicker AnfangControl { get; set; }
         /// <summary>
-        /// Endsuchwertwert der Tabellenspalte falls Datum
+        /// Endsuchwertwert falls Datum
         /// </summary>
         public DateTimePicker EndeControl { get; set; }
         /// <summary>
-        /// Suchwert der Tabellenspalte falls Abgerechnet
+        /// Suchwert (true/false) falls Abgerechnet oder Erledigt
         /// </summary>
-        public CheckBox AbgerechnetControl { get; set; }        // Ist es nötig, für Abgerechnet und Erledigt zwei unterschiedliche CheckBoxen zu haben?
-        /// <summary>
-        /// Suchwert der Tabellenspalte falls Erledigt
-        /// </summary>
-        public CheckBox ErledigtControl { get; set; }
+        public CheckBox CheckControl { get; set; }
 
     }
 }

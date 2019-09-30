@@ -56,7 +56,7 @@
             // butAbbr
             // 
             this.butAbbr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAbbr.Location = new System.Drawing.Point(312, 382);
+            this.butAbbr.Location = new System.Drawing.Point(497, 326);
             this.butAbbr.Name = "butAbbr";
             this.butAbbr.Size = new System.Drawing.Size(75, 23);
             this.butAbbr.TabIndex = 7;
@@ -67,7 +67,7 @@
             // butSpeichern
             // 
             this.butSpeichern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butSpeichern.Location = new System.Drawing.Point(231, 382);
+            this.butSpeichern.Location = new System.Drawing.Point(416, 326);
             this.butSpeichern.Name = "butSpeichern";
             this.butSpeichern.Size = new System.Drawing.Size(75, 23);
             this.butSpeichern.TabIndex = 6;
@@ -81,7 +81,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbAuftragNr.Location = new System.Drawing.Point(103, 13);
             this.tbAuftragNr.Name = "tbAuftragNr";
-            this.tbAuftragNr.Size = new System.Drawing.Size(284, 20);
+            this.tbAuftragNr.Size = new System.Drawing.Size(469, 20);
             this.tbAuftragNr.TabIndex = 0;
             // 
             // cbKunde
@@ -91,7 +91,7 @@
             this.cbKunde.FormattingEnabled = true;
             this.cbKunde.Location = new System.Drawing.Point(103, 40);
             this.cbKunde.Name = "cbKunde";
-            this.cbKunde.Size = new System.Drawing.Size(284, 21);
+            this.cbKunde.Size = new System.Drawing.Size(469, 21);
             this.cbKunde.TabIndex = 1;
             // 
             // dtpEingang
@@ -100,7 +100,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpEingang.Location = new System.Drawing.Point(103, 67);
             this.dtpEingang.Name = "dtpEingang";
-            this.dtpEingang.Size = new System.Drawing.Size(284, 20);
+            this.dtpEingang.Size = new System.Drawing.Size(469, 20);
             this.dtpEingang.TabIndex = 2;
             // 
             // dtpErteilt
@@ -109,7 +109,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpErteilt.Location = new System.Drawing.Point(103, 94);
             this.dtpErteilt.Name = "dtpErteilt";
-            this.dtpErteilt.Size = new System.Drawing.Size(284, 20);
+            this.dtpErteilt.Size = new System.Drawing.Size(469, 20);
             this.dtpErteilt.TabIndex = 3;
             // 
             // tbGesamt
@@ -119,7 +119,7 @@
             this.tbGesamt.Location = new System.Drawing.Point(103, 121);
             this.tbGesamt.Name = "tbGesamt";
             this.tbGesamt.ReadOnly = true;
-            this.tbGesamt.Size = new System.Drawing.Size(284, 20);
+            this.tbGesamt.Size = new System.Drawing.Size(469, 20);
             this.tbGesamt.TabIndex = 13;
             // 
             // cbErledigt
@@ -191,14 +191,14 @@
             this.dgvAuftrag.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAuftrag.Location = new System.Drawing.Point(13, 178);
             this.dgvAuftrag.Name = "dgvAuftrag";
-            this.dgvAuftrag.Size = new System.Drawing.Size(374, 198);
+            this.dgvAuftrag.Size = new System.Drawing.Size(559, 142);
             this.dgvAuftrag.TabIndex = 14;
             this.dgvAuftrag.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DgvAuftrag_MouseUp);
             // 
             // butNeueTaetigkeit
             // 
             this.butNeueTaetigkeit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.butNeueTaetigkeit.Location = new System.Drawing.Point(13, 382);
+            this.butNeueTaetigkeit.Location = new System.Drawing.Point(13, 326);
             this.butNeueTaetigkeit.Name = "butNeueTaetigkeit";
             this.butNeueTaetigkeit.Size = new System.Drawing.Size(99, 23);
             this.butNeueTaetigkeit.TabIndex = 5;
@@ -252,7 +252,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(399, 417);
+            this.ClientSize = new System.Drawing.Size(584, 361);
             this.Controls.Add(this.cbAbgerechnet);
             this.Controls.Add(this.butNeueTaetigkeit);
             this.Controls.Add(this.dgvAuftrag);
@@ -269,6 +269,7 @@
             this.Controls.Add(this.tbAuftragNr);
             this.Controls.Add(this.butAbbr);
             this.Controls.Add(this.butSpeichern);
+            this.MinimumSize = new System.Drawing.Size(600, 400);
             this.Name = "AuftragView";
             this.Text = "Auftrag";
             ((System.ComponentModel.ISupportInitialize)(this.dgvAuftrag)).EndInit();

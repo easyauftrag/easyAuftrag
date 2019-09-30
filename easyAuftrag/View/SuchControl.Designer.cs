@@ -28,8 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cbErledigt = new System.Windows.Forms.CheckBox();
-            this.cbAbgerechnet = new System.Windows.Forms.CheckBox();
+            this.cbSuche = new System.Windows.Forms.CheckBox();
             this.tbSuche = new System.Windows.Forms.TextBox();
             this.dtpAnfang = new System.Windows.Forms.DateTimePicker();
             this.dtpEnde = new System.Windows.Forms.DateTimePicker();
@@ -41,28 +40,22 @@
             this.labLink = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // cbErledigt
+            // cbSuche
             // 
-            this.cbErledigt.AutoSize = true;
-            this.cbErledigt.Location = new System.Drawing.Point(205, 46);
-            this.cbErledigt.Name = "cbErledigt";
-            this.cbErledigt.Size = new System.Drawing.Size(110, 17);
-            this.cbErledigt.TabIndex = 0;
-            this.cbErledigt.Text = "Erledigte Aufträge";
-            this.cbErledigt.UseVisualStyleBackColor = true;
-            // 
-            // cbAbgerechnet
-            // 
-            this.cbAbgerechnet.AutoSize = true;
-            this.cbAbgerechnet.Location = new System.Drawing.Point(205, 46);
-            this.cbAbgerechnet.Name = "cbAbgerechnet";
-            this.cbAbgerechnet.Size = new System.Drawing.Size(163, 17);
-            this.cbAbgerechnet.TabIndex = 1;
-            this.cbAbgerechnet.Text = "Nicht abgerechnete Aufträge";
-            this.cbAbgerechnet.UseVisualStyleBackColor = true;
+            this.cbSuche.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbSuche.AutoSize = true;
+            this.cbSuche.Location = new System.Drawing.Point(205, 46);
+            this.cbSuche.Name = "cbSuche";
+            this.cbSuche.Size = new System.Drawing.Size(163, 17);
+            this.cbSuche.TabIndex = 1;
+            this.cbSuche.Text = "Nicht abgerechnete Aufträge";
+            this.cbSuche.UseVisualStyleBackColor = true;
             // 
             // tbSuche
             // 
+            this.tbSuche.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbSuche.Location = new System.Drawing.Point(205, 44);
             this.tbSuche.Name = "tbSuche";
             this.tbSuche.Size = new System.Drawing.Size(274, 20);
@@ -70,6 +63,8 @@
             // 
             // dtpAnfang
             // 
+            this.dtpAnfang.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpAnfang.Location = new System.Drawing.Point(205, 44);
             this.dtpAnfang.Name = "dtpAnfang";
             this.dtpAnfang.Size = new System.Drawing.Size(134, 20);
@@ -77,6 +72,7 @@
             // 
             // dtpEnde
             // 
+            this.dtpEnde.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpEnde.Location = new System.Drawing.Point(345, 44);
             this.dtpEnde.Name = "dtpEnde";
             this.dtpEnde.Size = new System.Drawing.Size(134, 20);
@@ -84,6 +80,7 @@
             // 
             // butSuche
             // 
+            this.butSuche.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.butSuche.Location = new System.Drawing.Point(485, 41);
             this.butSuche.Name = "butSuche";
             this.butSuche.Size = new System.Drawing.Size(75, 23);
@@ -149,8 +146,7 @@
             this.Controls.Add(this.dtpEnde);
             this.Controls.Add(this.dtpAnfang);
             this.Controls.Add(this.tbSuche);
-            this.Controls.Add(this.cbAbgerechnet);
-            this.Controls.Add(this.cbErledigt);
+            this.Controls.Add(this.cbSuche);
             this.Name = "SuchControl";
             this.Size = new System.Drawing.Size(563, 130);
             this.ResumeLayout(false);
@@ -159,9 +155,7 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.CheckBox cbErledigt;
-        private System.Windows.Forms.CheckBox cbAbgerechnet;
+        private System.Windows.Forms.CheckBox cbSuche;
         private System.Windows.Forms.TextBox tbSuche;
         private System.Windows.Forms.DateTimePicker dtpAnfang;
         private System.Windows.Forms.DateTimePicker dtpEnde;
