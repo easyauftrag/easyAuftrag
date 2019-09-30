@@ -127,12 +127,12 @@ namespace easyAuftrag
         /// <seealso cref="EasyAuftragContext"/>
         private void TreeViewNeu()
         {
-            // Setzen der Grundknoten
-            tvMain.Nodes["Kunden"].Nodes.Clear();
-            tvMain.Nodes["Mitarbeiter"].Nodes.Clear();
-            tvMain.Nodes["Auftraege"].Nodes.Clear();
             try
             {
+                // Setzen der Grundknoten
+                tvMain.Nodes["Kunden"].Nodes.Clear();
+                tvMain.Nodes["Mitarbeiter"].Nodes.Clear();
+                tvMain.Nodes["Auftraege"].Nodes.Clear();
                 using (var db = new EasyAuftragContext())
                 {
                     // Laden aller Kunden
@@ -315,11 +315,11 @@ namespace easyAuftrag
         /// <seealso cref="EasyAuftragContext"/>
         private void ButExport_Click(object sender, EventArgs e)
         {
-            // Öffnen der "Export" Fensters
-            ExportView exportV = new ExportView("Export");
-            if (exportV.ShowDialog() == DialogResult.OK)
+            try
             {
-                try
+                // Öffnen der "Export" Fensters
+                ExportView exportV = new ExportView("Export");
+                if (exportV.ShowDialog() == DialogResult.OK)
                 {
                     using (var db = new EasyAuftragContext())
                     {
@@ -450,10 +450,10 @@ namespace easyAuftrag
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    ErrorHandler.ErrorHandle(ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
             }
         }
         /// <summary>
@@ -899,11 +899,11 @@ namespace easyAuftrag
         /// <param name="e"></param>
         private void butImport_Click(object sender, EventArgs e)
         {
-            // Öffnen des "Import" Fensters
-            ExportView importV = new ExportView("Import");
-            if (importV.ShowDialog() == DialogResult.OK)
+            try
             {
-                try
+                // Öffnen des "Import" Fensters
+                ExportView importV = new ExportView("Import");
+                if (importV.ShowDialog() == DialogResult.OK)
                 {
                     if (importV.ExportArt == ExportView.Art.Auftrag)
                     {
@@ -1096,10 +1096,10 @@ namespace easyAuftrag
                         }
                     }
                 }
-                catch (Exception ex)
-                {
-                    ErrorHandler.ErrorHandle(ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
             }
         }
         /// <summary>
@@ -1107,19 +1107,26 @@ namespace easyAuftrag
         /// </summary>
         private void NeuerAuftrag()
         {
-            // Öffnen des "Auftrag" Fensters
-            AuftragView auftragV = new AuftragView("Neuer Auftrag");
-            if (auftragV.ShowDialog() == DialogResult.OK)
+            try
             {
-                // Hinzufügen des Auftrags zur Datenbank
-                _handler.AuftragAnlegen(auftragV.AuftragInfo);
+                // Öffnen des "Auftrag" Fensters
+                AuftragView auftragV = new AuftragView("Neuer Auftrag");
+                if (auftragV.ShowDialog() == DialogResult.OK)
+                {
+                    // Hinzufügen des Auftrags zur Datenbank
+                    _handler.AuftragAnlegen(auftragV.AuftragInfo);
+                }
+                // Auf MainView zurückgehen
+                this.BringToFront();
+                this.Activate();
+                // Aktualisieren der DataGridView und des TreeView, um den neuen Auftrag mit einzubeziehen
+                TabelleNeu();
+                TreeViewNeu();
             }
-            // Auf MainView zurückgehen
-            this.BringToFront();
-            this.Activate();
-            // Aktualisieren der DataGridView und des TreeView, um den neuen Auftrag mit einzubeziehen
-            TabelleNeu();
-            TreeViewNeu();
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
         /// <summary>
         /// Methode zum Bearbeiten eines Auftrags
@@ -1127,26 +1134,33 @@ namespace easyAuftrag
         /// <param name="auftragID">ID des zu bearbeitenden Auftrags</param>
         private void BearbeitenAuftrag(int auftragID)
         {
-            // Öffnen des "Auftrag" Fensters und Laden der Daten des Auftrags in die Felder
-            AuftragView auftragV = new AuftragView("Auftrag Bearbeiten", auftrag: _handler.AuftragLaden(auftragID, out bool success));
-            if (success == false)
+            try
             {
-                MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
-            }
-            else if (auftragV.ShowDialog() == DialogResult.OK)
-            {
-                // Aktualisieren der Datenbank mit den neuen Werten des Auftrags
-                if (!_handler.AuftragBearbeiten(auftragV.AuftragInfo, auftragID))
+                // Öffnen des "Auftrag" Fensters und Laden der Daten des Auftrags in die Felder
+                AuftragView auftragV = new AuftragView("Auftrag Bearbeiten", auftrag: _handler.AuftragLaden(auftragID, out bool success));
+                if (success == false)
                 {
                     MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
                 }
+                else if (auftragV.ShowDialog() == DialogResult.OK)
+                {
+                    // Aktualisieren der Datenbank mit den neuen Werten des Auftrags
+                    if (!_handler.AuftragBearbeiten(auftragV.AuftragInfo, auftragID))
+                    {
+                        MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
+                    }
+                }
+                // Auf MainView zurückgehen
+                this.BringToFront();
+                this.Activate();
+                // Aktualisieren der DataGridView und des TreeView, um den bearbeiteten Auftrag mit einzubeziehen
+                TabelleNeu();
+                TreeViewNeu();
             }
-            // Auf MainView zurückgehen
-            this.BringToFront();
-            this.Activate();
-            // Aktualisieren der DataGridView und des TreeView, um den bearbeiteten Auftrag mit einzubeziehen
-            TabelleNeu();
-            TreeViewNeu();
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
         /// <summary>
         /// Methode zum Löschen eines Auftrags
@@ -1154,64 +1168,85 @@ namespace easyAuftrag
         /// <param name="auftragID">ID des zu löschenden Auftrags</param>
         private void LoeschenAuftrag(int auftragID)
         {
-            // Öffnen des "Auftrag" Fensters und Laden der Daten des Auftrags in die Felder
-            AuftragView auftragV = new AuftragView("Auftrag Löschen", auftrag: _handler.AuftragLaden(auftragID, out bool success));
-            if (success == false)
+            try
             {
-                MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
-            }
-            else
-            {
-                if (auftragV.ShowDialog() == DialogResult.OK)
+                // Öffnen des "Auftrag" Fensters und Laden der Daten des Auftrags in die Felder
+                AuftragView auftragV = new AuftragView("Auftrag Löschen", auftrag: _handler.AuftragLaden(auftragID, out bool success));
+                if (success == false)
                 {
-                    // Löschen des Auftrags
-                    if (!_handler.AuftragLoeschen(auftragID))
-                    {
-                        MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
-                    }
+                    MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
                 }
-            }// Auf MainView zurückgehen
-            this.BringToFront();
-            this.Activate();
-            // Aktualisieren der DataGridView und des TreeView, um den gelöschten Auftrag mit einzubeziehen
-            TabelleNeu();
-            TreeViewNeu();
+                else
+                {
+                    if (auftragV.ShowDialog() == DialogResult.OK)
+                    {
+                        // Löschen des Auftrags
+                        if (!_handler.AuftragLoeschen(auftragID))
+                        {
+                            MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
+                        }
+                    }
+                }// Auf MainView zurückgehen
+                this.BringToFront();
+                this.Activate();
+                // Aktualisieren der DataGridView und des TreeView, um den gelöschten Auftrag mit einzubeziehen
+                TabelleNeu();
+                TreeViewNeu();
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
         /// <summary>
         /// Methode zum Anlegen eines neuen Kunden
         /// </summary>
         private void NeuerKunde()
         {
-            // Öffnen des "Kunde" Fensters
-            KundeView kundeV = new KundeView("Neuer Kunde");
-            if (kundeV.ShowDialog() == DialogResult.OK)
-            {
-                // Hinzufügen des Kunden zur Datenbank
-                _handler.KundeAnlegen(kundeV.KundenInfo);
+            try
+            { 
+                // Öffnen des "Kunde" Fensters
+                KundeView kundeV = new KundeView("Neuer Kunde");
+                if (kundeV.ShowDialog() == DialogResult.OK)
+                {
+                    // Hinzufügen des Kunden zur Datenbank
+                    _handler.KundeAnlegen(kundeV.KundenInfo);
+                }
+                // Auf MainView zurückgehen
+                this.BringToFront();
+                this.Activate();
+                // Aktualisieren des TreeView, um den neuen Kunden mit einzubeziehen
+                TreeViewNeu();
             }
-            // Auf MainView zurückgehen
-            this.BringToFront();
-            this.Activate();
-            // Aktualisieren des TreeView, um den neuen Kunden mit einzubeziehen
-            TreeViewNeu();
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
         /// <summary>
         /// Methode zum Anlegen eines neuen Mitarbeiters
         /// </summary>
         private void NeuerMitarbeiter()
         {
-            // Öffnen des "Mitarbeiter" Fensters
-            MitarbeiterView mitarbeiterV = new MitarbeiterView("Neuer Mitarbeiter");
-            if (mitarbeiterV.ShowDialog() == DialogResult.OK)
+            try
             {
-                // Hinzufügen des Mitarbeiters zur Datenbank
-                _handler.MitarbeiterAnlegen(mitarbeiterV.MitarbeiterInfo);
+                // Öffnen des "Mitarbeiter" Fensters
+                MitarbeiterView mitarbeiterV = new MitarbeiterView("Neuer Mitarbeiter");
+                if (mitarbeiterV.ShowDialog() == DialogResult.OK)
+                {
+                    // Hinzufügen des Mitarbeiters zur Datenbank
+                    _handler.MitarbeiterAnlegen(mitarbeiterV.MitarbeiterInfo);
+                }
+                // Auf MainView zurückgehen
+                this.BringToFront();
+                this.Activate();
+                // Aktualisieren des TreeView, um den neuen Mitarbeiter mit einzubeziehen
+                TreeViewNeu();
             }
-            // Auf MainView zurückgehen
-            this.BringToFront();
-            this.Activate();
-            // Aktualisieren des TreeView, um den neuen Mitarbeiter mit einzubeziehen
-            TreeViewNeu();
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
         /// <summary>
         /// Methode zum Importieren von Aufträgen
@@ -1219,14 +1254,17 @@ namespace easyAuftrag
         /// <param name="aufListe">Liste der zu importierenden Aufträge</param>
         private void ImportAuftrag(List<Auftrag> aufListe)
         {
-            // Öffnen des "Import bestätigen" Fensters mit den Daten der Aufträge
-            ImportBestaetigenView import = new ImportBestaetigenView(aufListe);
-            if (import.ShowDialog() == DialogResult.OK)
+            try
             {
-                foreach (Auftrag auf in aufListe)
+                // Öffnen des "Import bestätigen" Fensters mit den Daten der Aufträge
+                ImportBestaetigenView import = new ImportBestaetigenView(aufListe);
+                if (import.ShowDialog() == DialogResult.OK)
                 {
-                    // Hinzufügen des Auftrags zur Datenbank
-                    _handler.AuftragAnlegen(auf);
+                    foreach (Auftrag auf in aufListe)
+                    {
+                        // Hinzufügen des Auftrags zur Datenbank
+                        _handler.AuftragAnlegen(auf);
+                    }
                 }
                 // Auf MainView zurückgehen
                 this.BringToFront();
@@ -1235,6 +1273,10 @@ namespace easyAuftrag
                 TabelleNeu();
                 TreeViewNeu();
             }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
         /// <summary>
         /// Methode zum Importieren von Kunden
@@ -1242,20 +1284,27 @@ namespace easyAuftrag
         /// <param name="kunListe">Liste der zu importierenden Kunden</param>
         private void ImportKunde(List<Kunde> kunListe)
         {
-            // Öffnen des "Import bestätigen" Fensters mit den Daten der Kunden
-            ImportBestaetigenView import = new ImportBestaetigenView(kunListe);
-            if (import.ShowDialog() == DialogResult.OK)
+            try
             {
-                foreach (Kunde kun in kunListe)
+                // Öffnen des "Import bestätigen" Fensters mit den Daten der Kunden
+                ImportBestaetigenView import = new ImportBestaetigenView(kunListe);
+                if (import.ShowDialog() == DialogResult.OK)
                 {
-                    // Hinzufügen des Kunden zur Datenbank
-                    _handler.KundeAnlegen(kun);
+                    foreach (Kunde kun in kunListe)
+                    {
+                        // Hinzufügen des Kunden zur Datenbank
+                        _handler.KundeAnlegen(kun);
+                    }
                 }
                 // Auf MainView zurückgehen
                 this.BringToFront();
                 this.Activate();
                 // Aktualisieren des TreeView, um die neuen Kunden mit einzubeziehen
                 TreeViewNeu();
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
             }
         }
         /// <summary>
@@ -1264,14 +1313,17 @@ namespace easyAuftrag
         /// <param name="mitListe">Liste der zu importierenden Mitarbeiter</param>
         private void ImportMitarbeiter(List<Mitarbeiter> mitListe)
         {
-            // Öffnen des "Import bestätigen" Fensters mit den Daten der Mitarbeiter
-            ImportBestaetigenView import = new ImportBestaetigenView(mitListe);
-            if (import.ShowDialog() == DialogResult.OK)
+            try
             {
-                foreach (Mitarbeiter mit in mitListe)
+                // Öffnen des "Import bestätigen" Fensters mit den Daten der Mitarbeiter
+                ImportBestaetigenView import = new ImportBestaetigenView(mitListe);
+                if (import.ShowDialog() == DialogResult.OK)
                 {
-                    // Hinzufügen des Mitarbeiters zur Datenbank
-                    _handler.MitarbeiterAnlegen(mit);
+                    foreach (Mitarbeiter mit in mitListe)
+                    {
+                        // Hinzufügen des Mitarbeiters zur Datenbank
+                        _handler.MitarbeiterAnlegen(mit);
+                    }
                 }
                 // Auf MainView zurückgehen
                 this.BringToFront();
@@ -1279,26 +1331,38 @@ namespace easyAuftrag
                 // Aktualisieren des TreeView, um die neuen Mitarbeiter mit einzubeziehen
                 TreeViewNeu();
             }
-        }/// <summary>
-         /// Methode zum Importieren von Tätigkeiten
-         /// </summary>
-         /// <param name="tatListe">Liste der zu importierenden Tätigkeiten</param>
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
+        }
+        /// <summary>
+        /// Methode zum Importieren von Tätigkeiten
+        /// </summary>
+        /// <param name="tatListe">Liste der zu importierenden Tätigkeiten</param>
         private void ImportTaetigkeit(List<Taetigkeit> tatListe)
         {
-            // Öffnen des "Import bestätigen" Fensters mit den Daten der Tätigkeiten
-            ImportBestaetigenView import = new ImportBestaetigenView(tatListe);
-            if (import.ShowDialog() == DialogResult.OK)
+            try
             {
-                foreach (Taetigkeit tat in tatListe)
+                // Öffnen des "Import bestätigen" Fensters mit den Daten der Tätigkeiten
+                ImportBestaetigenView import = new ImportBestaetigenView(tatListe);
+                if (import.ShowDialog() == DialogResult.OK)
                 {
-                    // Hinzufügen der Tätigkeit zur Datenbank
-                    _handler.TaetigkeitAnlegen(tat);
+                    foreach (Taetigkeit tat in tatListe)
+                    {
+                        // Hinzufügen der Tätigkeit zur Datenbank
+                        _handler.TaetigkeitAnlegen(tat);
+                    }
                 }
                 // Auf MainView zurückgehen
                 this.BringToFront();
                 this.Activate();
                 // Aktualisieren des TreeView, um die neuen Tätigkeiten mit einzubeziehen
                 TreeViewNeu();
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
             }
         }
     }
