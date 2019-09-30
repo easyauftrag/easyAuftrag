@@ -1,45 +1,18 @@
-﻿/*
-    Dieses Programm mit dem Namen "easyAuftrag" ist eine Verwaltungssoftware 
-    zur Digitalisierung von Auftragszetteln für kleine und mittelständische Handwerksunternehmen.
-
-    
-    Copyright (C) 2019  Torben Hettrich (torben.hettrich@kzvbw.de)
-    Copyright (C) 2019  Jeremias Weber (jeremias.weber@kzvbw.de)
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License version 3 as published by
-    the Free Software Foundation.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-    Contact us:
-    Torben Hettrich & Jeremias Weber
-    KZV BW Zahnärztehaus Freiburg
-    Merzhauser Str. 114-116
-    79100 Freiburg im Breisgau
-    DE - Germany
-*/
-
-using System;
+﻿using System;
 using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Austausch;
 
-namespace easyAuftragTest.Logik
+namespace easyAuftragTest.Austausch
 {
     /// <summary>
-    /// Zusammenfassungsbeschreibung für ExportTest
+    /// Zusammenfassungsbeschreibung für UnitTest1
     /// </summary>
     [TestClass]
-    public class ExportTest
+    public class AustauschCSVTest
     {
-        public ExportTest()
+        public AustauschCSVTest()
         {
             //
             // TODO: Konstruktorlogik hier hinzufügen
@@ -87,11 +60,75 @@ namespace easyAuftragTest.Logik
         #endregion
 
         [TestMethod]
-        public void TestMethod1()
+        public void AuftragLesenTest()
         {
-            //
-            // TODO: Testlogik hier hinzufügen
-            //
+            AustauschCSV austauschCSV = new AustauschCSV(CSVConfigTypen.DezimalTrenner.Komma, CSVConfigTypen.DatenTrenner.Semikolon);
+        }
+
+        [TestMethod]
+        public void AuftragSchreibenTest()
+        {
+
+        }
+
+        [TestMethod]
+        public void AuftragLesenSchreibenTest()
+        {
+
+        }
+
+        [TestMethod]
+        public void KundeLesenTest()
+        {
+
+        }
+
+        [TestMethod]
+        public void KundeSchreibenTest()
+        {
+
+        }
+
+        [TestMethod]
+        public void KundeLesenSchreibenTest()
+        {
+
+        }
+
+        [TestMethod]
+        public void MitarbeiterLesenTest()
+        {
+
+        }
+
+        [TestMethod]
+        public void MitarbeiterSchreibenTest()
+        {
+
+        }
+
+        [TestMethod]
+        public void MitarbeiterLesenSchreibenTest()
+        {
+
+        }
+
+        [TestMethod]
+        public void TaetigkeitLesenTest()
+        {
+
+        }
+
+        [TestMethod]
+        public void TaetigkeitSchreibenTest()
+        {
+
+        }
+
+        [TestMethod]
+        public void TaetigkeitLesenSchreibenTest()
+        {
+
         }
     }
 }

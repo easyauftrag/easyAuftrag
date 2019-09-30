@@ -63,8 +63,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Austausch\AustauschCSVTest.cs" />
+    <Compile Include="Austausch\AustauschJSONTest.cs" />
+    <Compile Include="Austausch\AustauschXMLTest.cs" />
     <Compile Include="Logik\BerechnungTest.cs" />
-    <Compile Include="Logik\ExportTest.cs" />
     <Compile Include="Logik\HandlerTest.cs" />
     <Compile Include="Model\TaetigkeitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,6 +76,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Austausch\Austausch.csproj">
+      <Project>{0879a9fd-32ed-4565-a26f-1b6f5595845e}</Project>
+      <Name>Austausch</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{5CA1D2BA-8007-4458-BB9A-B6456DAE22B9}</Project>
       <Name>Core</Name>
