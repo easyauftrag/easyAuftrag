@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImportBestaetigenView));
             this.dgvImport = new System.Windows.Forms.DataGridView();
             this.butAbbrechen = new System.Windows.Forms.Button();
             this.butSpeichern = new System.Windows.Forms.Button();
@@ -75,6 +76,7 @@
             this.Controls.Add(this.butSpeichern);
             this.Controls.Add(this.butAbbrechen);
             this.Controls.Add(this.dgvImport);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(800, 450);
             this.Name = "ImportBestaetigenView";
             this.Text = "In Datenbank schreiben?";

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaetigkeitView));
             this.labEnde = new System.Windows.Forms.Label();
             this.labStart = new System.Windows.Forms.Label();
             this.labDatum = new System.Windows.Forms.Label();
@@ -185,6 +186,7 @@
             this.Controls.Add(this.tbEnde);
             this.Controls.Add(this.dtpDatum);
             this.Controls.Add(this.cbMitarbeiter);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(319, 222);
             this.Name = "TaetigkeitView";
             this.Text = "Taetigkeit";

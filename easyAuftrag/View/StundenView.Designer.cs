@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StundenView));
             this.labAnfang = new System.Windows.Forms.Label();
             this.labEnde = new System.Windows.Forms.Label();
             this.labMitarbeiter = new System.Windows.Forms.Label();
@@ -205,6 +206,7 @@
             this.Controls.Add(this.labMitarbeiter);
             this.Controls.Add(this.labEnde);
             this.Controls.Add(this.labAnfang);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(600, 400);
             this.Name = "StundenView";
             this.Text = "Stundennachweis";

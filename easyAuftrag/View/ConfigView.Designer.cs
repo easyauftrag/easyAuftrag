@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigView));
             this.tcConfig = new System.Windows.Forms.TabControl();
             this.tpAllg = new System.Windows.Forms.TabPage();
             this.butExport = new System.Windows.Forms.Button();
@@ -320,6 +321,7 @@
             this.Controls.Add(this.butOK);
             this.Controls.Add(this.butAbbr);
             this.Controls.Add(this.tcConfig);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(400, 300);
             this.Name = "ConfigView";
             this.Text = "ConfigView";

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdresseView));
             this.butAbbr = new System.Windows.Forms.Button();
             this.butSpeichern = new System.Windows.Forms.Button();
             this.tbStadt = new System.Windows.Forms.TextBox();
@@ -149,6 +150,7 @@
             this.Controls.Add(this.tbStraße);
             this.Controls.Add(this.butSpeichern);
             this.Controls.Add(this.butAbbr);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(473, 201);
             this.Name = "AdresseView";
             this.Text = "Adresse";

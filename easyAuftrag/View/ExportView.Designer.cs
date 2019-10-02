@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ExportView));
             this.butAbbr = new System.Windows.Forms.Button();
             this.butSpeichern = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -185,6 +186,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.butAbbr);
             this.Controls.Add(this.butSpeichern);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(196, 351);
             this.Name = "ExportView";
             this.Text = "Export";

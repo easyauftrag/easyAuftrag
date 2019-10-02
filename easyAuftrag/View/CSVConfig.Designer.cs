@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CSVConfig));
             this.butOK = new System.Windows.Forms.Button();
             this.butAbbrechen = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -154,6 +155,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.butAbbrechen);
             this.Controls.Add(this.butOK);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(197, 297);
             this.Name = "CSVConfig";
             this.Text = "CSVConfig";

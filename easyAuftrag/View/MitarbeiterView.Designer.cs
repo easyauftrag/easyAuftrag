@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MitarbeiterView));
             this.butSpeichern = new System.Windows.Forms.Button();
             this.butAbbr = new System.Windows.Forms.Button();
             this.tbStadt = new System.Windows.Forms.TextBox();
@@ -222,6 +223,7 @@
             this.Controls.Add(this.labName);
             this.Controls.Add(this.butAbbr);
             this.Controls.Add(this.butSpeichern);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(289, 275);
             this.Name = "MitarbeiterView";
             this.Text = "Mitarbeiter";
