@@ -237,11 +237,7 @@ namespace easyAuftrag.Logik
             try
             {
                 Config conf = new Config();
-                XmlDocument xml = new XmlDocument();
-                string configPath = Path.Combine(Application.StartupPath, "Config");
-                configPath = Path.Combine(configPath, "Config.xml");
-                xml.Load(configPath);
-                conf.StundenSoll = Convert.ToDouble(xml.Attributes["StundenSoll"].Value);
+                conf.LeseXML();
             
                 // Setzen der Schriftart und Größe
                 Font font = new Font(FontFamily.GenericSansSerif, 10.0F, FontStyle.Regular);

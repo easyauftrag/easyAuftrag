@@ -114,11 +114,7 @@ namespace easyAuftrag.View
             try
             {
                 Config conf = new Config();
-                XmlDocument xml = new XmlDocument();
-                string configPath = Path.Combine(Application.StartupPath, "Config");
-                configPath = Path.Combine(configPath, "Config.xml");
-                xml.Load(configPath);
-                conf.StundenSoll = Convert.ToDouble(xml.Attributes["StundenSoll"].Value);
+                conf.LeseXML();
 
                 tbSoll.Text = (StuDoc.Mitarbeiter.AuslastungStelle/100 * conf.StundenSoll).ToString();
                 tbGeleistet.Text = Berechnung.ArbeitsZeit(StuDoc).ToString();

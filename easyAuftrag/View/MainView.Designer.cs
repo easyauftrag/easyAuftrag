@@ -41,6 +41,7 @@ namespace easyAuftrag
             this.ansichtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bearbeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.extrasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.einstellungenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hilfeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.überToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tvMain = new System.Windows.Forms.TreeView();
@@ -104,14 +105,14 @@ namespace easyAuftrag
             // dateiExportToolStripMenuItem
             // 
             this.dateiExportToolStripMenuItem.Name = "dateiExportToolStripMenuItem";
-            this.dateiExportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dateiExportToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.dateiExportToolStripMenuItem.Text = "Datei Export";
             this.dateiExportToolStripMenuItem.Click += new System.EventHandler(this.DateiExportToolStripMenuItem_Click);
             // 
             // dateiImportToolStripMenuItem
             // 
             this.dateiImportToolStripMenuItem.Name = "dateiImportToolStripMenuItem";
-            this.dateiImportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dateiImportToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.dateiImportToolStripMenuItem.Text = "Datei Import";
             this.dateiImportToolStripMenuItem.Click += new System.EventHandler(this.DateiImportToolStripMenuItem_Click);
             // 
@@ -129,9 +130,18 @@ namespace easyAuftrag
             // 
             // extrasToolStripMenuItem
             // 
+            this.extrasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.einstellungenToolStripMenuItem});
             this.extrasToolStripMenuItem.Name = "extrasToolStripMenuItem";
             this.extrasToolStripMenuItem.Size = new System.Drawing.Size(50, 24);
             this.extrasToolStripMenuItem.Text = "Extras";
+            // 
+            // einstellungenToolStripMenuItem
+            // 
+            this.einstellungenToolStripMenuItem.Name = "einstellungenToolStripMenuItem";
+            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.einstellungenToolStripMenuItem.Text = "Einstellungen";
+            this.einstellungenToolStripMenuItem.Click += new System.EventHandler(this.einstellungenToolStripMenuItem_Click);
             // 
             // hilfeToolStripMenuItem
             // 
@@ -247,65 +257,71 @@ namespace easyAuftrag
             // 
             // butExport
             // 
-            this.butExport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.butExport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.butExport.Image = ((System.Drawing.Image)(resources.GetObject("butExport.Image")));
             this.butExport.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.butExport.Name = "butExport";
-            this.butExport.Size = new System.Drawing.Size(75, 22);
+            this.butExport.Size = new System.Drawing.Size(23, 22);
             this.butExport.Text = "Datei Export";
             this.butExport.Click += new System.EventHandler(this.ButExport_Click);
             // 
             // butImport
             // 
-            this.butImport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.butImport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.butImport.Image = ((System.Drawing.Image)(resources.GetObject("butImport.Image")));
             this.butImport.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.butImport.Name = "butImport";
-            this.butImport.Size = new System.Drawing.Size(77, 22);
+            this.butImport.Size = new System.Drawing.Size(23, 22);
             this.butImport.Text = "Datei Import";
             this.butImport.Click += new System.EventHandler(this.ButImport_Click);
             // 
             // butAuftragZettel
             // 
-            this.butAuftragZettel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.butAuftragZettel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.butAuftragZettel.Image = ((System.Drawing.Image)(resources.GetObject("butAuftragZettel.Image")));
             this.butAuftragZettel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.butAuftragZettel.Name = "butAuftragZettel";
-            this.butAuftragZettel.Size = new System.Drawing.Size(97, 22);
+            this.butAuftragZettel.Size = new System.Drawing.Size(23, 22);
             this.butAuftragZettel.Text = "Auftrag drucken";
             this.butAuftragZettel.Click += new System.EventHandler(this.ButAuftragZettel_Click);
             // 
             // butStundenZettel
             // 
-            this.butStundenZettel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.butStundenZettel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.butStundenZettel.Image = ((System.Drawing.Image)(resources.GetObject("butStundenZettel.Image")));
             this.butStundenZettel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.butStundenZettel.Name = "butStundenZettel";
-            this.butStundenZettel.Size = new System.Drawing.Size(150, 22);
+            this.butStundenZettel.Size = new System.Drawing.Size(23, 22);
             this.butStundenZettel.Text = "Stundennachweis drucken";
             this.butStundenZettel.Click += new System.EventHandler(this.ButStundenZettel_Click);
             // 
             // butAuftrag
             // 
-            this.butAuftrag.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.butAuftrag.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.butAuftrag.Image = ((System.Drawing.Image)(resources.GetObject("butAuftrag.Image")));
             this.butAuftrag.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.butAuftrag.Name = "butAuftrag";
-            this.butAuftrag.Size = new System.Drawing.Size(86, 22);
+            this.butAuftrag.Size = new System.Drawing.Size(23, 22);
             this.butAuftrag.Text = "Neuer Auftrag";
             this.butAuftrag.Click += new System.EventHandler(this.ButAuftrag_Click);
             // 
             // butKunde
             // 
-            this.butKunde.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.butKunde.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.butKunde.Image = ((System.Drawing.Image)(resources.GetObject("butKunde.Image")));
             this.butKunde.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.butKunde.Name = "butKunde";
-            this.butKunde.Size = new System.Drawing.Size(80, 22);
+            this.butKunde.Size = new System.Drawing.Size(23, 22);
             this.butKunde.Text = "Neuer Kunde";
             this.butKunde.Click += new System.EventHandler(this.ButKunde_Click);
             // 
             // butMitarbeiter
             // 
-            this.butMitarbeiter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.butMitarbeiter.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.butMitarbeiter.Image = ((System.Drawing.Image)(resources.GetObject("butMitarbeiter.Image")));
             this.butMitarbeiter.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.butMitarbeiter.Name = "butMitarbeiter";
-            this.butMitarbeiter.Size = new System.Drawing.Size(104, 22);
+            this.butMitarbeiter.Size = new System.Drawing.Size(23, 22);
             this.butMitarbeiter.Text = "Neuer Mitarbeiter";
             this.butMitarbeiter.Click += new System.EventHandler(this.ButMitarbeiter_Click);
             // 
@@ -452,6 +468,7 @@ namespace easyAuftrag
         private System.Windows.Forms.ToolStripMenuItem überToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dateiExportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dateiImportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem einstellungenToolStripMenuItem;
     }
 }
 

@@ -1081,6 +1081,7 @@ namespace easyAuftrag
                         SaveFileDialog dlg = new SaveFileDialog();
                         if (exportV.DateiFormat == ExportView.Format.CSV)
                         {
+                            dlg.InitialDirectory = _config.StandardZielPfad;
                             dlg.Filter = "CSV|*.csv|All Files|*.*|Text File|*.txt";
                             dlg.DefaultExt = "*.csv*";
 
@@ -1124,6 +1125,7 @@ namespace easyAuftrag
                         }
                         else if (exportV.DateiFormat == ExportView.Format.XML)
                         {
+                            dlg.InitialDirectory = _config.StandardZielPfad;
                             dlg.Filter = "XML|*.xml|All Files|*.*|Text File|*.txt";
                             dlg.DefaultExt = "*.xml*";
 
@@ -1162,6 +1164,7 @@ namespace easyAuftrag
                         }
                         else if (exportV.DateiFormat == ExportView.Format.JSON)
                         {
+                            dlg.InitialDirectory = _config.StandardZielPfad;
                             dlg.Filter = "JSON|*.json|All Files|*.*|Text File|*.txt";
                             dlg.DefaultExt = "*.json*";
 
@@ -1232,6 +1235,7 @@ namespace easyAuftrag
                         OpenFileDialog dlgImport = new OpenFileDialog();
                         if (importV.DateiFormat == ExportView.Format.CSV)
                         {
+                            dlgImport.InitialDirectory = _config.StandardZielPfad;
                             dlgImport.Filter = "CSV|*.csv|All Files|*.*";
                             dlgImport.DefaultExt = "*.csv*";
                             // Öffnen des Konfigurationsfensters für die .csv Datei
@@ -1250,6 +1254,7 @@ namespace easyAuftrag
                         }
                         else if (importV.DateiFormat == ExportView.Format.XML)
                         {
+                            dlgImport.InitialDirectory = _config.StandardZielPfad;
                             dlgImport.Filter = "XML|*.xml|All Files|*.*";
                             dlgImport.DefaultExt = "*.xml*";
                             if (dlgImport.ShowDialog() == DialogResult.OK)
@@ -1263,6 +1268,7 @@ namespace easyAuftrag
                         }
                         else if (importV.DateiFormat == ExportView.Format.JSON)
                         {
+                            dlgImport.InitialDirectory = _config.StandardZielPfad;
                             dlgImport.Filter = "JSON|*.json|All Files|*.*";
                             dlgImport.DefaultExt = "*.json*";
                             if (dlgImport.ShowDialog() == DialogResult.OK)
@@ -1280,6 +1286,7 @@ namespace easyAuftrag
                         OpenFileDialog dlgImport = new OpenFileDialog();
                         if (importV.DateiFormat == ExportView.Format.CSV)
                         {
+                            dlgImport.InitialDirectory = _config.StandardZielPfad;
                             dlgImport.Filter = "CSV|*.csv|All Files|*.*";
                             dlgImport.DefaultExt = "*.csv*";
                             CSVConfig cSVConfig = new CSVConfig();
@@ -1297,6 +1304,7 @@ namespace easyAuftrag
                         }
                         else if (importV.DateiFormat == ExportView.Format.XML)
                         {
+                            dlgImport.InitialDirectory = _config.StandardZielPfad;
                             dlgImport.Filter = "XML|*.xml|All Files|*.*";
                             dlgImport.DefaultExt = "*.xml*";
                             if (dlgImport.ShowDialog() == DialogResult.OK)
@@ -1310,6 +1318,7 @@ namespace easyAuftrag
                         }
                         else if (importV.DateiFormat == ExportView.Format.JSON)
                         {
+                            dlgImport.InitialDirectory = _config.StandardZielPfad;
                             dlgImport.Filter = "JSON|*.json|All Files|*.*";
                             dlgImport.DefaultExt = "*.json*";
                             if (dlgImport.ShowDialog() == DialogResult.OK)
@@ -1327,6 +1336,7 @@ namespace easyAuftrag
                         OpenFileDialog dlgImport = new OpenFileDialog();
                         if (importV.DateiFormat == ExportView.Format.CSV)
                         {
+                            dlgImport.InitialDirectory = _config.StandardZielPfad;
                             dlgImport.Filter = "CSV|*.csv|All Files|*.*";
                             dlgImport.DefaultExt = "*.csv*";
                             CSVConfig cSVConfig = new CSVConfig();
@@ -1344,6 +1354,7 @@ namespace easyAuftrag
                         }
                         else if (importV.DateiFormat == ExportView.Format.XML)
                         {
+                            dlgImport.InitialDirectory = _config.StandardZielPfad;
                             dlgImport.Filter = "XML|*.xml|All Files|*.*";
                             dlgImport.DefaultExt = "*.xml*";
                             if (dlgImport.ShowDialog() == DialogResult.OK)
@@ -1357,6 +1368,7 @@ namespace easyAuftrag
                         }
                         else if (importV.DateiFormat == ExportView.Format.JSON)
                         {
+                            dlgImport.InitialDirectory = _config.StandardZielPfad;
                             dlgImport.Filter = "JSON|*.json|All Files|*.*";
                             dlgImport.DefaultExt = "*.json*";
                             if (dlgImport.ShowDialog() == DialogResult.OK)
@@ -1374,6 +1386,7 @@ namespace easyAuftrag
                         OpenFileDialog dlgImport = new OpenFileDialog();
                         if (importV.DateiFormat == ExportView.Format.CSV)
                         {
+                            dlgImport.InitialDirectory = _config.StandardZielPfad;
                             dlgImport.Filter = "CSV|*.csv|All Files|*.*";
                             dlgImport.DefaultExt = "*.csv*";
                             CSVConfig cSVConfig = new CSVConfig();
@@ -1391,6 +1404,7 @@ namespace easyAuftrag
                         }
                         else if (importV.DateiFormat == ExportView.Format.XML)
                         {
+                            dlgImport.InitialDirectory = _config.StandardZielPfad;
                             dlgImport.Filter = "XML|*.xml|All Files|*.*";
                             dlgImport.DefaultExt = "*.xml*";
                             if (dlgImport.ShowDialog() == DialogResult.OK)
@@ -1404,6 +1418,7 @@ namespace easyAuftrag
                         }
                         else if (importV.DateiFormat == ExportView.Format.JSON)
                         {
+                            dlgImport.InitialDirectory = _config.StandardZielPfad;
                             dlgImport.Filter = "JSON|*.json|All Files|*.*";
                             dlgImport.DefaultExt = "*.json*";
                             if (dlgImport.ShowDialog() == DialogResult.OK)
@@ -1431,6 +1446,21 @@ namespace easyAuftrag
         private void DateiImportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DateiImport();
+        }
+        /// <summary>
+        /// Aktion beim Klick auf "Einstellungen" im MenuStrip Bereich "Extras"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void einstellungenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigView con = new ConfigView();
+            if (con.ShowDialog() == DialogResult.OK)
+            {
+                _config = con.Conf;
+                this.BringToFront();
+                this.Activate();
+            }
         }
     }
 }
