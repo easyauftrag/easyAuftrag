@@ -61,6 +61,7 @@
     <Compile Include="EasyAuftragContext.cs" />
     <Compile Include="ErrorHandler.cs" />
     <Compile Include="Handler.cs" />
+    <Compile Include="InfoHandler.cs" />
     <Compile Include="Model\Adresse.cs" />
     <Compile Include="Model\Auftrag.cs" />
     <Compile Include="Config.cs" />
