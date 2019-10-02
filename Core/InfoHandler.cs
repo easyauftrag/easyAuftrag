@@ -40,7 +40,7 @@ namespace Core
     /// Klasse für den ErrorHandler
     /// </summary>
     /// <remarks>
-    /// Sammelt Informationen über einen Fehler und schreibt diese in eine Logdatei.
+    /// Bekommt Informationen über ein Event und schreibt diese in eine Logdatei.
     /// </remarks>
     public class InfoHandler
     {
@@ -58,7 +58,7 @@ namespace Core
         {
             try
             {
-                // Mit StringBuilder Infos über Fehler zusammenstellen
+                // Mit StringBuilder Infos zusammenstellen
                 StringBuilder buildInfo = new StringBuilder();
                 buildInfo.Append("Event");
                 buildInfo.Append(" ");
@@ -67,7 +67,7 @@ namespace Core
                 buildInfo.Append(info);
 
                 // Ausgabe im Logfile
-                string pfad = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "easyAuftrag");
+                string pfad = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "easyAuftrag", "Log");
 
                 if (!Directory.Exists(pfad))
                 {

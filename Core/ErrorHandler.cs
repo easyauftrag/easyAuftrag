@@ -79,7 +79,7 @@ namespace Core
                 MessageBox.Show(info.ToString());
 
                 // Ausgabe im Logfile
-                string pfad = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "easyAuftrag");
+                string pfad = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "easyAuftrag", "Log");
 
                 if (!Directory.Exists(pfad))
                 {
