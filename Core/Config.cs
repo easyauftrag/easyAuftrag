@@ -48,5 +48,45 @@ namespace Core
         /// Standardmäßiger Zielpfad für den Export von Dateien
         /// </summary>
         public string StandardZielPfad { get; set; }
+        public bool WinAuth { get; set; }
+        public string Datenbank { get; set; }
+        public string Server { get; set; }
+        public string BenutzerName { get; set; }
+        public string Passwort { get; set; }
+        public string ConnectionString { get { return BuildConString(); } }
+
+        public Config()
+        {
+
+        }
+
+        private string BuildConString()
+        {
+            string conType;
+            if (WinAuth)
+            {
+                conType = "Integrated Security=True";
+            }
+            else
+            {
+                conType = "User=" 
+                    + BenutzerName
+                    + "; Password=" 
+                    + Passwort;
+            }
+            string con = "Data Source=" 
+                + Server 
+                + ";Initial Catalog=" 
+                + Datenbank + ";" 
+                + conType 
+                + ";Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+
+            return con;
+        }
+
+        public void SchreibeXML()
+        {
+
+        }
     }
 }

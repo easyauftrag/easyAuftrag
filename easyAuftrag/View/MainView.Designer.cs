@@ -30,9 +30,9 @@ namespace easyAuftrag
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Kunden");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Mitarbeiter");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Aufträge");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Kunden");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Mitarbeiter");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Aufträge");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainView));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,6 +40,7 @@ namespace easyAuftrag
             this.bearbeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.extrasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hilfeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.überToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tvMain = new System.Windows.Forms.TreeView();
             this.dgvMain = new System.Windows.Forms.DataGridView();
             this.cxtMain = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -115,9 +116,18 @@ namespace easyAuftrag
             // 
             // hilfeToolStripMenuItem
             // 
+            this.hilfeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.überToolStripMenuItem});
             this.hilfeToolStripMenuItem.Name = "hilfeToolStripMenuItem";
             this.hilfeToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
             this.hilfeToolStripMenuItem.Text = "Hilfe";
+            // 
+            // überToolStripMenuItem
+            // 
+            this.überToolStripMenuItem.Name = "überToolStripMenuItem";
+            this.überToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
+            this.überToolStripMenuItem.Text = "Über";
+            this.überToolStripMenuItem.Click += new System.EventHandler(this.überToolStripMenuItem_Click);
             // 
             // tvMain
             // 
@@ -125,19 +135,19 @@ namespace easyAuftrag
             | System.Windows.Forms.AnchorStyles.Left)));
             this.tvMain.Location = new System.Drawing.Point(13, 58);
             this.tvMain.Name = "tvMain";
-            treeNode10.Name = "Kunden";
-            treeNode10.Tag = "Kunden";
-            treeNode10.Text = "Kunden";
-            treeNode11.Name = "Mitarbeiter";
-            treeNode11.Tag = "Mitarbeiter";
-            treeNode11.Text = "Mitarbeiter";
-            treeNode12.Name = "Auftraege";
-            treeNode12.Tag = "Auftraege";
-            treeNode12.Text = "Aufträge";
+            treeNode4.Name = "Kunden";
+            treeNode4.Tag = "Kunden";
+            treeNode4.Text = "Kunden";
+            treeNode5.Name = "Mitarbeiter";
+            treeNode5.Tag = "Mitarbeiter";
+            treeNode5.Text = "Mitarbeiter";
+            treeNode6.Name = "Auftraege";
+            treeNode6.Tag = "Auftraege";
+            treeNode6.Text = "Aufträge";
             this.tvMain.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode10,
-            treeNode11,
-            treeNode12});
+            treeNode4,
+            treeNode5,
+            treeNode6});
             this.tvMain.Size = new System.Drawing.Size(189, 441);
             this.tvMain.TabIndex = 6;
             this.tvMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TvMain_MouseUp);
@@ -366,6 +376,7 @@ namespace easyAuftrag
             this.Controls.Add(this.dgvMain);
             this.Controls.Add(this.tvMain);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(800, 563);
             this.Name = "MainView";
@@ -419,6 +430,7 @@ namespace easyAuftrag
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton butStundenZettel;
         private System.Windows.Forms.ToolStripButton butImport;
+        private System.Windows.Forms.ToolStripMenuItem überToolStripMenuItem;
     }
 }
 

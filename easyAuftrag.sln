@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "easyAuftragTest", "easyAuft
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Austausch", "Austausch\Austausch.csproj", "{0879A9FD-32ED-4565-A26F-1B6F5595845E}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SetupEasyAuftrag", "SetupEasyAuftrag\SetupEasyAuftrag.vdproj", "{AE142EC1-C605-4032-A24A-1164B0AC2A4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{0879A9FD-32ED-4565-A26F-1B6F5595845E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0879A9FD-32ED-4565-A26F-1B6F5595845E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0879A9FD-32ED-4565-A26F-1B6F5595845E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE142EC1-C605-4032-A24A-1164B0AC2A4E}.Debug|Any CPU.ActiveCfg = Debug
+		{AE142EC1-C605-4032-A24A-1164B0AC2A4E}.Debug|Any CPU.Build.0 = Debug
+		{AE142EC1-C605-4032-A24A-1164B0AC2A4E}.Release|Any CPU.ActiveCfg = Release
+		{AE142EC1-C605-4032-A24A-1164B0AC2A4E}.Release|Any CPU.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

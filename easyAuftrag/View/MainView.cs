@@ -98,6 +98,7 @@ namespace easyAuftrag
         {
             try
             {
+              
                 using (var db = new EasyAuftragContext())
                 {
                     // Laden aller aufträge
@@ -1359,6 +1360,25 @@ namespace easyAuftrag
                 this.Activate();
                 // Aktualisieren des TreeView, um die neuen Tätigkeiten mit einzubeziehen
                 TreeViewNeu();
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
+        }
+
+        private void überToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                About about = new About();
+
+                if (about.ShowDialog() == DialogResult.OK)
+                {
+                    // Auf MainView zurückgehen
+                    this.BringToFront();
+                    this.Activate();
+                }
             }
             catch (Exception ex)
             {

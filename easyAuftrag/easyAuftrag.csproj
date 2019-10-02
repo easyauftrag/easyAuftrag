@@ -64,6 +64,12 @@
     <Compile Include="Logik\Berechnung.cs" />
     <Compile Include="Logik\Drucken.cs" />
     <Compile Include="Logik\Export.cs" />
+    <Compile Include="View\About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\AdresseView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +81,12 @@
     </Compile>
     <Compile Include="View\AuftragView.Designer.cs">
       <DependentUpon>AuftragView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\ConfigView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ConfigView.Designer.cs">
+      <DependentUpon>ConfigView.cs</DependentUpon>
     </Compile>
     <Compile Include="View\CSVConfig.cs">
       <SubType>Form</SubType>
@@ -141,11 +153,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\AdresseView.resx">
       <DependentUpon>AdresseView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\AuftragView.resx">
       <DependentUpon>AuftragView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ConfigView.resx">
+      <DependentUpon>ConfigView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\CSVConfig.resx">
       <DependentUpon>CSVConfig.cs</DependentUpon>
