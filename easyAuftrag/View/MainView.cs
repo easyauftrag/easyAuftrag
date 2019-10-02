@@ -337,43 +337,7 @@ namespace easyAuftrag
         /// <seealso cref="EasyAuftragContext"/>
         private void ButAuftragZettel_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (dgvMain.SelectedRows.Count > 0)
-                {
-                    int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
-                    using (var db = new EasyAuftragContext(_config.ConnectionString))
-                    {
-                        DruckDoc doc = new DruckDoc();
-                        // Laden des ausgewählten Auftrags aus der Datenbank
-                        Auftrag auftrag = (from a in db.Auftraege where a.AuftragID == auftragID select a).First();
-                        // Laden des zugehörigen Kunden
-                        Kunde kunde = (from k in db.Kunden where k.KundeID == auftrag.KundeID select k).First();
-                        // Laden der zugehörigen Liste von Tätigkeiten
-                        List<Taetigkeit> Tatlist = (from t in db.Taetigkeiten where t.AuftragID == auftrag.AuftragID select t).ToList();
-                        List<Mitarbeiter> MitList = new List<Mitarbeiter>();
-                        // Laden der Mitarbeiter, die zu den einzelnen Tätigkeiten gehören
-                        foreach (Taetigkeit t in Tatlist)
-                        {
-                            MitList.Add((from m in db.Mitarbeiters where m.MitarbeiterID == t.MitarbeiterID select m).First());
-                        }
-                        // Zuweisung zum DruckDoc
-                        doc.AuftragNr = auftrag.AuftragNummer;
-                        doc.KundeName = kunde.Name;
-                        doc.KundeAnschrift = kunde.Strasse + " " + kunde.Hausnr + ", " + kunde.PLZ + " " + kunde.Wohnort;
-                        doc.KundeTelefon = kunde.TelefonNr;
-                        doc.TatListe = Tatlist;
-                        doc.MitList = MitList;
-                        // Drucken der Auswahl
-                        Drucken druck = new Drucken();
-                        druck.Druck(doc);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorHandler.ErrorHandle(ex);
-            }
+            Auftragzettel();
         }
         /// <summary>
         /// Aktion beim Klick auf den "Stundennachweis drucken" Button
@@ -382,21 +346,7 @@ namespace easyAuftrag
         /// <param name="e"></param>
         private void ButStundenZettel_Click(object sender, EventArgs e)
         {
-            try
-            {
-                // Öffnen des "StundenView" Fensters
-                StundenView stundV = new StundenView(_config.ConnectionString);
-                if (stundV.ShowDialog() == DialogResult.OK)
-                {
-                    // Drucken der Angaben aus dem "StundenView" Fenster
-                    Drucken druck = new Drucken();
-                    druck.StundenDruck(stundV.StuDoc);
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorHandler.ErrorHandle(ex);
-            }
+            Stundenzettel();
         }
         /// <summary>
         /// Aktion beim Rechtsklick auf die <see cref="TreeView"/>
@@ -1042,7 +992,7 @@ namespace easyAuftrag
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void ÜberToolStripMenuItem_Click(object sender, EventArgs e)
+        private void InfoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
@@ -1452,7 +1402,7 @@ namespace easyAuftrag
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void einstellungenToolStripMenuItem_Click(object sender, EventArgs e)
+        private void EinstellungenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ConfigView con = new ConfigView();
             if (con.ShowDialog() == DialogResult.OK)
@@ -1461,6 +1411,88 @@ namespace easyAuftrag
                 this.BringToFront();
                 this.Activate();
             }
+        }
+        /// <summary>
+        /// Methode zum Drucken eines Auftrags
+        /// </summary>
+        private void Auftragzettel()
+        {
+            try
+            {
+                if (dgvMain.SelectedRows.Count > 0)
+                {
+                    int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
+                    using (var db = new EasyAuftragContext(_config.ConnectionString))
+                    {
+                        DruckDoc doc = new DruckDoc();
+                        // Laden des ausgewählten Auftrags aus der Datenbank
+                        Auftrag auftrag = (from a in db.Auftraege where a.AuftragID == auftragID select a).First();
+                        // Laden des zugehörigen Kunden
+                        Kunde kunde = (from k in db.Kunden where k.KundeID == auftrag.KundeID select k).First();
+                        // Laden der zugehörigen Liste von Tätigkeiten
+                        List<Taetigkeit> Tatlist = (from t in db.Taetigkeiten where t.AuftragID == auftrag.AuftragID select t).ToList();
+                        List<Mitarbeiter> MitList = new List<Mitarbeiter>();
+                        // Laden der Mitarbeiter, die zu den einzelnen Tätigkeiten gehören
+                        foreach (Taetigkeit t in Tatlist)
+                        {
+                            MitList.Add((from m in db.Mitarbeiters where m.MitarbeiterID == t.MitarbeiterID select m).First());
+                        }
+                        // Zuweisung zum DruckDoc
+                        doc.AuftragNr = auftrag.AuftragNummer;
+                        doc.KundeName = kunde.Name;
+                        doc.KundeAnschrift = kunde.Strasse + " " + kunde.Hausnr + ", " + kunde.PLZ + " " + kunde.Wohnort;
+                        doc.KundeTelefon = kunde.TelefonNr;
+                        doc.TatListe = Tatlist;
+                        doc.MitList = MitList;
+                        // Drucken der Auswahl
+                        Drucken druck = new Drucken();
+                        druck.Druck(doc);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
+        }
+        /// <summary>
+        /// Aktion beim Klick auf "Auftrag" im MenuStrip Bereich "Datei -> Drucken"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AuftragToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Auftragzettel();
+        }
+        /// <summary>
+        /// Methode zum Drucken eines Stundennachweises
+        /// </summary>
+        private void Stundenzettel()
+        {
+            try
+            {
+                // Öffnen des "StundenView" Fensters
+                StundenView stundV = new StundenView(_config.ConnectionString);
+                if (stundV.ShowDialog() == DialogResult.OK)
+                {
+                    // Drucken der Angaben aus dem "StundenView" Fenster
+                    Drucken druck = new Drucken();
+                    druck.StundenDruck(stundV.StuDoc);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
+        }
+        /// <summary>
+        /// Aktion beim Klick auf "Stundennachweis" im MenuStrip Bereich "Datei -> Drucken"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void StundennachweisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Stundenzettel();
         }
     }
 }

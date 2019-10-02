@@ -38,6 +38,9 @@ namespace easyAuftrag
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dateiExportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dateiImportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.druckenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.auftragToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.stundennachweisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ansichtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bearbeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.extrasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -97,7 +100,8 @@ namespace easyAuftrag
             // 
             this.dateiToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dateiExportToolStripMenuItem,
-            this.dateiImportToolStripMenuItem});
+            this.dateiImportToolStripMenuItem,
+            this.druckenToolStripMenuItem});
             this.dateiToolStripMenuItem.Name = "dateiToolStripMenuItem";
             this.dateiToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.dateiToolStripMenuItem.Text = "Datei";
@@ -105,16 +109,39 @@ namespace easyAuftrag
             // dateiExportToolStripMenuItem
             // 
             this.dateiExportToolStripMenuItem.Name = "dateiExportToolStripMenuItem";
-            this.dateiExportToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.dateiExportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.dateiExportToolStripMenuItem.Text = "Datei Export";
             this.dateiExportToolStripMenuItem.Click += new System.EventHandler(this.DateiExportToolStripMenuItem_Click);
             // 
             // dateiImportToolStripMenuItem
             // 
             this.dateiImportToolStripMenuItem.Name = "dateiImportToolStripMenuItem";
-            this.dateiImportToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.dateiImportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.dateiImportToolStripMenuItem.Text = "Datei Import";
             this.dateiImportToolStripMenuItem.Click += new System.EventHandler(this.DateiImportToolStripMenuItem_Click);
+            // 
+            // druckenToolStripMenuItem
+            // 
+            this.druckenToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.auftragToolStripMenuItem,
+            this.stundennachweisToolStripMenuItem});
+            this.druckenToolStripMenuItem.Name = "druckenToolStripMenuItem";
+            this.druckenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.druckenToolStripMenuItem.Text = "Drucken";
+            // 
+            // auftragToolStripMenuItem
+            // 
+            this.auftragToolStripMenuItem.Name = "auftragToolStripMenuItem";
+            this.auftragToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.auftragToolStripMenuItem.Text = "Auftrag";
+            this.auftragToolStripMenuItem.Click += new System.EventHandler(this.AuftragToolStripMenuItem_Click);
+            // 
+            // stundennachweisToolStripMenuItem
+            // 
+            this.stundennachweisToolStripMenuItem.Name = "stundennachweisToolStripMenuItem";
+            this.stundennachweisToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.stundennachweisToolStripMenuItem.Text = "Stundennachweis";
+            this.stundennachweisToolStripMenuItem.Click += new System.EventHandler(this.StundennachweisToolStripMenuItem_Click);
             // 
             // ansichtToolStripMenuItem
             // 
@@ -139,9 +166,9 @@ namespace easyAuftrag
             // einstellungenToolStripMenuItem
             // 
             this.einstellungenToolStripMenuItem.Name = "einstellungenToolStripMenuItem";
-            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.einstellungenToolStripMenuItem.Text = "Einstellungen";
-            this.einstellungenToolStripMenuItem.Click += new System.EventHandler(this.einstellungenToolStripMenuItem_Click);
+            this.einstellungenToolStripMenuItem.Click += new System.EventHandler(this.EinstellungenToolStripMenuItem_Click);
             // 
             // hilfeToolStripMenuItem
             // 
@@ -154,9 +181,9 @@ namespace easyAuftrag
             // überToolStripMenuItem
             // 
             this.überToolStripMenuItem.Name = "überToolStripMenuItem";
-            this.überToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
-            this.überToolStripMenuItem.Text = "Über";
-            this.überToolStripMenuItem.Click += new System.EventHandler(this.ÜberToolStripMenuItem_Click);
+            this.überToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.überToolStripMenuItem.Text = "Info zu easyAuftrag";
+            this.überToolStripMenuItem.Click += new System.EventHandler(this.InfoToolStripMenuItem_Click);
             // 
             // tvMain
             // 
@@ -469,6 +496,9 @@ namespace easyAuftrag
         private System.Windows.Forms.ToolStripMenuItem dateiExportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dateiImportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem einstellungenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem druckenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem auftragToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem stundennachweisToolStripMenuItem;
     }
 }
 
