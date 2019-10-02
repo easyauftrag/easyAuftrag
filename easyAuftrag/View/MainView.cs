@@ -316,146 +316,7 @@ namespace easyAuftrag
         /// <seealso cref="EasyAuftragContext"/>
         private void ButExport_Click(object sender, EventArgs e)
         {
-            try
-            {
-                // Öffnen der "Export" Fensters
-                ExportView exportV = new ExportView("Export");
-                if (exportV.ShowDialog() == DialogResult.OK)
-                {
-                    using (var db = new EasyAuftragContext())
-                    {
-                        List<Auftrag> auftraege = new List<Auftrag>();
-                        List<Kunde> kunden = new List<Kunde>();
-                        List<Mitarbeiter> mitarbeiters = new List<Mitarbeiter>();
-                        List<Taetigkeit> taetigkeiten = new List<Taetigkeit>();
-                        // Öffnen eines Windows Speichern Fensters
-                        SaveFileDialog dlg = new SaveFileDialog();
-                        if (exportV.DateiFormat == ExportView.Format.CSV)
-                        {
-                            dlg.Filter = "CSV|*.csv|All Files|*.*|Text File|*.txt";
-                            dlg.DefaultExt = "*.csv*";
-
-                            // Öffnen des Konfigurationsfensters für die .csv Datei
-                            CSVConfig cSVConfig = new CSVConfig();
-                            if (dlg.ShowDialog() == DialogResult.OK)
-                            {
-                                if (cSVConfig.ShowDialog() == DialogResult.OK)
-                                {
-                                    AustauschCSV austauschCSV = new AustauschCSV(cSVConfig.Typen.TrennerDezimal, cSVConfig.Typen.TrennerDaten);
-                                    if (exportV.ExportArt == ExportView.Art.Auftrag)
-                                    {
-                                        // Laden aller Aufträge aus der Datenbank
-                                        auftraege = (from a in db.Auftraege select a).ToList();
-                                        // Schreiben der .csv Datei
-                                        austauschCSV.AuftragSchreiben(dlg.FileName, auftraege);
-                                    }
-                                    else if (exportV.ExportArt == ExportView.Art.Kunde)
-                                    {
-                                        // Laden aller Kunden aus der Datenbank
-                                        kunden = (from k in db.Kunden select k).ToList();
-                                        // Schreiben der .csv Datei
-                                        austauschCSV.KundeSchreiben(dlg.FileName, kunden);
-                                    }
-                                    else if (exportV.ExportArt == ExportView.Art.Mitarbeiter)
-                                    {
-                                        // Laden aller Mitarbeiter aus der Datenbank
-                                        mitarbeiters = (from m in db.Mitarbeiters select m).ToList();
-                                        // Schreiben der .csv Datei
-                                        austauschCSV.MitarbeiterSchreiben(dlg.FileName, mitarbeiters);
-                                    }
-                                    else if (exportV.ExportArt == ExportView.Art.Taetigkeit)
-                                    {
-                                        // Laden aller Tätigkeiten aus der Datenbank
-                                        taetigkeiten = (from t in db.Taetigkeiten select t).ToList();
-                                        // Schreiben der .csv Datei
-                                        austauschCSV.TaetigkeitSchreiben(dlg.FileName, taetigkeiten);
-                                    }
-                                }
-                            }
-                        }
-                        else if (exportV.DateiFormat == ExportView.Format.XML)
-                        {
-                            dlg.Filter = "XML|*.xml|All Files|*.*|Text File|*.txt";
-                            dlg.DefaultExt = "*.xml*";
-
-                            if (dlg.ShowDialog() == DialogResult.OK)
-                            {
-                                AustauschXML austauschXML = new AustauschXML();
-                                if (exportV.ExportArt == ExportView.Art.Auftrag)
-                                {
-                                    // Laden aller Aufträge aus der Datenbank
-                                    auftraege = (from a in db.Auftraege select a).ToList();
-                                    // Schreiben der .xml Datei
-                                    austauschXML.AuftragSchreiben(dlg.FileName, auftraege);
-                                }
-                                else if (exportV.ExportArt == ExportView.Art.Kunde)
-                                {
-                                    // Laden aller Kunden aus der Datenbank
-                                    kunden = (from k in db.Kunden select k).ToList();
-                                    // Schreiben der .xml Datei
-                                    austauschXML.KundeSchreiben(dlg.FileName, kunden);
-                                }
-                                else if (exportV.ExportArt == ExportView.Art.Mitarbeiter)
-                                {
-                                    // Laden aller Mitarbeiter aus der Datenbank
-                                    mitarbeiters = (from m in db.Mitarbeiters select m).ToList();
-                                    // Schreiben der .xml Datei
-                                    austauschXML.MitarbeiterSchreiben(dlg.FileName, mitarbeiters);
-                                }
-                                else if (exportV.ExportArt == ExportView.Art.Taetigkeit)
-                                {
-                                    // Laden aller Tätigkeiten aus der Datenbank
-                                    taetigkeiten = (from t in db.Taetigkeiten select t).ToList();
-                                    // Schreiben der .xml Datei
-                                    austauschXML.TaetigkeitSchreiben(dlg.FileName, taetigkeiten);
-                                }
-                            }
-                        }
-                        else if (exportV.DateiFormat == ExportView.Format.JSON)
-                        {
-                            dlg.Filter = "JSON|*.json|All Files|*.*|Text File|*.txt";
-                            dlg.DefaultExt = "*.json*";
-
-                            if (dlg.ShowDialog() == DialogResult.OK)
-                            {
-                                AustauschJSON austauschJSON = new AustauschJSON();
-                                if (exportV.ExportArt == ExportView.Art.Auftrag)
-                                {
-                                    // Laden aller Aufträge aus der Datenbank
-                                    auftraege = (from a in db.Auftraege select a).ToList();
-                                    // Schreiben der .json Datei
-                                    austauschJSON.AuftragSchreiben(dlg.FileName, auftraege);
-                                }
-                                else if (exportV.ExportArt == ExportView.Art.Kunde)
-                                {
-                                    // Laden aller Kunden aus der Datenbank
-                                    kunden = (from k in db.Kunden select k).ToList();
-                                    // Schreiben der .json Datei
-                                    austauschJSON.KundeSchreiben(dlg.FileName, kunden);
-                                }
-                                else if (exportV.ExportArt == ExportView.Art.Mitarbeiter)
-                                {
-                                    // Laden aller Mitarbeiter aus der Datenbank
-                                    mitarbeiters = (from m in db.Mitarbeiters select m).ToList();
-                                    // Schreiben der .json Datei
-                                    austauschJSON.MitarbeiterSchreiben(dlg.FileName, mitarbeiters);
-                                }
-                                else if (exportV.ExportArt == ExportView.Art.Taetigkeit)
-                                {
-                                    // Laden aller Tätigkeiten aus der Datenbank
-                                    taetigkeiten = (from t in db.Taetigkeiten select t).ToList();
-                                    // Schreiben der .json Datei
-                                    austauschJSON.TaetigkeitSchreiben(dlg.FileName, taetigkeiten);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorHandler.ErrorHandle(ex);
-            }
+            DateiExport();
         }
         /// <summary>
         /// Aktion beim Klick auf den "Auftrag drucken" Button
@@ -898,210 +759,9 @@ namespace easyAuftrag
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void butImport_Click(object sender, EventArgs e)
+        private void ButImport_Click(object sender, EventArgs e)
         {
-            try
-            {
-                // Öffnen des "Import" Fensters
-                ExportView importV = new ExportView("Import");
-                if (importV.ShowDialog() == DialogResult.OK)
-                {
-                    if (importV.ExportArt == ExportView.Art.Auftrag)
-                    {
-                        // Öffnen eines Windows Datei öffnen Fensters
-                        OpenFileDialog dlgImport = new OpenFileDialog();
-                        if (importV.DateiFormat == ExportView.Format.CSV)
-                        {
-                            dlgImport.Filter = "CSV|*.csv|All Files|*.*";
-                            dlgImport.DefaultExt = "*.csv*";
-                            // Öffnen des Konfigurationsfensters für die .csv Datei
-                            CSVConfig cSVConfig = new CSVConfig();
-                            if (dlgImport.ShowDialog() == DialogResult.OK)
-                            {
-                                if (cSVConfig.ShowDialog() == DialogResult.OK)
-                                {
-                                    AustauschCSV austauschCSV = new AustauschCSV(cSVConfig.Typen.TrennerDezimal, cSVConfig.Typen.TrennerDaten);
-                                    // Lesen der Aufträge aus der Datei
-                                    var aufListe = austauschCSV.AuftragLesen(dlgImport.FileName);
-                                    // Hinzufügen der Aufträge zur Datenbank
-                                    ImportAuftrag(aufListe);
-                                }
-                            }
-                        }
-                        else if (importV.DateiFormat == ExportView.Format.XML)
-                        {
-                            dlgImport.Filter = "XML|*.xml|All Files|*.*";
-                            dlgImport.DefaultExt = "*.xml*";
-                            if (dlgImport.ShowDialog() == DialogResult.OK)
-                            {
-                                AustauschXML austauschXML = new AustauschXML();
-                                // Lesen der Aufträge aus der Datei
-                                var aufListe = austauschXML.AuftragLesen(dlgImport.FileName);
-                                // Hinzufügen der Aufträge zur Datenbank
-                                ImportAuftrag(aufListe);
-                            }
-                        }
-                        else if (importV.DateiFormat == ExportView.Format.JSON)
-                        {
-                            dlgImport.Filter = "JSON|*.json|All Files|*.*";
-                            dlgImport.DefaultExt = "*.json*";
-                            if (dlgImport.ShowDialog() == DialogResult.OK)
-                            {
-                                AustauschJSON austauschJSON = new AustauschJSON();
-                                // Lesen der Aufträge aus der Datei
-                                var aufListe = austauschJSON.AuftragLesen(dlgImport.FileName);
-                                // Hinzufügen der Aufträge zur Datenbank
-                                ImportAuftrag(aufListe);
-                            }
-                        }
-                    }
-                    else if (importV.ExportArt == ExportView.Art.Kunde)
-                    {
-                        OpenFileDialog dlgImport = new OpenFileDialog();
-                        if (importV.DateiFormat == ExportView.Format.CSV)
-                        {
-                            dlgImport.Filter = "CSV|*.csv|All Files|*.*";
-                            dlgImport.DefaultExt = "*.csv*";
-                            CSVConfig cSVConfig = new CSVConfig();
-                            if (dlgImport.ShowDialog() == DialogResult.OK)
-                            {
-                                if (cSVConfig.ShowDialog() == DialogResult.OK)
-                                {
-                                    AustauschCSV austauschCSV = new AustauschCSV(cSVConfig.Typen.TrennerDezimal, cSVConfig.Typen.TrennerDaten);
-                                    // Lesen der Kunden aus der Datei
-                                    var kunListe = austauschCSV.KundeLesen(dlgImport.FileName);
-                                    // Hinzufügen der Kunden zur Datenbank
-                                    ImportKunde(kunListe);
-                                }
-                            }
-                        }
-                        else if (importV.DateiFormat == ExportView.Format.XML)
-                        {
-                            dlgImport.Filter = "XML|*.xml|All Files|*.*";
-                            dlgImport.DefaultExt = "*.xml*";
-                            if (dlgImport.ShowDialog() == DialogResult.OK)
-                            {
-                                AustauschXML austauschXML = new AustauschXML();
-                                // Lesen der Kunden aus der Datei
-                                var kunListe = austauschXML.KundeLesen(dlgImport.FileName);
-                                // Hinzufügen der Kunden zur Datenbank
-                                ImportKunde(kunListe);
-                            }
-                        }
-                        else if (importV.DateiFormat == ExportView.Format.JSON)
-                        {
-                            dlgImport.Filter = "JSON|*.json|All Files|*.*";
-                            dlgImport.DefaultExt = "*.json*";
-                            if (dlgImport.ShowDialog() == DialogResult.OK)
-                            {
-                                AustauschJSON austauschJSON = new AustauschJSON();
-                                // Lesen der Kunden aus der Datei
-                                var kunListe = austauschJSON.KundeLesen(dlgImport.FileName);
-                                // Hinzufügen der Kunden zur Datenbank
-                                ImportKunde(kunListe);
-                            }
-                        }
-                    }
-                    else if (importV.ExportArt == ExportView.Art.Mitarbeiter)
-                    {
-                        OpenFileDialog dlgImport = new OpenFileDialog();
-                        if (importV.DateiFormat == ExportView.Format.CSV)
-                        {
-                            dlgImport.Filter = "CSV|*.csv|All Files|*.*";
-                            dlgImport.DefaultExt = "*.csv*";
-                            CSVConfig cSVConfig = new CSVConfig();
-                            if (dlgImport.ShowDialog() == DialogResult.OK)
-                            {
-                                if (cSVConfig.ShowDialog() == DialogResult.OK)
-                                {
-                                    AustauschCSV austauschCSV = new AustauschCSV(cSVConfig.Typen.TrennerDezimal, cSVConfig.Typen.TrennerDaten);
-                                    // Lesen der Mitarbeiter aus der Datei
-                                    var mitListe = austauschCSV.MitarbeiterLesen(dlgImport.FileName);
-                                    // Hinzufügen der Mitarbeiter zur Datenbank
-                                    ImportMitarbeiter(mitListe);
-                                }
-                            }
-                        }
-                        else if (importV.DateiFormat == ExportView.Format.XML)
-                        {
-                            dlgImport.Filter = "XML|*.xml|All Files|*.*";
-                            dlgImport.DefaultExt = "*.xml*";
-                            if (dlgImport.ShowDialog() == DialogResult.OK)
-                            {
-                                AustauschXML austauschXML = new AustauschXML();
-                                // Lesen der Mitarbeiter aus der Datei
-                                var mitListe = austauschXML.MitarbeiterLesen(dlgImport.FileName);
-                                // Hinzufügen der Mitarbeiter zur Datenbank
-                                ImportMitarbeiter(mitListe);
-                            }
-                        }
-                        else if (importV.DateiFormat == ExportView.Format.JSON)
-                        {
-                            dlgImport.Filter = "JSON|*.json|All Files|*.*";
-                            dlgImport.DefaultExt = "*.json*";
-                            if (dlgImport.ShowDialog() == DialogResult.OK)
-                            {
-                                AustauschJSON austauschJSON = new AustauschJSON();
-                                // Lesen der Mitarbeiter aus der Datei
-                                var mitListe = austauschJSON.MitarbeiterLesen(dlgImport.FileName);
-                                // Hinzufügen der Mitarbeiter zur Datenbank
-                                ImportMitarbeiter(mitListe);
-                            }
-                        }
-                    }
-                    else if (importV.ExportArt == ExportView.Art.Taetigkeit)
-                    {
-                        OpenFileDialog dlgImport = new OpenFileDialog();
-                        if (importV.DateiFormat == ExportView.Format.CSV)
-                        {
-                            dlgImport.Filter = "CSV|*.csv|All Files|*.*";
-                            dlgImport.DefaultExt = "*.csv*";
-                            CSVConfig cSVConfig = new CSVConfig();
-                            if (dlgImport.ShowDialog() == DialogResult.OK)
-                            {
-                                if (cSVConfig.ShowDialog() == DialogResult.OK)
-                                {
-                                    AustauschCSV austauschCSV = new AustauschCSV(cSVConfig.Typen.TrennerDezimal, cSVConfig.Typen.TrennerDaten);
-                                    // Lesen der Tätigkeiten aus der Datei
-                                    var tatListe = austauschCSV.TaetigkeitLesen(dlgImport.FileName);
-                                    // Hinzufügen der Tätigkeiten zur Datenbank
-                                    ImportTaetigkeit(tatListe);
-                                }
-                            }
-                        }
-                        else if (importV.DateiFormat == ExportView.Format.XML)
-                        {
-                            dlgImport.Filter = "XML|*.xml|All Files|*.*";
-                            dlgImport.DefaultExt = "*.xml*";
-                            if (dlgImport.ShowDialog() == DialogResult.OK)
-                            {
-                                AustauschXML austauschXML = new AustauschXML();
-                                // Lesen der Tätigkeiten aus der Datei
-                                var tatListe = austauschXML.TaetigkeitLesen(dlgImport.FileName);
-                                // Hinzufügen der Tätigkeiten zur Datenbank
-                                ImportTaetigkeit(tatListe);
-                            }
-                        }
-                        else if (importV.DateiFormat == ExportView.Format.JSON)
-                        {
-                            dlgImport.Filter = "JSON|*.json|All Files|*.*";
-                            dlgImport.DefaultExt = "*.json*";
-                            if (dlgImport.ShowDialog() == DialogResult.OK)
-                            {
-                                AustauschJSON austauschJSON = new AustauschJSON();
-                                // Lesen der Tätigkeiten aus der Datei
-                                var tatListe = austauschJSON.TaetigkeitLesen(dlgImport.FileName);
-                                // Hinzufügen der Tätigkeiten zur Datenbank
-                                ImportTaetigkeit(tatListe);
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorHandler.ErrorHandle(ex);
-            }
+            DateiImport();
         }
         /// <summary>
         /// Methode zum Anlegen eines neuen Auftrags
@@ -1366,8 +1026,12 @@ namespace easyAuftrag
                 ErrorHandler.ErrorHandle(ex);
             }
         }
-
-        private void überToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Aktion beim Klick auf "Über" im Kontextmenu auf der <see cref="TreeView"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ÜberToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
@@ -1384,6 +1048,365 @@ namespace easyAuftrag
             {
                 ErrorHandler.ErrorHandle(ex);
             }
+        }
+        private void DateiExport()
+        {
+            try
+            {
+                // Öffnen der "Export" Fensters
+                ExportView exportV = new ExportView("Export");
+                if (exportV.ShowDialog() == DialogResult.OK)
+                {
+                    using (var db = new EasyAuftragContext())
+                    {
+                        List<Auftrag> auftraege = new List<Auftrag>();
+                        List<Kunde> kunden = new List<Kunde>();
+                        List<Mitarbeiter> mitarbeiters = new List<Mitarbeiter>();
+                        List<Taetigkeit> taetigkeiten = new List<Taetigkeit>();
+                        // Öffnen eines Windows Speichern Fensters
+                        SaveFileDialog dlg = new SaveFileDialog();
+                        if (exportV.DateiFormat == ExportView.Format.CSV)
+                        {
+                            dlg.Filter = "CSV|*.csv|All Files|*.*|Text File|*.txt";
+                            dlg.DefaultExt = "*.csv*";
+
+                            // Öffnen des Konfigurationsfensters für die .csv Datei
+                            CSVConfig cSVConfig = new CSVConfig();
+                            if (dlg.ShowDialog() == DialogResult.OK)
+                            {
+                                if (cSVConfig.ShowDialog() == DialogResult.OK)
+                                {
+                                    AustauschCSV austauschCSV = new AustauschCSV(cSVConfig.Typen.TrennerDezimal, cSVConfig.Typen.TrennerDaten);
+                                    if (exportV.ExportArt == ExportView.Art.Auftrag)
+                                    {
+                                        // Laden aller Aufträge aus der Datenbank
+                                        auftraege = (from a in db.Auftraege select a).ToList();
+                                        // Schreiben der .csv Datei
+                                        austauschCSV.AuftragSchreiben(dlg.FileName, auftraege);
+                                    }
+                                    else if (exportV.ExportArt == ExportView.Art.Kunde)
+                                    {
+                                        // Laden aller Kunden aus der Datenbank
+                                        kunden = (from k in db.Kunden select k).ToList();
+                                        // Schreiben der .csv Datei
+                                        austauschCSV.KundeSchreiben(dlg.FileName, kunden);
+                                    }
+                                    else if (exportV.ExportArt == ExportView.Art.Mitarbeiter)
+                                    {
+                                        // Laden aller Mitarbeiter aus der Datenbank
+                                        mitarbeiters = (from m in db.Mitarbeiters select m).ToList();
+                                        // Schreiben der .csv Datei
+                                        austauschCSV.MitarbeiterSchreiben(dlg.FileName, mitarbeiters);
+                                    }
+                                    else if (exportV.ExportArt == ExportView.Art.Taetigkeit)
+                                    {
+                                        // Laden aller Tätigkeiten aus der Datenbank
+                                        taetigkeiten = (from t in db.Taetigkeiten select t).ToList();
+                                        // Schreiben der .csv Datei
+                                        austauschCSV.TaetigkeitSchreiben(dlg.FileName, taetigkeiten);
+                                    }
+                                }
+                            }
+                        }
+                        else if (exportV.DateiFormat == ExportView.Format.XML)
+                        {
+                            dlg.Filter = "XML|*.xml|All Files|*.*|Text File|*.txt";
+                            dlg.DefaultExt = "*.xml*";
+
+                            if (dlg.ShowDialog() == DialogResult.OK)
+                            {
+                                AustauschXML austauschXML = new AustauschXML();
+                                if (exportV.ExportArt == ExportView.Art.Auftrag)
+                                {
+                                    // Laden aller Aufträge aus der Datenbank
+                                    auftraege = (from a in db.Auftraege select a).ToList();
+                                    // Schreiben der .xml Datei
+                                    austauschXML.AuftragSchreiben(dlg.FileName, auftraege);
+                                }
+                                else if (exportV.ExportArt == ExportView.Art.Kunde)
+                                {
+                                    // Laden aller Kunden aus der Datenbank
+                                    kunden = (from k in db.Kunden select k).ToList();
+                                    // Schreiben der .xml Datei
+                                    austauschXML.KundeSchreiben(dlg.FileName, kunden);
+                                }
+                                else if (exportV.ExportArt == ExportView.Art.Mitarbeiter)
+                                {
+                                    // Laden aller Mitarbeiter aus der Datenbank
+                                    mitarbeiters = (from m in db.Mitarbeiters select m).ToList();
+                                    // Schreiben der .xml Datei
+                                    austauschXML.MitarbeiterSchreiben(dlg.FileName, mitarbeiters);
+                                }
+                                else if (exportV.ExportArt == ExportView.Art.Taetigkeit)
+                                {
+                                    // Laden aller Tätigkeiten aus der Datenbank
+                                    taetigkeiten = (from t in db.Taetigkeiten select t).ToList();
+                                    // Schreiben der .xml Datei
+                                    austauschXML.TaetigkeitSchreiben(dlg.FileName, taetigkeiten);
+                                }
+                            }
+                        }
+                        else if (exportV.DateiFormat == ExportView.Format.JSON)
+                        {
+                            dlg.Filter = "JSON|*.json|All Files|*.*|Text File|*.txt";
+                            dlg.DefaultExt = "*.json*";
+
+                            if (dlg.ShowDialog() == DialogResult.OK)
+                            {
+                                AustauschJSON austauschJSON = new AustauschJSON();
+                                if (exportV.ExportArt == ExportView.Art.Auftrag)
+                                {
+                                    // Laden aller Aufträge aus der Datenbank
+                                    auftraege = (from a in db.Auftraege select a).ToList();
+                                    // Schreiben der .json Datei
+                                    austauschJSON.AuftragSchreiben(dlg.FileName, auftraege);
+                                }
+                                else if (exportV.ExportArt == ExportView.Art.Kunde)
+                                {
+                                    // Laden aller Kunden aus der Datenbank
+                                    kunden = (from k in db.Kunden select k).ToList();
+                                    // Schreiben der .json Datei
+                                    austauschJSON.KundeSchreiben(dlg.FileName, kunden);
+                                }
+                                else if (exportV.ExportArt == ExportView.Art.Mitarbeiter)
+                                {
+                                    // Laden aller Mitarbeiter aus der Datenbank
+                                    mitarbeiters = (from m in db.Mitarbeiters select m).ToList();
+                                    // Schreiben der .json Datei
+                                    austauschJSON.MitarbeiterSchreiben(dlg.FileName, mitarbeiters);
+                                }
+                                else if (exportV.ExportArt == ExportView.Art.Taetigkeit)
+                                {
+                                    // Laden aller Tätigkeiten aus der Datenbank
+                                    taetigkeiten = (from t in db.Taetigkeiten select t).ToList();
+                                    // Schreiben der .json Datei
+                                    austauschJSON.TaetigkeitSchreiben(dlg.FileName, taetigkeiten);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
+        }
+
+        private void DateiExportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DateiExport();
+        }
+
+        private void DateiImport()
+        {
+            try
+            {
+                // Öffnen des "Import" Fensters
+                ExportView importV = new ExportView("Import");
+                if (importV.ShowDialog() == DialogResult.OK)
+                {
+                    if (importV.ExportArt == ExportView.Art.Auftrag)
+                    {
+                        // Öffnen eines Windows Datei öffnen Fensters
+                        OpenFileDialog dlgImport = new OpenFileDialog();
+                        if (importV.DateiFormat == ExportView.Format.CSV)
+                        {
+                            dlgImport.Filter = "CSV|*.csv|All Files|*.*";
+                            dlgImport.DefaultExt = "*.csv*";
+                            // Öffnen des Konfigurationsfensters für die .csv Datei
+                            CSVConfig cSVConfig = new CSVConfig();
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                if (cSVConfig.ShowDialog() == DialogResult.OK)
+                                {
+                                    AustauschCSV austauschCSV = new AustauschCSV(cSVConfig.Typen.TrennerDezimal, cSVConfig.Typen.TrennerDaten);
+                                    // Lesen der Aufträge aus der Datei
+                                    var aufListe = austauschCSV.AuftragLesen(dlgImport.FileName);
+                                    // Hinzufügen der Aufträge zur Datenbank
+                                    ImportAuftrag(aufListe);
+                                }
+                            }
+                        }
+                        else if (importV.DateiFormat == ExportView.Format.XML)
+                        {
+                            dlgImport.Filter = "XML|*.xml|All Files|*.*";
+                            dlgImport.DefaultExt = "*.xml*";
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                AustauschXML austauschXML = new AustauschXML();
+                                // Lesen der Aufträge aus der Datei
+                                var aufListe = austauschXML.AuftragLesen(dlgImport.FileName);
+                                // Hinzufügen der Aufträge zur Datenbank
+                                ImportAuftrag(aufListe);
+                            }
+                        }
+                        else if (importV.DateiFormat == ExportView.Format.JSON)
+                        {
+                            dlgImport.Filter = "JSON|*.json|All Files|*.*";
+                            dlgImport.DefaultExt = "*.json*";
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                AustauschJSON austauschJSON = new AustauschJSON();
+                                // Lesen der Aufträge aus der Datei
+                                var aufListe = austauschJSON.AuftragLesen(dlgImport.FileName);
+                                // Hinzufügen der Aufträge zur Datenbank
+                                ImportAuftrag(aufListe);
+                            }
+                        }
+                    }
+                    else if (importV.ExportArt == ExportView.Art.Kunde)
+                    {
+                        OpenFileDialog dlgImport = new OpenFileDialog();
+                        if (importV.DateiFormat == ExportView.Format.CSV)
+                        {
+                            dlgImport.Filter = "CSV|*.csv|All Files|*.*";
+                            dlgImport.DefaultExt = "*.csv*";
+                            CSVConfig cSVConfig = new CSVConfig();
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                if (cSVConfig.ShowDialog() == DialogResult.OK)
+                                {
+                                    AustauschCSV austauschCSV = new AustauschCSV(cSVConfig.Typen.TrennerDezimal, cSVConfig.Typen.TrennerDaten);
+                                    // Lesen der Kunden aus der Datei
+                                    var kunListe = austauschCSV.KundeLesen(dlgImport.FileName);
+                                    // Hinzufügen der Kunden zur Datenbank
+                                    ImportKunde(kunListe);
+                                }
+                            }
+                        }
+                        else if (importV.DateiFormat == ExportView.Format.XML)
+                        {
+                            dlgImport.Filter = "XML|*.xml|All Files|*.*";
+                            dlgImport.DefaultExt = "*.xml*";
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                AustauschXML austauschXML = new AustauschXML();
+                                // Lesen der Kunden aus der Datei
+                                var kunListe = austauschXML.KundeLesen(dlgImport.FileName);
+                                // Hinzufügen der Kunden zur Datenbank
+                                ImportKunde(kunListe);
+                            }
+                        }
+                        else if (importV.DateiFormat == ExportView.Format.JSON)
+                        {
+                            dlgImport.Filter = "JSON|*.json|All Files|*.*";
+                            dlgImport.DefaultExt = "*.json*";
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                AustauschJSON austauschJSON = new AustauschJSON();
+                                // Lesen der Kunden aus der Datei
+                                var kunListe = austauschJSON.KundeLesen(dlgImport.FileName);
+                                // Hinzufügen der Kunden zur Datenbank
+                                ImportKunde(kunListe);
+                            }
+                        }
+                    }
+                    else if (importV.ExportArt == ExportView.Art.Mitarbeiter)
+                    {
+                        OpenFileDialog dlgImport = new OpenFileDialog();
+                        if (importV.DateiFormat == ExportView.Format.CSV)
+                        {
+                            dlgImport.Filter = "CSV|*.csv|All Files|*.*";
+                            dlgImport.DefaultExt = "*.csv*";
+                            CSVConfig cSVConfig = new CSVConfig();
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                if (cSVConfig.ShowDialog() == DialogResult.OK)
+                                {
+                                    AustauschCSV austauschCSV = new AustauschCSV(cSVConfig.Typen.TrennerDezimal, cSVConfig.Typen.TrennerDaten);
+                                    // Lesen der Mitarbeiter aus der Datei
+                                    var mitListe = austauschCSV.MitarbeiterLesen(dlgImport.FileName);
+                                    // Hinzufügen der Mitarbeiter zur Datenbank
+                                    ImportMitarbeiter(mitListe);
+                                }
+                            }
+                        }
+                        else if (importV.DateiFormat == ExportView.Format.XML)
+                        {
+                            dlgImport.Filter = "XML|*.xml|All Files|*.*";
+                            dlgImport.DefaultExt = "*.xml*";
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                AustauschXML austauschXML = new AustauschXML();
+                                // Lesen der Mitarbeiter aus der Datei
+                                var mitListe = austauschXML.MitarbeiterLesen(dlgImport.FileName);
+                                // Hinzufügen der Mitarbeiter zur Datenbank
+                                ImportMitarbeiter(mitListe);
+                            }
+                        }
+                        else if (importV.DateiFormat == ExportView.Format.JSON)
+                        {
+                            dlgImport.Filter = "JSON|*.json|All Files|*.*";
+                            dlgImport.DefaultExt = "*.json*";
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                AustauschJSON austauschJSON = new AustauschJSON();
+                                // Lesen der Mitarbeiter aus der Datei
+                                var mitListe = austauschJSON.MitarbeiterLesen(dlgImport.FileName);
+                                // Hinzufügen der Mitarbeiter zur Datenbank
+                                ImportMitarbeiter(mitListe);
+                            }
+                        }
+                    }
+                    else if (importV.ExportArt == ExportView.Art.Taetigkeit)
+                    {
+                        OpenFileDialog dlgImport = new OpenFileDialog();
+                        if (importV.DateiFormat == ExportView.Format.CSV)
+                        {
+                            dlgImport.Filter = "CSV|*.csv|All Files|*.*";
+                            dlgImport.DefaultExt = "*.csv*";
+                            CSVConfig cSVConfig = new CSVConfig();
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                if (cSVConfig.ShowDialog() == DialogResult.OK)
+                                {
+                                    AustauschCSV austauschCSV = new AustauschCSV(cSVConfig.Typen.TrennerDezimal, cSVConfig.Typen.TrennerDaten);
+                                    // Lesen der Tätigkeiten aus der Datei
+                                    var tatListe = austauschCSV.TaetigkeitLesen(dlgImport.FileName);
+                                    // Hinzufügen der Tätigkeiten zur Datenbank
+                                    ImportTaetigkeit(tatListe);
+                                }
+                            }
+                        }
+                        else if (importV.DateiFormat == ExportView.Format.XML)
+                        {
+                            dlgImport.Filter = "XML|*.xml|All Files|*.*";
+                            dlgImport.DefaultExt = "*.xml*";
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                AustauschXML austauschXML = new AustauschXML();
+                                // Lesen der Tätigkeiten aus der Datei
+                                var tatListe = austauschXML.TaetigkeitLesen(dlgImport.FileName);
+                                // Hinzufügen der Tätigkeiten zur Datenbank
+                                ImportTaetigkeit(tatListe);
+                            }
+                        }
+                        else if (importV.DateiFormat == ExportView.Format.JSON)
+                        {
+                            dlgImport.Filter = "JSON|*.json|All Files|*.*";
+                            dlgImport.DefaultExt = "*.json*";
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                AustauschJSON austauschJSON = new AustauschJSON();
+                                // Lesen der Tätigkeiten aus der Datei
+                                var tatListe = austauschJSON.TaetigkeitLesen(dlgImport.FileName);
+                                // Hinzufügen der Tätigkeiten zur Datenbank
+                                ImportTaetigkeit(tatListe);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
+        }
+
+        private void DateiImportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DateiImport();
         }
     }
 }

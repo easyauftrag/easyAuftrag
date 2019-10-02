@@ -36,6 +36,8 @@ namespace easyAuftrag
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainView));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dateiExportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dateiImportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ansichtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bearbeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.extrasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -92,9 +94,26 @@ namespace easyAuftrag
             // 
             // dateiToolStripMenuItem
             // 
+            this.dateiToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dateiExportToolStripMenuItem,
+            this.dateiImportToolStripMenuItem});
             this.dateiToolStripMenuItem.Name = "dateiToolStripMenuItem";
             this.dateiToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.dateiToolStripMenuItem.Text = "Datei";
+            // 
+            // dateiExportToolStripMenuItem
+            // 
+            this.dateiExportToolStripMenuItem.Name = "dateiExportToolStripMenuItem";
+            this.dateiExportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dateiExportToolStripMenuItem.Text = "Datei Export";
+            this.dateiExportToolStripMenuItem.Click += new System.EventHandler(this.DateiExportToolStripMenuItem_Click);
+            // 
+            // dateiImportToolStripMenuItem
+            // 
+            this.dateiImportToolStripMenuItem.Name = "dateiImportToolStripMenuItem";
+            this.dateiImportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dateiImportToolStripMenuItem.Text = "Datei Import";
+            this.dateiImportToolStripMenuItem.Click += new System.EventHandler(this.DateiImportToolStripMenuItem_Click);
             // 
             // ansichtToolStripMenuItem
             // 
@@ -127,7 +146,7 @@ namespace easyAuftrag
             this.überToolStripMenuItem.Name = "überToolStripMenuItem";
             this.überToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
             this.überToolStripMenuItem.Text = "Über";
-            this.überToolStripMenuItem.Click += new System.EventHandler(this.überToolStripMenuItem_Click);
+            this.überToolStripMenuItem.Click += new System.EventHandler(this.ÜberToolStripMenuItem_Click);
             // 
             // tvMain
             // 
@@ -242,7 +261,7 @@ namespace easyAuftrag
             this.butImport.Name = "butImport";
             this.butImport.Size = new System.Drawing.Size(77, 22);
             this.butImport.Text = "Datei Import";
-            this.butImport.Click += new System.EventHandler(this.butImport_Click);
+            this.butImport.Click += new System.EventHandler(this.ButImport_Click);
             // 
             // butAuftragZettel
             // 
@@ -431,6 +450,8 @@ namespace easyAuftrag
         private System.Windows.Forms.ToolStripButton butStundenZettel;
         private System.Windows.Forms.ToolStripButton butImport;
         private System.Windows.Forms.ToolStripMenuItem überToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dateiExportToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dateiImportToolStripMenuItem;
     }
 }
 
