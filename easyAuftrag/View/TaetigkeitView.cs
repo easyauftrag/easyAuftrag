@@ -57,17 +57,19 @@ namespace easyAuftrag.View
         /// und gibt seine Daten an <see cref="FillControls"/>, um sie in der View anzuzeigen.
         /// </value>
         public Taetigkeit TaetigkeitInfo { get; set; }
+        private string _connection;
 
         /// <summary>
         /// Konstruktor für die <see cref="TaetigkeitView"/>
         /// </summary>
         /// <param name="titel"></param>
-        public TaetigkeitView(string titel)
+        public TaetigkeitView(string titel, string connection)
         {
+            _connection = connection;
             TaetigkeitInfo = new Taetigkeit();
             InitializeComponent();
             Text = titel;
-            using (var db = new EasyAuftragContext())
+            using (var db = new EasyAuftragContext(connection))
             {
                 var mitarbeiter = (from k in db.Mitarbeiters select new { ID = k.MitarbeiterID, mName = k.Name }).ToList();
                 cbMitarbeiter.DataSource = mitarbeiter;
@@ -81,8 +83,9 @@ namespace easyAuftrag.View
         /// </summary>
         /// <param name="titel"></param>
         /// <param name="taetigkeit"></param>
-        public TaetigkeitView(string titel, Taetigkeit taetigkeit)
+        public TaetigkeitView(string titel, Taetigkeit taetigkeit, string connection)
         {
+            _connection = connection;
             InitializeComponent();
             Text = titel;
             if (titel == "Tätigkeit Löschen")
@@ -133,7 +136,7 @@ namespace easyAuftrag.View
         /// <param name="taetigkeit"></param>
         private void FillControls(Taetigkeit taetigkeit)
         {
-            using (var db = new EasyAuftragContext())
+            using (var db = new EasyAuftragContext(_connection))
             {
                 int[] mitarbeiterIDs = (from k in db.Mitarbeiters select k.MitarbeiterID).ToArray();
                 var cbMitarbeiterEintraege = (from k in db.Mitarbeiters select new { ID = k.MitarbeiterID, mName = k.Name }).ToList();

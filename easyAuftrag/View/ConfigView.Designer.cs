@@ -29,16 +29,13 @@
         private void InitializeComponent()
         {
             this.tcConfig = new System.Windows.Forms.TabControl();
-            this.tbDB = new System.Windows.Forms.TabPage();
             this.tpAllg = new System.Windows.Forms.TabPage();
-            this.butAbbr = new System.Windows.Forms.Button();
-            this.butOK = new System.Windows.Forms.Button();
-            this.labSoll = new System.Windows.Forms.Label();
-            this.tbSoll = new System.Windows.Forms.TextBox();
-            this.labExport = new System.Windows.Forms.Label();
-            this.fbdExport = new System.Windows.Forms.FolderBrowserDialog();
-            this.tbExport = new System.Windows.Forms.TextBox();
             this.butExport = new System.Windows.Forms.Button();
+            this.tbExport = new System.Windows.Forms.TextBox();
+            this.labExport = new System.Windows.Forms.Label();
+            this.tbSoll = new System.Windows.Forms.TextBox();
+            this.labSoll = new System.Windows.Forms.Label();
+            this.tbDB = new System.Windows.Forms.TabPage();
             this.gBoxDB = new System.Windows.Forms.GroupBox();
             this.butDB = new System.Windows.Forms.Button();
             this.butServer = new System.Windows.Forms.Button();
@@ -52,32 +49,27 @@
             this.labUser = new System.Windows.Forms.Label();
             this.labDB = new System.Windows.Forms.Label();
             this.labServer = new System.Windows.Forms.Label();
+            this.butAbbr = new System.Windows.Forms.Button();
+            this.butOK = new System.Windows.Forms.Button();
+            this.fbdExport = new System.Windows.Forms.FolderBrowserDialog();
             this.tcConfig.SuspendLayout();
-            this.tbDB.SuspendLayout();
             this.tpAllg.SuspendLayout();
+            this.tbDB.SuspendLayout();
             this.gBoxDB.SuspendLayout();
             this.SuspendLayout();
             // 
             // tcConfig
             // 
+            this.tcConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tcConfig.Controls.Add(this.tpAllg);
             this.tcConfig.Controls.Add(this.tbDB);
             this.tcConfig.Location = new System.Drawing.Point(13, 13);
             this.tcConfig.Name = "tcConfig";
             this.tcConfig.SelectedIndex = 0;
-            this.tcConfig.Size = new System.Drawing.Size(555, 389);
+            this.tcConfig.Size = new System.Drawing.Size(359, 201);
             this.tcConfig.TabIndex = 0;
-            // 
-            // tbDB
-            // 
-            this.tbDB.Controls.Add(this.gBoxDB);
-            this.tbDB.Location = new System.Drawing.Point(4, 22);
-            this.tbDB.Name = "tbDB";
-            this.tbDB.Padding = new System.Windows.Forms.Padding(3);
-            this.tbDB.Size = new System.Drawing.Size(547, 363);
-            this.tbDB.TabIndex = 0;
-            this.tbDB.Text = "Datenbank";
-            this.tbDB.UseVisualStyleBackColor = true;
             // 
             // tpAllg
             // 
@@ -89,46 +81,30 @@
             this.tpAllg.Location = new System.Drawing.Point(4, 22);
             this.tpAllg.Name = "tpAllg";
             this.tpAllg.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAllg.Size = new System.Drawing.Size(547, 363);
+            this.tpAllg.Size = new System.Drawing.Size(351, 175);
             this.tpAllg.TabIndex = 1;
             this.tpAllg.Text = "Allgemein";
             this.tpAllg.UseVisualStyleBackColor = true;
             // 
-            // butAbbr
+            // butExport
             // 
-            this.butAbbr.Location = new System.Drawing.Point(493, 415);
-            this.butAbbr.Name = "butAbbr";
-            this.butAbbr.Size = new System.Drawing.Size(75, 23);
-            this.butAbbr.TabIndex = 1;
-            this.butAbbr.Text = "Abbrechen";
-            this.butAbbr.UseVisualStyleBackColor = true;
-            this.butAbbr.Click += new System.EventHandler(this.butAbbr_Click);
+            this.butExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.butExport.Location = new System.Drawing.Point(318, 40);
+            this.butExport.Name = "butExport";
+            this.butExport.Size = new System.Drawing.Size(27, 23);
+            this.butExport.TabIndex = 4;
+            this.butExport.Text = "...";
+            this.butExport.UseVisualStyleBackColor = true;
+            this.butExport.Click += new System.EventHandler(this.ButExport_Click);
             // 
-            // butOK
+            // tbExport
             // 
-            this.butOK.Location = new System.Drawing.Point(412, 415);
-            this.butOK.Name = "butOK";
-            this.butOK.Size = new System.Drawing.Size(75, 23);
-            this.butOK.TabIndex = 2;
-            this.butOK.Text = "OK";
-            this.butOK.UseVisualStyleBackColor = true;
-            this.butOK.Click += new System.EventHandler(this.butOK_Click);
-            // 
-            // labSoll
-            // 
-            this.labSoll.AutoSize = true;
-            this.labSoll.Location = new System.Drawing.Point(6, 14);
-            this.labSoll.Name = "labSoll";
-            this.labSoll.Size = new System.Drawing.Size(62, 13);
-            this.labSoll.TabIndex = 0;
-            this.labSoll.Text = "Sollstunden";
-            // 
-            // tbSoll
-            // 
-            this.tbSoll.Location = new System.Drawing.Point(90, 11);
-            this.tbSoll.Name = "tbSoll";
-            this.tbSoll.Size = new System.Drawing.Size(122, 20);
-            this.tbSoll.TabIndex = 1;
+            this.tbExport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbExport.Location = new System.Drawing.Point(90, 42);
+            this.tbExport.Name = "tbExport";
+            this.tbExport.Size = new System.Drawing.Size(222, 20);
+            this.tbExport.TabIndex = 3;
             // 
             // labExport
             // 
@@ -139,22 +115,34 @@
             this.labExport.TabIndex = 2;
             this.labExport.Text = "Export Pfad";
             // 
-            // tbExport
+            // tbSoll
             // 
-            this.tbExport.Location = new System.Drawing.Point(90, 42);
-            this.tbExport.Name = "tbExport";
-            this.tbExport.Size = new System.Drawing.Size(122, 20);
-            this.tbExport.TabIndex = 3;
+            this.tbSoll.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbSoll.Location = new System.Drawing.Point(90, 11);
+            this.tbSoll.Name = "tbSoll";
+            this.tbSoll.Size = new System.Drawing.Size(222, 20);
+            this.tbSoll.TabIndex = 1;
             // 
-            // butExport
+            // labSoll
             // 
-            this.butExport.Location = new System.Drawing.Point(218, 40);
-            this.butExport.Name = "butExport";
-            this.butExport.Size = new System.Drawing.Size(27, 23);
-            this.butExport.TabIndex = 4;
-            this.butExport.Text = "...";
-            this.butExport.UseVisualStyleBackColor = true;
-            this.butExport.Click += new System.EventHandler(this.butExport_Click);
+            this.labSoll.AutoSize = true;
+            this.labSoll.Location = new System.Drawing.Point(6, 14);
+            this.labSoll.Name = "labSoll";
+            this.labSoll.Size = new System.Drawing.Size(62, 13);
+            this.labSoll.TabIndex = 0;
+            this.labSoll.Text = "Sollstunden";
+            // 
+            // tbDB
+            // 
+            this.tbDB.Controls.Add(this.gBoxDB);
+            this.tbDB.Location = new System.Drawing.Point(4, 22);
+            this.tbDB.Name = "tbDB";
+            this.tbDB.Padding = new System.Windows.Forms.Padding(3);
+            this.tbDB.Size = new System.Drawing.Size(351, 175);
+            this.tbDB.TabIndex = 0;
+            this.tbDB.Text = "Datenbank";
+            this.tbDB.UseVisualStyleBackColor = true;
             // 
             // gBoxDB
             // 
@@ -173,63 +161,75 @@
             this.gBoxDB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gBoxDB.Location = new System.Drawing.Point(3, 3);
             this.gBoxDB.Name = "gBoxDB";
-            this.gBoxDB.Size = new System.Drawing.Size(541, 357);
+            this.gBoxDB.Size = new System.Drawing.Size(345, 169);
             this.gBoxDB.TabIndex = 2;
             this.gBoxDB.TabStop = false;
             // 
             // butDB
             // 
-            this.butDB.Location = new System.Drawing.Point(288, 144);
+            this.butDB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.butDB.Location = new System.Drawing.Point(312, 144);
             this.butDB.Name = "butDB";
-            this.butDB.Size = new System.Drawing.Size(53, 23);
+            this.butDB.Size = new System.Drawing.Size(27, 23);
             this.butDB.TabIndex = 11;
             this.butDB.Text = "...";
             this.butDB.UseVisualStyleBackColor = true;
-            this.butDB.Click += new System.EventHandler(this.butDB_Click);
+            this.butDB.Click += new System.EventHandler(this.ButDB_Click);
             // 
             // butServer
             // 
-            this.butServer.Location = new System.Drawing.Point(288, 17);
+            this.butServer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.butServer.Location = new System.Drawing.Point(312, 15);
             this.butServer.Name = "butServer";
-            this.butServer.Size = new System.Drawing.Size(53, 23);
+            this.butServer.Size = new System.Drawing.Size(27, 23);
             this.butServer.TabIndex = 10;
             this.butServer.Text = "...";
             this.butServer.UseVisualStyleBackColor = true;
-            this.butServer.Click += new System.EventHandler(this.butServer_Click);
+            this.butServer.Click += new System.EventHandler(this.ButServer_Click);
             // 
             // cmbDB
             // 
+            this.cmbDB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbDB.FormattingEnabled = true;
             this.cmbDB.Location = new System.Drawing.Point(90, 146);
             this.cmbDB.Name = "cmbDB";
-            this.cmbDB.Size = new System.Drawing.Size(192, 21);
+            this.cmbDB.Size = new System.Drawing.Size(216, 21);
             this.cmbDB.TabIndex = 9;
             // 
             // cmbServer
             // 
+            this.cmbServer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbServer.FormattingEnabled = true;
             this.cmbServer.Location = new System.Drawing.Point(90, 17);
             this.cmbServer.Name = "cmbServer";
-            this.cmbServer.Size = new System.Drawing.Size(192, 21);
+            this.cmbServer.Size = new System.Drawing.Size(216, 21);
             this.cmbServer.TabIndex = 8;
             // 
             // tbPW
             // 
+            this.tbPW.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbPW.Location = new System.Drawing.Point(90, 120);
             this.tbPW.Name = "tbPW";
             this.tbPW.PasswordChar = '*';
-            this.tbPW.Size = new System.Drawing.Size(192, 20);
+            this.tbPW.Size = new System.Drawing.Size(216, 20);
             this.tbPW.TabIndex = 7;
             // 
             // tbUser
             // 
+            this.tbUser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tbUser.Location = new System.Drawing.Point(90, 94);
             this.tbUser.Name = "tbUser";
-            this.tbUser.Size = new System.Drawing.Size(192, 20);
+            this.tbUser.Size = new System.Drawing.Size(216, 20);
             this.tbUser.TabIndex = 6;
             // 
             // rdbSQL
             // 
+            this.rdbSQL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.rdbSQL.AutoSize = true;
             this.rdbSQL.Location = new System.Drawing.Point(90, 71);
             this.rdbSQL.Name = "rdbSQL";
@@ -237,10 +237,12 @@
             this.rdbSQL.TabIndex = 5;
             this.rdbSQL.Text = "SQL-Server-Authentifiziert";
             this.rdbSQL.UseVisualStyleBackColor = true;
-            this.rdbSQL.CheckedChanged += new System.EventHandler(this.rdbSQL_CheckedChanged);
+            this.rdbSQL.CheckedChanged += new System.EventHandler(this.RdbSQL_CheckedChanged);
             // 
             // rdbWin
             // 
+            this.rdbWin.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.rdbWin.AutoSize = true;
             this.rdbWin.Checked = true;
             this.rdbWin.Location = new System.Drawing.Point(90, 48);
@@ -250,7 +252,7 @@
             this.rdbWin.TabStop = true;
             this.rdbWin.Text = "Window-Authentifiziert";
             this.rdbWin.UseVisualStyleBackColor = true;
-            this.rdbWin.CheckedChanged += new System.EventHandler(this.rdbWin_CheckedChanged);
+            this.rdbWin.CheckedChanged += new System.EventHandler(this.RdbWin_CheckedChanged);
             // 
             // labPW
             // 
@@ -288,20 +290,43 @@
             this.labServer.TabIndex = 0;
             this.labServer.Text = "Server";
             // 
+            // butAbbr
+            // 
+            this.butAbbr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.butAbbr.Location = new System.Drawing.Point(297, 226);
+            this.butAbbr.Name = "butAbbr";
+            this.butAbbr.Size = new System.Drawing.Size(75, 23);
+            this.butAbbr.TabIndex = 1;
+            this.butAbbr.Text = "Abbrechen";
+            this.butAbbr.UseVisualStyleBackColor = true;
+            this.butAbbr.Click += new System.EventHandler(this.ButAbbr_Click);
+            // 
+            // butOK
+            // 
+            this.butOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.butOK.Location = new System.Drawing.Point(216, 226);
+            this.butOK.Name = "butOK";
+            this.butOK.Size = new System.Drawing.Size(75, 23);
+            this.butOK.TabIndex = 2;
+            this.butOK.Text = "OK";
+            this.butOK.UseVisualStyleBackColor = true;
+            this.butOK.Click += new System.EventHandler(this.ButOK_Click);
+            // 
             // ConfigView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(580, 450);
+            this.ClientSize = new System.Drawing.Size(384, 261);
             this.Controls.Add(this.butOK);
             this.Controls.Add(this.butAbbr);
             this.Controls.Add(this.tcConfig);
+            this.MinimumSize = new System.Drawing.Size(400, 300);
             this.Name = "ConfigView";
             this.Text = "ConfigView";
             this.tcConfig.ResumeLayout(false);
-            this.tbDB.ResumeLayout(false);
             this.tpAllg.ResumeLayout(false);
             this.tpAllg.PerformLayout();
+            this.tbDB.ResumeLayout(false);
             this.gBoxDB.ResumeLayout(false);
             this.gBoxDB.PerformLayout();
             this.ResumeLayout(false);

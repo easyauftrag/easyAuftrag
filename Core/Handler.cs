@@ -45,11 +45,11 @@ namespace Core
         /// </summary>
         /// <param name="kunde">Daten des neuen Kunden</param>
         /// <seealso cref="EasyAuftragContext"/>
-        public void KundeAnlegen(Kunde kunde)
+        public void KundeAnlegen(Kunde kunde, string connection)
         {
             try
             {
-                using (var db = new EasyAuftragContext())
+                using (var db = new EasyAuftragContext(connection))
                 {
                     db.Kunden.Add(kunde);
                     db.SaveChanges();
@@ -67,11 +67,11 @@ namespace Core
         /// <param name="kunde">aktualisierte Daten des Kunden</param>
         /// <param name="kundeID">Primärschlüssel des Kunden in der Datenbank</param>
         /// <seealso cref="EasyAuftragContext"/>
-        public bool KundeBearbeiten(Kunde kunde, int kundeID)
+        public bool KundeBearbeiten(Kunde kunde, int kundeID, string connection)
         {
             try
             {
-                using (var db = new EasyAuftragContext())
+                using (var db = new EasyAuftragContext(connection))
                 {
                     if (db.Kunden.Find(kundeID) != null)
                     {
@@ -102,11 +102,11 @@ namespace Core
         /// </summary>
         /// <param name="kundeID">Primärschlüssel des Kunden in der Datenbank</param>
         /// <seealso cref="EasyAuftragContext"/>
-        public bool KundeLoeschen(int kundeID)
+        public bool KundeLoeschen(int kundeID, string connection)
         {
             try
             {
-                using (var db = new EasyAuftragContext())
+                using (var db = new EasyAuftragContext(connection))
                 {
                     if (db.Kunden.Find(kundeID) != null)
                     {
@@ -132,11 +132,11 @@ namespace Core
         /// </summary>
         /// <param name="auftrag">Daten des neuen Auftrags</param>
         /// <seealso cref="EasyAuftragContext"/>
-        public void AuftragAnlegen(Auftrag auftrag)
+        public void AuftragAnlegen(Auftrag auftrag, string connection)
         {
             try
             {
-                using (var db = new EasyAuftragContext())
+                using (var db = new EasyAuftragContext(connection))
                 {
                     db.Auftraege.Add(auftrag);
                     db.SaveChanges();
@@ -154,11 +154,11 @@ namespace Core
         /// <param name="auftrag">aktualisierte Daten des Auftrags</param>
         /// <param name="auftragID">Primärschlüssel des Auftrags in der Datenbank</param>
         /// <seealso cref="EasyAuftragContext"/>
-        public bool AuftragBearbeiten(Auftrag auftrag, int auftragID)
+        public bool AuftragBearbeiten(Auftrag auftrag, int auftragID, string connection)
         {
             try
             {
-                using (var db = new EasyAuftragContext())
+                using (var db = new EasyAuftragContext(connection))
                 {
                     if (db.Auftraege.Find(auftragID) != null)
                     {
@@ -190,11 +190,11 @@ namespace Core
         /// </summary>
         /// <param name="auftragID">Primärschlüssel des Auftrags in der Datenbank</param>
         /// <seealso cref="EasyAuftragContext"/>
-        public bool AuftragLoeschen(int auftragID)
+        public bool AuftragLoeschen(int auftragID, string connection)
         {
             try
             {
-                using (var db = new EasyAuftragContext())
+                using (var db = new EasyAuftragContext(connection))
                 {
                     if (db.Auftraege.Find(auftragID) != null)
                     {
@@ -220,11 +220,11 @@ namespace Core
         /// </summary>
         /// <param name="mitarbeiter">Daten des neuen Mitarbeiters</param>
         /// <seealso cref="EasyAuftragContext"/>
-        public void MitarbeiterAnlegen(Mitarbeiter mitarbeiter)
+        public void MitarbeiterAnlegen(Mitarbeiter mitarbeiter, string connection)
         {
             try
             {
-                using (var db = new EasyAuftragContext())
+                using (var db = new EasyAuftragContext(connection))
                 {
                     db.Mitarbeiters.Add(mitarbeiter);
                     db.SaveChanges();
@@ -242,11 +242,11 @@ namespace Core
         /// <param name="mitarbeiter">aktualisierte Daten des Mitarbeiters</param>
         /// <param name="mitarbeiterID">Primärschlüssel des Mitarbeiters in der Datenbank</param>
         /// <seealso cref="EasyAuftragContext"/>
-        public bool MitarbeiterBearbeiten(Mitarbeiter mitarbeiter, int mitarbeiterID)
+        public bool MitarbeiterBearbeiten(Mitarbeiter mitarbeiter, int mitarbeiterID, string connection)
         {
             try
             {
-                using (var db = new EasyAuftragContext())
+                using (var db = new EasyAuftragContext(connection))
                 {
                     if (db.Mitarbeiters.Find(mitarbeiterID) != null)
                     {
@@ -278,11 +278,11 @@ namespace Core
         /// </summary>
         /// <param name="mitarbeiterID">Primärschlüssel des Mitarbeiters in der Datenbank</param>
         /// <seealso cref="EasyAuftragContext"/>
-        public bool MitarbeiterLoeschen(int mitarbeiterID)
+        public bool MitarbeiterLoeschen(int mitarbeiterID, string connection)
         {
             try
             {
-                using (var db = new EasyAuftragContext())
+                using (var db = new EasyAuftragContext(connection))
                 {
                     if (db.Mitarbeiters.Find(mitarbeiterID) != null)
                     {
@@ -308,11 +308,11 @@ namespace Core
         /// </summary>
         /// <param name="taetigkeit">Daten der neuen Tätigkeit</param>
         /// <seealso cref="EasyAuftragContext"/>
-        public void TaetigkeitAnlegen(Taetigkeit taetigkeit)
+        public void TaetigkeitAnlegen(Taetigkeit taetigkeit, string connection)
         {
             try
             {
-                using (var db = new EasyAuftragContext())
+                using (var db = new EasyAuftragContext(connection))
                 {
                     db.Taetigkeiten.Add(taetigkeit);
                     db.SaveChanges();
@@ -330,11 +330,11 @@ namespace Core
         /// <param name="taetigkeit">aktualisierte Daten der Tätigkeit</param>
         /// <param name="taetigkeitID">Primärschlüssel der Tätigkeit in der Datenbank</param>
         /// <seealso cref="EasyAuftragContext"/>
-        public bool TaetigkeitBearbeiten(Taetigkeit taetigkeit, int taetigkeitID)
+        public bool TaetigkeitBearbeiten(Taetigkeit taetigkeit, int taetigkeitID, string connection)
         {
             try
             {
-                using (var db = new EasyAuftragContext())
+                using (var db = new EasyAuftragContext(connection))
                 {
                     if (db.Taetigkeiten.Find(taetigkeitID) != null)
                     {
@@ -365,11 +365,11 @@ namespace Core
         /// </summary>
         /// <param name="taetigkeitID">Primärschlüssel der Tätigkeit in der Datenbank</param>
         /// <seealso cref="EasyAuftragContext"/>
-        public bool TaetigkeitLoeschen(int taetigkeitID)
+        public bool TaetigkeitLoeschen(int taetigkeitID, string connection)
         {
             try
             {
-                using (var db = new EasyAuftragContext())
+                using (var db = new EasyAuftragContext(connection))
                 {
                     if (db.Taetigkeiten.Find(taetigkeitID) != null)
                     {
@@ -396,12 +396,12 @@ namespace Core
         /// <param name="kundeID"></param>
         /// <returns>Kunde aus Datenbank</returns>
         /// <seealso cref="EasyAuftragContext"/>
-        public Kunde KundeLaden(int kundeID, out bool success)
+        public Kunde KundeLaden(int kundeID, out bool success, string connection)
         {
             Kunde kund = new Kunde();
             try
             {
-                using (var db = new EasyAuftragContext())
+                using (var db = new EasyAuftragContext(connection))
                 {
                     if (db.Kunden.Find(kundeID) != null)
                     {
@@ -428,12 +428,12 @@ namespace Core
         /// <param name="auftragID"></param>
         /// <returns>Auftrag aus Datenbank</returns>
         /// <seealso cref="EasyAuftragContext"/>
-        public Auftrag AuftragLaden(int auftragID, out bool success)
+        public Auftrag AuftragLaden(int auftragID, out bool success, string connection)
         {
             Auftrag auft = new Auftrag();
             try
             {
-                using (var db = new EasyAuftragContext())
+                using (var db = new EasyAuftragContext(connection))
                 {
                     if (db.Auftraege.Find(auftragID) != null)
                     {
@@ -460,12 +460,12 @@ namespace Core
         /// <param name="mitarbeiterID"></param>
         /// <returns>Mitarbeiter aus Datenbank</returns>
         /// <seealso cref="EasyAuftragContext"/>
-        public Mitarbeiter MitarbeiterLaden(int mitarbeiterID, out bool success)
+        public Mitarbeiter MitarbeiterLaden(int mitarbeiterID, out bool success, string connection)
         {
             Mitarbeiter mitarb = new Mitarbeiter();
             try
             {
-                using (var db = new EasyAuftragContext())
+                using (var db = new EasyAuftragContext(connection))
                 {
                     if (db.Mitarbeiters.Find(mitarbeiterID) != null)
                     {
@@ -492,12 +492,12 @@ namespace Core
         /// <param name="taetigkeitID"></param>
         /// <returns>Taetigkeit aus Datenbank</returns>
         /// <seealso cref="EasyAuftragContext"/>
-        public Taetigkeit TaetigkeitLaden(int taetigkeitID, out bool success)
+        public Taetigkeit TaetigkeitLaden(int taetigkeitID, out bool success, string connection)
         {
             Taetigkeit tat = new Taetigkeit();
             try
             {
-                using (var db = new EasyAuftragContext())
+                using (var db = new EasyAuftragContext(connection))
                 {
                     if (db.Taetigkeiten.Find(taetigkeitID) != null)
                     {

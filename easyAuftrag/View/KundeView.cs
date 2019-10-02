@@ -77,7 +77,7 @@ namespace easyAuftrag.View
         /// </summary>
         /// <param name="titel">Titel des Fensters</param>
         /// <param name="kunde">Zu bearbeitender/löschender Kunde</param>
-        public KundeView(string titel, Kunde kunde)
+        public KundeView(string titel, Kunde kunde, string connection)
         {
             InitializeComponent();
             Text = titel; if (titel == "Kunde Löschen")
@@ -86,7 +86,7 @@ namespace easyAuftrag.View
             }
             KundenInfo = kunde;
             FillControls(KundenInfo);
-            using (var db = new EasyAuftragContext())
+            using (var db = new EasyAuftragContext(connection))
             {
                 _adrlist = (from t in db.Adressen where t.KundeID == kunde.KundeID select t).ToList();
             }

@@ -80,9 +80,9 @@ namespace Core
         /// <summary>
         /// Konstruktor der Kontextklasse, verweist auf die zu verwendende Datenbank
         /// </summary>
-        public EasyAuftragContext() : base("name=easyAuftrag.Properties.Settings.easyAuftragConnectionString")
+        public EasyAuftragContext(string connection)//"easyAuftrag.Properties.Settings.easyAuftragConnectionString"
         {
-
+            this.Database.Connection.ConnectionString = connection;
         }
     }
 }

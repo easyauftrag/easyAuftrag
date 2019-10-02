@@ -59,15 +59,17 @@ namespace easyAuftrag.View
         /// und gibt seine Daten an <see cref="FillControls"/>, um sie in der View anzuzeigen.
         /// </value>
         public StundenDoc StuDoc { get; set; }
+        private string _connection;
 
         /// <summary>
         /// Konstruktor für die <see cref="StundenView"/>
         /// </summary>
-        public StundenView()
+        public StundenView(string connection)
         {
+            _connection = connection;
             InitializeComponent();
             StuDoc = new StundenDoc();
-            using (var db = new EasyAuftragContext())
+            using (var db = new EasyAuftragContext(connection))
             {
                 var mitarbeiter = (from k in db.Mitarbeiters select new { ID = k.MitarbeiterID, mName = k.Name }).ToList();
                 cbMitarbeiter.DataSource = mitarbeiter;
@@ -87,7 +89,7 @@ namespace easyAuftrag.View
                 StuDoc.Anfang = dtpAnfang.Value;
                 StuDoc.Ende = dtpEnde.Value;
                 int mID = Convert.ToInt32(cbMitarbeiter.SelectedValue);
-                using (var db = new EasyAuftragContext())
+                using (var db = new EasyAuftragContext(_connection))
                 {
                     StuDoc.Mitarbeiter = (from m in db.Mitarbeiters where m.MitarbeiterID == mID select m).First();
                     StuDoc.Tatlist = (from t in db.Taetigkeiten 

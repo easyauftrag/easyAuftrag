@@ -64,6 +64,7 @@
     <Compile Include="Logik\Berechnung.cs" />
     <Compile Include="Logik\Drucken.cs" />
     <Compile Include="Logik\Export.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="View\About.cs">
       <SubType>Form</SubType>
     </Compile>

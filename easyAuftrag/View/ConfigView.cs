@@ -15,10 +15,11 @@ namespace easyAuftrag.View
 {
     public partial class ConfigView : Form
     {
-        private Config _config = new Config();
+        public Config Conf { get; set; }
 
         public ConfigView()
         {
+            Conf = new Config();
             InitializeComponent();
             if (rdbWin.Checked)
             {
@@ -27,7 +28,7 @@ namespace easyAuftrag.View
             }
         }
 
-        private void butExport_Click(object sender, EventArgs e)
+        private void ButExport_Click(object sender, EventArgs e)
         {
             if (fbdExport.ShowDialog() == DialogResult.OK)
             {
@@ -35,7 +36,7 @@ namespace easyAuftrag.View
             }
         }
 
-        private void butServer_Click(object sender, EventArgs e)
+        private void ButServer_Click(object sender, EventArgs e)
         {
             try
             {
@@ -61,13 +62,13 @@ namespace easyAuftrag.View
             }
         }
 
-        private void butDB_Click(object sender, EventArgs e)
+        private void ButDB_Click(object sender, EventArgs e)
         {
             try
             {
                 if (!string.IsNullOrEmpty(cmbServer.Text))
                 {
-                    string con = "Data Source=" + cmbServer.Text + ";Initial Catalog=MASTER;Integrated Security=True;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                    string con = "Data Source=" + cmbServer.Text + "\\SQLEXPRESS;Initial Catalog=MASTER;Integrated Security=True;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
                     string sql = "SELECT name FROM sys.databases";
 
                     DataSet data = new DataSet();
@@ -86,7 +87,7 @@ namespace easyAuftrag.View
             }
         }
 
-        private void rdbSQL_CheckedChanged(object sender, EventArgs e)
+        private void RdbSQL_CheckedChanged(object sender, EventArgs e)
         {
             if (rdbSQL.Checked)
             {
@@ -95,7 +96,7 @@ namespace easyAuftrag.View
             }
         }
 
-        private void rdbWin_CheckedChanged(object sender, EventArgs e)
+        private void RdbWin_CheckedChanged(object sender, EventArgs e)
         {
             if (rdbWin.Checked)
             {
@@ -104,10 +105,10 @@ namespace easyAuftrag.View
             }
         }
 
-        private void butOK_Click(object sender, EventArgs e)
+        private void ButOK_Click(object sender, EventArgs e)
         {
             FillConfig();
-            _config.SchreibeXML();
+            Conf.SchreibeXML();
 
             this.DialogResult = DialogResult.OK;
             this.Hide();
@@ -115,16 +116,16 @@ namespace easyAuftrag.View
 
         private void FillConfig()
         {
-            _config.StundenSoll = Convert.ToDouble(tbSoll.Text);
-            _config.StandardZielPfad = tbExport.Text;
-            _config.Server = cmbServer.Text;
-            _config.WinAuth = rdbWin.Checked;
-            _config.BenutzerName = tbUser.Text;
-            _config.Passwort = tbPW.Text;
-            _config.Datenbank = cmbDB.Text;
+            Conf.StundenSoll = Convert.ToDouble(tbSoll.Text);
+            Conf.StandardZielPfad = tbExport.Text;
+            Conf.Server = cmbServer.Text;
+            Conf.WinAuth = rdbWin.Checked;
+            Conf.BenutzerName = tbUser.Text;
+            Conf.Passwort = tbPW.Text;
+            Conf.Datenbank = cmbDB.Text;
         }
 
-        private void butAbbr_Click(object sender, EventArgs e)
+        private void ButAbbr_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
             this.Hide();

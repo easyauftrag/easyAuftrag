@@ -52,6 +52,7 @@ namespace easyAuftrag
     public partial class MainView : Form
     {
         private Handler _handler = new Handler();
+        private Config _config = new Config();
         /// <summary>
         /// Konstruktor für die <see cref="MainView"/>
         /// </summary>
@@ -69,6 +70,16 @@ namespace easyAuftrag
         {
             try
             {
+                if (!_config.LeseXML())
+                {
+                    ConfigView con = new ConfigView();
+                    if(con.ShowDialog() == DialogResult.OK)
+                    {
+                        _config = con.Conf;
+                        this.BringToFront();
+                        this.Activate();
+                    }
+                }
                 // Laden der Aufträge ins DataGridView
                 TabelleNeu();
                 // Laden aller Daten ins TreeView
@@ -99,7 +110,7 @@ namespace easyAuftrag
             try
             {
               
-                using (var db = new EasyAuftragContext())
+                using (var db = new EasyAuftragContext(_config.ConnectionString))
                 {
                     // Laden aller aufträge
                     var auftr = (from a in db.Auftraege
@@ -134,7 +145,7 @@ namespace easyAuftrag
                 tvMain.Nodes["Kunden"].Nodes.Clear();
                 tvMain.Nodes["Mitarbeiter"].Nodes.Clear();
                 tvMain.Nodes["Auftraege"].Nodes.Clear();
-                using (var db = new EasyAuftragContext())
+                using (var db = new EasyAuftragContext(_config.ConnectionString))
                 {
                     // Laden aller Kunden
                     List<Kunde> kun = (from k in db.Kunden select k).ToList();
@@ -331,7 +342,7 @@ namespace easyAuftrag
                 if (dgvMain.SelectedRows.Count > 0)
                 {
                     int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
-                    using (var db = new EasyAuftragContext())
+                    using (var db = new EasyAuftragContext(_config.ConnectionString))
                     {
                         DruckDoc doc = new DruckDoc();
                         // Laden des ausgewählten Auftrags aus der Datenbank
@@ -374,7 +385,7 @@ namespace easyAuftrag
             try
             {
                 // Öffnen des "StundenView" Fensters
-                StundenView stundV = new StundenView();
+                StundenView stundV = new StundenView(_config.ConnectionString);
                 if (stundV.ShowDialog() == DialogResult.OK)
                 {
                     // Drucken der Angaben aus dem "StundenView" Fenster
@@ -473,7 +484,7 @@ namespace easyAuftrag
                 if (item[0].ToLower().StartsWith("kun"))
                 {
                     // Öffnen des "Kunde" Fensters und Laden der Daten des Kunden in die Felder
-                    KundeView kundeV = new KundeView("Kunde Bearbeiten", kunde: _handler.KundeLaden(Convert.ToInt32(item[1]), out bool success));
+                    KundeView kundeV = new KundeView("Kunde Bearbeiten", kunde: _handler.KundeLaden(Convert.ToInt32(item[1]), out bool success, _config.ConnectionString), _config.ConnectionString);
                     if (success == false)
                     {
                         MessageBox.Show("Kunde nicht in der Datenbank gefunden");
@@ -481,7 +492,7 @@ namespace easyAuftrag
                     else if (kundeV.ShowDialog() == DialogResult.OK)
                     {
                         // Aktualisieren der Datenbank mit den neuen Werten des Kunden
-                        if (!_handler.KundeBearbeiten(kundeV.KundenInfo, Convert.ToInt32(item[1])))
+                        if (!_handler.KundeBearbeiten(kundeV.KundenInfo, Convert.ToInt32(item[1]), _config.ConnectionString))
                         {
                             MessageBox.Show("Kunde nicht in der Datenbank gefunden");
                         }
@@ -495,7 +506,7 @@ namespace easyAuftrag
                 if (item[0].ToLower().StartsWith("mit"))
                 {
                     // Öffnen des "Mitarbeiter" Fensters und Laden der Daten des Mitarbeiters in die Felder
-                    MitarbeiterView mitarbeiterV = new MitarbeiterView("Mitarbeiter Bearbeiten", mitarbeiter: _handler.MitarbeiterLaden(Convert.ToInt32(item[1]), out bool success));
+                    MitarbeiterView mitarbeiterV = new MitarbeiterView("Mitarbeiter Bearbeiten", mitarbeiter: _handler.MitarbeiterLaden(Convert.ToInt32(item[1]), out bool success, _config.ConnectionString));
                     if (success == false)
                     {
                         MessageBox.Show("Mitarbeiter nicht in der Datenbank gefunden");
@@ -503,7 +514,7 @@ namespace easyAuftrag
                     else if (mitarbeiterV.ShowDialog() == DialogResult.OK)
                     {
                         // Aktualisieren der Datenbank mit den neuen Werten des Mitarbeiters
-                        if (!_handler.MitarbeiterBearbeiten(mitarbeiterV.MitarbeiterInfo, Convert.ToInt32(item[1])))
+                        if (!_handler.MitarbeiterBearbeiten(mitarbeiterV.MitarbeiterInfo, Convert.ToInt32(item[1]), _config.ConnectionString))
                         {
                             MessageBox.Show("Mitarbeiter nicht in der Datenbank gefunden");
                         }
@@ -522,7 +533,7 @@ namespace easyAuftrag
                 if (item[0].ToLower().StartsWith("tae"))
                 {
                     // Öffnen des "Tätigkeit" Fensters und Laden der Daten der Tätigkeit in die Felder
-                    TaetigkeitView taetigkeitV = new TaetigkeitView("Tätigkeit Bearbeiten", taetigkeit: _handler.TaetigkeitLaden(Convert.ToInt32(item[1]), out bool success));
+                    TaetigkeitView taetigkeitV = new TaetigkeitView("Tätigkeit Bearbeiten", taetigkeit: _handler.TaetigkeitLaden(Convert.ToInt32(item[1]), out bool success, _config.ConnectionString), _config.ConnectionString);
                     if (success == false)
                     {
                         MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
@@ -530,7 +541,7 @@ namespace easyAuftrag
                     else if (taetigkeitV.ShowDialog() == DialogResult.OK)
                     {
                         // Aktualisieren der Datenbank mit den neuen Werten der Tätigkeit
-                        if (!_handler.TaetigkeitBearbeiten(taetigkeitV.TaetigkeitInfo, Convert.ToInt32(item[1])))
+                        if (!_handler.TaetigkeitBearbeiten(taetigkeitV.TaetigkeitInfo, Convert.ToInt32(item[1]), _config.ConnectionString))
                         {
                             MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
                         }
@@ -561,7 +572,7 @@ namespace easyAuftrag
                 if (item[0].ToLower().StartsWith("kun"))
                 {
                     // Öffnen des "Kunde" Fensters und Laden der Daten des Kunden in die Felder
-                    KundeView kundeV = new KundeView("Kunde Löschen", kunde: _handler.KundeLaden(Convert.ToInt32(item[1]), out bool success));
+                    KundeView kundeV = new KundeView("Kunde Löschen", kunde: _handler.KundeLaden(Convert.ToInt32(item[1]), out bool success, _config.ConnectionString), _config.ConnectionString);
                     if (success == false)
                     {
                         MessageBox.Show("Kunde nicht in der Datenbank gefunden");
@@ -569,7 +580,7 @@ namespace easyAuftrag
                     else if (kundeV.ShowDialog() == DialogResult.OK)
                     {
                         // Aktualisieren der Datenbank
-                        if (!_handler.KundeLoeschen(Convert.ToInt32(item[1])))
+                        if (!_handler.KundeLoeschen(Convert.ToInt32(item[1]), _config.ConnectionString))
                         {
                             MessageBox.Show("Kunde nicht in der Datenbank gefunden");
                         }
@@ -583,7 +594,7 @@ namespace easyAuftrag
                 if (item[0].ToLower().StartsWith("mit"))
                 {
                     // Öffnen des "Mitarbeiter" Fensters und Laden der Daten des Mitarbeiters in die Felder
-                    MitarbeiterView mitarbeiterV = new MitarbeiterView("Mitarbeiter Löschen", mitarbeiter: _handler.MitarbeiterLaden(Convert.ToInt32(item[1]), out bool success));
+                    MitarbeiterView mitarbeiterV = new MitarbeiterView("Mitarbeiter Löschen", mitarbeiter: _handler.MitarbeiterLaden(Convert.ToInt32(item[1]), out bool success, _config.ConnectionString));
                     if (success == false)
                     {
                         MessageBox.Show("Mitarbeiter nicht in der Datenbank gefunden");
@@ -591,7 +602,7 @@ namespace easyAuftrag
                     else if (mitarbeiterV.ShowDialog() == DialogResult.OK)
                     {
                         // Aktualisieren der Datenbank
-                        if (!_handler.MitarbeiterLoeschen(Convert.ToInt32(item[1])))
+                        if (!_handler.MitarbeiterLoeschen(Convert.ToInt32(item[1]), _config.ConnectionString))
                         {
                             MessageBox.Show("Mitarbeiter nicht in der Datenbank gefunden");
                         }
@@ -610,7 +621,7 @@ namespace easyAuftrag
                 if (item[0].ToLower().StartsWith("tae"))
                 {
                     // Öffnen des "Tätigkeit" Fensters und Laden der Daten der Tätigkeit in die Felder
-                    TaetigkeitView taetigkeitV = new TaetigkeitView("Tätigkeit Löschen", taetigkeit: _handler.TaetigkeitLaden(Convert.ToInt32(item[1]), out bool success));
+                    TaetigkeitView taetigkeitV = new TaetigkeitView("Tätigkeit Löschen", taetigkeit: _handler.TaetigkeitLaden(Convert.ToInt32(item[1]), out bool success, _config.ConnectionString), _config.ConnectionString);
                     if (success == false)
                     {
                         MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
@@ -618,7 +629,7 @@ namespace easyAuftrag
                     else if (taetigkeitV.ShowDialog() == DialogResult.OK)
                     {
                         // Aktualisieren der Datenbank
-                        if (!_handler.TaetigkeitLoeschen(Convert.ToInt32(item[1])))
+                        if (!_handler.TaetigkeitLoeschen(Convert.ToInt32(item[1]), _config.ConnectionString))
                         {
                             MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
                         }
@@ -643,7 +654,7 @@ namespace easyAuftrag
         {
             try
             {
-                using (var db = new EasyAuftragContext())
+                using (var db = new EasyAuftragContext(_config.ConnectionString))
                 {
                     // Laden aller Aufträge aus der Datenbank
                     var auft = (from a in db.Auftraege
@@ -771,11 +782,11 @@ namespace easyAuftrag
             try
             {
                 // Öffnen des "Auftrag" Fensters
-                AuftragView auftragV = new AuftragView("Neuer Auftrag");
+                AuftragView auftragV = new AuftragView("Neuer Auftrag", _config.ConnectionString);
                 if (auftragV.ShowDialog() == DialogResult.OK)
                 {
                     // Hinzufügen des Auftrags zur Datenbank
-                    _handler.AuftragAnlegen(auftragV.AuftragInfo);
+                    _handler.AuftragAnlegen(auftragV.AuftragInfo, _config.ConnectionString);
                 }
                 // Auf MainView zurückgehen
                 this.BringToFront();
@@ -798,7 +809,7 @@ namespace easyAuftrag
             try
             {
                 // Öffnen des "Auftrag" Fensters und Laden der Daten des Auftrags in die Felder
-                AuftragView auftragV = new AuftragView("Auftrag Bearbeiten", auftrag: _handler.AuftragLaden(auftragID, out bool success));
+                AuftragView auftragV = new AuftragView("Auftrag Bearbeiten", auftrag: _handler.AuftragLaden(auftragID, out bool success, _config.ConnectionString), _config.ConnectionString);
                 if (success == false)
                 {
                     MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
@@ -806,7 +817,7 @@ namespace easyAuftrag
                 else if (auftragV.ShowDialog() == DialogResult.OK)
                 {
                     // Aktualisieren der Datenbank mit den neuen Werten des Auftrags
-                    if (!_handler.AuftragBearbeiten(auftragV.AuftragInfo, auftragID))
+                    if (!_handler.AuftragBearbeiten(auftragV.AuftragInfo, auftragID, _config.ConnectionString))
                     {
                         MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
                     }
@@ -832,7 +843,7 @@ namespace easyAuftrag
             try
             {
                 // Öffnen des "Auftrag" Fensters und Laden der Daten des Auftrags in die Felder
-                AuftragView auftragV = new AuftragView("Auftrag Löschen", auftrag: _handler.AuftragLaden(auftragID, out bool success));
+                AuftragView auftragV = new AuftragView("Auftrag Löschen", auftrag: _handler.AuftragLaden(auftragID, out bool success, _config.ConnectionString), _config.ConnectionString);
                 if (success == false)
                 {
                     MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
@@ -842,7 +853,7 @@ namespace easyAuftrag
                     if (auftragV.ShowDialog() == DialogResult.OK)
                     {
                         // Löschen des Auftrags
-                        if (!_handler.AuftragLoeschen(auftragID))
+                        if (!_handler.AuftragLoeschen(auftragID, _config.ConnectionString))
                         {
                             MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
                         }
@@ -871,7 +882,7 @@ namespace easyAuftrag
                 if (kundeV.ShowDialog() == DialogResult.OK)
                 {
                     // Hinzufügen des Kunden zur Datenbank
-                    _handler.KundeAnlegen(kundeV.KundenInfo);
+                    _handler.KundeAnlegen(kundeV.KundenInfo, _config.ConnectionString);
                 }
                 // Auf MainView zurückgehen
                 this.BringToFront();
@@ -896,7 +907,7 @@ namespace easyAuftrag
                 if (mitarbeiterV.ShowDialog() == DialogResult.OK)
                 {
                     // Hinzufügen des Mitarbeiters zur Datenbank
-                    _handler.MitarbeiterAnlegen(mitarbeiterV.MitarbeiterInfo);
+                    _handler.MitarbeiterAnlegen(mitarbeiterV.MitarbeiterInfo, _config.ConnectionString);
                 }
                 // Auf MainView zurückgehen
                 this.BringToFront();
@@ -924,7 +935,7 @@ namespace easyAuftrag
                     foreach (Auftrag auf in aufListe)
                     {
                         // Hinzufügen des Auftrags zur Datenbank
-                        _handler.AuftragAnlegen(auf);
+                        _handler.AuftragAnlegen(auf, _config.ConnectionString);
                     }
                 }
                 // Auf MainView zurückgehen
@@ -954,7 +965,7 @@ namespace easyAuftrag
                     foreach (Kunde kun in kunListe)
                     {
                         // Hinzufügen des Kunden zur Datenbank
-                        _handler.KundeAnlegen(kun);
+                        _handler.KundeAnlegen(kun, _config.ConnectionString);
                     }
                 }
                 // Auf MainView zurückgehen
@@ -983,7 +994,7 @@ namespace easyAuftrag
                     foreach (Mitarbeiter mit in mitListe)
                     {
                         // Hinzufügen des Mitarbeiters zur Datenbank
-                        _handler.MitarbeiterAnlegen(mit);
+                        _handler.MitarbeiterAnlegen(mit, _config.ConnectionString);
                     }
                 }
                 // Auf MainView zurückgehen
@@ -1012,7 +1023,7 @@ namespace easyAuftrag
                     foreach (Taetigkeit tat in tatListe)
                     {
                         // Hinzufügen der Tätigkeit zur Datenbank
-                        _handler.TaetigkeitAnlegen(tat);
+                        _handler.TaetigkeitAnlegen(tat, _config.ConnectionString);
                     }
                 }
                 // Auf MainView zurückgehen
@@ -1027,7 +1038,7 @@ namespace easyAuftrag
             }
         }
         /// <summary>
-        /// Aktion beim Klick auf "Über" im Kontextmenu auf der <see cref="TreeView"/>
+        /// Aktion beim Klick auf "Über" im MenuStrip Bereich "Hilfe"
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1049,6 +1060,9 @@ namespace easyAuftrag
                 ErrorHandler.ErrorHandle(ex);
             }
         }
+        /// <summary>
+        /// Methode zum Exportieren einer Datei
+        /// </summary>
         private void DateiExport()
         {
             try
@@ -1057,7 +1071,7 @@ namespace easyAuftrag
                 ExportView exportV = new ExportView("Export");
                 if (exportV.ShowDialog() == DialogResult.OK)
                 {
-                    using (var db = new EasyAuftragContext())
+                    using (var db = new EasyAuftragContext(_config.ConnectionString))
                     {
                         List<Auftrag> auftraege = new List<Auftrag>();
                         List<Kunde> kunden = new List<Kunde>();
@@ -1192,12 +1206,18 @@ namespace easyAuftrag
                 ErrorHandler.ErrorHandle(ex);
             }
         }
-
+        /// <summary>
+        /// Aktion beim Klick auf "Datei Export" im MenuStrip Bereich "Datei"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DateiExportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DateiExport();
         }
-
+        /// <summary>
+        /// Methode zum Importieren einer Datei
+        /// </summary>
         private void DateiImport()
         {
             try
@@ -1403,7 +1423,11 @@ namespace easyAuftrag
                 ErrorHandler.ErrorHandle(ex);
             }
         }
-
+        /// <summary>
+        /// Aktion beim Klick auf "Datei Import" im MenuStrip Bereich "Datei"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DateiImportToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DateiImport();

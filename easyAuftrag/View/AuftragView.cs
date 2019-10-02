@@ -64,17 +64,19 @@ namespace easyAuftrag.View
         private List<Taetigkeit> _tatlist = new List<Taetigkeit>();
         private BindingSource Bs = new BindingSource();
         private Handler _handler = new Handler();
+        private string _connection;
 
         /// <summary>
         /// Konstruktor für die <see cref="AuftragView"/>
         /// </summary>
         /// <param name="titel">Titel für das Fenster</param>
-        public AuftragView(string titel)
+        public AuftragView(string titel, string connection)
         {
+            _connection = connection;
             AuftragInfo = new Auftrag();
             InitializeComponent();
             Text = titel;
-            using (var db = new EasyAuftragContext())
+            using (var db = new EasyAuftragContext(connection))
             {
                 var kunden = (from k in db.Kunden select new { ID = k.KundeID, kName = k.Name }).ToList();
                 cbKunde.DataSource = kunden;
@@ -89,8 +91,9 @@ namespace easyAuftrag.View
         /// </summary>
         /// <param name="titel">Titel für das Fenster</param>
         /// <param name="auftrag">Zu bearbeitender/löschender Auftrag</param>
-        public AuftragView(string titel, Auftrag auftrag)
+        public AuftragView(string titel, Auftrag auftrag, string connection)
         {
+            _connection = connection;
             InitializeComponent();
             Text = titel;
             if (titel == "Auftrag Löschen")
@@ -98,7 +101,7 @@ namespace easyAuftrag.View
                 butSpeichern.Text = "Löschen";
             }
             AuftragInfo = auftrag;
-            using (var db = new EasyAuftragContext())
+            using (var db = new EasyAuftragContext(_connection))
             {
                 _tatlist = (from t in db.Taetigkeiten where t.AuftragID == auftrag.AuftragID select t).ToList();
             }
@@ -138,7 +141,7 @@ namespace easyAuftrag.View
         private void FillControls(Auftrag auftrag)
         {
             tbAuftragNr.Text = auftrag.AuftragNummer;
-            using (var db = new EasyAuftragContext())
+            using (var db = new EasyAuftragContext(_connection))
             {
                 int[] kundenIDs = (from k in db.Kunden select k.KundeID).ToArray();
                 var cbKundeEintraege = (from k in db.Kunden select new { ID = k.KundeID, kName = k.Name }).ToList();
@@ -187,7 +190,7 @@ namespace easyAuftrag.View
         /// <param name="e"></param>
         private void ButNeueTaetigkeit_Click(object sender, EventArgs e)
         {
-            TaetigkeitView taetigkeitV = new TaetigkeitView("Neue Tätigkeit");
+            TaetigkeitView taetigkeitV = new TaetigkeitView("Neue Tätigkeit", _connection);
             if (taetigkeitV.ShowDialog() == DialogResult.OK)
             {
                 AuftragInfo.Taetigkeiten.Add(taetigkeitV.TaetigkeitInfo);
@@ -217,7 +220,7 @@ namespace easyAuftrag.View
         /// <param name="e"></param>
         private void NeuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TaetigkeitView taetigkeitV = new TaetigkeitView("Neue Tätigkeit");
+            TaetigkeitView taetigkeitV = new TaetigkeitView("Neue Tätigkeit", _connection);
             if (taetigkeitV.ShowDialog() == DialogResult.OK)
             {
                 AuftragInfo.Taetigkeiten.Add(taetigkeitV.TaetigkeitInfo);
@@ -235,14 +238,14 @@ namespace easyAuftrag.View
         private void BearbeitenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedRows[0].Cells["TaetigkeitID"].Value);
-            TaetigkeitView taetigkeitV = new TaetigkeitView("Tätigkeit Bearbeiten", taetigkeit: _handler.TaetigkeitLaden(taetigkeitID, out bool success));
+            TaetigkeitView taetigkeitV = new TaetigkeitView("Tätigkeit Bearbeiten", taetigkeit: _handler.TaetigkeitLaden(taetigkeitID, out bool success, _connection), _connection);
             if (success == false)
             {
                 MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
             }
             else if (taetigkeitV.ShowDialog() == DialogResult.OK)
             {
-                if (!_handler.TaetigkeitBearbeiten(taetigkeitV.TaetigkeitInfo, taetigkeitID))
+                if (!_handler.TaetigkeitBearbeiten(taetigkeitV.TaetigkeitInfo, taetigkeitID, _connection))
                 {
                     MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
                 }
@@ -259,14 +262,14 @@ namespace easyAuftrag.View
         private void LöschenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedRows[0].Cells["TaetigkeitID"].Value);
-            TaetigkeitView taetigkeitV = new TaetigkeitView("Tätigkeit Löschen", taetigkeit: _handler.TaetigkeitLaden(taetigkeitID, out bool success));
+            TaetigkeitView taetigkeitV = new TaetigkeitView("Tätigkeit Löschen", taetigkeit: _handler.TaetigkeitLaden(taetigkeitID, out bool success, _connection), _connection);
             if (success == false)
             {
                 MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
             }
             else if (taetigkeitV.ShowDialog() == DialogResult.OK)
             {
-                if (!_handler.TaetigkeitLoeschen(taetigkeitID))
+                if (!_handler.TaetigkeitLoeschen(taetigkeitID, _connection))
                 {
                     MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
                 }
