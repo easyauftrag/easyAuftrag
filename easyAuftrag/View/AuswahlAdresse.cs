@@ -32,8 +32,8 @@ namespace easyAuftrag.View
                 using (var db = new EasyAuftragContext(connection))
                 {
                     // Laden aller Adressen, die zum aktiven Kunden gehören
-                    var adr = (from ad in db.Adressen where ad.KundeID == kunde.KundeID select new { ad, adName = ad.Strasse + " " + ad.Hausnr + ", " + ad.PLZ + " " + ad.Wohnort }).ToList();
-                    adr.Add(new { ad = rechnungsadresse, adName = "Rechnungsadresse "});
+                    var adr = (from ad in db.Adressen where ad.KundeID == kunde.KundeID select new { ad, adName = "Adresse " + ad.AdresseID + ", " + kunde.Name}).ToList();
+                    adr.Add(new { ad = rechnungsadresse, adName = "Rechnungsadresse"});
                     foreach (var item in adr)
                     {
                         _adressen.Add(item.ad);
