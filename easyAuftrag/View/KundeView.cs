@@ -56,18 +56,21 @@ namespace easyAuftrag.View
         /// Wird durch <see cref="FillKunde"/> oder <see cref="MainView"/> gefüllt
         /// und gibt seine Daten an <see cref="FillControls"/>, um sie in der View anzuzeigen.
         /// </value>
-        public Kunde KundenInfo { get; set; }
+        public Kunde KundeInfo { get; set; }
 
         private List<Adresse> _adrlist = new List<Adresse>();
         private BindingSource _bind = new BindingSource();
+        private Handler _handler = new Handler();
+        private string _connection;
 
         /// <summary>
         /// Konstruktor für die <see cref="KundeView"/>
         /// </summary>
         /// <param name="titel">Titel des Fensters</param>
-        public KundeView(string titel)
+        public KundeView(string titel, string connection)
         {
-            KundenInfo = new Kunde();
+            _connection = connection;
+            KundeInfo = new Kunde();
             InitializeComponent();
             Text = titel;
         }
@@ -79,21 +82,35 @@ namespace easyAuftrag.View
         /// <param name="kunde">Zu bearbeitender/löschender Kunde</param>
         public KundeView(string titel, Kunde kunde, string connection)
         {
+            _connection = connection;
             InitializeComponent();
-            Text = titel; if (titel == "Kunde Löschen")
+            Text = titel; 
+            if (titel == "Kunde Löschen")
             {
                 butSpeichern.Text = "Löschen";
             }
-            KundenInfo = kunde;
-            FillControls(KundenInfo);
-            using (var db = new EasyAuftragContext(connection))
-            {
-                _adrlist = (from t in db.Adressen where t.KundeID == kunde.KundeID select t).ToList();
-            }
-            _bind.DataSource = _adrlist;
-            dgvKunde.DataSource = _bind;
+            KundeInfo = kunde;
+            FillControls(KundeInfo);
+            DataGridNeu();
         }
 
+        private void DataGridNeu()
+        {
+            try
+            {
+                using (var db = new EasyAuftragContext(_connection))
+                {
+                    _adrlist = (from ad in db.Adressen where ad.KundeID == KundeInfo.KundeID select ad).ToList();
+                }
+                _bind.DataSource = _adrlist;
+                dgvKunde.DataSource = _bind;
+                dgvKunde.Columns["AdresseID"].Visible = false;
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
+        }
         /// <summary>
         /// Packt die Eingaben in den Controls in einen <see cref="Kunde"/>.
         /// </summary>
@@ -102,12 +119,12 @@ namespace easyAuftrag.View
         {
             try
             {
-                KundenInfo.Name = tbName.Text;
-                KundenInfo.Strasse = tbStraße.Text;
-                KundenInfo.Hausnr = tbHaus.Text;
-                KundenInfo.PLZ = tbPLZ.Text;
-                KundenInfo.Wohnort = tbStadt.Text;
-                KundenInfo.TelefonNr = tbTelefon.Text;
+                KundeInfo.Name = tbName.Text;
+                KundeInfo.Strasse = tbStraße.Text;
+                KundeInfo.Hausnr = tbHaus.Text;
+                KundeInfo.PLZ = tbPLZ.Text;
+                KundeInfo.Wohnort = tbStadt.Text;
+                KundeInfo.TelefonNr = tbTelefon.Text;
             }
             catch (Exception ex)
             {
@@ -155,17 +172,92 @@ namespace easyAuftrag.View
         /// <summary>
         /// Action beim Klick auf den "Weitere Adresse" Button
         /// </summary>
-        /// <remarks>
-        /// Öffnet <see cref="AdresseView"/> und legt eine neue Adresse an, falls erstere <see cref="DialogResult.OK"/> zurückgibt.
-        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ButAdresse_Click(object sender, EventArgs e)
         {
+            NeueAdresse();
+        }
+        
+        /// <summary>
+        /// Action beim Rechtsklick auf die <see cref="DataGridView"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DgvKunde_MouseUp(object sender, MouseEventArgs e)
+        {
+
+            if (e.Button == MouseButtons.Right)
+            {
+                cxtKunde.Show(dgvKunde, e.X, e.Y);
+            }
+        }
+        /// <summary>
+        /// Action beim Klick auf "Neu" im Kontextmenu auf der <see cref="DataGridView"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NeuToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NeueAdresse();
+        }
+        /// <summary>
+        /// Action beim Klick auf "Bearbeiten" im Kontextmenu auf der <see cref="DataGridView"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BearbeitenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int adresseID = Convert.ToInt32(dgvKunde.SelectedRows[0].Cells["AdresseID"].Value);
+            AdresseView adresseV = new AdresseView("Adresse Bearbeiten", adresse: _handler.AdresseLaden(adresseID, out bool success, _connection));
+            if (success == false)
+            {
+                MessageBox.Show("Adresse nicht in der Datenbank gefunden");
+            }
+            else if (adresseV.ShowDialog() == DialogResult.OK)
+            {
+                if (!_handler.AdresseBearbeiten(adresseV.AdresseInfo, adresseID, _connection))
+                {
+                    MessageBox.Show("Adresse nicht in der Datenbank gefunden");
+                }
+            }
+            this.BringToFront();
+            this.Activate();
+            DataGridNeu();
+        }
+        /// <summary>
+        /// Action beim Klick auf "Löschen" im Kontextmenu auf der <see cref="DataGridView"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LoeschenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int adresseID = Convert.ToInt32(dgvKunde.SelectedRows[0].Cells["AdresseID"].Value);
+            AdresseView adresseV = new AdresseView("Adresse Löschen", adresse: _handler.AdresseLaden(adresseID, out bool success, _connection));
+            if (success == false)
+            {
+                MessageBox.Show("Adresse nicht in der Datenbank gefunden");
+            }
+            else if (adresseV.ShowDialog() == DialogResult.OK)
+            {
+                if (!_handler.AdresseLoeschen(adresseID, _connection))
+                {
+                    MessageBox.Show("Adresse nicht in der Datenbank gefunden");
+                }
+            }
+            this.BringToFront();
+            this.Activate();
+            DataGridNeu();
+        }
+        /// <summary>
+        /// Öffnet <see cref="AdresseView"/> und legt eine neue Adresse an, falls erstere <see cref="DialogResult.OK"/> zurückgibt.
+        /// </summary>
+        private void NeueAdresse()
+        {
             AdresseView adresseV = new AdresseView("Neue Adresse");
             if (adresseV.ShowDialog() == DialogResult.OK)
             {
-                KundenInfo.WeitereAdressen.Add(adresseV.AdresseInfo);
+                KundeInfo.WeitereAdressen.Add(adresseV.AdresseInfo);
                 _bind.Add(adresseV.AdresseInfo);
             }
             this.BringToFront();

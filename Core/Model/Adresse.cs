@@ -44,7 +44,6 @@ namespace Core.Model
         /// Adress ID als Primärschlüssel zur eindeutigen Identífizierung der Adresse in der Datenbank
         /// </summary>
         [Key]
-        [Browsable(false)]
         public int AdresseID { get; set; }
 
         /// <summary>

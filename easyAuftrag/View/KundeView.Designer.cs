@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KundeView));
             this.butAbbr = new System.Windows.Forms.Button();
             this.butSpeichern = new System.Windows.Forms.Button();
@@ -46,7 +47,12 @@
             this.labRech = new System.Windows.Forms.Label();
             this.butAdresse = new System.Windows.Forms.Button();
             this.dgvKunde = new System.Windows.Forms.DataGridView();
+            this.cxtKunde = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.neuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bearbeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loeschenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKunde)).BeginInit();
+            this.cxtKunde.SuspendLayout();
             this.SuspendLayout();
             // 
             // butAbbr
@@ -210,6 +216,37 @@
             this.dgvKunde.Name = "dgvKunde";
             this.dgvKunde.Size = new System.Drawing.Size(557, 172);
             this.dgvKunde.TabIndex = 16;
+            this.dgvKunde.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DgvKunde_MouseUp);
+            // 
+            // cxtKunde
+            // 
+            this.cxtKunde.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.neuToolStripMenuItem,
+            this.bearbeitenToolStripMenuItem,
+            this.loeschenToolStripMenuItem});
+            this.cxtKunde.Name = "cmsKunde";
+            this.cxtKunde.Size = new System.Drawing.Size(181, 92);
+            // 
+            // neuToolStripMenuItem
+            // 
+            this.neuToolStripMenuItem.Name = "neuToolStripMenuItem";
+            this.neuToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.neuToolStripMenuItem.Text = "Neu";
+            this.neuToolStripMenuItem.Click += new System.EventHandler(this.NeuToolStripMenuItem_Click);
+            // 
+            // bearbeitenToolStripMenuItem
+            // 
+            this.bearbeitenToolStripMenuItem.Name = "bearbeitenToolStripMenuItem";
+            this.bearbeitenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bearbeitenToolStripMenuItem.Text = "Bearbeiten";
+            this.bearbeitenToolStripMenuItem.Click += new System.EventHandler(this.BearbeitenToolStripMenuItem_Click);
+            // 
+            // loeschenToolStripMenuItem
+            // 
+            this.loeschenToolStripMenuItem.Name = "loeschenToolStripMenuItem";
+            this.loeschenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loeschenToolStripMenuItem.Text = "Löschen";
+            this.loeschenToolStripMenuItem.Click += new System.EventHandler(this.LoeschenToolStripMenuItem_Click);
             // 
             // KundeView
             // 
@@ -238,6 +275,7 @@
             this.Name = "KundeView";
             this.Text = "Kunde";
             ((System.ComponentModel.ISupportInitialize)(this.dgvKunde)).EndInit();
+            this.cxtKunde.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -262,5 +300,9 @@
         private System.Windows.Forms.Label labRech;
         private System.Windows.Forms.Button butAdresse;
         private System.Windows.Forms.DataGridView dgvKunde;
+        private System.Windows.Forms.ContextMenuStrip cxtKunde;
+        private System.Windows.Forms.ToolStripMenuItem neuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bearbeitenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loeschenToolStripMenuItem;
     }
 }

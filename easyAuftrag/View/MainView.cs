@@ -158,6 +158,18 @@ namespace easyAuftrag
                         };
                         // Hinzufügen zum TreeView
                         tvMain.Nodes["Kunden"].Nodes.Add(nKunde);
+                        // Laden aller Adressen, die zum aktiven Kunden gehören
+                        List<Adresse> adr = (from ad in db.Adressen where ad.KundeID == k.KundeID select ad).ToList();
+                        foreach (Adresse ad in adr)
+                        {
+                            // Setzen des Tags
+                            TreeNode nAdresse = new TreeNode(ad.AdresseID.ToString())
+                            {
+                                Tag = "Adresse_" + ad.AdresseID.ToString()
+                            };
+                            // Hinzufügen zum TreeView
+                            tvMain.Nodes["Kunden"].LastNode.Nodes.Add(nAdresse);
+                        }
                     }
                     // Laden aller Mitarbeiter
                     List<Mitarbeiter> mit = (from m in db.Mitarbeiters select m).ToList();
@@ -414,6 +426,13 @@ namespace easyAuftrag
                     int auftragID = Convert.ToInt32(itemParent[1]);
                     BearbeitenAuftrag(auftragID);
                 }
+                if (item[0].ToLower().StartsWith("adr"))
+                {
+                    // Wenn eine neue Tätigkeit angelegt werden soll, öffnet sich das Fenster des zugehörigen Kunden
+                    string[] itemParent = tvMain.SelectedNode.Parent.Tag.ToString().Split('_');
+                    int kundeID = Convert.ToInt32(itemParent[1]);
+                    BearbeitenKunde(kundeID);
+                }
             }
             catch (Exception ex)
             {
@@ -433,25 +452,8 @@ namespace easyAuftrag
                 string[] item = tvMain.SelectedNode.Tag.ToString().Split('_');
                 if (item[0].ToLower().StartsWith("kun"))
                 {
-                    // Öffnen des "Kunde" Fensters und Laden der Daten des Kunden in die Felder
-                    KundeView kundeV = new KundeView("Kunde Bearbeiten", kunde: _handler.KundeLaden(Convert.ToInt32(item[1]), out bool success, _config.ConnectionString), _config.ConnectionString);
-                    if (success == false)
-                    {
-                        MessageBox.Show("Kunde nicht in der Datenbank gefunden");
-                    }
-                    else if (kundeV.ShowDialog() == DialogResult.OK)
-                    {
-                        // Aktualisieren der Datenbank mit den neuen Werten des Kunden
-                        if (!_handler.KundeBearbeiten(kundeV.KundenInfo, Convert.ToInt32(item[1]), _config.ConnectionString))
-                        {
-                            MessageBox.Show("Kunde nicht in der Datenbank gefunden");
-                        }
-                    }
-                    // Auf MainView zurückgehen
-                    this.BringToFront();
-                    this.Activate();
-                    // Aktualisieren des TreeView, um den bearbeiteten Kunden mit einzubeziehen
-                    TreeViewNeu();
+                    int kundeID = Convert.ToInt32(item[1]);
+                    BearbeitenKunde(kundeID);
                 }
                 if (item[0].ToLower().StartsWith("mit"))
                 {
@@ -500,6 +502,28 @@ namespace easyAuftrag
                     this.BringToFront();
                     this.Activate();
                     // Aktualisieren des TreeView, um die bearbeitete Tätigkeit mit einzubeziehen
+                    TreeViewNeu();
+                }
+                if (item[0].ToLower().StartsWith("adr"))
+                {
+                    // Öffnen des "Adresse" Fensters und Laden der Daten der Adresse in die Felder
+                    AdresseView adresseV = new AdresseView("Adresse Bearbeiten", adresse: _handler.AdresseLaden(Convert.ToInt32(item[1]), out bool success, _config.ConnectionString));
+                    if (success == false)
+                    {
+                        MessageBox.Show("Adresse nicht in der Datenbank gefunden");
+                    }
+                    else if (adresseV.ShowDialog() == DialogResult.OK)
+                    {
+                        // Aktualisieren der Datenbank mit den neuen Werten der Adresse
+                        if (!_handler.AdresseBearbeiten(adresseV.AdresseInfo, Convert.ToInt32(item[1]), _config.ConnectionString))
+                        {
+                            MessageBox.Show("Adresse nicht in der Datenbank gefunden");
+                        }
+                    }
+                    // Auf MainView zurückgehen
+                    this.BringToFront();
+                    this.Activate();
+                    // Aktualisieren des TreeView, um die bearbeitete Adresse mit einzubeziehen
                     TreeViewNeu();
                 }
             }
@@ -588,6 +612,28 @@ namespace easyAuftrag
                     this.BringToFront();
                     this.Activate();
                     // Aktualisieren des TreeView, um die gelöschte Tätigkeit mit einzubeziehen
+                    TreeViewNeu();
+                }
+                if (item[0].ToLower().StartsWith("adr"))
+                {
+                    // Öffnen des "Adresse" Fensters und Laden der Daten der Adresse in die Felder
+                    AdresseView adresseV = new AdresseView("Adresse Löschen", adresse: _handler.AdresseLaden(Convert.ToInt32(item[1]), out bool success, _config.ConnectionString));
+                    if (success == false)
+                    {
+                        MessageBox.Show("Adresse nicht in der Datenbank gefunden");
+                    }
+                    else if (adresseV.ShowDialog() == DialogResult.OK)
+                    {
+                        // Aktualisieren der Datenbank mit den neuen Werten der Adresse
+                        if (!_handler.AdresseLoeschen(Convert.ToInt32(item[1]), _config.ConnectionString))
+                        {
+                            MessageBox.Show("Adresse nicht in der Datenbank gefunden");
+                        }
+                    }
+                    // Auf MainView zurückgehen
+                    this.BringToFront();
+                    this.Activate();
+                    // Aktualisieren des TreeView, um die gelöschte Adresse mit einzubeziehen
                     TreeViewNeu();
                 }
             }
@@ -828,16 +874,49 @@ namespace easyAuftrag
             try
             { 
                 // Öffnen des "Kunde" Fensters
-                KundeView kundeV = new KundeView("Neuer Kunde");
+                KundeView kundeV = new KundeView("Neuer Kunde", _config.ConnectionString);
                 if (kundeV.ShowDialog() == DialogResult.OK)
                 {
                     // Hinzufügen des Kunden zur Datenbank
-                    _handler.KundeAnlegen(kundeV.KundenInfo, _config.ConnectionString);
+                    _handler.KundeAnlegen(kundeV.KundeInfo, _config.ConnectionString);
                 }
                 // Auf MainView zurückgehen
                 this.BringToFront();
                 this.Activate();
                 // Aktualisieren des TreeView, um den neuen Kunden mit einzubeziehen
+                TreeViewNeu();
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
+        }
+        /// <summary>
+        /// Methode zum Bearbeiten eines Kunden
+        /// </summary>
+        /// <param name="kundeID">ID des zu bearbeitenden Auftrags</param>
+        private void BearbeitenKunde(int kundeID)
+        {
+            try
+            {
+                // Öffnen des "Kunde" Fensters und Laden der Daten des Kunden in die Felder
+                KundeView kundeV = new KundeView("Kunde Bearbeiten", kunde: _handler.KundeLaden(kundeID, out bool success, _config.ConnectionString), _config.ConnectionString);
+                if (success == false)
+                {
+                    MessageBox.Show("Kunde nicht in der Datenbank gefunden");
+                }
+                else if (kundeV.ShowDialog() == DialogResult.OK)
+                {
+                    // Aktualisieren der Datenbank mit den neuen Werten des Auftrags
+                    if (!_handler.KundeBearbeiten(kundeV.KundeInfo, kundeID, _config.ConnectionString))
+                    {
+                        MessageBox.Show("Kunde nicht in der Datenbank gefunden");
+                    }
+                }
+                // Auf MainView zurückgehen
+                this.BringToFront();
+                this.Activate();
+                // Aktualisieren des TreeView, um den bearbeiteten Kunden mit einzubeziehen
                 TreeViewNeu();
             }
             catch (Exception ex)
@@ -980,6 +1059,35 @@ namespace easyAuftrag
                 this.BringToFront();
                 this.Activate();
                 // Aktualisieren des TreeView, um die neuen Tätigkeiten mit einzubeziehen
+                TreeViewNeu();
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
+        }
+        /// <summary>
+        /// Methode zum Importieren von Adressen
+        /// </summary>
+        /// <param name="adrListe">Liste der zu importierenden Tätigkeiten</param>
+        private void ImportAdresse(List<Adresse> adrListe)
+        {
+            try
+            {
+                // Öffnen des "Import bestätigen" Fensters mit den Daten der Adresse
+                ImportBestaetigenView import = new ImportBestaetigenView(adrListe);
+                if (import.ShowDialog() == DialogResult.OK)
+                {
+                    foreach (Adresse adr in adrListe)
+                    {
+                        // Hinzufügen der Adresse zur Datenbank
+                        _handler.AdresseAnlegen(adr, _config.ConnectionString);
+                    }
+                }
+                // Auf MainView zurückgehen
+                this.BringToFront();
+                this.Activate();
+                // Aktualisieren des TreeView, um die neuen Adressen mit einzubeziehen
                 TreeViewNeu();
             }
             catch (Exception ex)

@@ -48,8 +48,10 @@
             this.cbAbgerechnet = new System.Windows.Forms.CheckBox();
             this.cxtAuftrag = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.neuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.bearbeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.löschenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.loeschenToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dgvAuftrag)).BeginInit();
             this.cxtAuftrag.SuspendLayout();
             this.SuspendLayout();
@@ -223,10 +225,12 @@
             // 
             this.cxtAuftrag.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.neuToolStripMenuItem,
+            this.ToolStripMenuItem2,
             this.bearbeitenToolStripMenuItem,
-            this.löschenToolStripMenuItem});
+            this.toolStripMenuItem1,
+            this.loeschenToolStripMenuItem1});
             this.cxtAuftrag.Name = "cxtAuftrag";
-            this.cxtAuftrag.Size = new System.Drawing.Size(131, 70);
+            this.cxtAuftrag.Size = new System.Drawing.Size(131, 82);
             // 
             // neuToolStripMenuItem
             // 
@@ -235,6 +239,11 @@
             this.neuToolStripMenuItem.Text = "Neu";
             this.neuToolStripMenuItem.Click += new System.EventHandler(this.NeuToolStripMenuItem_Click);
             // 
+            // ToolStripMenuItem2
+            // 
+            this.ToolStripMenuItem2.Name = "ToolStripMenuItem2";
+            this.ToolStripMenuItem2.Size = new System.Drawing.Size(127, 6);
+            // 
             // bearbeitenToolStripMenuItem
             // 
             this.bearbeitenToolStripMenuItem.Name = "bearbeitenToolStripMenuItem";
@@ -242,12 +251,17 @@
             this.bearbeitenToolStripMenuItem.Text = "Bearbeiten";
             this.bearbeitenToolStripMenuItem.Click += new System.EventHandler(this.BearbeitenToolStripMenuItem_Click);
             // 
-            // löschenToolStripMenuItem
+            // toolStripMenuItem1
             // 
-            this.löschenToolStripMenuItem.Name = "löschenToolStripMenuItem";
-            this.löschenToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
-            this.löschenToolStripMenuItem.Text = "Löschen";
-            this.löschenToolStripMenuItem.Click += new System.EventHandler(this.LöschenToolStripMenuItem_Click);
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(127, 6);
+            // 
+            // loeschenToolStripMenuItem1
+            // 
+            this.loeschenToolStripMenuItem1.Name = "loeschenToolStripMenuItem1";
+            this.loeschenToolStripMenuItem1.Size = new System.Drawing.Size(130, 22);
+            this.loeschenToolStripMenuItem1.Text = "Löschen";
+            this.loeschenToolStripMenuItem1.Click += new System.EventHandler(this.LoeschenToolStripMenuItem_Click);
             // 
             // AuftragView
             // 
@@ -302,6 +316,8 @@
         private System.Windows.Forms.ContextMenuStrip cxtAuftrag;
         private System.Windows.Forms.ToolStripMenuItem neuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bearbeitenToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem löschenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator ToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem loeschenToolStripMenuItem1;
     }
 }
