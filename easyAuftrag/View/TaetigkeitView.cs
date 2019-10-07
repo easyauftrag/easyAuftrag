@@ -138,8 +138,8 @@ namespace easyAuftrag.View
         {
             using (var db = new EasyAuftragContext(_connection))
             {
-                int[] mitarbeiterIDs = (from k in db.Mitarbeiters select k.MitarbeiterID).ToArray();
-                var cbMitarbeiterEintraege = (from k in db.Mitarbeiters select new { ID = k.MitarbeiterID, mName = k.Name }).ToList();
+                int[] mitarbeiterIDs = (from m in db.Mitarbeiters select m.MitarbeiterID).ToArray();
+                var cbMitarbeiterEintraege = (from m in db.Mitarbeiters select new { ID = m.MitarbeiterID, mName = m.Name }).ToList();
                 cbMitarbeiter.DataSource = cbMitarbeiterEintraege;
                 cbMitarbeiter.DisplayMember = "mName";
                 cbMitarbeiter.ValueMember = "ID";

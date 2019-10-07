@@ -147,7 +147,7 @@ namespace easyAuftrag.Logik
                 foreach (var item in mapper.TatList)
                 {
                     // Selektieren des Mitarbeiter aus der Mitarbeiter Liste
-                    string mitarbeiter = (from i in _druckDoc.MitList
+                    string mitarbeiter = (from i in _druckDoc.MitListe
                                           where i.MitarbeiterID == t.MitarbeiterID
                                           select i.Name).First();
 
