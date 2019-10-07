@@ -9,6 +9,8 @@ Language=0x407 Deutsch (Deutschland)
 
 [FILES]
 Datei\Start.html
+Datei\styles.css
+Datei\Hauptfenster\Hauptfenster Übersicht.png
 Datei\Hauptfenster\Contents.html
 Datei\Hauptfenster\Menüleiste.html
 Datei\Hauptfenster\Werkzeugleiste.html
