@@ -77,6 +77,10 @@ namespace easyAuftrag.View
         {
             InitializeComponent();
             Text = titel;
+            if (titel == "Adresse Löschen")
+            {
+                butSpeichern.Text = "Löschen";
+            }
             AdresseInfo = adresse;
             FillControls(AdresseInfo);
         }

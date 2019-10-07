@@ -62,7 +62,7 @@ namespace easyAuftrag.View
         public Auftrag AuftragInfo { get; set; }
 
         private List<Taetigkeit> _tatlist = new List<Taetigkeit>();
-        private BindingSource Bs = new BindingSource();
+        private BindingSource _bind = new BindingSource();
         private Handler _handler = new Handler();
         private string _connection;
 
@@ -101,17 +101,28 @@ namespace easyAuftrag.View
                 butSpeichern.Text = "Löschen";
             }
             AuftragInfo = auftrag;
-            using (var db = new EasyAuftragContext(_connection))
-            {
-                _tatlist = (from t in db.Taetigkeiten where t.AuftragID == auftrag.AuftragID select t).ToList();
-            }
             FillControls(AuftragInfo);
-            Bs.DataSource = _tatlist;
-            dgvAuftrag.DataSource = Bs;
-            dgvAuftrag.Columns["TaetigkeitID"].Visible = false;
+            DataGridNeu();
         }
 
+        private void DataGridNeu()
+        {
+            try
+            {
+                using (var db = new EasyAuftragContext(_connection))
+                {
+                    _tatlist = (from t in db.Taetigkeiten where t.AuftragID == AuftragInfo.AuftragID select t).ToList();
+                }
+                _bind.DataSource = _tatlist;
+                dgvAuftrag.DataSource = _bind;
+                dgvAuftrag.Columns["TaetigkeitID"].Visible = false;
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
 
+        }
         /// <summary>
         /// Packt die Eingaben in den Controls in einen <see cref="Auftrag"/>.
         /// </summary>
@@ -154,7 +165,7 @@ namespace easyAuftrag.View
             dtpErteilt.Value = auftrag.Erteilt;
             cbErledigt.Checked = auftrag.Erledigt;
             cbAbgerechnet.Checked = auftrag.Abgerechnet;
-            tbGesamt.Text = Math.Round((Berechnung.AuftragZeitGesamt(_tatlist)/60), 2).ToString();
+            tbGesamt.Text = Math.Round(Berechnung.AuftragZeitGesamt(_tatlist)/60, 2).ToString();
         }
 
         /// <summary>
@@ -190,14 +201,7 @@ namespace easyAuftrag.View
         /// <param name="e"></param>
         private void ButNeueTaetigkeit_Click(object sender, EventArgs e)
         {
-            TaetigkeitView taetigkeitV = new TaetigkeitView("Neue Tätigkeit", _connection);
-            if (taetigkeitV.ShowDialog() == DialogResult.OK)
-            {
-                AuftragInfo.Taetigkeiten.Add(taetigkeitV.TaetigkeitInfo);
-                Bs.Add(taetigkeitV.TaetigkeitInfo);
-            }
-            this.BringToFront();
-            this.Activate();
+            NeueTaetigkeit();
         }
 
         /// <summary>
@@ -220,14 +224,7 @@ namespace easyAuftrag.View
         /// <param name="e"></param>
         private void NeuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            TaetigkeitView taetigkeitV = new TaetigkeitView("Neue Tätigkeit", _connection);
-            if (taetigkeitV.ShowDialog() == DialogResult.OK)
-            {
-                AuftragInfo.Taetigkeiten.Add(taetigkeitV.TaetigkeitInfo);
-                Bs.Add(taetigkeitV.TaetigkeitInfo);
-            }
-            this.BringToFront();
-            this.Activate();
+            NeueTaetigkeit();
         }
 
         /// <summary>
@@ -252,6 +249,7 @@ namespace easyAuftrag.View
             }
             this.BringToFront();
             this.Activate();
+            DataGridNeu();
         }
 
         /// <summary>
@@ -259,7 +257,7 @@ namespace easyAuftrag.View
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void LöschenToolStripMenuItem_Click(object sender, EventArgs e)
+        private void LoeschenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedRows[0].Cells["TaetigkeitID"].Value);
             TaetigkeitView taetigkeitV = new TaetigkeitView("Tätigkeit Löschen", taetigkeit: _handler.TaetigkeitLaden(taetigkeitID, out bool success, _connection), _connection);
@@ -273,6 +271,18 @@ namespace easyAuftrag.View
                 {
                     MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
                 }
+            }
+            this.BringToFront();
+            this.Activate();
+            DataGridNeu();
+        }
+        private void NeueTaetigkeit()
+        {
+            TaetigkeitView taetigkeitV = new TaetigkeitView("Neue Tätigkeit", _connection);
+            if (taetigkeitV.ShowDialog() == DialogResult.OK)
+            {
+                AuftragInfo.Taetigkeiten.Add(taetigkeitV.TaetigkeitInfo);
+                _bind.Add(taetigkeitV.TaetigkeitInfo);
             }
             this.BringToFront();
             this.Activate();

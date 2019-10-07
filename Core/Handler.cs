@@ -81,6 +81,7 @@ namespace Core
                         db.Kunden.Find(kundeID).PLZ = kunde.PLZ;
                         db.Kunden.Find(kundeID).Wohnort = kunde.Wohnort;
                         db.Kunden.Find(kundeID).TelefonNr = kunde.TelefonNr;
+                        db.Kunden.Find(kundeID).WeitereAdressen = kunde.WeitereAdressen;
                         db.SaveChanges();
                         return true;
                     }
@@ -389,6 +390,91 @@ namespace Core
                 return false;
             }
         }
+        /// <summary>
+        /// Legt eine neue Adresse mit den übergebenen Daten in der Datenbank an.
+        /// </summary>
+        /// <param name="adresse">Daten des neuen Kunden</param>
+        /// <seealso cref="EasyAuftragContext"/>
+        public void AdresseAnlegen(Adresse adresse, string connection)
+        {
+            try
+            {
+                using (var db = new EasyAuftragContext(connection))
+                {
+                    db.Adressen.Add(adresse);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
+        }
+
+        /// <summary>
+        /// Bearbeitet eine existierende Adresse mit den übergebenen Daten in der Datenbank.
+        /// </summary>
+        /// <param name="adresse">aktualisierte Daten des Kunden</param>
+        /// <param name="adresseID">Primärschlüssel des Kunden in der Datenbank</param>
+        /// <seealso cref="EasyAuftragContext"/>
+        public bool AdresseBearbeiten(Adresse adresse, int adresseID, string connection)
+        {
+            try
+            {
+                using (var db = new EasyAuftragContext(connection))
+                {
+                    if (db.Adressen.Find(adresseID) != null)
+                    {
+                        db.Adressen.Find(adresseID).KundeID = adresse.KundeID;
+                        db.Adressen.Find(adresseID).Strasse = adresse.Strasse;
+                        db.Adressen.Find(adresseID).Hausnr = adresse.Hausnr;
+                        db.Adressen.Find(adresseID).PLZ = adresse.PLZ;
+                        db.Adressen.Find(adresseID).Wohnort = adresse.Wohnort;
+                        db.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Löscht die Adresse, deren ID übergeben wird.
+        /// </summary>
+        /// <param name="adresseID">Primärschlüssel des Kunden in der Datenbank</param>
+        /// <seealso cref="EasyAuftragContext"/>
+        public bool AdresseLoeschen(int adresseID, string connection)
+        {
+            try
+            {
+                using (var db = new EasyAuftragContext(connection))
+                {
+                    if (db.Adressen.Find(adresseID) != null)
+                    {
+                        db.Adressen.Remove(db.Adressen.Find(adresseID));
+                        db.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+                return false;
+            }
+        }
 
         /// <summary>
         /// Gibt einen Kunden aus der Datenbank anhand der Kunden ID zurück
@@ -516,6 +602,37 @@ namespace Core
                 success = false;
             }
             return tat;
+        }
+        /// <summary>
+        /// Gibt eine Adresse aus der Datenbank anhand der Adressen ID zurück
+        /// </summary>
+        /// <param name="kundeID"></param>
+        /// <returns>Kunde aus Datenbank</returns>
+        /// <seealso cref="EasyAuftragContext"/>
+        public Adresse AdresseLaden(int adresseID, out bool success, string connection)
+        {
+            Adresse adr = new Adresse();
+            try
+            {
+                using (var db = new EasyAuftragContext(connection))
+                {
+                    if (db.Adressen.Find(adresseID) != null)
+                    {
+                        adr = (from ad in db.Adressen select ad).First(ad => ad.AdresseID == adresseID);
+                        success = true;
+                    }
+                    else
+                    {
+                        success = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+                success = false;
+            }
+            return adr;
         }
     }
 }
