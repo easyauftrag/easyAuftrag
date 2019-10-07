@@ -9,6 +9,54 @@ Language=0x407 Deutsch (Deutschland)
 
 [FILES]
 Datei\Start.html
+Datei\Hauptfenster\Contents.html
+Datei\Hauptfenster\Menüleiste.html
+Datei\Hauptfenster\Werkzeugleiste.html
+Datei\Hauptfenster\Auftragstabelle\Contents.html
+Datei\Hauptfenster\Auftragstabelle\Kontextmenü.html
+Datei\Hauptfenster\Auftragstabelle\Suche.html
+Datei\Hauptfenster\Baumansicht\Adressen.html
+Datei\Hauptfenster\Baumansicht\Aufträge.html
+Datei\Hauptfenster\Baumansicht\Contents.html
+Datei\Hauptfenster\Baumansicht\Kunden.html
+Datei\Hauptfenster\Baumansicht\Mitarbeiter.html
+Datei\Hauptfenster\Baumansicht\Tätigkeiten.html
+Datei\Einstellungen\Allgemein.html
+Datei\Einstellungen\Contents.html
+Datei\Einstellungen\Datenbank.html
+Datei\Mitarbeiter\bearbeiten.html
+Datei\Mitarbeiter\Contents.html
+Datei\Mitarbeiter\löschen.html
+Datei\Mitarbeiter\neu.html
+Datei\Kunde\bearbeiten.html
+Datei\Kunde\Contents.html
+Datei\Kunde\löschen.html
+Datei\Kunde\neu.html
+Datei\Kunde\Adresse\bearbeiten.html
+Datei\Kunde\Adresse\Contents.html
+Datei\Kunde\Adresse\löschen.html
+Datei\Kunde\Adresse\neu.html
+Datei\Auftrag\bearbeiten.html
+Datei\Auftrag\Contents.html
+Datei\Auftrag\löschen.html
+Datei\Auftrag\neu.html
+Datei\Auftrag\Tätigkeit\bearbeiten.html
+Datei\Auftrag\Tätigkeit\Contents.html
+Datei\Auftrag\Tätigkeit\löschen.html
+Datei\Auftrag\Tätigkeit\neu.html
+Datei\ImportExport\Contents.html
+Datei\ImportExport\CSV Datei\Contents.html
+Datei\ImportExport\CSV Datei\Export.html
+Datei\ImportExport\CSV Datei\Import.html
+Datei\ImportExport\JSON Datei\Contents.html
+Datei\ImportExport\JSON Datei\Export.html
+Datei\ImportExport\JSON Datei\Import.html
+Datei\ImportExport\XML Datei\Contents.html
+Datei\ImportExport\XML Datei\Export.html
+Datei\ImportExport\XML Datei\Import.html
+Datei\Drucken\Auftragszettel.html
+Datei\Drucken\Contents.html
+Datei\Drucken\Stundennachweis.html
 
 [INFOTYPES]
 
