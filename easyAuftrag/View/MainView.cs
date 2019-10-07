@@ -471,7 +471,6 @@ namespace easyAuftrag
                             MessageBox.Show("Mitarbeiter nicht in der Datenbank gefunden");
                         }
                     }
-                    // Auf MainView zurückgehen
                     this.BringToFront();
                     this.Activate();
                     // Aktualisieren des TreeView, um den bearbeiteten Mitarbeiter mit einzubeziehen
@@ -498,7 +497,6 @@ namespace easyAuftrag
                             MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
                         }
                     }
-                    // Auf MainView zurückgehen
                     this.BringToFront();
                     this.Activate();
                     // Aktualisieren des TreeView, um die bearbeitete Tätigkeit mit einzubeziehen
@@ -520,7 +518,6 @@ namespace easyAuftrag
                             MessageBox.Show("Adresse nicht in der Datenbank gefunden");
                         }
                     }
-                    // Auf MainView zurückgehen
                     this.BringToFront();
                     this.Activate();
                     // Aktualisieren des TreeView, um die bearbeitete Adresse mit einzubeziehen
@@ -559,7 +556,6 @@ namespace easyAuftrag
                             MessageBox.Show("Kunde nicht in der Datenbank gefunden");
                         }
                     }
-                    // Auf MainView zurückgehen
                     this.BringToFront();
                     this.Activate();
                     // Aktualisieren des TreeView, um den gelöschten Kunden mit einzubeziehen
@@ -581,7 +577,6 @@ namespace easyAuftrag
                             MessageBox.Show("Mitarbeiter nicht in der Datenbank gefunden");
                         }
                     }
-                    // Auf MainView zurückgehen
                     this.BringToFront();
                     this.Activate();
                     // Aktualisieren des TreeView, um den gelöschten Mitarbeiter mit einzubeziehen
@@ -608,7 +603,6 @@ namespace easyAuftrag
                             MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
                         }
                     }
-                    // Auf MainView zurückgehen
                     this.BringToFront();
                     this.Activate();
                     // Aktualisieren des TreeView, um die gelöschte Tätigkeit mit einzubeziehen
@@ -630,7 +624,6 @@ namespace easyAuftrag
                             MessageBox.Show("Adresse nicht in der Datenbank gefunden");
                         }
                     }
-                    // Auf MainView zurückgehen
                     this.BringToFront();
                     this.Activate();
                     // Aktualisieren des TreeView, um die gelöschte Adresse mit einzubeziehen
@@ -784,7 +777,6 @@ namespace easyAuftrag
                     // Hinzufügen des Auftrags zur Datenbank
                     _handler.AuftragAnlegen(auftragV.AuftragInfo, _config.ConnectionString);
                 }
-                // Auf MainView zurückgehen
                 this.BringToFront();
                 this.Activate();
                 // Aktualisieren der DataGridView und des TreeView, um den neuen Auftrag mit einzubeziehen
@@ -818,7 +810,6 @@ namespace easyAuftrag
                         MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
                     }
                 }
-                // Auf MainView zurückgehen
                 this.BringToFront();
                 this.Activate();
                 // Aktualisieren der DataGridView und des TreeView, um den bearbeiteten Auftrag mit einzubeziehen
@@ -854,7 +845,7 @@ namespace easyAuftrag
                             MessageBox.Show("Auftrag nicht in der Datenbank gefunden");
                         }
                     }
-                }// Auf MainView zurückgehen
+                }
                 this.BringToFront();
                 this.Activate();
                 // Aktualisieren der DataGridView und des TreeView, um den gelöschten Auftrag mit einzubeziehen
@@ -880,7 +871,6 @@ namespace easyAuftrag
                     // Hinzufügen des Kunden zur Datenbank
                     _handler.KundeAnlegen(kundeV.KundeInfo, _config.ConnectionString);
                 }
-                // Auf MainView zurückgehen
                 this.BringToFront();
                 this.Activate();
                 // Aktualisieren des TreeView, um den neuen Kunden mit einzubeziehen
@@ -913,7 +903,6 @@ namespace easyAuftrag
                         MessageBox.Show("Kunde nicht in der Datenbank gefunden");
                     }
                 }
-                // Auf MainView zurückgehen
                 this.BringToFront();
                 this.Activate();
                 // Aktualisieren des TreeView, um den bearbeiteten Kunden mit einzubeziehen
@@ -938,7 +927,6 @@ namespace easyAuftrag
                     // Hinzufügen des Mitarbeiters zur Datenbank
                     _handler.MitarbeiterAnlegen(mitarbeiterV.MitarbeiterInfo, _config.ConnectionString);
                 }
-                // Auf MainView zurückgehen
                 this.BringToFront();
                 this.Activate();
                 // Aktualisieren des TreeView, um den neuen Mitarbeiter mit einzubeziehen
@@ -967,7 +955,6 @@ namespace easyAuftrag
                         _handler.AuftragAnlegen(auf, _config.ConnectionString);
                     }
                 }
-                // Auf MainView zurückgehen
                 this.BringToFront();
                 this.Activate();
                 // Aktualisieren der DataGridView und des TreeView, um die neuen Aufträge mit einzubeziehen
@@ -997,7 +984,6 @@ namespace easyAuftrag
                         _handler.KundeAnlegen(kun, _config.ConnectionString);
                     }
                 }
-                // Auf MainView zurückgehen
                 this.BringToFront();
                 this.Activate();
                 // Aktualisieren des TreeView, um die neuen Kunden mit einzubeziehen
@@ -1026,7 +1012,6 @@ namespace easyAuftrag
                         _handler.MitarbeiterAnlegen(mit, _config.ConnectionString);
                     }
                 }
-                // Auf MainView zurückgehen
                 this.BringToFront();
                 this.Activate();
                 // Aktualisieren des TreeView, um die neuen Mitarbeiter mit einzubeziehen
@@ -1055,7 +1040,6 @@ namespace easyAuftrag
                         _handler.TaetigkeitAnlegen(tat, _config.ConnectionString);
                     }
                 }
-                // Auf MainView zurückgehen
                 this.BringToFront();
                 this.Activate();
                 // Aktualisieren des TreeView, um die neuen Tätigkeiten mit einzubeziehen
@@ -1084,7 +1068,6 @@ namespace easyAuftrag
                         _handler.AdresseAnlegen(adr, _config.ConnectionString);
                     }
                 }
-                // Auf MainView zurückgehen
                 this.BringToFront();
                 this.Activate();
                 // Aktualisieren des TreeView, um die neuen Adressen mit einzubeziehen
@@ -1135,6 +1118,7 @@ namespace easyAuftrag
                         List<Kunde> kunden = new List<Kunde>();
                         List<Mitarbeiter> mitarbeiters = new List<Mitarbeiter>();
                         List<Taetigkeit> taetigkeiten = new List<Taetigkeit>();
+                        List<Adresse> adressen = new List<Adresse>();
                         // Öffnen eines Windows Speichern Fensters
                         SaveFileDialog dlg = new SaveFileDialog();
                         if (exportV.DateiFormat == ExportView.Format.CSV)
@@ -1177,6 +1161,13 @@ namespace easyAuftrag
                                         taetigkeiten = (from t in db.Taetigkeiten select t).ToList();
                                         // Schreiben der .csv Datei
                                         austauschCSV.TaetigkeitSchreiben(dlg.FileName, taetigkeiten);
+                                    }
+                                    else if (exportV.ExportArt == ExportView.Art.Adresse)
+                                    {
+                                        // Laden aller Adressen aus der Datenbank
+                                        adressen = (from ad in db.Adressen select ad).ToList();
+                                        // Schreiben der .csv Datei
+                                        austauschCSV.AdresseSchreiben(dlg.FileName, adressen);
                                     }
                                 }
                             }
@@ -1548,13 +1539,24 @@ namespace easyAuftrag
                         // Zuweisung zum DruckDoc
                         doc.AuftragNr = auftrag.AuftragNummer;
                         doc.KundeName = kunde.Name;
-                        AuswahlAdresse auswahl = new AuswahlAdresse(kunde, _config.ConnectionString);
-                        if (auswahl.ShowDialog() == DialogResult.OK)
+                        // Öffnen des "AuswahlAdresse" Fensters falls weitere Adressen vorliegen
+                        if (kunde.WeitereAdressen.Any())
                         {
-                            doc.KundeAnschrift = auswahl.AdresseInfo.Strasse + " " 
-                                                + auswahl.AdresseInfo.Hausnr + ", " 
-                                                + auswahl.AdresseInfo.PLZ + " " 
-                                                + auswahl.AdresseInfo.Wohnort;
+                            AuswahlAdresse auswahl = new AuswahlAdresse(kunde, _config.ConnectionString);
+                            if (auswahl.ShowDialog() == DialogResult.OK)
+                            {
+                                doc.KundeAnschrift = auswahl.AdresseInfo.Strasse + " "
+                                                    + auswahl.AdresseInfo.Hausnr + ", "
+                                                    + auswahl.AdresseInfo.PLZ + " "
+                                                    + auswahl.AdresseInfo.Wohnort;
+                            }
+                            else
+                            {
+                                doc.KundeAnschrift = kunde.Strasse + " "
+                                                    + kunde.Hausnr + ", "
+                                                    + kunde.PLZ + " "
+                                                    + kunde.Wohnort;
+                            }
                         }
                         else
                         {

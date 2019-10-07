@@ -74,7 +74,7 @@ namespace Core.Model
         public List<Adresse> AdrListe { get; set; }
 
         /// <summary>
-        /// Klassenkonstruktor für die Klasse DruckDoc
+        /// Konstruktor für die Klasse DruckDoc
         /// </summary>
         public DruckDoc()
         {

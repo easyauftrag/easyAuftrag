@@ -89,7 +89,9 @@ namespace easyAuftrag.View
             {
                 butSpeichern.Text = "Löschen";
             }
+            // Zwischenpeichern des ausgewälten Kunden zur Weiterverarbeitung
             KundeInfo = kunde;
+            // Übergeben des Kunden zum Anzeigen in den Controls
             FillControls(KundeInfo);
             DataGridNeu();
         }
@@ -100,10 +102,12 @@ namespace easyAuftrag.View
             {
                 using (var db = new EasyAuftragContext(_connection))
                 {
+                    // Laden aller zugehörigen Adressen
                     _adrlist = (from ad in db.Adressen where ad.KundeID == KundeInfo.KundeID select ad).ToList();
                 }
                 _bind.DataSource = _adrlist;
                 dgvKunde.DataSource = _bind;
+                // AdresseID wird später benötigt, soll aber für den User nicht sichtbar sein
                 dgvKunde.Columns["AdresseID"].Visible = false;
             }
             catch (Exception ex)
@@ -147,19 +151,20 @@ namespace easyAuftrag.View
         }
 
         /// <summary>
-        /// Action beim Klick auf den "Speichen" Button
+        /// Aktion beim Klick auf den "Speichen" Button
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ButSpeichern_Click(object sender, EventArgs e)
         {
+            // Zwischenpeichern des ausgewälten Kunden zur Übergabe an MainView
             FillKunde();
             this.DialogResult = DialogResult.OK;
             this.Hide();
         }
 
         /// <summary>
-        /// Action beim Klick auf den "Abbrechen" Button
+        /// Aktion beim Klick auf den "Abbrechen" Button
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -170,7 +175,7 @@ namespace easyAuftrag.View
         }
 
         /// <summary>
-        /// Action beim Klick auf den "Weitere Adresse" Button
+        /// Aktion beim Klick auf den "Weitere Adresse" Button
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -180,7 +185,7 @@ namespace easyAuftrag.View
         }
         
         /// <summary>
-        /// Action beim Rechtsklick auf die <see cref="DataGridView"/>
+        /// Aktion beim Rechtsklick auf die <see cref="DataGridView"/>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -193,7 +198,7 @@ namespace easyAuftrag.View
             }
         }
         /// <summary>
-        /// Action beim Klick auf "Neu" im Kontextmenu auf der <see cref="DataGridView"/>
+        /// Aktion beim Klick auf "Neu" im Kontextmenu auf der <see cref="DataGridView"/>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -202,7 +207,7 @@ namespace easyAuftrag.View
             NeueAdresse();
         }
         /// <summary>
-        /// Action beim Klick auf "Bearbeiten" im Kontextmenu auf der <see cref="DataGridView"/>
+        /// Aktion beim Klick auf "Bearbeiten" im Kontextmenu auf der <see cref="DataGridView"/>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -226,7 +231,7 @@ namespace easyAuftrag.View
             DataGridNeu();
         }
         /// <summary>
-        /// Action beim Klick auf "Löschen" im Kontextmenu auf der <see cref="DataGridView"/>
+        /// Aktion beim Klick auf "Löschen" im Kontextmenu auf der <see cref="DataGridView"/>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -250,8 +255,11 @@ namespace easyAuftrag.View
             DataGridNeu();
         }
         /// <summary>
-        /// Öffnet <see cref="AdresseView"/> und legt eine neue Adresse an, falls erstere <see cref="DialogResult.OK"/> zurückgibt.
+        /// Methode zum Anlegen einer neuen Tätigkeit
         /// </summary>
+        /// <remarks>
+        /// Öffnet <see cref="AdresseView"/> und legt eine neue Adresse an, falls erstere <see cref="DialogResult.OK"/> zurückgibt.
+        /// </remarks>
         private void NeueAdresse()
         {
             AdresseView adresseV = new AdresseView("Neue Adresse");

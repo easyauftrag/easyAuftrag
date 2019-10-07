@@ -70,6 +70,7 @@ namespace easyAuftrag.View
         /// Konstruktor für die <see cref="AuftragView"/>
         /// </summary>
         /// <param name="titel">Titel für das Fenster</param>
+        /// <seealso cref="EasyAuftragContext"/>
         public AuftragView(string titel, string connection)
         {
             _connection = connection;
@@ -78,6 +79,7 @@ namespace easyAuftrag.View
             Text = titel;
             using (var db = new EasyAuftragContext(connection))
             {
+                // Laden aller Kunden IDs und Namen, um sie in der ComboBox anzuzeigen
                 var kunden = (from k in db.Kunden select new { ID = k.KundeID, kName = k.Name }).ToList();
                 cbKunde.DataSource = kunden;
                 cbKunde.DisplayMember = "kName";
@@ -100,17 +102,23 @@ namespace easyAuftrag.View
             {
                 butSpeichern.Text = "Löschen";
             }
+            // Zwischenpeichern des ausgewälten Auftrags zur Weiterverarbeitung
             AuftragInfo = auftrag;
+            // Übergeben des Auftrags zum Anzeigen in den Controls
             FillControls(AuftragInfo);
             DataGridNeu();
         }
-
+        /// <summary>
+        /// Methode zum Laden und Aktualisieren der Tätigkeiten im <see cref="DataGridView"/>
+        /// </summary>
+        /// <seealso cref="EasyAuftragContext"/>
         private void DataGridNeu()
         {
             try
             {
                 using (var db = new EasyAuftragContext(_connection))
                 {
+                    //Laden aller zugehörigen Tätigkeiten
                     _tatlist = (from t in db.Taetigkeiten where t.AuftragID == AuftragInfo.AuftragID select t).ToList();
                 }
                 _bind.DataSource = _tatlist;
@@ -124,9 +132,8 @@ namespace easyAuftrag.View
 
         }
         /// <summary>
-        /// Packt die Eingaben in den Controls in einen <see cref="Auftrag"/>.
+        /// Methode zum Transferieren der Werte in den Controls in einen <see cref="Auftrag"/>.
         /// </summary>
-        /// <returns>Auftrag aus den Eingaben in den Controls</returns>
         private void FillAuftrag()
         {
             try
@@ -146,9 +153,10 @@ namespace easyAuftrag.View
         }
 
         /// <summary>
-        /// Zeigt den übergebenen <see cref="Auftrag"/> in den Controls an.
+        /// Methode zum Anzeigen des übergebenen <see cref="Auftrag"/> in den Controls
         /// </summary>
         /// <param name="auftrag"></param>
+        /// <seealso cref="EasyAuftragContext"/>
         private void FillControls(Auftrag auftrag)
         {
             tbAuftragNr.Text = auftrag.AuftragNummer;
@@ -169,7 +177,7 @@ namespace easyAuftrag.View
         }
 
         /// <summary>
-        /// Action beim Klick auf den "Speichen" Button
+        /// Aktion beim Klick auf den "Speichen" Button
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -181,7 +189,7 @@ namespace easyAuftrag.View
         }
 
         /// <summary>
-        /// Action beim Klick auf den "Abbrechen" Button
+        /// Aktion beim Klick auf den "Abbrechen" Button
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -192,11 +200,8 @@ namespace easyAuftrag.View
         }
 
         /// <summary>
-        /// Action beim Klick auf den "Neue Tätigkeit" Button
+        /// Aktion beim Klick auf den "Neue Tätigkeit" Button
         /// </summary>
-        /// <remarks>
-        /// Öffnet <see cref="TaetigkeitView"/> und legt eine neue Taetigkeit an, falls erstere <see cref="DialogResult.OK"/> zurückgibt.
-        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ButNeueTaetigkeit_Click(object sender, EventArgs e)
@@ -205,7 +210,7 @@ namespace easyAuftrag.View
         }
 
         /// <summary>
-        /// Action beim Rechtsklick auf die <see cref="DataGridView"/>
+        /// Aktion beim Rechtsklick auf die <see cref="DataGridView"/>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -218,7 +223,7 @@ namespace easyAuftrag.View
         }
 
         /// <summary>
-        /// Action beim Klick auf "Neu" im Kontextmenu auf der <see cref="DataGridView"/>
+        /// Aktion beim Klick auf "Neu" im Kontextmenu auf der <see cref="DataGridView"/>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -228,7 +233,7 @@ namespace easyAuftrag.View
         }
 
         /// <summary>
-        /// Action beim Klick auf "Bearbeiten" im Kontextmenu auf der <see cref="DataGridView"/>
+        /// Aktion beim Klick auf "Bearbeiten" im Kontextmenu auf der <see cref="DataGridView"/>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -253,7 +258,7 @@ namespace easyAuftrag.View
         }
 
         /// <summary>
-        /// Action beim Klick auf "Löschen" im Kontextmenu auf der <see cref="DataGridView"/>
+        /// Aktion beim Klick auf "Löschen" im Kontextmenu auf der <see cref="DataGridView"/>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -276,6 +281,12 @@ namespace easyAuftrag.View
             this.Activate();
             DataGridNeu();
         }
+        /// <summary>
+        /// Methode zum Anlegen einer neuen Tätigkeit
+        /// </summary>
+        /// <remarks>
+        /// Öffnet <see cref="TaetigkeitView"/> und legt eine neue Taetigkeit an, falls erstere <see cref="DialogResult.OK"/> zurückgibt.
+        /// </remarks>
         private void NeueTaetigkeit()
         {
             TaetigkeitView taetigkeitV = new TaetigkeitView("Neue Tätigkeit", _connection);

@@ -387,5 +387,39 @@ namespace Austausch
                 ErrorHandler.ErrorHandle(ex);
             }
         }
+        /// <summary>
+        /// Schreibt Adressen in eine CSV Datei
+        /// </summary>
+        /// <param name="exportPfad">Pfad zur CSV Datei</param>
+        /// <param name="lstAdressen">Liste von Adressobjekten</param>
+        /// <seealso cref="Adresse"/>
+        public void AdresseSchreiben(string exportPfad, List<Adresse> lstAdresse)
+        {
+            try
+            {
+                // Erzeugt einen StreamWriter für die Datei
+                TextWriter writer = new StreamWriter(exportPfad);
+                // Schreibt den Header in die Datei
+                writer.WriteLine("AdresseID; KundeID; Strasse; Hausnr; PLZ; Wohnort");
+
+                // Schreibt jedes Element der Liste Zeile für Zeile in die Datei
+                foreach (var item in lstAdresse)
+                {
+                    writer.WriteLine(item.AdresseID.ToString(_culture) + _datenTrenner
+                        + item.KundeID.ToString(_culture) + _datenTrenner
+                        + item.Strasse + _datenTrenner
+                        + item.Hausnr + _datenTrenner
+                        + item.PLZ + _datenTrenner
+                        + item.Wohnort);
+                }
+
+                writer.Flush();
+                writer.Close();
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
+        }
     }
 }

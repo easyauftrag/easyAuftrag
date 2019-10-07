@@ -45,7 +45,7 @@ namespace easyAuftrag.View
     public partial class ExportView : Form
     {
         public enum Format { CSV, XML, JSON }
-        public enum Art { Auftrag, Kunde, Mitarbeiter, Taetigkeit }
+        public enum Art { Auftrag, Kunde, Mitarbeiter, Taetigkeit, Adresse }
         public Format DateiFormat { get; set; }
         public Art ExportArt { get; set; }
 
@@ -73,7 +73,7 @@ namespace easyAuftrag.View
             this.Hide();
         }
 
-        private void rdbCSV_CheckedChanged(object sender, EventArgs e)
+        private void RdbCSV_CheckedChanged(object sender, EventArgs e)
         {
             if (rdbCSV.Checked)
             {
@@ -81,7 +81,7 @@ namespace easyAuftrag.View
             }
         }
 
-        private void rdbXML_CheckedChanged(object sender, EventArgs e)
+        private void RdbXML_CheckedChanged(object sender, EventArgs e)
         {
             if (rdbXML.Checked)
             {
@@ -89,7 +89,7 @@ namespace easyAuftrag.View
             }
         }
 
-        private void rdbJSON_CheckedChanged(object sender, EventArgs e)
+        private void RdbJSON_CheckedChanged(object sender, EventArgs e)
         {
             if (rdbJSON.Checked)
             {
@@ -97,13 +97,13 @@ namespace easyAuftrag.View
             }
         }
 
-        private void butSpeichern_Click(object sender, EventArgs e)
+        private void ButSpeichern_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
             this.Hide();
         }
 
-        private void rdbAuftrag_CheckedChanged(object sender, EventArgs e)
+        private void RdbAuftrag_CheckedChanged(object sender, EventArgs e)
         {
             if (rdbAuftrag.Checked)
             {
@@ -111,7 +111,7 @@ namespace easyAuftrag.View
             }
         }
 
-        private void rdbKunde_CheckedChanged(object sender, EventArgs e)
+        private void RdbKunde_CheckedChanged(object sender, EventArgs e)
         {
             if (rdbKunde.Checked)
             {
@@ -119,7 +119,7 @@ namespace easyAuftrag.View
             }
         }
 
-        private void rdbMitarbeiter_CheckedChanged(object sender, EventArgs e)
+        private void RdbMitarbeiter_CheckedChanged(object sender, EventArgs e)
         {
             if (rdbMitarbeiter.Checked)
             {
@@ -127,11 +127,19 @@ namespace easyAuftrag.View
             }
         }
 
-        private void rdbTaetigkeit_CheckedChanged(object sender, EventArgs e)
+        private void RdbTaetigkeit_CheckedChanged(object sender, EventArgs e)
         {
             if (rdbTaetigkeit.Checked)
             {
                 ExportArt = Art.Taetigkeit;
+            }
+        }
+
+        private void RdbAdresse_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdbAdresse.Checked)
+            {
+                ExportArt = Art.Adresse;
             }
         }
     }

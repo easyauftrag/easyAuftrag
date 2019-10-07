@@ -81,7 +81,9 @@ namespace easyAuftrag.View
             {
                 butSpeichern.Text = "Löschen";
             }
+            // Zwischenpeichern der ausgewälten Adresse zur Weiterverarbeitung
             AdresseInfo = adresse;
+            // Übergeben der Adresse zum Anzeigen in den Controls
             FillControls(AdresseInfo);
         }
 
@@ -123,6 +125,7 @@ namespace easyAuftrag.View
         /// <param name="e"></param>
         private void ButSpeichern_Click(object sender, EventArgs e)
         {
+            // Zwischenpeichern der ausgewälten Adresse zur Übergabe an KundeView
             FillAdresse();
             this.DialogResult = DialogResult.OK;
             this.Hide();

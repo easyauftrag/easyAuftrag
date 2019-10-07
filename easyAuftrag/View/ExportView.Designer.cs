@@ -40,6 +40,7 @@
             this.rdbMitarbeiter = new System.Windows.Forms.RadioButton();
             this.rdbKunde = new System.Windows.Forms.RadioButton();
             this.rdbAuftrag = new System.Windows.Forms.RadioButton();
+            this.rdbAdresse = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -64,7 +65,7 @@
             this.butSpeichern.TabIndex = 1;
             this.butSpeichern.Text = "Speichern";
             this.butSpeichern.UseVisualStyleBackColor = true;
-            this.butSpeichern.Click += new System.EventHandler(this.butSpeichern_Click);
+            this.butSpeichern.Click += new System.EventHandler(this.ButSpeichern_Click);
             // 
             // groupBox1
             // 
@@ -88,7 +89,7 @@
             this.rdbJSON.TabStop = true;
             this.rdbJSON.Text = "JSON (*.json)";
             this.rdbJSON.UseVisualStyleBackColor = true;
-            this.rdbJSON.CheckedChanged += new System.EventHandler(this.rdbJSON_CheckedChanged);
+            this.rdbJSON.CheckedChanged += new System.EventHandler(this.RdbJSON_CheckedChanged);
             // 
             // rdbXML
             // 
@@ -100,7 +101,7 @@
             this.rdbXML.TabStop = true;
             this.rdbXML.Text = "XML (*.xml)";
             this.rdbXML.UseVisualStyleBackColor = true;
-            this.rdbXML.CheckedChanged += new System.EventHandler(this.rdbXML_CheckedChanged);
+            this.rdbXML.CheckedChanged += new System.EventHandler(this.RdbXML_CheckedChanged);
             // 
             // rdbCSV
             // 
@@ -113,10 +114,11 @@
             this.rdbCSV.TabStop = true;
             this.rdbCSV.Text = "CSV (*.csv)";
             this.rdbCSV.UseVisualStyleBackColor = true;
-            this.rdbCSV.CheckedChanged += new System.EventHandler(this.rdbCSV_CheckedChanged);
+            this.rdbCSV.CheckedChanged += new System.EventHandler(this.RdbCSV_CheckedChanged);
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.rdbAdresse);
             this.groupBox2.Controls.Add(this.rdbTaetigkeit);
             this.groupBox2.Controls.Add(this.rdbMitarbeiter);
             this.groupBox2.Controls.Add(this.rdbKunde);
@@ -138,7 +140,7 @@
             this.rdbTaetigkeit.TabStop = true;
             this.rdbTaetigkeit.Text = "Tätigkeiten";
             this.rdbTaetigkeit.UseVisualStyleBackColor = true;
-            this.rdbTaetigkeit.CheckedChanged += new System.EventHandler(this.rdbTaetigkeit_CheckedChanged);
+            this.rdbTaetigkeit.CheckedChanged += new System.EventHandler(this.RdbTaetigkeit_CheckedChanged);
             // 
             // rdbMitarbeiter
             // 
@@ -150,7 +152,7 @@
             this.rdbMitarbeiter.TabStop = true;
             this.rdbMitarbeiter.Text = "Mitarbeiter";
             this.rdbMitarbeiter.UseVisualStyleBackColor = true;
-            this.rdbMitarbeiter.CheckedChanged += new System.EventHandler(this.rdbMitarbeiter_CheckedChanged);
+            this.rdbMitarbeiter.CheckedChanged += new System.EventHandler(this.RdbMitarbeiter_CheckedChanged);
             // 
             // rdbKunde
             // 
@@ -162,7 +164,7 @@
             this.rdbKunde.TabStop = true;
             this.rdbKunde.Text = "Kunden";
             this.rdbKunde.UseVisualStyleBackColor = true;
-            this.rdbKunde.CheckedChanged += new System.EventHandler(this.rdbKunde_CheckedChanged);
+            this.rdbKunde.CheckedChanged += new System.EventHandler(this.RdbKunde_CheckedChanged);
             // 
             // rdbAuftrag
             // 
@@ -175,7 +177,19 @@
             this.rdbAuftrag.TabStop = true;
             this.rdbAuftrag.Text = "Aufträge";
             this.rdbAuftrag.UseVisualStyleBackColor = true;
-            this.rdbAuftrag.CheckedChanged += new System.EventHandler(this.rdbAuftrag_CheckedChanged);
+            this.rdbAuftrag.CheckedChanged += new System.EventHandler(this.RdbAuftrag_CheckedChanged);
+            // 
+            // rdbAdresse
+            // 
+            this.rdbAdresse.AutoSize = true;
+            this.rdbAdresse.Location = new System.Drawing.Point(6, 111);
+            this.rdbAdresse.Name = "rdbAdresse";
+            this.rdbAdresse.Size = new System.Drawing.Size(69, 17);
+            this.rdbAdresse.TabIndex = 7;
+            this.rdbAdresse.TabStop = true;
+            this.rdbAdresse.Text = "Adressen";
+            this.rdbAdresse.UseVisualStyleBackColor = true;
+            this.rdbAdresse.CheckedChanged += new System.EventHandler(this.RdbAdresse_CheckedChanged);
             // 
             // ExportView
             // 
@@ -211,5 +225,6 @@
         private System.Windows.Forms.RadioButton rdbMitarbeiter;
         private System.Windows.Forms.RadioButton rdbKunde;
         private System.Windows.Forms.RadioButton rdbAuftrag;
+        private System.Windows.Forms.RadioButton rdbAdresse;
     }
 }

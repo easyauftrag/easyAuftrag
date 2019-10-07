@@ -63,6 +63,7 @@ namespace easyAuftrag.View
         /// Konstruktor für die <see cref="TaetigkeitView"/>
         /// </summary>
         /// <param name="titel"></param>
+        /// <param name="connection"></param>
         public TaetigkeitView(string titel, string connection)
         {
             _connection = connection;
