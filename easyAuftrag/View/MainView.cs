@@ -1548,10 +1548,24 @@ namespace easyAuftrag
                         // Zuweisung zum DruckDoc
                         doc.AuftragNr = auftrag.AuftragNummer;
                         doc.KundeName = kunde.Name;
-                        doc.KundeAnschrift = kunde.Strasse + " " + kunde.Hausnr + ", " + kunde.PLZ + " " + kunde.Wohnort;
+                        AuswahlAdresse auswahl = new AuswahlAdresse(kunde, _config.ConnectionString);
+                        if (auswahl.ShowDialog() == DialogResult.OK)
+                        {
+                            doc.KundeAnschrift = auswahl.AdresseInfo.Strasse + " " 
+                                                + auswahl.AdresseInfo.Hausnr + ", " 
+                                                + auswahl.AdresseInfo.PLZ + " " 
+                                                + auswahl.AdresseInfo.Wohnort;
+                        }
+                        else
+                        {
+                            doc.KundeAnschrift = kunde.Strasse + " " 
+                                                + kunde.Hausnr + ", " 
+                                                + kunde.PLZ + " " 
+                                                + kunde.Wohnort;
+                        }
                         doc.KundeTelefon = kunde.TelefonNr;
                         doc.TatListe = Tatlist;
-                        doc.MitList = MitList;
+                        doc.MitListe = MitList;
                         // Drucken der Auswahl
                         Drucken druck = new Drucken();
                         druck.Druck(doc);
@@ -1562,6 +1576,8 @@ namespace easyAuftrag
             {
                 ErrorHandler.ErrorHandle(ex);
             }
+            this.BringToFront();
+            this.Activate();
         }
         /// <summary>
         /// Aktion beim Klick auf "Auftrag" im MenuStrip Bereich "Datei -> Drucken"

@@ -66,7 +66,12 @@ namespace Core.Model
         /// <summary>
         /// Liste der Mitarbeiter, die am Auftrag mitgewirkt haben
         /// </summary>
-        public List<Mitarbeiter> MitList { get; set; }
+        public List<Mitarbeiter> MitListe { get; set; }
+        
+        /// <summary>
+        /// Liste der Adressen des Kunden
+        /// </summary>
+        public List<Adresse> AdrListe { get; set; }
 
         /// <summary>
         /// Klassenkonstruktor für die Klasse DruckDoc

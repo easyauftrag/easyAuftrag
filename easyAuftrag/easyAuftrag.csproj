@@ -83,6 +83,12 @@
     <Compile Include="View\AuftragView.Designer.cs">
       <DependentUpon>AuftragView.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\AuswahlAdresse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\AuswahlAdresse.Designer.cs">
+      <DependentUpon>AuswahlAdresse.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\ConfigView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -162,6 +168,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\AuftragView.resx">
       <DependentUpon>AuftragView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\AuswahlAdresse.resx">
+      <DependentUpon>AuswahlAdresse.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ConfigView.resx">
       <DependentUpon>ConfigView.cs</DependentUpon>
