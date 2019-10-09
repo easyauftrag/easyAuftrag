@@ -65,14 +65,14 @@ namespace easyAuftrag.Logik
         /// (--> <see cref="Taetigkeit.Minuten"/>) aller Tätigkeiten 
         /// </summary>
         /// <returns>Gesamtarbeitszeit für einen Auftrag in Minuten als double</returns>
-        public static double AuftragZeitGesamt(List<Taetigkeit> Taetigkeiten)
+        public static double AuftragZeitGesamt(List<double> minuten)
         {
             double auftragZeitGesamt = 0;
-            if (Taetigkeiten != null)
+            if (minuten != null)
             {
-                foreach (Taetigkeit tat in Taetigkeiten)
+                foreach (double min in minuten)
                 {
-                    auftragZeitGesamt += tat.Minuten;
+                    auftragZeitGesamt += min;
                 }
                 return auftragZeitGesamt;
             }

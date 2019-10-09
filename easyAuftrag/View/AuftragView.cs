@@ -65,6 +65,7 @@ namespace easyAuftrag.View
         private BindingSource _bind = new BindingSource();
         private Handler _handler = new Handler();
         private string _connection;
+        private List<double> _minlist = new List<double>();
 
         /// <summary>
         /// Konstruktor für die <see cref="AuftragView"/>
@@ -73,19 +74,25 @@ namespace easyAuftrag.View
         /// <seealso cref="EasyAuftragContext"/>
         public AuftragView(string titel, string connection)
         {
-            _connection = connection;
-            AuftragInfo = new Auftrag();
-            InitializeComponent();
-            Text = titel;
-            using (var db = new EasyAuftragContext(connection))
+            try
             {
-                // Laden aller Kunden IDs und Namen, um sie in der ComboBox anzuzeigen
-                var kunden = (from k in db.Kunden select new { ID = k.KundeID, kName = k.Name }).ToList();
-                cbKunde.DataSource = kunden;
-                cbKunde.DisplayMember = "kName";
-                cbKunde.ValueMember = "ID";
+                _connection = connection;
+                AuftragInfo = new Auftrag();
+                InitializeComponent();
+                Text = titel;
+                using (var db = new EasyAuftragContext(connection))
+                {
+                    // Laden aller Kunden IDs und Namen, um sie in der ComboBox anzuzeigen
+                    var kunden = (from k in db.Kunden select new { ID = k.KundeID, kName = k.Name }).ToList();
+                    cbKunde.DataSource = kunden;
+                    cbKunde.DisplayMember = "kName";
+                    cbKunde.ValueMember = "ID";
+                }
             }
-           
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         /// <summary>
@@ -95,18 +102,25 @@ namespace easyAuftrag.View
         /// <param name="auftrag">Zu bearbeitender/löschender Auftrag</param>
         public AuftragView(string titel, Auftrag auftrag, string connection)
         {
-            _connection = connection;
-            InitializeComponent();
-            Text = titel;
-            if (titel == "Auftrag Löschen")
+            try
             {
-                butSpeichern.Text = "Löschen";
+                _connection = connection;
+                // Zwischenpeichern des ausgewälten Auftrags zur Weiterverarbeitung
+                AuftragInfo = auftrag;
+                InitializeComponent();
+                Text = titel;
+                if (titel == "Auftrag Löschen")
+                {
+                    butSpeichern.Text = "Löschen";
+                }
+                DataGridNeu();
+                // Übergeben des Auftrags zum Anzeigen in den Controls
+                FillControls(AuftragInfo);
             }
-            // Zwischenpeichern des ausgewälten Auftrags zur Weiterverarbeitung
-            AuftragInfo = auftrag;
-            // Übergeben des Auftrags zum Anzeigen in den Controls
-            FillControls(AuftragInfo);
-            DataGridNeu();
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
         /// <summary>
         /// Methode zum Laden und Aktualisieren der Tätigkeiten im <see cref="DataGridView"/>
@@ -116,14 +130,41 @@ namespace easyAuftrag.View
         {
             try
             {
+                /*List<(string AuftragNummer, string Mitarbeiter, DateTime Datum, string Beschreibung, TimeSpan Startzeit, TimeSpan EndZeit, double Minuten)>
+                           tatl = new List<(string AuftragNummer, string Mitarbeiter, DateTime Datum, string Beschreibung, TimeSpan Startzeit, TimeSpan EndZeit, double Minuten)>();
+                */
                 using (var db = new EasyAuftragContext(_connection))
                 {
                     //Laden aller zugehörigen Tätigkeiten
-                    _tatlist = (from t in db.Taetigkeiten where t.AuftragID == AuftragInfo.AuftragID select t).ToList();
+                    _tatlist = (from t in db.Taetigkeiten 
+                                where t.AuftragID == AuftragInfo.AuftragID 
+                                select t).ToList();
+                    foreach (var item in _tatlist)
+                    {
+                        _minlist.Add(_tatlist[_tatlist.IndexOf(item)].Minuten);
+                    }
+                    var auftr = (from a in db.Auftraege
+                                 where a.AuftragID == AuftragInfo.AuftragID
+                                 select a).ToList();
+                    /*var tatl2 = (from t in db.Taetigkeiten
+                                join a in db.Auftraege on t.AuftragID equals a.AuftragID
+                                join m in db.Mitarbeiters on t.MitarbeiterID equals m.MitarbeiterID
+                                where t.AuftragID == AuftragInfo.AuftragID
+                                select new { a.AuftragNummer, Mitarbeiter = m.Name, t.Datum, Beschreibung = t.Name, t.StartZeit, t.EndZeit}).ToList();
+                    
+                    
+                    foreach (var item in tatl2)
+                    {
+                        _minlist.Add(_tatlist[tatl2.IndexOf(item)].Minuten);
+                        tatl.Add((AuftragNummer: item.AuftragNummer, Mitarbeiter:  item.Mitarbeiter, Datum: item.Datum, Beschreibung: item.Beschreibung, Startzeit: item.StartZeit, EndZeit: item.EndZeit, Minuten : _minlist.Last()));
+                    }
+                    */
+                    _bind.DataSource = _tatlist;
+                    dgvAuftrag.DataSource = _bind;
+                    dgvAuftrag.Columns["TaetigkeitID"].Visible = false;
+                    dgvAuftrag.Columns["AuftragID"].Visible = false;
+                    tbGesamt.Text = Math.Round(Berechnung.AuftragZeitGesamt(_minlist) / 60, 2).ToString();
                 }
-                _bind.DataSource = _tatlist;
-                dgvAuftrag.DataSource = _bind;
-                dgvAuftrag.Columns["TaetigkeitID"].Visible = false;
             }
             catch (Exception ex)
             {
@@ -173,7 +214,7 @@ namespace easyAuftrag.View
             dtpErteilt.Value = auftrag.Erteilt;
             cbErledigt.Checked = auftrag.Erledigt;
             cbAbgerechnet.Checked = auftrag.Abgerechnet;
-            tbGesamt.Text = Math.Round(Berechnung.AuftragZeitGesamt(_tatlist)/60, 2).ToString();
+            tbGesamt.Text = Math.Round(Berechnung.AuftragZeitGesamt(_minlist)/60, 2).ToString();
         }
 
         /// <summary>
@@ -294,6 +335,7 @@ namespace easyAuftrag.View
             {
                 AuftragInfo.Taetigkeiten.Add(taetigkeitV.TaetigkeitInfo);
                 _bind.Add(taetigkeitV.TaetigkeitInfo);
+                tbGesamt.Text = Math.Round(Berechnung.AuftragZeitGesamt(_minlist) / 60, 2).ToString();
             }
             this.BringToFront();
             this.Activate();

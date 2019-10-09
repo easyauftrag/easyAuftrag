@@ -108,7 +108,8 @@ namespace easyAuftrag.View
                 TaetigkeitInfo.MitarbeiterID = Convert.ToInt32(cbMitarbeiter.SelectedValue);
                 TaetigkeitInfo.Datum = dtpDatum.Value.Date;
                 TaetigkeitInfo.Name = tbName.Text;
-                if (TimeSpan.TryParse(tbStart.Text, out TimeSpan start))
+                TimeSpan.TryParse(tbStart.Text, out TimeSpan start);
+                if (!TimeSpan.Zero.Equals(start))
                 {
                     TaetigkeitInfo.StartZeit = start;
                 }
@@ -116,7 +117,8 @@ namespace easyAuftrag.View
                 {
                     errorInfo.SetError(tbStart, "Bitte korrekte Startzeit eingeben!");
                 }
-                if (TimeSpan.TryParse(tbEnde.Text, out TimeSpan ende))
+                TimeSpan.TryParse(tbEnde.Text, out TimeSpan ende);
+                if (!TimeSpan.Zero.Equals(ende))
                 {
                     TaetigkeitInfo.EndZeit = ende;
                 }
@@ -159,9 +161,18 @@ namespace easyAuftrag.View
         /// <param name="e"></param>
         private void ButSpeichern_Click(object sender, EventArgs e)
         {
+            errorInfo.Clear();
             FillTaetigkeit();
-            this.DialogResult = DialogResult.OK;
-            this.Hide();
+            if (errorInfo.GetError(tbStart) == "" && errorInfo.GetError(tbEnde) == "")
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Hide();
+            }
+            else
+            {
+                this.BringToFront();
+                this.Activate();
+            }
         }
 
         /// <summary>
