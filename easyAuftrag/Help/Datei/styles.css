@@ -1,26 +1,599 @@
-body {
+﻿div.saveHistory
+{
+	behavior:url(#default#saveHistory);
+}
+.userDataStyle
+{
+	behavior:url(#default#userData);
+	margin:0 0 0 0;
+	padding:0 0 0 0;
+	height:0px;
+}
+
+
+
+/********/
+/* BODY */
+body
+{
+	background:#FFFFFF;
+	color:#000000;
+	font-family:Helvetica, Verdana, Arial, Sans-Serif;
+	font-size:90%;
+	line-height: 1.1em;
+	font-style:normal;
+	font-weight:normal;
+	margin:0 0 0 0;
+	padding:0 0 0 0;
+	width:97.5%;
+	border-style:none;
+	border-width:0;
+}
+p
+{
+	
+	font-family:Helvetica, Verdana, Arial, Sans-Serif;
+
 	
 }
 
-h1 {
-	
+/*********/
+/* LINKS */
+a
+{
+	color:#0000FF;
 }
 
-p {
-	
+a:visited
+{
+	color:#0000FF;
+	text-decoration:underline;
 }
 
-img{
-	float: left;
-	clear: left;
+a:link
+{
+	color:#0000FF;
+	text-decoration:underline;
 }
 
-.img-with-text {
-	text-align: justify;
-	width: 50%;
+a:hover
+{
+	color:#FF0000;
+	cursor:hand;
+	text-decoration:underline;
 }
 
-.img-with-text img {
-	display: block;
-	margin: 0 auto;
+a:active
+{
+	color:#FF0000;
+	cursor:hand;
+	text-decoration:underline;
+}
+
+
+/************/
+/* SECTIONS */
+
+/* running header*/
+.runningHeader
+{
+	color:Red;
+}
+
+div#techCenterLink
+{
+	background-color:#5F5F5F;
+	color:#FFFFFF;
+	padding:5pt 12px 5pt 12px;
+	margin:0 0 0 0;
+	border-bottom:solid 1pt #919193;
+	width:100%;
+}
+div#techCenterLink a
+{
+	color:#FFFFFF;
+	text-decoration:underline;
+	cursor:hand;
+}
+div#techCenterLink a:active
+{
+	color:#FFFFFF;
+	text-decoration:underline;
+	cursor:hand;
+}
+
+
+/* title */
+div#header
+{
+	background-color:#5E5F5F;
+	padding:15px 12px; /* geändert*/
+	margin:0px 0px 0px 0px;
+	width:100%;
+	border-style:none;
+	border-width:0;
+	vertical-align:middle;
+}
+div#header h1
+{
+	padding:0 0 0 0;
+	margin:0 0 0 0;
+	color:#FFFFFF;
+	font-size:135%;
+}
+
+
+/* main section */
+div#mainSection
+{
+	padding:0 0 0 0;
+	margin:0px 12px ; /*geändert*/
+	width:100%;
+	border-style:none;
+	border-width:0;
+	overflow:auto;
+	top:0;
+}
+div#mainBody
+{
+	padding: 9px 19px 0px 12px;
+	margin:0 0 0 0;
+	width:90%;
+	border-style:none;
+	border-width:0;
+}
+
+
+/* footer */
+div#footer
+{
+	font-size:90%;
+	margin:0 0 0 0;
+	padding:0 0 0 0;
+	width:90%;
+	border:0;
+}
+
+
+
+/************/
+/* HEADINGS */
+div.section
+{
+	width:	90%;
+}
+
+.heading
+{
+	color:#000000;
+	margin:9px 0px 9px 0px;
+}
+
+h1.heading
+{
+	font-size:155%;
+}
+h1
+{
+	font-size:135%;
+}
+h2
+{
+	font-size:125%;
+}
+.subHeading
+{
+	color:#000000;
+	margin:9px 0px 9px 0px;
+}
+
+h3.subHeading
+{
+	font-size:130%;
+}
+
+h4.subHeading
+{
+	font-size:110%;
+}
+
+h5.subHeading
+{
+	font-size:90%;
+}
+h6
+{
+	font-weight:normal;
+	font-size:100%;
+}
+
+.howToHeadingTable
+{
+	background-color:Transparent;
+	border:0;
+	font-size:100%;
+	width:90%;
+}
+.howToHeadingImgCell
+{
+	background-color:Transparent;
+	margin:0 0 0 0;
+	padding-bottom:0;
+	padding-top:3px;
+	padding-left:0;
+	padding-right:0;
+	vertical-align:top;
+	width:24px;
+}
+.howToHeadingTextCell
+{
+	background-color:Transparent;
+	margin:0 0 0 0;
+	padding:0 0 0 0;
+	padding-left:0;
+	padding-right:0;
+	vertical-align:middle;
+}
+
+
+
+/**********/
+/* TABLES */
+table
+{
+	border:0;
+	font-size:100%;
+	margin:3 0 9 0;
+	width:90%;
+}
+
+th
+{
+	background-color:#DDDDDD;
+	vertical-align:bottom;
+	text-align:left;
+	font-weight:bold;
+	color:#000000;
+	padding:.2em;
+	padding-left:.45em;
+	padding-right:.5em;
+}
+
+td
+{
+	background-color:#EEEEEE;
+	vertical-align:top;
+	padding:.2em;
+	padding-left:.45em;
+	padding-right:.5em;
+}
+
+
+
+/**********/
+/* ALERTS */
+img.note
+{
+	border: 0;
+	margin-right:5px;
+}
+span.alertTitle
+{
+	padding:0;
+	margin:0;
+	font-weight:bold;
+	vertical-align:text-bottom;
+	height:100px;
+	display:block;
+}
+
+.alertTable
+{
+	background-color:Transparent;
+	border:0;
+	font-size:100%;
+	margin:3 0 0 0;
+	width:85%;
+}
+.alertTable tr
+{
+	background-color:Transparent;
+	margin:0 0 0 0;
+	padding:0 0 0 0;
+	vertical-align:middle;
+}
+.imgCell
+{
+	background-color:Transparent;
+	margin:0 0 0 0;
+	padding:0 0 0 0;
+	vertical-align:top;
+	width:21px;
+}
+.txtCell
+{
+	background-color:Transparent;
+	font-weight:bold;
+	margin:0 0 0 0;
+	padding:0 0 0 0;
+	vertical-align:middle;
+}
+.procHeadingCell
+{
+	background-color:Transparent;
+	font-weight:bold;
+	margin:0 0 0 0;
+	padding:1px 0 0 0;
+	vertical-align:middle;
+}
+.alertCell
+{
+	background-color:Transparent;
+	margin:0 0 0 0;
+	padding:0 0 0 0;
+	vertical-align:middle;
+}
+
+p.alertImg
+{
+	border:0;
+	font-weight:bold;
+	margin:0;
+	padding:0;
+	vertical-align:top;
+	height:100%;
+	width:100%;
+}
+
+div.alert
+{
+	border:0;
+	padding-left:21px;
+	margin-right:15%;
+	width:100%;
+}
+div.alert ul
+{
+	margin:3px 1.5em 0em 1.5em;
+	padding-left:0em;
+	list-style-type:disc;
+}
+
+
+/********/
+/* CODE */
+div.code
+{
+	padding:0;
+	margin:0;
+}
+div.code pre
+{
+	font-family:Courier New;
+	font-size:1.1em;
+	color:#000000;
+	padding:0;
+	margin:3 0 9 0;
+	/*word-wrap:	break-word;*/
+	text-align: left;
+        direction: ltr;
+}
+
+code
+{
+	font-family:Courier New;
+	font-size:1.1em;
+	color:#000000;
+}
+
+
+/*********/
+/* LISTS */
+
+/* Definitions */
+dl
+{
+	margin:0px 0px 0px 0px;
+    padding:0px 0px 0px 0px;
+}
+
+dt
+{
+    margin:3px 0px 0px 0px;
+    padding:0px 0px 0px 0px;
+}
+
+dd
+{
+	margin-bottom:9px;
+    padding:0px 0px 0px 0px;
+}
+
+/* Lists */
+ul
+{
+	margin:.6em 1.5em 0em 1.5em;
+	padding-left:0em;
+	list-style-type:disc;
+}
+
+ul ul
+{
+	margin:.6em 1.5em 0em 1.5em;
+	padding-left:0em;
+	list-style-type:disc;
+}
+
+ol ul
+{
+	margin:.6em 1.5em 0em 1.5em;
+	padding-left:0em;
+	list-style-type:disc;
+}
+
+ol
+{
+	margin:.5em 2.1em 0em auto;
+	padding-left:0;
+	list-style-type:decimal;
+}
+
+ol ol
+{
+	margin:.5em 2.1em 0em auto;
+	padding-left:0;
+	list-style-type:lower-alpha;
+}
+
+ul ol
+{
+	margin:.5em 2.1em 0em auto;
+	padding-left:0;
+	list-style-type:decimal;
+}
+
+li
+{
+	clear:both;
+	margin-bottom: 3;
+}
+
+/* WHO: v-jappli, CR 5001: support for deep lists*/
+
+.ordered ol
+{
+    margin-left: 24;
+    list-style-type: decimal;
+}
+
+.ordered ol ol
+{
+	margin-bottom: 4;
+    margin-left: 24;
+    margin-top: 3;
+    list-style-type: lower-alpha;
+}
+
+.ordered li
+{
+	margin-bottom: 3;
+}
+.ordered li,
+.ordered ol li ol li ol li,
+.ordered ol li ol li ol li ol li ol li ol li,
+.ordered ol li ol li ol li ol li ol li ol li ol li ol li ol li
+{
+      list-style-type: decimal;
+}
+
+.ordered ol li,
+.ordered ol li ol li ol li ol li,
+.ordered ol li ol li ol li ol li ol li ol li ol li
+{
+      list-style-type: lower-alpha;
+}
+
+
+.ordered ol li ol li,
+.ordered ol li ol li ol li ol li ol li,
+.ordered ol li ol li ol li ol li ol li ol li ol li ol li
+{
+      list-style-type: lower-roman;
+}
+
+/* WHO: v-jappli - Bug Fix 2346: style bulleted lists nested in ordered lists styled correctly */
+.unordered
+{
+	list-style-type:disc;
+}
+
+ol ol ul li.unordered
+{
+	list-style-type:disc;
+}
+
+table li.unordered
+{
+	list-style-type: disc;
+}
+
+li.unordered
+{
+	list-style-type: disc;
+}
+/* End additions for CR 5001 */
+
+/**************/
+/* PARAGRAPHS */
+p
+{
+    margin:3px 0px 9px 0px;
+}
+
+
+/*****************/
+/* MISCELLANEOUS */
+img.embedded
+{
+	padding:0;
+	margin:0;
+}
+img.selfstanding
+{
+	margin-top:3;
+	margin-bottom:9;
+}
+
+img.toggle
+{
+	border: 0;
+	margin-right: 5;
+}
+
+img#toggleAllImage
+{
+	margin-left: 4;
+	vertical-align: middle;
+}
+
+.tip
+{
+	color:#0000FF;
+	font-style:italic;
+	cursor:hand;
+	text-decoration:underline;
+}
+
+.math
+{
+	font-family: Times New Roman;
+	font-size: 125%
+}
+
+.sourceCodeList
+{
+	font-family: Verdana;
+	font-size: 90%;	
+}
+
+pre.viewCode
+{
+	width: 100%;
+	overflow: auto;
+}
+
+MSHelp\:link
+{
+	text-decoration:underline;
+	color:#0000ff; 
+	hoverColor:#3366ff;
+}
+
+
+
+.imageStyle {
+margin-left:15px;
+margin-right:15px;
+margin-top:15px;
+margin-bottom:15px;
 }
