@@ -58,7 +58,7 @@
             // butAbbr
             // 
             this.butAbbr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAbbr.Location = new System.Drawing.Point(497, 376);
+            this.butAbbr.Location = new System.Drawing.Point(697, 376);
             this.butAbbr.Name = "butAbbr";
             this.butAbbr.Size = new System.Drawing.Size(75, 23);
             this.butAbbr.TabIndex = 8;
@@ -69,7 +69,7 @@
             // butSpeichern
             // 
             this.butSpeichern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butSpeichern.Location = new System.Drawing.Point(416, 376);
+            this.butSpeichern.Location = new System.Drawing.Point(616, 376);
             this.butSpeichern.Name = "butSpeichern";
             this.butSpeichern.Size = new System.Drawing.Size(75, 23);
             this.butSpeichern.TabIndex = 7;
@@ -92,7 +92,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbName.Location = new System.Drawing.Point(105, 13);
             this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(467, 20);
+            this.tbName.Size = new System.Drawing.Size(667, 20);
             this.tbName.TabIndex = 0;
             // 
             // tbStraße
@@ -101,7 +101,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbStraße.Location = new System.Drawing.Point(105, 92);
             this.tbStraße.Name = "tbStraße";
-            this.tbStraße.Size = new System.Drawing.Size(467, 20);
+            this.tbStraße.Size = new System.Drawing.Size(667, 20);
             this.tbStraße.TabIndex = 2;
             // 
             // tbPLZ
@@ -110,7 +110,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbPLZ.Location = new System.Drawing.Point(105, 171);
             this.tbPLZ.Name = "tbPLZ";
-            this.tbPLZ.Size = new System.Drawing.Size(467, 20);
+            this.tbPLZ.Size = new System.Drawing.Size(667, 20);
             this.tbPLZ.TabIndex = 5;
             // 
             // tbTelefon
@@ -119,7 +119,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbTelefon.Location = new System.Drawing.Point(105, 39);
             this.tbTelefon.Name = "tbTelefon";
-            this.tbTelefon.Size = new System.Drawing.Size(467, 20);
+            this.tbTelefon.Size = new System.Drawing.Size(667, 20);
             this.tbTelefon.TabIndex = 1;
             // 
             // labStraße
@@ -173,7 +173,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbHaus.Location = new System.Drawing.Point(105, 118);
             this.tbHaus.Name = "tbHaus";
-            this.tbHaus.Size = new System.Drawing.Size(467, 20);
+            this.tbHaus.Size = new System.Drawing.Size(667, 20);
             this.tbHaus.TabIndex = 3;
             // 
             // tbStadt
@@ -182,7 +182,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbStadt.Location = new System.Drawing.Point(105, 145);
             this.tbStadt.Name = "tbStadt";
-            this.tbStadt.Size = new System.Drawing.Size(467, 20);
+            this.tbStadt.Size = new System.Drawing.Size(667, 20);
             this.tbStadt.TabIndex = 4;
             // 
             // labRech
@@ -214,7 +214,7 @@
             this.dgvKunde.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvKunde.Location = new System.Drawing.Point(15, 197);
             this.dgvKunde.Name = "dgvKunde";
-            this.dgvKunde.Size = new System.Drawing.Size(557, 172);
+            this.dgvKunde.Size = new System.Drawing.Size(757, 172);
             this.dgvKunde.TabIndex = 16;
             this.dgvKunde.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DgvKunde_MouseUp);
             // 
@@ -225,26 +225,26 @@
             this.bearbeitenToolStripMenuItem,
             this.loeschenToolStripMenuItem});
             this.cxtKunde.Name = "cmsKunde";
-            this.cxtKunde.Size = new System.Drawing.Size(181, 92);
+            this.cxtKunde.Size = new System.Drawing.Size(131, 70);
             // 
             // neuToolStripMenuItem
             // 
             this.neuToolStripMenuItem.Name = "neuToolStripMenuItem";
-            this.neuToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.neuToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.neuToolStripMenuItem.Text = "Neu";
             this.neuToolStripMenuItem.Click += new System.EventHandler(this.NeuToolStripMenuItem_Click);
             // 
             // bearbeitenToolStripMenuItem
             // 
             this.bearbeitenToolStripMenuItem.Name = "bearbeitenToolStripMenuItem";
-            this.bearbeitenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.bearbeitenToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.bearbeitenToolStripMenuItem.Text = "Bearbeiten";
             this.bearbeitenToolStripMenuItem.Click += new System.EventHandler(this.BearbeitenToolStripMenuItem_Click);
             // 
             // loeschenToolStripMenuItem
             // 
             this.loeschenToolStripMenuItem.Name = "loeschenToolStripMenuItem";
-            this.loeschenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loeschenToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.loeschenToolStripMenuItem.Text = "Löschen";
             this.loeschenToolStripMenuItem.Click += new System.EventHandler(this.LoeschenToolStripMenuItem_Click);
             // 
@@ -252,7 +252,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 411);
+            this.ClientSize = new System.Drawing.Size(784, 411);
             this.Controls.Add(this.dgvKunde);
             this.Controls.Add(this.butAdresse);
             this.Controls.Add(this.labRech);

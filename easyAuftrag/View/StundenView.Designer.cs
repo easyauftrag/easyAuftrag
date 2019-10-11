@@ -85,7 +85,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpAnfang.Location = new System.Drawing.Point(118, 13);
             this.dtpAnfang.Name = "dtpAnfang";
-            this.dtpAnfang.Size = new System.Drawing.Size(454, 20);
+            this.dtpAnfang.Size = new System.Drawing.Size(654, 20);
             this.dtpAnfang.TabIndex = 3;
             // 
             // dtpEnde
@@ -94,7 +94,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpEnde.Location = new System.Drawing.Point(118, 39);
             this.dtpEnde.Name = "dtpEnde";
-            this.dtpEnde.Size = new System.Drawing.Size(454, 20);
+            this.dtpEnde.Size = new System.Drawing.Size(654, 20);
             this.dtpEnde.TabIndex = 4;
             // 
             // cbMitarbeiter
@@ -104,13 +104,13 @@
             this.cbMitarbeiter.FormattingEnabled = true;
             this.cbMitarbeiter.Location = new System.Drawing.Point(118, 65);
             this.cbMitarbeiter.Name = "cbMitarbeiter";
-            this.cbMitarbeiter.Size = new System.Drawing.Size(454, 21);
+            this.cbMitarbeiter.Size = new System.Drawing.Size(654, 21);
             this.cbMitarbeiter.TabIndex = 5;
             // 
             // butAbbr
             // 
             this.butAbbr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAbbr.Location = new System.Drawing.Point(497, 326);
+            this.butAbbr.Location = new System.Drawing.Point(697, 326);
             this.butAbbr.Name = "butAbbr";
             this.butAbbr.Size = new System.Drawing.Size(75, 23);
             this.butAbbr.TabIndex = 6;
@@ -121,7 +121,7 @@
             // butDruck
             // 
             this.butDruck.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butDruck.Location = new System.Drawing.Point(416, 326);
+            this.butDruck.Location = new System.Drawing.Point(616, 326);
             this.butDruck.Name = "butDruck";
             this.butDruck.Size = new System.Drawing.Size(75, 23);
             this.butDruck.TabIndex = 7;
@@ -137,7 +137,7 @@
             this.dgvStunden.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStunden.Location = new System.Drawing.Point(12, 145);
             this.dgvStunden.Name = "dgvStunden";
-            this.dgvStunden.Size = new System.Drawing.Size(560, 175);
+            this.dgvStunden.Size = new System.Drawing.Size(760, 175);
             this.dgvStunden.TabIndex = 8;
             // 
             // labSoll
@@ -164,7 +164,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbSoll.Location = new System.Drawing.Point(118, 93);
             this.tbSoll.Name = "tbSoll";
-            this.tbSoll.Size = new System.Drawing.Size(454, 20);
+            this.tbSoll.Size = new System.Drawing.Size(654, 20);
             this.tbSoll.TabIndex = 11;
             // 
             // tbGeleistet
@@ -173,13 +173,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbGeleistet.Location = new System.Drawing.Point(118, 119);
             this.tbGeleistet.Name = "tbGeleistet";
-            this.tbGeleistet.Size = new System.Drawing.Size(454, 20);
+            this.tbGeleistet.Size = new System.Drawing.Size(654, 20);
             this.tbGeleistet.TabIndex = 12;
             // 
             // butBerechnen
             // 
             this.butBerechnen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butBerechnen.Location = new System.Drawing.Point(335, 326);
+            this.butBerechnen.Location = new System.Drawing.Point(535, 326);
             this.butBerechnen.Name = "butBerechnen";
             this.butBerechnen.Size = new System.Drawing.Size(75, 23);
             this.butBerechnen.TabIndex = 13;
@@ -191,7 +191,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 361);
+            this.ClientSize = new System.Drawing.Size(784, 361);
             this.Controls.Add(this.butBerechnen);
             this.Controls.Add(this.tbGeleistet);
             this.Controls.Add(this.tbSoll);

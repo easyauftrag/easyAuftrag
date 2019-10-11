@@ -41,8 +41,9 @@
             // 
             // linkLicense
             // 
+            this.linkLicense.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLicense.AutoSize = true;
-            this.linkLicense.Location = new System.Drawing.Point(203, 4);
+            this.linkLicense.Location = new System.Drawing.Point(720, 4);
             this.linkLicense.Name = "linkLicense";
             this.linkLicense.Size = new System.Drawing.Size(37, 13);
             this.linkLicense.TabIndex = 2;
@@ -52,15 +53,18 @@
             // 
             // labBoxDLL
             // 
+            this.labBoxDLL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.labBoxDLL.FormattingEnabled = true;
             this.labBoxDLL.Location = new System.Drawing.Point(12, 154);
             this.labBoxDLL.Name = "labBoxDLL";
-            this.labBoxDLL.Size = new System.Drawing.Size(243, 95);
+            this.labBoxDLL.Size = new System.Drawing.Size(760, 95);
             this.labBoxDLL.TabIndex = 3;
             // 
             // butOK
             // 
-            this.butOK.Location = new System.Drawing.Point(180, 255);
+            this.butOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.butOK.Location = new System.Drawing.Point(697, 255);
             this.butOK.Name = "butOK";
             this.butOK.Size = new System.Drawing.Size(75, 23);
             this.butOK.TabIndex = 4;
@@ -79,11 +83,13 @@
             // 
             // panName
             // 
+            this.panName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panName.Controls.Add(this.labName);
             this.panName.Controls.Add(this.linkLicense);
             this.panName.Location = new System.Drawing.Point(12, 12);
             this.panName.Name = "panName";
-            this.panName.Size = new System.Drawing.Size(243, 48);
+            this.panName.Size = new System.Drawing.Size(760, 48);
             this.panName.TabIndex = 6;
             // 
             // labName
@@ -109,13 +115,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(267, 290);
+            this.ClientSize = new System.Drawing.Size(784, 290);
             this.Controls.Add(this.labKomp);
             this.Controls.Add(this.panName);
             this.Controls.Add(this.labVersion);
             this.Controls.Add(this.butOK);
             this.Controls.Add(this.labBoxDLL);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(283, 329);
             this.Name = "About";
             this.Text = "Info";
             this.Load += new System.EventHandler(this.About_Load);

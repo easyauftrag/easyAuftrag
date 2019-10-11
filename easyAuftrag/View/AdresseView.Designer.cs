@@ -44,7 +44,7 @@
             // butAbbr
             // 
             this.butAbbr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAbbr.Location = new System.Drawing.Point(370, 127);
+            this.butAbbr.Location = new System.Drawing.Point(697, 127);
             this.butAbbr.Name = "butAbbr";
             this.butAbbr.Size = new System.Drawing.Size(75, 23);
             this.butAbbr.TabIndex = 0;
@@ -55,7 +55,7 @@
             // butSpeichern
             // 
             this.butSpeichern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butSpeichern.Location = new System.Drawing.Point(289, 127);
+            this.butSpeichern.Location = new System.Drawing.Point(616, 127);
             this.butSpeichern.Name = "butSpeichern";
             this.butSpeichern.Size = new System.Drawing.Size(75, 23);
             this.butSpeichern.TabIndex = 1;
@@ -69,7 +69,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbStadt.Location = new System.Drawing.Point(111, 65);
             this.tbStadt.Name = "tbStadt";
-            this.tbStadt.Size = new System.Drawing.Size(334, 20);
+            this.tbStadt.Size = new System.Drawing.Size(661, 20);
             this.tbStadt.TabIndex = 18;
             // 
             // tbHaus
@@ -78,7 +78,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbHaus.Location = new System.Drawing.Point(111, 38);
             this.tbHaus.Name = "tbHaus";
-            this.tbHaus.Size = new System.Drawing.Size(334, 20);
+            this.tbHaus.Size = new System.Drawing.Size(661, 20);
             this.tbHaus.TabIndex = 17;
             // 
             // labStadt
@@ -123,7 +123,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbPLZ.Location = new System.Drawing.Point(111, 91);
             this.tbPLZ.Name = "tbPLZ";
-            this.tbPLZ.Size = new System.Drawing.Size(334, 20);
+            this.tbPLZ.Size = new System.Drawing.Size(661, 20);
             this.tbPLZ.TabIndex = 19;
             // 
             // tbStraße
@@ -132,14 +132,14 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbStraße.Location = new System.Drawing.Point(111, 12);
             this.tbStraße.Name = "tbStraße";
-            this.tbStraße.Size = new System.Drawing.Size(334, 20);
+            this.tbStraße.Size = new System.Drawing.Size(661, 20);
             this.tbStraße.TabIndex = 16;
             // 
             // AdresseView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(457, 162);
+            this.ClientSize = new System.Drawing.Size(784, 162);
             this.Controls.Add(this.tbStadt);
             this.Controls.Add(this.tbHaus);
             this.Controls.Add(this.labStadt);

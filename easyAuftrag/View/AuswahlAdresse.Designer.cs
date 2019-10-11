@@ -49,7 +49,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbStadt.Location = new System.Drawing.Point(105, 94);
             this.tbStadt.Name = "tbStadt";
-            this.tbStadt.Size = new System.Drawing.Size(301, 20);
+            this.tbStadt.Size = new System.Drawing.Size(667, 20);
             this.tbStadt.TabIndex = 28;
             // 
             // tbHaus
@@ -58,7 +58,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbHaus.Location = new System.Drawing.Point(105, 67);
             this.tbHaus.Name = "tbHaus";
-            this.tbHaus.Size = new System.Drawing.Size(301, 20);
+            this.tbHaus.Size = new System.Drawing.Size(667, 20);
             this.tbHaus.TabIndex = 27;
             // 
             // labStadt
@@ -103,7 +103,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbPLZ.Location = new System.Drawing.Point(105, 120);
             this.tbPLZ.Name = "tbPLZ";
-            this.tbPLZ.Size = new System.Drawing.Size(301, 20);
+            this.tbPLZ.Size = new System.Drawing.Size(667, 20);
             this.tbPLZ.TabIndex = 29;
             // 
             // tbStraße
@@ -112,13 +112,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbStraße.Location = new System.Drawing.Point(105, 41);
             this.tbStraße.Name = "tbStraße";
-            this.tbStraße.Size = new System.Drawing.Size(301, 20);
+            this.tbStraße.Size = new System.Drawing.Size(667, 20);
             this.tbStraße.TabIndex = 26;
             // 
             // butAuswahl
             // 
             this.butAuswahl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAuswahl.Location = new System.Drawing.Point(250, 149);
+            this.butAuswahl.Location = new System.Drawing.Point(616, 149);
             this.butAuswahl.Name = "butAuswahl";
             this.butAuswahl.Size = new System.Drawing.Size(75, 23);
             this.butAuswahl.TabIndex = 25;
@@ -129,7 +129,7 @@
             // butAbbr
             // 
             this.butAbbr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAbbr.Location = new System.Drawing.Point(331, 149);
+            this.butAbbr.Location = new System.Drawing.Point(697, 149);
             this.butAbbr.Name = "butAbbr";
             this.butAbbr.Size = new System.Drawing.Size(75, 23);
             this.butAbbr.TabIndex = 24;
@@ -144,7 +144,7 @@
             this.cbAdresse.FormattingEnabled = true;
             this.cbAdresse.Location = new System.Drawing.Point(105, 13);
             this.cbAdresse.Name = "cbAdresse";
-            this.cbAdresse.Size = new System.Drawing.Size(301, 21);
+            this.cbAdresse.Size = new System.Drawing.Size(667, 21);
             this.cbAdresse.TabIndex = 34;
             this.cbAdresse.SelectedIndexChanged += new System.EventHandler(this.CbAdresse_SelectedIndexChanged);
             // 
@@ -161,7 +161,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(418, 184);
+            this.ClientSize = new System.Drawing.Size(784, 184);
             this.Controls.Add(this.labAdresse);
             this.Controls.Add(this.cbAdresse);
             this.Controls.Add(this.tbStadt);

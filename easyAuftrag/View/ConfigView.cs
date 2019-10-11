@@ -68,7 +68,7 @@ namespace easyAuftrag.View
             {
                 if (!string.IsNullOrEmpty(cmbServer.Text))
                 {
-                    string con = "Data Source=" + cmbServer.Text + "\\SQLEXPRESS;Initial Catalog=MASTER;Integrated Security=True;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+                    string con = "Data Source=" + cmbServer.Text + ";Initial Catalog=MASTER;Integrated Security=True;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
                     string sql = "SELECT name FROM sys.databases";
 
                     DataSet data = new DataSet();
@@ -107,16 +107,32 @@ namespace easyAuftrag.View
 
         private void ButOK_Click(object sender, EventArgs e)
         {
+            errorInfo.Clear();
             FillConfig();
-            Conf.SchreibeXML();
-
-            this.DialogResult = DialogResult.OK;
-            this.Hide();
+            if (errorInfo.GetError(tbSoll) == "")
+            {
+                Conf.SchreibeXML();
+                this.DialogResult = DialogResult.OK;
+                this.Hide();
+            }
+            else
+            {
+                this.BringToFront();
+                this.Activate();
+            }
+            
         }
 
         private void FillConfig()
         {
-            Conf.StundenSoll = Convert.ToDouble(tbSoll.Text);
+            if (double.TryParse(tbSoll.Text, out double soll))
+            {
+                Conf.StundenSoll = soll;
+            }
+            else
+            {
+                errorInfo.SetError(tbSoll, "Bitte korrekten Stundensoll eingeben!");
+            }
             Conf.StandardZielPfad = tbExport.Text;
             Conf.Server = cmbServer.Text;
             Conf.WinAuth = rdbWin.Checked;

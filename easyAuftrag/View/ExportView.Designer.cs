@@ -36,11 +36,11 @@
             this.rdbXML = new System.Windows.Forms.RadioButton();
             this.rdbCSV = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.rdbAdresse = new System.Windows.Forms.RadioButton();
             this.rdbTaetigkeit = new System.Windows.Forms.RadioButton();
             this.rdbMitarbeiter = new System.Windows.Forms.RadioButton();
             this.rdbKunde = new System.Windows.Forms.RadioButton();
             this.rdbAuftrag = new System.Windows.Forms.RadioButton();
-            this.rdbAdresse = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -48,7 +48,7 @@
             // butAbbr
             // 
             this.butAbbr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAbbr.Location = new System.Drawing.Point(93, 277);
+            this.butAbbr.Location = new System.Drawing.Point(697, 277);
             this.butAbbr.Name = "butAbbr";
             this.butAbbr.Size = new System.Drawing.Size(75, 23);
             this.butAbbr.TabIndex = 2;
@@ -59,7 +59,7 @@
             // butSpeichern
             // 
             this.butSpeichern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butSpeichern.Location = new System.Drawing.Point(12, 277);
+            this.butSpeichern.Location = new System.Drawing.Point(616, 277);
             this.butSpeichern.Name = "butSpeichern";
             this.butSpeichern.Size = new System.Drawing.Size(75, 23);
             this.butSpeichern.TabIndex = 1;
@@ -69,12 +69,14 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.rdbJSON);
             this.groupBox1.Controls.Add(this.rdbXML);
             this.groupBox1.Controls.Add(this.rdbCSV);
             this.groupBox1.Location = new System.Drawing.Point(12, 158);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(156, 113);
+            this.groupBox1.Size = new System.Drawing.Size(760, 113);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Speichern als";
@@ -118,6 +120,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.rdbAdresse);
             this.groupBox2.Controls.Add(this.rdbTaetigkeit);
             this.groupBox2.Controls.Add(this.rdbMitarbeiter);
@@ -125,10 +129,22 @@
             this.groupBox2.Controls.Add(this.rdbAuftrag);
             this.groupBox2.Location = new System.Drawing.Point(12, 13);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(156, 139);
+            this.groupBox2.Size = new System.Drawing.Size(760, 139);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Art auswählen";
+            // 
+            // rdbAdresse
+            // 
+            this.rdbAdresse.AutoSize = true;
+            this.rdbAdresse.Location = new System.Drawing.Point(6, 111);
+            this.rdbAdresse.Name = "rdbAdresse";
+            this.rdbAdresse.Size = new System.Drawing.Size(69, 17);
+            this.rdbAdresse.TabIndex = 7;
+            this.rdbAdresse.TabStop = true;
+            this.rdbAdresse.Text = "Adressen";
+            this.rdbAdresse.UseVisualStyleBackColor = true;
+            this.rdbAdresse.CheckedChanged += new System.EventHandler(this.RdbAdresse_CheckedChanged);
             // 
             // rdbTaetigkeit
             // 
@@ -179,23 +195,11 @@
             this.rdbAuftrag.UseVisualStyleBackColor = true;
             this.rdbAuftrag.CheckedChanged += new System.EventHandler(this.RdbAuftrag_CheckedChanged);
             // 
-            // rdbAdresse
-            // 
-            this.rdbAdresse.AutoSize = true;
-            this.rdbAdresse.Location = new System.Drawing.Point(6, 111);
-            this.rdbAdresse.Name = "rdbAdresse";
-            this.rdbAdresse.Size = new System.Drawing.Size(69, 17);
-            this.rdbAdresse.TabIndex = 7;
-            this.rdbAdresse.TabStop = true;
-            this.rdbAdresse.Text = "Adressen";
-            this.rdbAdresse.UseVisualStyleBackColor = true;
-            this.rdbAdresse.CheckedChanged += new System.EventHandler(this.RdbAdresse_CheckedChanged);
-            // 
             // ExportView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(180, 312);
+            this.ClientSize = new System.Drawing.Size(784, 312);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.butAbbr);

@@ -139,14 +139,14 @@ namespace easyAuftrag.View
                     _tatlist = (from t in db.Taetigkeiten 
                                 where t.AuftragID == AuftragInfo.AuftragID 
                                 select t).ToList();
-                    foreach (var item in _tatlist)
+                    /*foreach (var item in _tatlist)
                     {
                         _minlist.Add(_tatlist[_tatlist.IndexOf(item)].Minuten);
                     }
                     var auftr = (from a in db.Auftraege
                                  where a.AuftragID == AuftragInfo.AuftragID
                                  select a).ToList();
-                    /*var tatl2 = (from t in db.Taetigkeiten
+                    var tatl2 = (from t in db.Taetigkeiten
                                 join a in db.Auftraege on t.AuftragID equals a.AuftragID
                                 join m in db.Mitarbeiters on t.MitarbeiterID equals m.MitarbeiterID
                                 where t.AuftragID == AuftragInfo.AuftragID

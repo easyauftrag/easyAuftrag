@@ -82,18 +82,25 @@ namespace easyAuftrag.View
         /// <param name="kunde">Zu bearbeitender/löschender Kunde</param>
         public KundeView(string titel, Kunde kunde, string connection)
         {
-            _connection = connection;
-            InitializeComponent();
-            Text = titel; 
-            if (titel == "Kunde Löschen")
+            try
             {
-                butSpeichern.Text = "Löschen";
+                _connection = connection;
+                // Zwischenpeichern des ausgewälten Kunden zur Weiterverarbeitung
+                KundeInfo = kunde;
+                InitializeComponent();
+                Text = titel;
+                if (titel == "Kunde Löschen")
+                {
+                    butSpeichern.Text = "Löschen";
+                }
+                // Übergeben des Kunden zum Anzeigen in den Controls
+                FillControls(KundeInfo);
+                DataGridNeu();
             }
-            // Zwischenpeichern des ausgewälten Kunden zur Weiterverarbeitung
-            KundeInfo = kunde;
-            // Übergeben des Kunden zum Anzeigen in den Controls
-            FillControls(KundeInfo);
-            DataGridNeu();
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
 
         private void DataGridNeu()

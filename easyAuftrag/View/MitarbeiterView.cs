@@ -143,8 +143,16 @@ namespace easyAuftrag.View
         private void ButSpeichern_Click(object sender, EventArgs e)
         {
             FillMitarbeiter();
-            this.DialogResult = DialogResult.OK;
-            this.Hide();
+            if (errorInfo.GetError(tbAuslastung) == "")
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Hide();
+            }
+            else
+            {
+                this.BringToFront();
+                this.Activate();
+            }
         }
 
         /// <summary>
