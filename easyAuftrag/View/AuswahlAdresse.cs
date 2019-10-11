@@ -38,9 +38,10 @@ namespace easyAuftrag.View
         /// <param name="kunde"></param>
         /// <param name="connection"></param>
         /// <seealso cref="EasyAuftragContext"/>
-        public AuswahlAdresse(Kunde kunde, string connection)
+        public AuswahlAdresse(Kunde kunde, List<Adresse> adrlist)
         {
             AdresseInfo = new Adresse();
+            _adressen = adrlist;
             InitializeComponent();
             try
             {
@@ -52,26 +53,20 @@ namespace easyAuftrag.View
                     PLZ = kunde.PLZ,
                     Wohnort = kunde.Wohnort
                 };
-                using (var db = new EasyAuftragContext(connection))
+                List<(Adresse ad, string adName)> adr = new List<(Adresse, string)>();
+                // Zusammenfügen von Adressen und Name zur Anzeige in der ComboBox
+                foreach (var item in _adressen)
                 {
-                    // Laden aller Adressen, die zum aktiven Kunden gehören
-                    var adr = (from ad 
-                               in db.Adressen 
-                               where ad.KundeID == kunde.KundeID 
-                               select new { ad, adName = "Adresse " + ad.AdresseID + ", " + kunde.Name}).ToList();
-                    //Hinzufügen der Rechnungsadresse zur Liste
-                    adr.Add(new { ad = rechnungsadresse, adName = "Rechnungsadresse"});
-                    foreach (var item in adr)
-                    {
-                        _adressen.Add(item.ad);
-                    }
-                    cbAdresse.DataSource = adr;
-                    // "Adresse X, Kundename" wird in der ComboBox angezeigt
-                    cbAdresse.DisplayMember = "adName";
-                    cbAdresse.ValueMember = "ad";
-                    // Starten mit "Rechnungsadresse" 
-                    cbAdresse.SelectedIndex = adr.Count()-1;
-                }
+                    adr.Add((item, "Adresse " + item.AdresseID + ", " + kunde.Name));
+                }   
+                //Hinzufügen der Rechnungsadresse zur Liste
+                adr.Add((rechnungsadresse,"Rechnungsadresse"));
+                cbAdresse.DataSource = adr;
+                // "Adresse X, Kundename" wird in der ComboBox angezeigt
+                cbAdresse.DisplayMember = "adName";
+                cbAdresse.ValueMember = "ad";
+                // Starten mit "Rechnungsadresse" 
+                cbAdresse.SelectedIndex = adr.Count()-1;
             }
             catch (Exception ex)
             {

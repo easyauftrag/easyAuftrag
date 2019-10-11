@@ -387,6 +387,45 @@ namespace Austausch
                 ErrorHandler.ErrorHandle(ex);
             }
         }
+
+        public List<Adresse> AdresseLesen(string importPfad)
+        {
+            List<Adresse> lstAdresse = new List<Adresse>();
+            try
+            {
+                // Erzeugt einen StreamReader für die Datei
+                TextReader reader = new StreamReader(importPfad);
+
+                // Deklariert und initialisiert die Variable line mit der ersten Zeile der CSV Datei, also dem Header, welchen wir nicht auslesen wollen
+                string line = reader.ReadLine();
+
+                // Solange die Zeile noch Daten enthält wird sie weiter ausgelesen und in eine Liste von Adresse geschrieben
+                while (!string.IsNullOrEmpty(line = reader.ReadLine()))
+                {
+                    // Die Zeile wird am Datentrenner in ein Array aus Strings aufgespalten
+                    string[] adresseItems = line.Split(_datenTrenner.ToCharArray());
+
+                    // Die Daten in den Zellen des Arrays werden in die einzelnen Eigenschaften eines Adresseobjekts geschrieben
+                    Adresse adresse = new Adresse();
+                    adresse.AdresseID = Convert.ToInt32(string.Format(adresseItems[0]), _culture);
+                    adresse.KundeID = Convert.ToInt32(string.Format(adresseItems[1]), _culture);
+                    adresse.Strasse = adresseItems[2].Trim();
+                    adresse.Hausnr = adresseItems[3].Trim();
+                    adresse.PLZ = adresseItems[4].Trim();
+                    adresse.Wohnort = adresseItems[5].Trim();
+                    // Die Adresse wird der Adressenliste hinzugefügt
+                    lstAdresse.Add(adresse);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
+            // Die Liste wird zurückgegeben
+            return lstAdresse;
+        }
+
         /// <summary>
         /// Schreibt Adressen in eine CSV Datei
         /// </summary>

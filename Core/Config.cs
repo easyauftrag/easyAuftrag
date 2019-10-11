@@ -79,7 +79,7 @@ namespace Core
             }
             string con = "Data Source=" 
                 + Server 
-                + "\\SQLEXPRESS;Initial Catalog="
+                + ";Initial Catalog="
                 + Datenbank + ";" 
                 + conType 
                 + ";Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";

@@ -267,5 +267,66 @@ namespace Austausch
                 ErrorHandler.ErrorHandle(ex);
             }
         }
+        /// <summary>
+        /// Liest Adressen aus einer JSON Datei
+        /// </summary>
+        /// <param name="importPfad">Pfad der JSON Datei</param>
+        /// <returns>Liste mit Adressenobjekten</returns>
+        /// <seealso cref="Adresse"/>
+        public List<Adresse> AdresseLesen(string importPfad)
+        {
+            List<Adresse> lstAdresse = new List<Adresse>();
+            try
+            {
+                // Erzeugt einen StreamReader für die Datei und liest diese in einen String
+                TextReader reader = new StreamReader(importPfad);
+                string json = reader.ReadToEnd();
+                reader.Close();
+
+                // Liest den String in ein JSON Array
+                JArray jadressen = JArray.Parse(json);
+
+                // Konvertiert das JSON Array in eine Liste mit Adressen
+                lstAdresse = jadressen.Select(ad => new Adresse
+                {
+                    AdresseID = (int)ad["AdresseID"],
+                    KundeID = (int)ad["KundeID"],
+                    Strasse = (string)ad["Strasse"],
+                    Hausnr = (string)ad["Hausnr"],
+                    PLZ = (string)ad["PLZ"],
+                    Wohnort = (string)ad["Wohnort"]
+                }).ToList();
+
+
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
+            // Gibt die Liste zurück
+            return lstAdresse;
+        }
+
+        /// <summary>
+        /// Schreibt Adressen in eine JSON Datei
+        /// </summary>
+        /// <param name="exportPfad">Pfad der JSON Datei</param>
+        /// <param name="lstAdresse">Liste mit Adressenobjekten</param>
+        /// <seealso cref="Adresse"/>
+        public void AdresseSchreiben(string exportPfad, List<Adresse> lstAdresse)
+        {
+            try
+            {
+                // Konvertiert die Liste in ein Array und dieses in einen String im JSON Format
+                var json = JsonConvert.SerializeObject(lstAdresse.ToArray());
+
+                // Schreibt den String in die Datei
+                File.WriteAllText(exportPfad, json);
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
+        }
     }
 }

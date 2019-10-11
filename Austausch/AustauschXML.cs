@@ -445,5 +445,106 @@ namespace Austausch
                 ErrorHandler.ErrorHandle(ex);
             }
         }
+        /// <summary>
+        /// Liest Adresse aus einer XML Datei
+        /// </summary>
+        /// <param name="importPfad">Pfad der XML Datei</param>
+        /// <returns>Liste mit Adressenobjekten</returns>
+        /// <seealso cref="Adresse"/>
+        public List<Adresse> AdresseLesen(string importPfad)
+        {
+            List<Adresse> lstAdresse = new List<Adresse>();
+            try
+            {
+                // Erzeugt ein XmlDocument und lädt die Datei
+                XmlDocument xml = new XmlDocument();
+                xml.Load(importPfad);
+
+                // Speichert alle Knoten mit dem Tag "Adresse" in einer Liste
+                XmlNodeList xmlAdresse = xml.GetElementsByTagName("Adresse");
+                // Geht durch die Liste der Knoten
+                foreach (XmlNode item in xmlAdresse)
+                {
+                    // Speichert alle Eigenschaften in einem Adressenobjekt
+                    Adresse adresse = new Adresse();
+                    adresse.AdresseID = Convert.ToInt32(item.Attributes["AdresseID"].Value);
+                    adresse.KundeID = Convert.ToInt32(item.Attributes["KundeID"].Value);
+                    adresse.Strasse = item.Attributes["Strasse"].Value.Trim();
+                    adresse.Hausnr = item.Attributes["Hausnr"].Value.Trim();
+                    adresse.PLZ = item.Attributes["PLZ"].Value.Trim();
+                    adresse.Wohnort = item.Attributes["Wohnort"].Value.Trim();
+
+                    // Fügt die Adresse der Liste hinzu
+                    lstAdresse.Add(adresse);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
+            // Die Liste wird zurückgegeben
+            return lstAdresse;
+        }
+
+        /// <summary>
+        /// Schreibt Adresse in eine XML Datei
+        /// </summary>
+        /// <param name="exportPfad">Pfad der XML Datei</param>
+        /// <param name="lstAdresse">Liste mit Adressenobjekten</param>
+        /// <seealso cref="Adresse"/>
+        public void AdresseSchreiben(string exportPfad, List<Adresse> lstAdresse)
+        {
+            try
+            {
+                // Erzeugt ein neues XmlDocument
+                XmlDocument doc = new XmlDocument();
+
+                // Fügt den Wurzelknoten "Adressen" dem XmlDocument hinzu
+                XmlNode rootNode = doc.CreateElement("Adressen");
+                doc.AppendChild(rootNode);
+
+                // Geht durch die Liste der Adressen
+                foreach (Adresse item in lstAdresse)
+                {
+                    // Erzeugt einen Knoten mit dem Tag "Adresse"
+                    XmlNode childNode = doc.CreateElement("Adresse");
+
+                    // Fügt dem Knoten alle Eigenschaften der Adresse hinzu
+                    XmlAttribute attAdresseID = doc.CreateAttribute("AdresseID");
+                    attAdresseID.Value = item.AdresseID.ToString();
+                    childNode.Attributes.Append(attAdresseID);
+
+                    XmlAttribute attKundeID = doc.CreateAttribute("KundeID");
+                    attKundeID.Value = item.KundeID.ToString();
+                    childNode.Attributes.Append(attKundeID);
+
+                    XmlAttribute attStrasse = doc.CreateAttribute("Strasse");
+                    attStrasse.Value = item.Strasse;
+                    childNode.Attributes.Append(attStrasse);
+
+                    XmlAttribute attHausnr = doc.CreateAttribute("Hausnr");
+                    attHausnr.Value = item.Hausnr;
+                    childNode.Attributes.Append(attHausnr);
+
+                    XmlAttribute attPLZ = doc.CreateAttribute("PLZ");
+                    attPLZ.Value = item.PLZ;
+                    childNode.Attributes.Append(attPLZ);
+
+                    XmlAttribute attWohnort = doc.CreateAttribute("Wohnort");
+                    attWohnort.Value = item.Wohnort;
+                    childNode.Attributes.Append(attWohnort);
+
+                    // Fügt den Knoten dem XmlDocument hinzu
+                    rootNode.AppendChild(childNode);
+                }
+
+                // Schreibt das XmlDocument in die Datei
+                doc.Save(exportPfad);
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
+        }
     }
 }

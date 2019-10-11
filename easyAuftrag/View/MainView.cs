@@ -1209,6 +1209,13 @@ namespace easyAuftrag
                                     // Schreiben der .xml Datei
                                     austauschXML.TaetigkeitSchreiben(dlg.FileName, taetigkeiten);
                                 }
+                                else if (exportV.ExportArt == ExportView.Art.Adresse)
+                                {
+                                    // Laden aller Adressen aus der Datenbank
+                                    adressen = (from ad in db.Adressen select ad).ToList();
+                                    // Schreiben der .csv Datei
+                                    austauschXML.AdresseSchreiben(dlg.FileName, adressen);
+                                }
                             }
                         }
                         else if (exportV.DateiFormat == ExportView.Format.JSON)
@@ -1480,6 +1487,56 @@ namespace easyAuftrag
                             }
                         }
                     }
+                    else if (importV.ExportArt == ExportView.Art.Adresse)
+                    {
+                        OpenFileDialog dlgImport = new OpenFileDialog();
+                        if (importV.DateiFormat == ExportView.Format.CSV)
+                        {
+                            dlgImport.InitialDirectory = _config.StandardZielPfad;
+                            dlgImport.Filter = "CSV|*.csv|All Files|*.*";
+                            dlgImport.DefaultExt = "*.csv*";
+                            CSVConfig cSVConfig = new CSVConfig();
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                if (cSVConfig.ShowDialog() == DialogResult.OK)
+                                {
+                                    AustauschCSV austauschCSV = new AustauschCSV(cSVConfig.Typen.TrennerDezimal, cSVConfig.Typen.TrennerDaten);
+                                    // Lesen der Tätigkeiten aus der Datei
+                                    var adrListe = austauschCSV.AdresseLesen(dlgImport.FileName);
+                                    // Hinzufügen der Tätigkeiten zur Datenbank
+                                    ImportAdresse(adrListe);
+                                }
+                            }
+                        }
+                        else if (importV.DateiFormat == ExportView.Format.XML)
+                        {
+                            dlgImport.InitialDirectory = _config.StandardZielPfad;
+                            dlgImport.Filter = "XML|*.xml|All Files|*.*";
+                            dlgImport.DefaultExt = "*.xml*";
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                AustauschXML austauschXML = new AustauschXML();
+                                // Lesen der Tätigkeiten aus der Datei
+                                var adrListe = austauschXML.AdresseLesen(dlgImport.FileName);
+                                // Hinzufügen der Tätigkeiten zur Datenbank
+                                ImportAdresse(adrListe);
+                            }
+                        }
+                        else if (importV.DateiFormat == ExportView.Format.JSON)
+                        {
+                            dlgImport.InitialDirectory = _config.StandardZielPfad;
+                            dlgImport.Filter = "JSON|*.json|All Files|*.*";
+                            dlgImport.DefaultExt = "*.json*";
+                            if (dlgImport.ShowDialog() == DialogResult.OK)
+                            {
+                                AustauschJSON austauschJSON = new AustauschJSON();
+                                // Lesen der Adressen aus der Datei
+                                var adrListe = austauschJSON.AdresseLesen(dlgImport.FileName);
+                                // Hinzufügen der Adresse zur Datenbank
+                                ImportAdresse(adrListe);
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -1528,6 +1585,8 @@ namespace easyAuftrag
                         Auftrag auftrag = (from a in db.Auftraege where a.AuftragID == auftragID select a).First();
                         // Laden des zugehörigen Kunden
                         Kunde kunde = (from k in db.Kunden where k.KundeID == auftrag.KundeID select k).First();
+                        // Laden der zugehörigen Liste von Adressen
+                        List<Adresse> Adrlist = (from ad in db.Adressen where ad.KundeID == auftrag.KundeID select ad).ToList();
                         // Laden der zugehörigen Liste von Tätigkeiten
                         List<Taetigkeit> Tatlist = (from t in db.Taetigkeiten where t.AuftragID == auftrag.AuftragID select t).ToList();
                         List<Mitarbeiter> MitList = new List<Mitarbeiter>();
@@ -1540,9 +1599,9 @@ namespace easyAuftrag
                         doc.AuftragNr = auftrag.AuftragNummer;
                         doc.KundeName = kunde.Name;
                         // Öffnen des "AuswahlAdresse" Fensters falls weitere Adressen vorliegen
-                        if (kunde.WeitereAdressen.Any())
+                        if (Adrlist.Any())
                         {
-                            AuswahlAdresse auswahl = new AuswahlAdresse(kunde, _config.ConnectionString);
+                            AuswahlAdresse auswahl = new AuswahlAdresse(kunde, Adrlist);
                             if (auswahl.ShowDialog() == DialogResult.OK)
                             {
                                 doc.KundeAnschrift = auswahl.AdresseInfo.Strasse + " "
