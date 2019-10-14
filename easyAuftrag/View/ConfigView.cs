@@ -228,6 +228,7 @@ namespace easyAuftrag.View
                 Conf.SchreibeXML();
                 this.DialogResult = DialogResult.OK;
                 this.Hide();
+                MessageBox.Show("Änderungen an der Datenbank werden erst nach einem Neustart des Programms aktiv.");
             }
             else
             {

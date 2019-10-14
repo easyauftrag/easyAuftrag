@@ -49,6 +49,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbStadt.Location = new System.Drawing.Point(105, 94);
             this.tbStadt.Name = "tbStadt";
+            this.tbStadt.ReadOnly = true;
             this.tbStadt.Size = new System.Drawing.Size(667, 20);
             this.tbStadt.TabIndex = 28;
             // 
@@ -58,6 +59,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbHaus.Location = new System.Drawing.Point(105, 67);
             this.tbHaus.Name = "tbHaus";
+            this.tbHaus.ReadOnly = true;
             this.tbHaus.Size = new System.Drawing.Size(667, 20);
             this.tbHaus.TabIndex = 27;
             // 
@@ -103,6 +105,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbPLZ.Location = new System.Drawing.Point(105, 120);
             this.tbPLZ.Name = "tbPLZ";
+            this.tbPLZ.ReadOnly = true;
             this.tbPLZ.Size = new System.Drawing.Size(667, 20);
             this.tbPLZ.TabIndex = 29;
             // 
@@ -112,6 +115,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbStraße.Location = new System.Drawing.Point(105, 41);
             this.tbStraße.Name = "tbStraße";
+            this.tbStraße.ReadOnly = true;
             this.tbStraße.Size = new System.Drawing.Size(667, 20);
             this.tbStraße.TabIndex = 26;
             // 

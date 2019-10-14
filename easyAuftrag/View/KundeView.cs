@@ -173,6 +173,22 @@ namespace easyAuftrag.View
             {
                 errProv.SetError(tbName, "Name darf nicht leer sein.");
             }
+            else if (String.IsNullOrEmpty(tbStraße.Text))
+            {
+                errProv.SetError(tbStraße, "Straße darf nicht leer sein.");
+            }
+            else if (String.IsNullOrEmpty(tbHaus.Text))
+            {
+                errProv.SetError(tbHaus, "Hausnr. darf nicht leer sein.");
+            }
+            else if (String.IsNullOrEmpty(tbStadt.Text))
+            {
+                errProv.SetError(tbStadt, "Stadt darf nicht leer sein.");
+            }
+            else if (string.IsNullOrEmpty(tbPLZ.Text))
+            {
+                errProv.SetError(tbPLZ, "PLZ darf nicht leer sein.");
+            }
             else
             {
                 // Zwischenpeichern des ausgewälten Kunden zur Übergabe an MainView
