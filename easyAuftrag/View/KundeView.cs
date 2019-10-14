@@ -168,10 +168,18 @@ namespace easyAuftrag.View
         /// <param name="e"></param>
         private void ButSpeichern_Click(object sender, EventArgs e)
         {
-            // Zwischenpeichern des ausgewälten Kunden zur Übergabe an MainView
-            FillKunde();
-            this.DialogResult = DialogResult.OK;
-            this.Hide();
+            errProv.Clear();
+            if (String.IsNullOrEmpty(tbName.Text))
+            {
+                errProv.SetError(tbName, "Name darf nicht leer sein.");
+            }
+            else
+            {
+                // Zwischenpeichern des ausgewälten Kunden zur Übergabe an MainView
+                FillKunde();
+                this.DialogResult = DialogResult.OK;
+                this.Hide();
+            }
         }
 
         /// <summary>

@@ -142,16 +142,19 @@ namespace easyAuftrag.View
         /// <param name="e"></param>
         private void ButSpeichern_Click(object sender, EventArgs e)
         {
-            FillMitarbeiter();
-            if (errorInfo.GetError(tbAuslastung) == "")
+            errorInfo.Clear();
+            if (String.IsNullOrEmpty(tbName.Text))
             {
-                this.DialogResult = DialogResult.OK;
-                this.Hide();
+                errorInfo.SetError(tbName, "Name darf nicht leer sein.");
             }
             else
             {
-                this.BringToFront();
-                this.Activate();
+                FillMitarbeiter();
+                if (errorInfo.GetError(tbAuslastung) == "")
+                {
+                    this.DialogResult = DialogResult.OK;
+                    this.Hide();
+                }
             }
         }
 

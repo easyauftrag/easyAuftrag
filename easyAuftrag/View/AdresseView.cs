@@ -120,10 +120,30 @@ namespace easyAuftrag.View
         /// <param name="e"></param>
         private void ButSpeichern_Click(object sender, EventArgs e)
         {
-            // Zwischenpeichern der ausgewälten Adresse zur Übergabe an KundeView
-            FillAdresse();
-            this.DialogResult = DialogResult.OK;
-            this.Hide();
+            errProv.Clear();
+            if (String.IsNullOrEmpty(tbStraße.Text))
+            {
+                errProv.SetError(tbStraße, "Straße darf nicht leer sein.");
+            }
+            else if (String.IsNullOrEmpty(tbHaus.Text))
+            {
+                errProv.SetError(tbHaus, "Hausnr. darf nicht leer sein.");
+            }
+            else if (String.IsNullOrEmpty(tbStadt.Text))
+            {
+                errProv.SetError(tbStadt, "Stadt darf nicht leer sein.");
+            }
+            else if (String.IsNullOrEmpty(tbPLZ.Text))
+            {
+                errProv.SetError(tbPLZ, "PLZ darf nicht leer sein.");
+            }
+            else
+            {
+                // Zwischenpeichern der ausgewälten Adresse zur Übergabe an KundeView
+                FillAdresse();
+                this.DialogResult = DialogResult.OK;
+                this.Hide();
+            }
         }
         /// <summary>
         /// Aktion beim Klick auf den "Abbrechen" Button

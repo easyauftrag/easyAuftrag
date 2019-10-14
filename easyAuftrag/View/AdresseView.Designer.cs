@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdresseView));
             this.butAbbr = new System.Windows.Forms.Button();
             this.butSpeichern = new System.Windows.Forms.Button();
@@ -39,6 +40,8 @@
             this.labStraße = new System.Windows.Forms.Label();
             this.tbPLZ = new System.Windows.Forms.TextBox();
             this.tbStraße = new System.Windows.Forms.TextBox();
+            this.errProv = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errProv)).BeginInit();
             this.SuspendLayout();
             // 
             // butAbbr
@@ -135,6 +138,10 @@
             this.tbStraße.Size = new System.Drawing.Size(661, 20);
             this.tbStraße.TabIndex = 16;
             // 
+            // errProv
+            // 
+            this.errProv.ContainerControl = this;
+            // 
             // AdresseView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -154,6 +161,7 @@
             this.MinimumSize = new System.Drawing.Size(473, 201);
             this.Name = "AdresseView";
             this.Text = "Adresse";
+            ((System.ComponentModel.ISupportInitialize)(this.errProv)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -171,5 +179,6 @@
         private System.Windows.Forms.Label labStraße;
         private System.Windows.Forms.TextBox tbPLZ;
         private System.Windows.Forms.TextBox tbStraße;
+        private System.Windows.Forms.ErrorProvider errProv;
     }
 }
