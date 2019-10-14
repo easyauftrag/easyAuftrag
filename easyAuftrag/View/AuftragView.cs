@@ -245,7 +245,7 @@ namespace easyAuftrag.View
             {
                 errProv.SetError(cbKunde, "Bitte legen Sie zunächst einen Kunden an.");
             }
-            else if (dtpEingang.Value > dtpErteilt.Value)
+            else if (dtpEingang.Value >= dtpErteilt.Value)
             {
                 errProv.SetError(dtpEingang, "Eingangdatum muss vor Erteilungsdatum liegen.");
                 errProv.SetError(dtpErteilt, "Eingangdatum muss vor Erteilungsdatum liegen.");

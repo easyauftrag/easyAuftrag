@@ -93,6 +93,7 @@
             // 
             this.cbKunde.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbKunde.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbKunde.FormattingEnabled = true;
             this.cbKunde.Location = new System.Drawing.Point(103, 40);
             this.cbKunde.Name = "cbKunde";

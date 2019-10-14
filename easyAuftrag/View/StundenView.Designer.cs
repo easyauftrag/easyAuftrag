@@ -101,6 +101,7 @@
             // 
             this.cbMitarbeiter.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbMitarbeiter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbMitarbeiter.FormattingEnabled = true;
             this.cbMitarbeiter.Location = new System.Drawing.Point(118, 65);
             this.cbMitarbeiter.Name = "cbMitarbeiter";
