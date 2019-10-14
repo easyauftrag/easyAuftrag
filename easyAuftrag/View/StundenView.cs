@@ -69,7 +69,7 @@ namespace easyAuftrag.View
             _connection = connection;
             InitializeComponent();
             StuDoc = new StundenDoc();
-            using (var db = new EasyAuftragContext(connection))
+            using (var db = new EasyAuftragContext(_connection))
             {
                 var mitarbeiter = (from k in db.Mitarbeiters select new { ID = k.MitarbeiterID, mName = k.Name }).ToList();
                 cbMitarbeiter.DataSource = mitarbeiter;
@@ -116,10 +116,11 @@ namespace easyAuftrag.View
                 Config conf = new Config();
                 conf.LeseXML();
 
-                tbSoll.Text = (StuDoc.Mitarbeiter.AuslastungStelle/100 * conf.StundenSoll).ToString();
+                tbSoll.Text = (Convert.ToDouble(StuDoc.Mitarbeiter.AuslastungStelle) / 100 * conf.StundenSoll).ToString();
                 tbGeleistet.Text = Berechnung.ArbeitsZeit(StuDoc).ToString();
                 dgvStunden.DataSource = StuDoc.Tatlist;
                 dgvStunden.Columns["TaetigkeitID"].Visible = false;
+                dgvStunden.Columns["MitarbeiterID"].Visible = false;
             }
             catch (Exception ex)
             {

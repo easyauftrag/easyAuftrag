@@ -8,7 +8,7 @@
   <printlist start="115" inc="6">
     <listitem name="Datum" x="20"/>
     <listitem name="Mitarbeiter" x="45"/>
-    <listitem name="Beschreibung" x="75"/>
+    <listitem name="Beschreibung" x="85"/>
     <listitem name="StartZeit" x="155"/>
     <listitem name="EndZeit" x="170"/>
     <listitem name="Stunden" x="185"/>

@@ -65,13 +65,13 @@ namespace easyAuftrag.Logik
 
         /// <summary>
         /// Methode zum Drucken eines Auftrags (--> <see cref="Core.Model.DruckDoc"/>)
-        /// durch <see cref="printDocument_PrintPage"/>
+        /// durch <see cref="PrintDocument_PrintPage"/>
         /// </summary>
         public void Druck(DruckDoc druckDoc)
         {
             _druckDoc = druckDoc;
             PrintDocument doc = new PrintDocument();
-            doc.PrintPage += printDocument_PrintPage;
+            doc.PrintPage += PrintDocument_PrintPage;
 
             PrintDialog dlgPrinter = new PrintDialog();
             dlgPrinter.Document = doc;
@@ -105,7 +105,7 @@ namespace easyAuftrag.Logik
         /// <summary>
         /// Methode, die das Layout zum Drucken eines Auftrags (--> <see cref="Core.Model.DruckDoc"/>) festlegt
         /// </summary>
-        private void printDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        private void PrintDocument_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             // Laden der Positionen der zu druckenden Elemente aus der XML Datei
             XmlPrintMapperAuftrag mapper = LoadPrintMappings("Auftrag");
@@ -261,7 +261,7 @@ namespace easyAuftrag.Logik
                             e.Graphics.DrawString(_stundenDoc.Ende.ToShortDateString(), font, Brushes.Black, item.X, item.Y, StringFormat.GenericTypographic);
                             break;
                         case "Sollstunden":
-                            e.Graphics.DrawString((_stundenDoc.Mitarbeiter.AuslastungStelle / 100 * conf.StundenSoll).ToString(), font, Brushes.Black, item.X, item.Y, StringFormat.GenericTypographic);
+                            e.Graphics.DrawString((Convert.ToDouble(_stundenDoc.Mitarbeiter.AuslastungStelle) / 100 * conf.StundenSoll).ToString(), font, Brushes.Black, item.X, item.Y, StringFormat.GenericTypographic);
                             break;
                         case "Arbeitszeit":
                             e.Graphics.DrawString(Berechnung.ArbeitsZeit(_stundenDoc).ToString(), font, Brushes.Black, item.X, item.Y, StringFormat.GenericTypographic);

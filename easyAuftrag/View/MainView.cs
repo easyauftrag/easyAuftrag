@@ -1603,6 +1603,10 @@ namespace easyAuftrag
                     int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
                     ZettelSchreiben(auftragID);
                 }
+                else
+                {
+                    MessageBox.Show("Bitte wählen Sie einen Auftrag aus.");
+                }
             }
             catch (Exception ex)
             {
