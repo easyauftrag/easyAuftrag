@@ -305,6 +305,11 @@ namespace easyAuftrag
                     int auftragID = Convert.ToInt32(dgvMain.SelectedCells[0].OwningRow.Cells["AuftragID"].Value);
                     BearbeitenAuftrag(auftragID);
                 }
+                else if (dgvMain.SelectedRows.Count > 0)
+                {
+                    int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
+                    BearbeitenAuftrag(auftragID);
+                }
             }
             catch (Exception ex)
             {
