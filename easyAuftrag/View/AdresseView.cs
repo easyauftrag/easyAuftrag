@@ -67,7 +67,6 @@ namespace easyAuftrag.View
             InitializeComponent();
             Text = titel;
         }
-
         /// <summary>
         /// Konstruktor für die <see cref="AdresseView"/>
         /// </summary>
@@ -86,11 +85,9 @@ namespace easyAuftrag.View
             // Übergeben der Adresse zum Anzeigen in den Controls
             FillControls(AdresseInfo);
         }
-
         /// <summary>
-        /// Packt die Eingaben in den Controls in eine <see cref="Adresse"/>.
+        /// Übergeben der Eingaben in den Controls an eine <see cref="Adresse"/>.
         /// </summary>
-        /// <returns>Taetigkeit aus den Eingaben in den Controls</returns>
         private void FillAdresse()
         {
             try
@@ -105,7 +102,6 @@ namespace easyAuftrag.View
                 ErrorHandler.ErrorHandle(ex);
             }
         }
-
         /// <summary>
         /// Zeigt die übergebene <see cref="Adresse"/> in den Controls an.
         /// </summary>
@@ -117,9 +113,8 @@ namespace easyAuftrag.View
             tbPLZ.Text = adresse.PLZ;
             tbStadt.Text = adresse.Wohnort;
         }
-
         /// <summary>
-        /// Action beim Klick auf den "Speichen" Button
+        /// Aktion beim Klick auf den "Speichen" Button
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -130,9 +125,8 @@ namespace easyAuftrag.View
             this.DialogResult = DialogResult.OK;
             this.Hide();
         }
-
         /// <summary>
-        /// Action beim Klick auf den "Abbrechen" Button
+        /// Aktion beim Klick auf den "Abbrechen" Button
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

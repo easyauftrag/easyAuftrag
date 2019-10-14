@@ -51,7 +51,7 @@
             this.butOK.TabIndex = 0;
             this.butOK.Text = "OK";
             this.butOK.UseVisualStyleBackColor = true;
-            this.butOK.Click += new System.EventHandler(this.butOK_Click);
+            this.butOK.Click += new System.EventHandler(this.ButOK_Click);
             // 
             // butAbbrechen
             // 
@@ -62,7 +62,7 @@
             this.butAbbrechen.TabIndex = 1;
             this.butAbbrechen.Text = "Abbrechen";
             this.butAbbrechen.UseVisualStyleBackColor = true;
-            this.butAbbrechen.Click += new System.EventHandler(this.butAbbrechen_Click);
+            this.butAbbrechen.Click += new System.EventHandler(this.ButAbbrechen_Click);
             // 
             // groupBox1
             // 
@@ -86,7 +86,7 @@
             this.rbKommaDezi.TabStop = true;
             this.rbKommaDezi.Text = "Komma (de-DE)";
             this.rbKommaDezi.UseVisualStyleBackColor = true;
-            this.rbKommaDezi.CheckedChanged += new System.EventHandler(this.rbKommaDezi_CheckedChanged);
+            this.rbKommaDezi.CheckedChanged += new System.EventHandler(this.RbKommaDezi_CheckedChanged);
             // 
             // rbPunkt
             // 
@@ -97,7 +97,7 @@
             this.rbPunkt.TabIndex = 3;
             this.rbPunkt.Text = "Punkt (en-US)";
             this.rbPunkt.UseVisualStyleBackColor = true;
-            this.rbPunkt.CheckedChanged += new System.EventHandler(this.rbPunkt_CheckedChanged);
+            this.rbPunkt.CheckedChanged += new System.EventHandler(this.RbPunkt_CheckedChanged);
             // 
             // groupBox2
             // 
@@ -120,7 +120,7 @@
             this.rbTab.TabIndex = 2;
             this.rbTab.Text = "Tab";
             this.rbTab.UseVisualStyleBackColor = true;
-            this.rbTab.CheckedChanged += new System.EventHandler(this.rbTab_CheckedChanged);
+            this.rbTab.CheckedChanged += new System.EventHandler(this.RbTab_CheckedChanged);
             // 
             // rbSemikolon
             // 
@@ -133,7 +133,7 @@
             this.rbSemikolon.TabStop = true;
             this.rbSemikolon.Text = "Semikolon";
             this.rbSemikolon.UseVisualStyleBackColor = true;
-            this.rbSemikolon.CheckedChanged += new System.EventHandler(this.rbSemikolon_CheckedChanged);
+            this.rbSemikolon.CheckedChanged += new System.EventHandler(this.RbSemikolon_CheckedChanged);
             // 
             // rbKomma
             // 
@@ -144,7 +144,7 @@
             this.rbKomma.TabIndex = 0;
             this.rbKomma.Text = "Komma";
             this.rbKomma.UseVisualStyleBackColor = true;
-            this.rbKomma.CheckedChanged += new System.EventHandler(this.rbKomma_CheckedChanged);
+            this.rbKomma.CheckedChanged += new System.EventHandler(this.RbKomma_CheckedChanged);
             // 
             // CSVConfig
             // 

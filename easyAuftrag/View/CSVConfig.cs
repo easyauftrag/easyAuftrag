@@ -64,7 +64,7 @@ namespace easyAuftrag.View
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void butOK_Click(object sender, EventArgs e)
+        private void ButOK_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
         }
@@ -74,7 +74,7 @@ namespace easyAuftrag.View
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void butAbbrechen_Click(object sender, EventArgs e)
+        private void ButAbbrechen_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
             this.Hide();
@@ -87,7 +87,7 @@ namespace easyAuftrag.View
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// <seealso cref="CSVConfigTypen.DezimalTrenner.Punkt"/>
-        private void rbPunkt_CheckedChanged(object sender, EventArgs e)
+        private void RbPunkt_CheckedChanged(object sender, EventArgs e)
         {
             // Falls der Radiobutton ausgewählt wurde, wird der Dezimaltrenner auf "Punkt" gesetzt
             if (rbPunkt.Checked)
@@ -104,7 +104,7 @@ namespace easyAuftrag.View
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// <seealso cref="CSVConfigTypen.DezimalTrenner.Komma"/>
-        private void rbKommaDezi_CheckedChanged(object sender, EventArgs e)
+        private void RbKommaDezi_CheckedChanged(object sender, EventArgs e)
         {
             // Falls der Radiobutton ausgewählt wurde, wird der Dezimaltrenner auf "Komma" gesetzt
             if (rbKommaDezi.Checked)
@@ -125,7 +125,7 @@ namespace easyAuftrag.View
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// <seealso cref="CSVConfigTypen.DatenTrenner.Komma"/>
-        private void rbKomma_CheckedChanged(object sender, EventArgs e)
+        private void RbKomma_CheckedChanged(object sender, EventArgs e)
         {
             // Falls der Radiobutton ausgewählt wurde, wird der Datentrenner auf "Komma" gesetzt
             if (rbKomma.Checked)
@@ -140,7 +140,7 @@ namespace easyAuftrag.View
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// <seealso cref="CSVConfigTypen.DatenTrenner.Semikolon"/>
-        private void rbSemikolon_CheckedChanged(object sender, EventArgs e)
+        private void RbSemikolon_CheckedChanged(object sender, EventArgs e)
         {
             // Falls der Radiobutton ausgewählt wurde, wird der Datentrenner auf "Semikolon" gesetzt
             if (rbSemikolon.Checked)
@@ -155,7 +155,7 @@ namespace easyAuftrag.View
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// <seealso cref="CSVConfigTypen.DatenTrenner.Tab"/>
-        private void rbTab_CheckedChanged(object sender, EventArgs e)
+        private void RbTab_CheckedChanged(object sender, EventArgs e)
         {
             // Falls der Radiobutton ausgewählt wurde, wird der Datentrenner auf "Tab" gesetzt
             if (rbTab.Checked)

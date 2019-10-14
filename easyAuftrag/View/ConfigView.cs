@@ -40,21 +40,36 @@ using Core;
 
 namespace easyAuftrag.View
 {
+    /// <summary>
+    /// Windows Form zur Anzeige und Änderung der Config.xml
+    /// </summary>
     public partial class ConfigView : Form
     {
+        /// <summary>
+        /// Eigenschaft zum Speichern und Anzeigen der Config Einstellungen
+        /// </summary>
         public Config Conf { get; set; }
 
+        /// <summary>
+        /// Konstruktor für die <see cref="ConfigView"/> Form
+        /// </summary>
         public ConfigView()
         {
             Conf = new Config();
             InitializeComponent();
+            // Füllt die Felder mit den Daten aus Config.xml falls vorhanden
+            FillControls();
             if (rdbWin.Checked)
             {
                 tbUser.Enabled = false;
                 tbPW.Enabled = false;
             }
         }
-
+        /// <summary>
+        /// Aktion beim Klick auf den Button neben der TextBox "Export Pfad"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButExport_Click(object sender, EventArgs e)
         {
             if (fbdExport.ShowDialog() == DialogResult.OK)
@@ -62,7 +77,11 @@ namespace easyAuftrag.View
                 tbExport.Text = fbdExport.SelectedPath;
             }
         }
-
+        /// <summary>
+        /// Aktion beim Klick auf den Button neben der ComboBox "Server"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButServer_Click(object sender, EventArgs e)
         {
             try
@@ -88,7 +107,11 @@ namespace easyAuftrag.View
                 ErrorHandler.ErrorHandle(ex);
             }
         }
-
+        /// <summary>
+        /// Aktion beim Klick auf den Button neben der ComboBox "Datenbank"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButDB_Click(object sender, EventArgs e)
         {
             try
@@ -113,7 +136,11 @@ namespace easyAuftrag.View
                 ErrorHandler.ErrorHandle(ex);
             }
         }
-
+        /// <summary>
+        /// Aktion wenn der RadioButton "rdbSQL" verändert wird
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RdbSQL_CheckedChanged(object sender, EventArgs e)
         {
             if (rdbSQL.Checked)
@@ -122,7 +149,11 @@ namespace easyAuftrag.View
                 tbPW.Enabled = true;
             }
         }
-
+        /// <summary>
+        /// Aktion wenn der RadioButton "rdbWin" verändert wird
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RdbWin_CheckedChanged(object sender, EventArgs e)
         {
             if (rdbWin.Checked)
@@ -131,25 +162,25 @@ namespace easyAuftrag.View
                 tbPW.Enabled = false;
             }
         }
-
-        private void ButOK_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Einlesen der Config.xml und Anzeigen in den Controls
+        /// </summary>
+        private void FillControls()
         {
-            errorInfo.Clear();
-            FillConfig();
-            if (errorInfo.GetError(tbSoll) == "")
+            if (Conf.LeseXML())
             {
-                Conf.SchreibeXML();
-                this.DialogResult = DialogResult.OK;
-                this.Hide();
+                tbSoll.Text = Conf.StundenSoll.ToString();
+                tbExport.Text = Conf.StandardZielPfad;
+                cmbServer.Text = Conf.Server;
+                rdbWin.Checked = Conf.WinAuth;
+                tbUser.Text = Conf.BenutzerName;
+                tbPW.Text = Conf.Passwort;
+                cmbDB.Text = Conf.Datenbank;
             }
-            else
-            {
-                this.BringToFront();
-                this.Activate();
-            }
-            
         }
-
+        /// <summary>
+        /// Übergeben der Eingaben in den Controls an eine <see cref="Config"/>.
+        /// </summary>
         private void FillConfig()
         {
             if (double.TryParse(tbSoll.Text, out double soll))
@@ -167,7 +198,33 @@ namespace easyAuftrag.View
             Conf.Passwort = tbPW.Text;
             Conf.Datenbank = cmbDB.Text;
         }
-
+        /// <summary>
+        /// Aktion beim Klick auf den "Ok" Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButOK_Click(object sender, EventArgs e)
+        {
+            errorInfo.Clear();
+            FillConfig();
+            if (errorInfo.GetError(tbSoll) == "")
+            {
+                Conf.SchreibeXML();
+                this.DialogResult = DialogResult.OK;
+                this.Hide();
+            }
+            else
+            {
+                this.BringToFront();
+                this.Activate();
+            }
+            
+        }
+        /// <summary>
+        /// Aktion beim Klick auf den "Abbrechen" Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButAbbr_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;

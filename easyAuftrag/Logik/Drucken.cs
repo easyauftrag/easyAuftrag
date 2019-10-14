@@ -84,14 +84,14 @@ namespace easyAuftrag.Logik
 
         /// <summary>
         /// Methode zum Drucken der Sollstunden und geleisteten Stunden eines Mitarbeiters (--> <see cref="Core.Model.StundenDoc"/>)
-        /// durch <see cref="printDocument_PrintStunden"/>
+        /// durch <see cref="PrintDocument_PrintStunden"/>
         /// </summary>
         public void StundenDruck(StundenDoc stundenDoc)
         {
             _stundenDoc = stundenDoc;
             PrintDocument doc = new PrintDocument();
 
-            doc.PrintPage += printDocument_PrintStunden;
+            doc.PrintPage += PrintDocument_PrintStunden;
 
             PrintDialog dlgPrinter = new PrintDialog();
             dlgPrinter.Document = doc;
@@ -229,7 +229,7 @@ namespace easyAuftrag.Logik
         /// Methode, die das Layout zum Drucken der Sollstunden und geleisteten Stunden eines Mitarbeiters 
         /// (--> <see cref="Core.Model.StundenDoc"/>) festlegt
         /// </summary>
-        private void printDocument_PrintStunden(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        private void PrintDocument_PrintStunden(object sender, System.Drawing.Printing.PrintPageEventArgs e)
         {
             // Laden der Positionen der zu druckenden Elemente aus der XML Datei
             XmlPrintMapperAuftrag mapper = LoadPrintMappings("Stunden");
