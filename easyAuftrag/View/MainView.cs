@@ -458,87 +458,95 @@ namespace easyAuftrag
         {
             try
             {
-                // Auswahl was bearbeitet werden soll
-                string[] item = tvMain.SelectedNode.Tag.ToString().Split('_');
-                if (item[0].ToLower().StartsWith("kun"))
-                {
-                    int kundeID = Convert.ToInt32(item[1]);
-                    BearbeitenKunde(kundeID);
-                }
-                if (item[0].ToLower().StartsWith("mit"))
-                {
-                    // Öffnen des "Mitarbeiter" Fensters und Laden der Daten des Mitarbeiters in die Felder
-                    MitarbeiterView mitarbeiterV = new MitarbeiterView("Mitarbeiter Bearbeiten", mitarbeiter: _handler.MitarbeiterLaden(Convert.ToInt32(item[1]), out bool success, _config.ConnectionString));
-                    if (success == false)
-                    {
-                        MessageBox.Show("Mitarbeiter nicht in der Datenbank gefunden");
-                    }
-                    else if (mitarbeiterV.ShowDialog() == DialogResult.OK)
-                    {
-                        // Aktualisieren der Datenbank mit den neuen Werten des Mitarbeiters
-                        if (!_handler.MitarbeiterBearbeiten(mitarbeiterV.MitarbeiterInfo, Convert.ToInt32(item[1]), _config.ConnectionString))
-                        {
-                            MessageBox.Show("Mitarbeiter nicht in der Datenbank gefunden");
-                        }
-                    }
-                    this.BringToFront();
-                    this.Activate();
-                    // Aktualisieren des TreeView, um den bearbeiteten Mitarbeiter mit einzubeziehen
-                    TreeViewNeu();
-                }
-                if (item[0].ToLower().StartsWith("auf"))
-                {
-                    int auftragID = Convert.ToInt32(item[1]);
-                    BearbeitenAuftrag(auftragID);
-                }
-                if (item[0].ToLower().StartsWith("tae"))
-                {
-                    // Öffnen des "Tätigkeit" Fensters und Laden der Daten der Tätigkeit in die Felder
-                    TaetigkeitView taetigkeitV = new TaetigkeitView("Tätigkeit Bearbeiten", taetigkeit: _handler.TaetigkeitLaden(Convert.ToInt32(item[1]), out bool success, _config.ConnectionString), _config.ConnectionString);
-                    if (success == false)
-                    {
-                        MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
-                    }
-                    else if (taetigkeitV.ShowDialog() == DialogResult.OK)
-                    {
-                        // Aktualisieren der Datenbank mit den neuen Werten der Tätigkeit
-                        if (!_handler.TaetigkeitBearbeiten(taetigkeitV.TaetigkeitInfo, Convert.ToInt32(item[1]), _config.ConnectionString))
-                        {
-                            MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
-                        }
-                    }
-                    this.BringToFront();
-                    this.Activate();
-                    // Aktualisieren des TreeView, um die bearbeitete Tätigkeit mit einzubeziehen
-                    TreeViewNeu();
-                }
-                if (item[0].ToLower().StartsWith("adr"))
-                {
-                    // Öffnen des "Adresse" Fensters und Laden der Daten der Adresse in die Felder
-                    AdresseView adresseV = new AdresseView("Adresse Bearbeiten", adresse: _handler.AdresseLaden(Convert.ToInt32(item[1]), out bool success, _config.ConnectionString));
-                    if (success == false)
-                    {
-                        MessageBox.Show("Adresse nicht in der Datenbank gefunden");
-                    }
-                    else if (adresseV.ShowDialog() == DialogResult.OK)
-                    {
-                        // Aktualisieren der Datenbank mit den neuen Werten der Adresse
-                        if (!_handler.AdresseBearbeiten(adresseV.AdresseInfo, Convert.ToInt32(item[1]), _config.ConnectionString))
-                        {
-                            MessageBox.Show("Adresse nicht in der Datenbank gefunden");
-                        }
-                    }
-                    this.BringToFront();
-                    this.Activate();
-                    // Aktualisieren des TreeView, um die bearbeitete Adresse mit einzubeziehen
-                    TreeViewNeu();
-                }
+                TreeViewBearbeiten();
             }
             catch (Exception ex)
             {
                 ErrorHandler.ErrorHandle(ex);
             }
         }
+        /// <summary>
+        /// Methode zum Bearbeiten der Einträge im <see cref="TreeView"/>
+        /// </summary>
+        private void TreeViewBearbeiten()
+        {
+            // Auswahl was bearbeitet werden soll
+            string[] item = tvMain.SelectedNode.Tag.ToString().Split('_');
+            if (item[0].ToLower().StartsWith("kun"))
+            {
+                int kundeID = Convert.ToInt32(item[1]);
+                BearbeitenKunde(kundeID);
+            }
+            if (item[0].ToLower().StartsWith("mit"))
+            {
+                // Öffnen des "Mitarbeiter" Fensters und Laden der Daten des Mitarbeiters in die Felder
+                MitarbeiterView mitarbeiterV = new MitarbeiterView("Mitarbeiter Bearbeiten", mitarbeiter: _handler.MitarbeiterLaden(Convert.ToInt32(item[1]), out bool success, _config.ConnectionString));
+                if (success == false)
+                {
+                    MessageBox.Show("Mitarbeiter nicht in der Datenbank gefunden");
+                }
+                else if (mitarbeiterV.ShowDialog() == DialogResult.OK)
+                {
+                    // Aktualisieren der Datenbank mit den neuen Werten des Mitarbeiters
+                    if (!_handler.MitarbeiterBearbeiten(mitarbeiterV.MitarbeiterInfo, Convert.ToInt32(item[1]), _config.ConnectionString))
+                    {
+                        MessageBox.Show("Mitarbeiter nicht in der Datenbank gefunden");
+                    }
+                }
+                this.BringToFront();
+                this.Activate();
+                // Aktualisieren des TreeView, um den bearbeiteten Mitarbeiter mit einzubeziehen
+                TreeViewNeu();
+            }
+            if (item[0].ToLower().StartsWith("auf"))
+            {
+                int auftragID = Convert.ToInt32(item[1]);
+                BearbeitenAuftrag(auftragID);
+            }
+            if (item[0].ToLower().StartsWith("tae"))
+            {
+                // Öffnen des "Tätigkeit" Fensters und Laden der Daten der Tätigkeit in die Felder
+                TaetigkeitView taetigkeitV = new TaetigkeitView("Tätigkeit Bearbeiten", taetigkeit: _handler.TaetigkeitLaden(Convert.ToInt32(item[1]), out bool success, _config.ConnectionString), _config.ConnectionString);
+                if (success == false)
+                {
+                    MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
+                }
+                else if (taetigkeitV.ShowDialog() == DialogResult.OK)
+                {
+                    // Aktualisieren der Datenbank mit den neuen Werten der Tätigkeit
+                    if (!_handler.TaetigkeitBearbeiten(taetigkeitV.TaetigkeitInfo, Convert.ToInt32(item[1]), _config.ConnectionString))
+                    {
+                        MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
+                    }
+                }
+                this.BringToFront();
+                this.Activate();
+                // Aktualisieren des TreeView, um die bearbeitete Tätigkeit mit einzubeziehen
+                TreeViewNeu();
+            }
+            if (item[0].ToLower().StartsWith("adr"))
+            {
+                // Öffnen des "Adresse" Fensters und Laden der Daten der Adresse in die Felder
+                AdresseView adresseV = new AdresseView("Adresse Bearbeiten", adresse: _handler.AdresseLaden(Convert.ToInt32(item[1]), out bool success, _config.ConnectionString));
+                if (success == false)
+                {
+                    MessageBox.Show("Adresse nicht in der Datenbank gefunden");
+                }
+                else if (adresseV.ShowDialog() == DialogResult.OK)
+                {
+                    // Aktualisieren der Datenbank mit den neuen Werten der Adresse
+                    if (!_handler.AdresseBearbeiten(adresseV.AdresseInfo, Convert.ToInt32(item[1]), _config.ConnectionString))
+                    {
+                        MessageBox.Show("Adresse nicht in der Datenbank gefunden");
+                    }
+                }
+                this.BringToFront();
+                this.Activate();
+                // Aktualisieren des TreeView, um die bearbeitete Adresse mit einzubeziehen
+                TreeViewNeu();
+            }
+        }
+
         /// <summary>
         /// Aktion beim Klick auf "Löschen" im Kontextmenu auf der <see cref="TreeView"/>
         /// </summary>
@@ -1703,6 +1711,42 @@ namespace easyAuftrag
         private void StundennachweisToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Stundenzettel();
+        }
+        /// <summary>
+        /// Aktion beim Doppelklick auf die <see cref="DataGridView"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DgvMain_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (dgvMain.SelectedCells.Count > 0)
+                {
+                    int auftragID = Convert.ToInt32(dgvMain.SelectedCells[0].OwningRow.Cells["AuftragID"].Value);
+                    BearbeitenAuftrag(auftragID);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
+        }
+        /// <summary>
+        /// Aktion beim Doppelklick auf die <see cref="TreeView"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TvMain_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            try
+            {
+                TreeViewBearbeiten();
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
         }
     }
 }

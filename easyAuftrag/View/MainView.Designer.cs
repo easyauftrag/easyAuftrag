@@ -206,6 +206,7 @@ namespace easyAuftrag
             treeNode6});
             this.tvMain.Size = new System.Drawing.Size(189, 441);
             this.tvMain.TabIndex = 6;
+            this.tvMain.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.TvMain_NodeMouseDoubleClick);
             this.tvMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TvMain_MouseUp);
             // 
             // dgvMain
@@ -222,6 +223,7 @@ namespace easyAuftrag
             this.dgvMain.Name = "dgvMain";
             this.dgvMain.Size = new System.Drawing.Size(565, 311);
             this.dgvMain.TabIndex = 9;
+            this.dgvMain.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvMain_CellDoubleClick);
             this.dgvMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DgvMain_MouseUp);
             // 
             // cxtMain
