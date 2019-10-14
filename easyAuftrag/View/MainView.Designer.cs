@@ -223,6 +223,7 @@ namespace easyAuftrag
             this.dgvMain.Size = new System.Drawing.Size(565, 311);
             this.dgvMain.TabIndex = 9;
             this.dgvMain.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvMain_CellDoubleClick);
+            this.dgvMain.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvMain_RowHeaderMouseDoubleClick);
             this.dgvMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DgvMain_MouseUp);
             // 
             // cxtMain

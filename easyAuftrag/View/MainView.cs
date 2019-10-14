@@ -728,14 +728,14 @@ namespace easyAuftrag
                     if (!string.IsNullOrWhiteSpace(row.ValueControl.Text))
                     {
                         // Zusammensetzen des SuchString
-                        suchBedingungen += verknuepfung + "AuftragNummer == \"" + row.ValueControl.Text + "\"";
+                        suchBedingungen += verknuepfung + "AuftragNummer.Contains( \"" + row.ValueControl.Text + "\")";
                     }
                     break;
                 case "Name":
                     if (!string.IsNullOrWhiteSpace(row.ValueControl.Text))
                     {
                         // Zusammensetzen des SuchString
-                        suchBedingungen += verknuepfung + "Name == \"" + row.ValueControl.Text + "\"";
+                        suchBedingungen += verknuepfung + "Name.Contains( \"" + row.ValueControl.Text + "\")";
                     }
                     break;
                 case "Eingang":
@@ -1717,7 +1717,7 @@ namespace easyAuftrag
             Stundenzettel();
         }
         /// <summary>
-        /// Aktion beim Doppelklick auf die <see cref="DataGridView"/>
+        /// Aktion beim Doppelklick auf eine Zelle im <see cref="DataGridView"/>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1725,11 +1725,8 @@ namespace easyAuftrag
         {
             try
             {
-                if (dgvMain.SelectedCells.Count > 0)
-                {
-                    int auftragID = Convert.ToInt32(dgvMain.SelectedCells[0].OwningRow.Cells["AuftragID"].Value);
-                    BearbeitenAuftrag(auftragID);
-                }
+                int auftragID = Convert.ToInt32(dgvMain.SelectedCells[0].OwningRow.Cells["AuftragID"].Value);
+                BearbeitenAuftrag(auftragID);
             }
             catch (Exception ex)
             {
@@ -1737,7 +1734,7 @@ namespace easyAuftrag
             }
         }
         /// <summary>
-        /// Aktion beim Doppelklick auf die <see cref="TreeView"/>
+        /// Aktion beim Doppelklick auf einen Knoten im <see cref="TreeView"/>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1751,6 +1748,24 @@ namespace easyAuftrag
             {
                 ErrorHandler.ErrorHandle(ex);
             }
+        }
+        /// <summary>
+        /// Aktion beim Doppelklick auf den RowHeader im <see cref="DataGridView"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DgvMain_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            try
+            {
+                int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
+                BearbeitenAuftrag(auftragID);
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
+            
         }
     }
 }

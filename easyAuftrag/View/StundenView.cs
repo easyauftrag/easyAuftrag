@@ -94,8 +94,8 @@ namespace easyAuftrag.View
                     StuDoc.Mitarbeiter = (from m in db.Mitarbeiters where m.MitarbeiterID == mID select m).First();
                     StuDoc.Tatlist = (from t in db.Taetigkeiten 
                                           where t.MitarbeiterID == StuDoc.Mitarbeiter.MitarbeiterID 
-                                          && t.Datum >= StuDoc.Anfang 
-                                          && t.Datum <= StuDoc.Ende
+                                          && t.Datum >= StuDoc.Anfang.Date 
+                                          && t.Datum <= StuDoc.Ende.Date
                                           select t).ToList();
                 }
             }
