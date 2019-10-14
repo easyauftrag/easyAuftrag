@@ -43,6 +43,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Austausch;
+using System.IO;
 
 namespace easyAuftrag
 {
@@ -740,25 +741,25 @@ namespace easyAuftrag
                     break;
                 case "Eingang":
                     // Zusammensetzen des SuchString
-                    suchBedingungen += verknuepfung + "Eingang >= DateTime("
+                    suchBedingungen += verknuepfung + "(Eingang >= DateTime("
                         + row.AnfangControl.Value.Year + ","
                         + row.AnfangControl.Value.Month + ","
                         + row.AnfangControl.Value.Day + ")"
                         + " && Eingang <= DateTime("
                         + row.EndeControl.Value.Year + ","
                         + row.EndeControl.Value.Month + ","
-                        + row.EndeControl.Value.Day + ")";
+                        + row.EndeControl.Value.Day + "))";
                     break;
                 case "Erteilt":
                     // Zusammensetzen des SuchString
-                    suchBedingungen += verknuepfung + "Erteilt >= DateTime("
+                    suchBedingungen += verknuepfung + "(Erteilt >= DateTime("
                         + row.AnfangControl.Value.Year + ","
                         + row.AnfangControl.Value.Month + ","
                         + row.AnfangControl.Value.Day + ")"
                         + " && Erteilt <= DateTime("
                         + row.EndeControl.Value.Year + ","
                         + row.EndeControl.Value.Month + ","
-                        + row.EndeControl.Value.Day + ")";
+                        + row.EndeControl.Value.Day + "))";
                     break;
                 case "Abgerechnet":
                     // Zusammensetzen des SuchString
@@ -1766,6 +1767,16 @@ namespace easyAuftrag
                 ErrorHandler.ErrorHandle(ex);
             }
             
+        }
+        /// <summary>
+        /// Aktion beim Klick auf "Hilfe anzeigen" im MenuStrip Bereich "Hilfe"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HilfeanzeigenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string path = Path.Combine(Application.StartupPath, "easyAuftrag.chm");
+            Help.ShowHelp(this, path);
         }
     }
 }

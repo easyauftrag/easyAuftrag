@@ -80,18 +80,20 @@ namespace easyAuftrag.View
                     PLZ = kunde.PLZ,
                     Wohnort = kunde.Wohnort
                 };
-                List<(Adresse ad, string adName)> adr = new List<(Adresse, string)>();
+                List<string> adr = new List<string>();
                 // Zusammenfügen von Adressen und Name zur Anzeige in der ComboBox
                 foreach (var item in _adressen)
                 {
-                    adr.Add((item, "Adresse " + item.AdresseID + ", " + kunde.Name));
-                }   
+                    adr.Add("Adresse " + item.AdresseID + ", " + kunde.Name);
+                }
                 //Hinzufügen der Rechnungsadresse zur Liste
-                adr.Add((rechnungsadresse,"Rechnungsadresse"));
+                _adressen.Add(rechnungsadresse);
+                adr.Add("Rechnungsadresse");
+
                 cbAdresse.DataSource = adr;
                 // "Adresse X, Kundename" wird in der ComboBox angezeigt
-                cbAdresse.DisplayMember = "adName";
-                cbAdresse.ValueMember = "ad";
+                //cbAdresse.DisplayMember = "adName";
+                //cbAdresse.ValueMember = "ad";
                 // Starten mit "Rechnungsadresse" 
                 cbAdresse.SelectedIndex = adr.Count()-1;
             }

@@ -48,7 +48,7 @@
             // butAbbr
             // 
             this.butAbbr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAbbr.Location = new System.Drawing.Point(697, 277);
+            this.butAbbr.Location = new System.Drawing.Point(697, 259);
             this.butAbbr.Name = "butAbbr";
             this.butAbbr.Size = new System.Drawing.Size(75, 23);
             this.butAbbr.TabIndex = 2;
@@ -59,7 +59,7 @@
             // butSpeichern
             // 
             this.butSpeichern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butSpeichern.Location = new System.Drawing.Point(616, 277);
+            this.butSpeichern.Location = new System.Drawing.Point(616, 259);
             this.butSpeichern.Name = "butSpeichern";
             this.butSpeichern.Size = new System.Drawing.Size(75, 23);
             this.butSpeichern.TabIndex = 1;
@@ -76,7 +76,7 @@
             this.groupBox1.Controls.Add(this.rdbCSV);
             this.groupBox1.Location = new System.Drawing.Point(12, 158);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(760, 113);
+            this.groupBox1.Size = new System.Drawing.Size(760, 91);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Speichern als";
@@ -199,13 +199,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 312);
+            this.ClientSize = new System.Drawing.Size(784, 294);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.butAbbr);
             this.Controls.Add(this.butSpeichern);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(196, 351);
+            this.MinimumSize = new System.Drawing.Size(196, 333);
             this.Name = "ExportView";
             this.Text = "Export";
             this.groupBox1.ResumeLayout(false);

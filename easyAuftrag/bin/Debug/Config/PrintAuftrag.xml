@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <items>
   <printitem name="AuftragNr" x="124" y="60"/>
-  <printitem name="KundeName" x="50" y="75"/>
-  <printitem name="KundeAnschrift" x="45" y="82"/>
-  <printitem name="KundeTelefon" x="160" y="82"/>
+  <printitem name="KundeName" x="35" y="75"/>
+  <printitem name="KundeAnschrift" x="30" y="82"/>
+  <printitem name="KundeTelefon" x="145" y="82"/>
   <printlist start="115" inc="6">
     <listitem name="Datum" x="20"/>
     <listitem name="Mitarbeiter" x="45"/>
-    <listitem name="Beschreibung" x="75"/>
+    <listitem name="Beschreibung" x="85"/>
     <listitem name="StartZeit" x="155"/>
     <listitem name="EndZeit" x="170"/>
     <listitem name="Stunden" x="185"/>

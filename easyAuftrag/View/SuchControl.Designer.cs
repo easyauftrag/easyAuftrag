@@ -91,6 +91,7 @@
             // 
             // comboSpalte
             // 
+            this.comboSpalte.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboSpalte.FormattingEnabled = true;
             this.comboSpalte.Location = new System.Drawing.Point(66, 44);
             this.comboSpalte.Name = "comboSpalte";
@@ -118,6 +119,7 @@
             // 
             // comboLink
             // 
+            this.comboLink.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboLink.FormattingEnabled = true;
             this.comboLink.Location = new System.Drawing.Point(4, 44);
             this.comboLink.Name = "comboLink";
@@ -137,6 +139,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.Controls.Add(this.labLink);
             this.Controls.Add(this.comboLink);
             this.Controls.Add(this.labWert);

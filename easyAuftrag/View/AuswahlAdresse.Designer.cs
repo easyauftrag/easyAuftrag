@@ -141,6 +141,7 @@
             // 
             this.cbAdresse.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbAdresse.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbAdresse.FormattingEnabled = true;
             this.cbAdresse.Location = new System.Drawing.Point(105, 13);
             this.cbAdresse.Name = "cbAdresse";

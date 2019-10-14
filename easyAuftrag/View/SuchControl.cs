@@ -176,10 +176,11 @@ namespace easyAuftrag.View
 
             _lstRow.Add(row);
         }
-
         /// <summary>
-        /// Methode zum Ausblenden der nicht verwendeten Controls in der ersten Zeile des <see cref="SuchControl"/>
+        /// Aktion beim Ändern der Spaltenauswahl zum Ausblenden der nicht verwendeten Controls in der ersten Zeile des <see cref="SuchControl"/>
         /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ComboSpalte_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboSpalte.SelectedItem.Equals("Eingang") || comboSpalte.SelectedItem.Equals("Erteilt"))
@@ -219,8 +220,10 @@ namespace easyAuftrag.View
         }
 
         /// <summary>
-        /// Methode zum Ausblenden der nicht verwendeten Controls in den weiteren Zeilen des <see cref="SuchControl"/>
+        /// Aktion beim ändern der Spaltenauswahl zum Ausblenden der nicht verwendeten Controls in den weiteren Zeilen des <see cref="SuchControl"/>
         /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ComboSpalteVorlage_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox cbNew = (ComboBox)sender;
@@ -262,7 +265,7 @@ namespace easyAuftrag.View
         }
 
         /// <summary>
-        /// Action beim Klick auf den "Suche" Button im <see cref="SuchControl"/>
+        /// Aktion beim Klick auf den "Suche" Button im <see cref="SuchControl"/>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
