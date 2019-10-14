@@ -70,6 +70,7 @@ namespace easyAuftrag.View
             TaetigkeitInfo = new Taetigkeit();
             InitializeComponent();
             Text = titel;
+            dtpDatum.MaxDate = DateTime.Now;
             using (var db = new EasyAuftragContext(connection))
             {
                 var mitarbeiter = (from k in db.Mitarbeiters select new { ID = k.MitarbeiterID, mName = k.Name }).ToList();
@@ -89,6 +90,7 @@ namespace easyAuftrag.View
             _connection = connection;
             InitializeComponent();
             Text = titel;
+            dtpDatum.MaxDate = DateTime.Now;
             if (titel == "Tätigkeit Löschen")
             {
                 butSpeichern.Text = "Löschen";
@@ -108,24 +110,8 @@ namespace easyAuftrag.View
                 TaetigkeitInfo.MitarbeiterID = Convert.ToInt32(cbMitarbeiter.SelectedValue);
                 TaetigkeitInfo.Datum = dtpDatum.Value.Date;
                 TaetigkeitInfo.Name = tbName.Text;
-                TimeSpan.TryParse(tbStart.Text, out TimeSpan start);
-                if (!TimeSpan.Zero.Equals(start))
-                {
-                    TaetigkeitInfo.StartZeit = start;
-                }
-                else
-                {
-                    errorInfo.SetError(tbStart, "Bitte korrekte Startzeit eingeben!");
-                }
-                TimeSpan.TryParse(tbEnde.Text, out TimeSpan ende);
-                if (!TimeSpan.Zero.Equals(ende))
-                {
-                    TaetigkeitInfo.EndZeit = ende;
-                }
-                else
-                {
-                    errorInfo.SetError(tbEnde, "Bitte korrekte Endzeit eingeben!");
-                }
+                TaetigkeitInfo.StartZeit = dtpStart.Value.TimeOfDay;
+                TaetigkeitInfo.EndZeit = dtpEnde.Value.TimeOfDay;
             }
             catch (Exception ex)
             {
@@ -150,8 +136,8 @@ namespace easyAuftrag.View
             }
             dtpDatum.Value = taetigkeit.Datum;
             tbName.Text = taetigkeit.Name;
-            tbStart.Text = taetigkeit.StartZeit.ToString();
-            tbEnde.Text = taetigkeit.EndZeit.ToString();
+            dtpStart.Value = Convert.ToDateTime(taetigkeit.StartZeit);
+            dtpEnde.Value = Convert.ToDateTime(taetigkeit.EndZeit);
         }
 
         /// <summary>
@@ -162,16 +148,28 @@ namespace easyAuftrag.View
         private void ButSpeichern_Click(object sender, EventArgs e)
         {
             errorInfo.Clear();
-            FillTaetigkeit();
-            if (errorInfo.GetError(tbStart) == "" && errorInfo.GetError(tbEnde) == "")
+            if (cbMitarbeiter.SelectedValue == null && cbMitarbeiter.Items.Count > 0)
             {
-                this.DialogResult = DialogResult.OK;
-                this.Hide();
+                errorInfo.SetError(cbMitarbeiter, "Bitte wählen Sie einen Mitarbeiter aus.");
+            }
+            else if (cbMitarbeiter.SelectedValue == null && cbMitarbeiter.Items.Count == 0)
+            {
+                errorInfo.SetError(cbMitarbeiter, "Bitte legen Sie zunächst einen Mitarbeiter an.");
+            }
+            else if (String.IsNullOrEmpty(tbName.Text))
+            {
+                errorInfo.SetError(tbName, "Die Beschreibung der Tätigkeit darf nicht leer sein.");
+            }
+            else if (dtpStart.Value > dtpEnde.Value)
+            {
+                errorInfo.SetError(dtpStart, "Die Startzeit darf nicht vor der Endzeit sein.");
+                errorInfo.SetError(dtpEnde, "Die Startzeit darf nicht vor der Endzeit sein.");
             }
             else
             {
-                this.BringToFront();
-                this.Activate();
+                FillTaetigkeit();
+                this.DialogResult = DialogResult.OK;
+                this.Hide();
             }
         }
 

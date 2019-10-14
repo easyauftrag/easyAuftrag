@@ -34,16 +34,17 @@
             this.labStart = new System.Windows.Forms.Label();
             this.labDatum = new System.Windows.Forms.Label();
             this.labMitarbeiter = new System.Windows.Forms.Label();
-            this.tbEnde = new System.Windows.Forms.TextBox();
             this.dtpDatum = new System.Windows.Forms.DateTimePicker();
             this.cbMitarbeiter = new System.Windows.Forms.ComboBox();
-            this.tbStart = new System.Windows.Forms.TextBox();
             this.butAbbr = new System.Windows.Forms.Button();
             this.butSpeichern = new System.Windows.Forms.Button();
             this.tbName = new System.Windows.Forms.TextBox();
             this.labBeschreibung = new System.Windows.Forms.Label();
             this.errorInfo = new System.Windows.Forms.ErrorProvider(this.components);
             this.easyAuftragDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dtpStart = new System.Windows.Forms.DateTimePicker();
+            this.dtpEnde = new System.Windows.Forms.DateTimePicker();
+            this.suchControl1 = new easyAuftrag.View.SuchControl();
             ((System.ComponentModel.ISupportInitialize)(this.errorInfo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.easyAuftragDataSetBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -51,7 +52,7 @@
             // labEnde
             // 
             this.labEnde.AutoSize = true;
-            this.labEnde.Location = new System.Drawing.Point(12, 127);
+            this.labEnde.Location = new System.Drawing.Point(12, 125);
             this.labEnde.Name = "labEnde";
             this.labEnde.Size = new System.Drawing.Size(42, 13);
             this.labEnde.TabIndex = 11;
@@ -69,7 +70,7 @@
             // labDatum
             // 
             this.labDatum.AutoSize = true;
-            this.labDatum.Location = new System.Drawing.Point(12, 47);
+            this.labDatum.Location = new System.Drawing.Point(12, 46);
             this.labDatum.Name = "labDatum";
             this.labDatum.Size = new System.Drawing.Size(38, 13);
             this.labDatum.TabIndex = 8;
@@ -78,22 +79,11 @@
             // labMitarbeiter
             // 
             this.labMitarbeiter.AutoSize = true;
-            this.labMitarbeiter.Location = new System.Drawing.Point(12, 21);
+            this.labMitarbeiter.Location = new System.Drawing.Point(12, 16);
             this.labMitarbeiter.Name = "labMitarbeiter";
             this.labMitarbeiter.Size = new System.Drawing.Size(56, 13);
             this.labMitarbeiter.TabIndex = 7;
             this.labMitarbeiter.Text = "Mitarbeiter";
-            // 
-            // tbEnde
-            // 
-            this.tbEnde.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbEnde.Location = new System.Drawing.Point(90, 120);
-            this.tbEnde.Name = "tbEnde";
-            this.tbEnde.Size = new System.Drawing.Size(682, 20);
-            this.tbEnde.TabIndex = 4;
-            this.tbEnde.Text = "HH:MM";
-            this.tbEnde.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // dtpDatum
             // 
@@ -103,6 +93,7 @@
             this.dtpDatum.Name = "dtpDatum";
             this.dtpDatum.Size = new System.Drawing.Size(682, 20);
             this.dtpDatum.TabIndex = 1;
+            this.dtpDatum.Value = new System.DateTime(2019, 10, 14, 0, 0, 0, 0);
             // 
             // cbMitarbeiter
             // 
@@ -113,17 +104,6 @@
             this.cbMitarbeiter.Name = "cbMitarbeiter";
             this.cbMitarbeiter.Size = new System.Drawing.Size(682, 21);
             this.cbMitarbeiter.TabIndex = 0;
-            // 
-            // tbStart
-            // 
-            this.tbStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbStart.Location = new System.Drawing.Point(90, 92);
-            this.tbStart.Name = "tbStart";
-            this.tbStart.Size = new System.Drawing.Size(682, 20);
-            this.tbStart.TabIndex = 3;
-            this.tbStart.Text = "HH:MM";
-            this.tbStart.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // butAbbr
             // 
@@ -159,7 +139,7 @@
             // labBeschreibung
             // 
             this.labBeschreibung.AutoSize = true;
-            this.labBeschreibung.Location = new System.Drawing.Point(12, 73);
+            this.labBeschreibung.Location = new System.Drawing.Point(12, 69);
             this.labBeschreibung.Name = "labBeschreibung";
             this.labBeschreibung.Size = new System.Drawing.Size(72, 13);
             this.labBeschreibung.TabIndex = 9;
@@ -169,21 +149,53 @@
             // 
             this.errorInfo.ContainerControl = this;
             // 
+            // dtpStart
+            // 
+            this.dtpStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dtpStart.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpStart.Location = new System.Drawing.Point(90, 93);
+            this.dtpStart.Name = "dtpStart";
+            this.dtpStart.ShowUpDown = true;
+            this.dtpStart.Size = new System.Drawing.Size(682, 20);
+            this.dtpStart.TabIndex = 12;
+            this.dtpStart.Value = new System.DateTime(2019, 10, 14, 0, 0, 0, 0);
+            // 
+            // dtpEnde
+            // 
+            this.dtpEnde.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dtpEnde.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpEnde.Location = new System.Drawing.Point(90, 119);
+            this.dtpEnde.Name = "dtpEnde";
+            this.dtpEnde.ShowUpDown = true;
+            this.dtpEnde.Size = new System.Drawing.Size(682, 20);
+            this.dtpEnde.TabIndex = 13;
+            this.dtpEnde.Value = new System.DateTime(2019, 10, 14, 0, 0, 0, 0);
+            // 
+            // suchControl1
+            // 
+            this.suchControl1.Location = new System.Drawing.Point(0, 0);
+            this.suchControl1.Name = "suchControl1";
+            this.suchControl1.Size = new System.Drawing.Size(563, 130);
+            this.suchControl1.Spalten = ((System.Collections.Generic.List<string>)(resources.GetObject("suchControl1.Spalten")));
+            this.suchControl1.TabIndex = 0;
+            // 
             // TaetigkeitView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 183);
+            this.Controls.Add(this.dtpEnde);
+            this.Controls.Add(this.dtpStart);
             this.Controls.Add(this.tbName);
             this.Controls.Add(this.labBeschreibung);
             this.Controls.Add(this.butAbbr);
             this.Controls.Add(this.butSpeichern);
-            this.Controls.Add(this.tbStart);
             this.Controls.Add(this.labEnde);
             this.Controls.Add(this.labStart);
             this.Controls.Add(this.labDatum);
             this.Controls.Add(this.labMitarbeiter);
-            this.Controls.Add(this.tbEnde);
             this.Controls.Add(this.dtpDatum);
             this.Controls.Add(this.cbMitarbeiter);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -203,15 +215,16 @@
         private System.Windows.Forms.Label labStart;
         private System.Windows.Forms.Label labDatum;
         private System.Windows.Forms.Label labMitarbeiter;
-        private System.Windows.Forms.TextBox tbEnde;
         private System.Windows.Forms.DateTimePicker dtpDatum;
         private System.Windows.Forms.ComboBox cbMitarbeiter;
-        private System.Windows.Forms.TextBox tbStart;
         private System.Windows.Forms.Button butAbbr;
         private System.Windows.Forms.Button butSpeichern;
         private System.Windows.Forms.TextBox tbName;
         private System.Windows.Forms.Label labBeschreibung;
         private System.Windows.Forms.ErrorProvider errorInfo;
         private System.Windows.Forms.BindingSource easyAuftragDataSetBindingSource;
+        private System.Windows.Forms.DateTimePicker dtpEnde;
+        private System.Windows.Forms.DateTimePicker dtpStart;
+        private SuchControl suchControl1;
     }
 }

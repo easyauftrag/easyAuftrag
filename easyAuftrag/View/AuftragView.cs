@@ -80,6 +80,8 @@ namespace easyAuftrag.View
                 AuftragInfo = new Auftrag();
                 InitializeComponent();
                 Text = titel;
+                dtpEingang.MaxDate = DateTime.Now;
+                dtpErteilt.MaxDate = DateTime.Now;
                 using (var db = new EasyAuftragContext(connection))
                 {
                     // Laden aller Kunden IDs und Namen, um sie in der ComboBox anzuzeigen
@@ -109,6 +111,8 @@ namespace easyAuftrag.View
                 AuftragInfo = auftrag;
                 InitializeComponent();
                 Text = titel;
+                dtpEingang.MaxDate = DateTime.Now;
+                dtpErteilt.MaxDate = DateTime.Now;
                 if (titel == "Auftrag Löschen")
                 {
                     butSpeichern.Text = "Löschen";
@@ -228,9 +232,30 @@ namespace easyAuftrag.View
         /// <param name="e"></param>
         private void ButSpeichern_Click(object sender, EventArgs e)
         {
-            FillAuftrag();
-            this.DialogResult = DialogResult.OK;
-            this.Hide();
+            errProv.Clear();
+            if (String.IsNullOrEmpty(tbAuftragNr.Text))
+            {
+                errProv.SetError(tbAuftragNr, "Auftragsnummer darf nicht leer sein.");
+            }
+            else if (cbKunde.SelectedValue == null && cbKunde.Items.Count > 0)
+            {
+                errProv.SetError(cbKunde, "Bitte wählen Sie einen Kunden aus.");
+            }
+            else if (cbKunde.SelectedValue == null && cbKunde.Items.Count == 0)
+            {
+                errProv.SetError(cbKunde, "Bitte legen Sie zunächst einen Kunden an.");
+            }
+            else if (dtpEingang.Value > dtpErteilt.Value)
+            {
+                errProv.SetError(dtpEingang, "Eingangdatum muss vor Erteilungsdatum liegen.");
+                errProv.SetError(dtpErteilt, "Eingangdatum muss vor Erteilungsdatum liegen.");
+            }
+            else
+            {
+                FillAuftrag();
+                this.DialogResult = DialogResult.OK;
+                this.Hide();
+            }
         }
 
         /// <summary>
@@ -403,12 +428,7 @@ namespace easyAuftrag.View
 
         private void dgvAuftrag_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgvAuftrag.SelectedRows.Count > 0)
-            {
-                int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedRows[0].Cells["TaetigkeitID"].Value);
-                TaetigkeitBearbeiten(taetigkeitID);
-            }
-            else if (dgvAuftrag.SelectedCells.Count > 0)
+            if (dgvAuftrag.SelectedCells.Count > 0)
             {
                 int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedCells[0].OwningRow.Cells["TaetigkeitID"].Value);
                 TaetigkeitBearbeiten(taetigkeitID);
@@ -417,16 +437,8 @@ namespace easyAuftrag.View
 
         private void dgvAuftrag_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (dgvAuftrag.SelectedRows.Count > 0)
-            {
-                int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedRows[0].Cells["TaetigkeitID"].Value);
-                TaetigkeitBearbeiten(taetigkeitID);
-            }
-            else if (dgvAuftrag.SelectedCells.Count > 0)
-            {
-                int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedCells[0].OwningRow.Cells["TaetigkeitID"].Value);
-                TaetigkeitBearbeiten(taetigkeitID);
-            }
+            int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedRows[0].Cells["TaetigkeitID"].Value);
+            TaetigkeitBearbeiten(taetigkeitID);
         }
     }
 }
