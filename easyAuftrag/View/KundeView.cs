@@ -113,6 +113,10 @@ namespace easyAuftrag.View
                     _adrlist = (from ad in db.Adressen where ad.KundeID == KundeInfo.KundeID select ad).ToList();
                 }
                 _bind.DataSource = _adrlist;
+                foreach (var ad in KundeInfo.WeitereAdressen)
+                {
+                    _bind.Add(ad);
+                }
                 dgvKunde.DataSource = _bind;
                 // AdresseID wird später benötigt, soll aber für den User nicht sichtbar sein
                 dgvKunde.Columns["AdresseID"].Visible = false;
@@ -220,23 +224,48 @@ namespace easyAuftrag.View
         /// <param name="e"></param>
         private void BearbeitenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int adresseID = Convert.ToInt32(dgvKunde.SelectedRows[0].Cells["AdresseID"].Value);
-            AdresseView adresseV = new AdresseView("Adresse Bearbeiten", adresse: _handler.AdresseLaden(adresseID, out bool success, _connection));
-            if (success == false)
+            if (dgvKunde.SelectedRows.Count > 0)
             {
-                MessageBox.Show("Adresse nicht in der Datenbank gefunden");
+                int adresseID = Convert.ToInt32(dgvKunde.SelectedRows[0].Cells["AdresseID"].Value);
+                AdresseBearbeiten(adresseID);
             }
-            else if (adresseV.ShowDialog() == DialogResult.OK)
+            else if (dgvKunde.SelectedCells.Count > 0)
             {
-                if (!_handler.AdresseBearbeiten(adresseV.AdresseInfo, adresseID, _connection))
+                int adresseId = Convert.ToInt32(dgvKunde.SelectedCells[0].OwningRow.Cells["AdresseID"].Value);
+                AdresseBearbeiten(adresseId);
+            }
+        }
+
+        /// <summary>
+        /// Methode zum Bearbeiten von Adressen
+        /// </summary>
+        /// <param name="adresseID">ID zur Identifikation der Adresse</param>
+        private void AdresseBearbeiten(int adresseID)
+        {
+            if (adresseID != 0)
+            {
+                AdresseView adresseV = new AdresseView("Adresse Bearbeiten", adresse: _handler.AdresseLaden(adresseID, out bool success, _connection));
+                if (success == false)
                 {
                     MessageBox.Show("Adresse nicht in der Datenbank gefunden");
                 }
+                else if (adresseV.ShowDialog() == DialogResult.OK)
+                {
+                    if (!_handler.AdresseBearbeiten(adresseV.AdresseInfo, adresseID, _connection))
+                    {
+                        MessageBox.Show("Adresse nicht in der Datenbank gefunden");
+                    }
+                }
+                this.BringToFront();
+                this.Activate();
+                DataGridNeu();
             }
-            this.BringToFront();
-            this.Activate();
-            DataGridNeu();
+            else
+            {
+                errProv.SetError(dgvKunde, "Bitte speichern Sie den Kunden, bevor Sie die Adresse bearbeiten.");
+            }
         }
+
         /// <summary>
         /// Aktion beim Klick auf "Löschen" im Kontextmenu auf der <see cref="DataGridView"/>
         /// </summary>
@@ -244,23 +273,55 @@ namespace easyAuftrag.View
         /// <param name="e"></param>
         private void LoeschenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int adresseID = Convert.ToInt32(dgvKunde.SelectedRows[0].Cells["AdresseID"].Value);
-            AdresseView adresseV = new AdresseView("Adresse Löschen", adresse: _handler.AdresseLaden(adresseID, out bool success, _connection));
-            if (success == false)
+            if (dgvKunde.SelectedRows.Count > 0)
             {
-                MessageBox.Show("Adresse nicht in der Datenbank gefunden");
+                int adresseID = Convert.ToInt32(dgvKunde.SelectedRows[0].Cells["AdresseID"].Value);
+                AdresseLoeschen(adresseID);
             }
-            else if (adresseV.ShowDialog() == DialogResult.OK)
+            else if (dgvKunde.SelectedCells.Count > 0)
             {
-                if (!_handler.AdresseLoeschen(adresseID, _connection))
+                int adresseId = Convert.ToInt32(dgvKunde.SelectedCells[0].OwningRow.Cells["AdresseID"].Value);
+                AdresseLoeschen(adresseId);
+            }
+        }
+
+        /// <summary>
+        /// Methode zum Löschen einer Adresse
+        /// </summary>
+        /// <param name="adresseID">ID zur Identifizierung der Adresse</param>
+        private void AdresseLoeschen(int adresseID)
+        {
+            if (adresseID != 0)
+            {
+                AdresseView adresseV = new AdresseView("Adresse Löschen", adresse: _handler.AdresseLaden(adresseID, out bool success, _connection));
+                if (success == false)
                 {
                     MessageBox.Show("Adresse nicht in der Datenbank gefunden");
                 }
+                else if (adresseV.ShowDialog() == DialogResult.OK)
+                {
+                    if (!_handler.AdresseLoeschen(adresseID, _connection))
+                    {
+                        MessageBox.Show("Adresse nicht in der Datenbank gefunden");
+                    }
+                }
+                this.BringToFront();
+                this.Activate();
+                DataGridNeu();
             }
-            this.BringToFront();
-            this.Activate();
-            DataGridNeu();
+            else
+            {
+                if (dgvKunde.SelectedRows.Count > 0)
+                {
+                    _bind.RemoveAt(dgvKunde.SelectedRows[0].Index);
+                }
+                else if (dgvKunde.SelectedCells.Count > 0)
+                {
+                    _bind.RemoveAt(dgvKunde.SelectedCells[0].OwningRow.Index);
+                }
+            }
         }
+
         /// <summary>
         /// Methode zum Anlegen einer neuen Tätigkeit
         /// </summary>
@@ -277,6 +338,34 @@ namespace easyAuftrag.View
             }
             this.BringToFront();
             this.Activate();
+        }
+
+        private void dgvKunde_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvKunde.SelectedRows.Count > 0)
+            {
+                int adresseID = Convert.ToInt32(dgvKunde.SelectedRows[0].Cells["AdresseID"].Value);
+                AdresseBearbeiten(adresseID);
+            }
+            else if (dgvKunde.SelectedCells.Count > 0)
+            {
+                int adresseId = Convert.ToInt32(dgvKunde.SelectedCells[0].OwningRow.Cells["AdresseID"].Value);
+                AdresseBearbeiten(adresseId);
+            }
+        }
+
+        private void dgvKunde_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (dgvKunde.SelectedRows.Count > 0)
+            {
+                int adresseID = Convert.ToInt32(dgvKunde.SelectedRows[0].Cells["AdresseID"].Value);
+                AdresseBearbeiten(adresseID);
+            }
+            else if (dgvKunde.SelectedCells.Count > 0)
+            {
+                int adresseId = Convert.ToInt32(dgvKunde.SelectedCells[0].OwningRow.Cells["AdresseID"].Value);
+                AdresseBearbeiten(adresseId);
+            }
         }
     }
 }

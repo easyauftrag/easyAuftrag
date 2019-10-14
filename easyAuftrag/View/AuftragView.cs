@@ -185,8 +185,8 @@ namespace easyAuftrag.View
             {
                 AuftragInfo.AuftragNummer = tbAuftragNr.Text;
                 AuftragInfo.KundeID = Convert.ToInt32(cbKunde.SelectedValue);
-                AuftragInfo.Eingang = dtpEingang.Value;
-                AuftragInfo.Erteilt = dtpErteilt.Value;
+                AuftragInfo.Eingang = dtpEingang.Value.Date;
+                AuftragInfo.Erteilt = dtpErteilt.Value.Date;
                 AuftragInfo.Erledigt = cbErledigt.Checked;
                 AuftragInfo.Abgerechnet = cbAbgerechnet.Checked;
 

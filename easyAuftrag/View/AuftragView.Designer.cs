@@ -188,7 +188,6 @@
             // 
             this.dgvAuftrag.AllowUserToAddRows = false;
             this.dgvAuftrag.AllowUserToDeleteRows = false;
-            this.dgvAuftrag.AllowUserToOrderColumns = true;
             this.dgvAuftrag.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));

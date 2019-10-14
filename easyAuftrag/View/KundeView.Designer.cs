@@ -51,8 +51,10 @@
             this.neuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bearbeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loeschenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.errProv = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvKunde)).BeginInit();
             this.cxtKunde.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errProv)).BeginInit();
             this.SuspendLayout();
             // 
             // butAbbr
@@ -208,14 +210,19 @@
             // 
             // dgvKunde
             // 
+            this.dgvKunde.AllowUserToAddRows = false;
+            this.dgvKunde.AllowUserToDeleteRows = false;
             this.dgvKunde.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvKunde.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvKunde.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvKunde.Location = new System.Drawing.Point(15, 197);
             this.dgvKunde.Name = "dgvKunde";
             this.dgvKunde.Size = new System.Drawing.Size(757, 172);
             this.dgvKunde.TabIndex = 16;
+            this.dgvKunde.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvKunde_CellContentDoubleClick);
+            this.dgvKunde.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvKunde_RowHeaderMouseDoubleClick);
             this.dgvKunde.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DgvKunde_MouseUp);
             // 
             // cxtKunde
@@ -248,6 +255,10 @@
             this.loeschenToolStripMenuItem.Text = "Löschen";
             this.loeschenToolStripMenuItem.Click += new System.EventHandler(this.LoeschenToolStripMenuItem_Click);
             // 
+            // errProv
+            // 
+            this.errProv.ContainerControl = this;
+            // 
             // KundeView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -276,6 +287,7 @@
             this.Text = "Kunde";
             ((System.ComponentModel.ISupportInitialize)(this.dgvKunde)).EndInit();
             this.cxtKunde.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errProv)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -304,5 +316,6 @@
         private System.Windows.Forms.ToolStripMenuItem neuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bearbeitenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loeschenToolStripMenuItem;
+        private System.Windows.Forms.ErrorProvider errProv;
     }
 }
