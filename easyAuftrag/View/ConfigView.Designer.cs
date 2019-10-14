@@ -55,6 +55,8 @@
             this.butOK = new System.Windows.Forms.Button();
             this.fbdExport = new System.Windows.Forms.FolderBrowserDialog();
             this.errorInfo = new System.Windows.Forms.ErrorProvider(this.components);
+            this.tbConString = new System.Windows.Forms.TextBox();
+            this.labConString = new System.Windows.Forms.Label();
             this.tcConfig.SuspendLayout();
             this.tpAllg.SuspendLayout();
             this.tbDB.SuspendLayout();
@@ -72,7 +74,7 @@
             this.tcConfig.Location = new System.Drawing.Point(13, 13);
             this.tcConfig.Name = "tcConfig";
             this.tcConfig.SelectedIndex = 0;
-            this.tcConfig.Size = new System.Drawing.Size(759, 211);
+            this.tcConfig.Size = new System.Drawing.Size(759, 234);
             this.tcConfig.TabIndex = 0;
             // 
             // tpAllg
@@ -143,13 +145,15 @@
             this.tbDB.Location = new System.Drawing.Point(4, 22);
             this.tbDB.Name = "tbDB";
             this.tbDB.Padding = new System.Windows.Forms.Padding(3);
-            this.tbDB.Size = new System.Drawing.Size(751, 185);
+            this.tbDB.Size = new System.Drawing.Size(751, 208);
             this.tbDB.TabIndex = 0;
             this.tbDB.Text = "Datenbank";
             this.tbDB.UseVisualStyleBackColor = true;
             // 
             // gBoxDB
             // 
+            this.gBoxDB.Controls.Add(this.tbConString);
+            this.gBoxDB.Controls.Add(this.labConString);
             this.gBoxDB.Controls.Add(this.butDB);
             this.gBoxDB.Controls.Add(this.butServer);
             this.gBoxDB.Controls.Add(this.cmbDB);
@@ -165,7 +169,7 @@
             this.gBoxDB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gBoxDB.Location = new System.Drawing.Point(3, 3);
             this.gBoxDB.Name = "gBoxDB";
-            this.gBoxDB.Size = new System.Drawing.Size(745, 179);
+            this.gBoxDB.Size = new System.Drawing.Size(745, 202);
             this.gBoxDB.TabIndex = 2;
             this.gBoxDB.TabStop = false;
             // 
@@ -196,9 +200,9 @@
             this.cmbDB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbDB.FormattingEnabled = true;
-            this.cmbDB.Location = new System.Drawing.Point(90, 146);
+            this.cmbDB.Location = new System.Drawing.Point(138, 146);
             this.cmbDB.Name = "cmbDB";
-            this.cmbDB.Size = new System.Drawing.Size(616, 21);
+            this.cmbDB.Size = new System.Drawing.Size(568, 21);
             this.cmbDB.TabIndex = 9;
             // 
             // cmbServer
@@ -206,28 +210,28 @@
             this.cmbServer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbServer.FormattingEnabled = true;
-            this.cmbServer.Location = new System.Drawing.Point(90, 17);
+            this.cmbServer.Location = new System.Drawing.Point(138, 17);
             this.cmbServer.Name = "cmbServer";
-            this.cmbServer.Size = new System.Drawing.Size(616, 21);
+            this.cmbServer.Size = new System.Drawing.Size(568, 21);
             this.cmbServer.TabIndex = 8;
             // 
             // tbPW
             // 
             this.tbPW.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbPW.Location = new System.Drawing.Point(90, 120);
+            this.tbPW.Location = new System.Drawing.Point(138, 120);
             this.tbPW.Name = "tbPW";
             this.tbPW.PasswordChar = '*';
-            this.tbPW.Size = new System.Drawing.Size(616, 20);
+            this.tbPW.Size = new System.Drawing.Size(568, 20);
             this.tbPW.TabIndex = 7;
             // 
             // tbUser
             // 
             this.tbUser.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbUser.Location = new System.Drawing.Point(90, 94);
+            this.tbUser.Location = new System.Drawing.Point(138, 94);
             this.tbUser.Name = "tbUser";
-            this.tbUser.Size = new System.Drawing.Size(616, 20);
+            this.tbUser.Size = new System.Drawing.Size(568, 20);
             this.tbUser.TabIndex = 6;
             // 
             // rdbSQL
@@ -235,7 +239,7 @@
             this.rdbSQL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.rdbSQL.AutoSize = true;
-            this.rdbSQL.Location = new System.Drawing.Point(90, 71);
+            this.rdbSQL.Location = new System.Drawing.Point(138, 67);
             this.rdbSQL.Name = "rdbSQL";
             this.rdbSQL.Size = new System.Drawing.Size(146, 17);
             this.rdbSQL.TabIndex = 5;
@@ -249,7 +253,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.rdbWin.AutoSize = true;
             this.rdbWin.Checked = true;
-            this.rdbWin.Location = new System.Drawing.Point(90, 48);
+            this.rdbWin.Location = new System.Drawing.Point(138, 44);
             this.rdbWin.Name = "rdbWin";
             this.rdbWin.Size = new System.Drawing.Size(130, 17);
             this.rdbWin.TabIndex = 4;
@@ -297,7 +301,7 @@
             // butAbbr
             // 
             this.butAbbr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAbbr.Location = new System.Drawing.Point(697, 236);
+            this.butAbbr.Location = new System.Drawing.Point(697, 259);
             this.butAbbr.Name = "butAbbr";
             this.butAbbr.Size = new System.Drawing.Size(75, 23);
             this.butAbbr.TabIndex = 1;
@@ -308,7 +312,7 @@
             // butOK
             // 
             this.butOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butOK.Location = new System.Drawing.Point(616, 236);
+            this.butOK.Location = new System.Drawing.Point(616, 259);
             this.butOK.Name = "butOK";
             this.butOK.Size = new System.Drawing.Size(75, 23);
             this.butOK.TabIndex = 2;
@@ -320,16 +324,34 @@
             // 
             this.errorInfo.ContainerControl = this;
             // 
+            // tbConString
+            // 
+            this.tbConString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbConString.Location = new System.Drawing.Point(138, 173);
+            this.tbConString.Name = "tbConString";
+            this.tbConString.Size = new System.Drawing.Size(568, 20);
+            this.tbConString.TabIndex = 13;
+            // 
+            // labConString
+            // 
+            this.labConString.AutoSize = true;
+            this.labConString.Location = new System.Drawing.Point(6, 176);
+            this.labConString.Name = "labConString";
+            this.labConString.Size = new System.Drawing.Size(126, 13);
+            this.labConString.TabIndex = 12;
+            this.labConString.Text = "Verbindungszeichenfolge";
+            // 
             // ConfigView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 271);
+            this.ClientSize = new System.Drawing.Size(784, 294);
             this.Controls.Add(this.butOK);
             this.Controls.Add(this.butAbbr);
             this.Controls.Add(this.tcConfig);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(400, 300);
+            this.MinimumSize = new System.Drawing.Size(400, 333);
             this.Name = "ConfigView";
             this.Text = "ConfigView";
             this.tcConfig.ResumeLayout(false);
@@ -370,5 +392,7 @@
         private System.Windows.Forms.Label labDB;
         private System.Windows.Forms.Label labServer;
         private System.Windows.Forms.ErrorProvider errorInfo;
+        private System.Windows.Forms.TextBox tbConString;
+        private System.Windows.Forms.Label labConString;
     }
 }

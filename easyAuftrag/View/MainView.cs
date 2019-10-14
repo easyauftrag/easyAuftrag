@@ -80,6 +80,10 @@ namespace easyAuftrag
                         this.BringToFront();
                         this.Activate();
                     }
+                    else
+                    {
+                        this.Close();
+                    }
                 }
                 // Laden der Aufträge ins DataGridView
                 TabelleNeu();
@@ -439,7 +443,7 @@ namespace easyAuftrag
                 }
                 if (item[0].ToLower().StartsWith("adr"))
                 {
-                    // Wenn eine neue Tätigkeit angelegt werden soll, öffnet sich das Fenster des zugehörigen Kunden
+                    // Wenn eine neue Adresse angelegt werden soll, öffnet sich das Fenster des zugehörigen Kunden
                     string[] itemParent = tvMain.SelectedNode.Parent.Tag.ToString().Split('_');
                     int kundeID = Convert.ToInt32(itemParent[1]);
                     BearbeitenKunde(kundeID);

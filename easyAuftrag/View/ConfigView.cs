@@ -28,6 +28,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Data.Sql;
 using System.Data.SqlClient;
@@ -124,7 +125,7 @@ namespace easyAuftrag.View
                     DataSet data = new DataSet();
                     SqlDataAdapter adapter = new SqlDataAdapter(sql, con);
                     adapter.Fill(data);
-
+                    cmbDB.Items.Clear();
                     foreach (DataRow row in data.Tables[0].Rows)
                     {
                         cmbDB.Items.Add(row[0]);
@@ -167,6 +168,7 @@ namespace easyAuftrag.View
         /// </summary>
         private void FillControls()
         {
+            
             if (Conf.LeseXML())
             {
                 tbSoll.Text = Conf.StundenSoll.ToString();
@@ -177,6 +179,20 @@ namespace easyAuftrag.View
                 tbPW.Text = Conf.Passwort;
                 cmbDB.Text = Conf.Datenbank;
             }
+            else
+            {
+                tbConString.Text = Properties.Settings.Default.easyAuftragConnectionString;
+                SqlConnectionStringBuilder scsb = new SqlConnectionStringBuilder(Properties.Settings.Default.easyAuftragConnectionString);
+                cmbServer.Text = scsb.DataSource;
+                rdbWin.Checked = scsb.IntegratedSecurity;
+                tbUser.Text = scsb.UserID;
+                tbPW.Text = scsb.Password;
+                cmbDB.Text = scsb.InitialCatalog;
+                
+            }
+            
+
+            
         }
         /// <summary>
         /// Übergeben der Eingaben in den Controls an eine <see cref="Config"/>.
