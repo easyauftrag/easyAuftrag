@@ -160,6 +160,10 @@ namespace easyAuftrag.View
                     }
                     */
                     _bind.DataSource = _tatlist;
+                    foreach (var tat in AuftragInfo.Taetigkeiten)
+                    {
+                        _bind.Add(tat);
+                    }
                     dgvAuftrag.DataSource = _bind;
                     dgvAuftrag.Columns["TaetigkeitID"].Visible = false;
                     dgvAuftrag.Columns["AuftragID"].Visible = false;
@@ -280,22 +284,46 @@ namespace easyAuftrag.View
         /// <param name="e"></param>
         private void BearbeitenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedRows[0].Cells["TaetigkeitID"].Value);
-            TaetigkeitView taetigkeitV = new TaetigkeitView("Tätigkeit Bearbeiten", taetigkeit: _handler.TaetigkeitLaden(taetigkeitID, out bool success, _connection), _connection);
-            if (success == false)
+            if (dgvAuftrag.SelectedRows.Count > 0)
             {
-                MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
+                int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedRows[0].Cells["TaetigkeitID"].Value);
+                TaetigkeitBearbeiten(taetigkeitID);
             }
-            else if (taetigkeitV.ShowDialog() == DialogResult.OK)
+            else if (dgvAuftrag.SelectedCells.Count > 0)
             {
-                if (!_handler.TaetigkeitBearbeiten(taetigkeitV.TaetigkeitInfo, taetigkeitID, _connection))
+                int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedCells[0].OwningRow.Cells["TaetigkeitID"].Value);
+                TaetigkeitBearbeiten(taetigkeitID);
+            }
+        }
+
+        /// <summary>
+        /// Methode zum Bearbeiten einer Tätigkeit
+        /// </summary>
+        /// <param name="taetigkeitID">ID zur Identifizierung der Tätigkeit</param>
+        private void TaetigkeitBearbeiten(int taetigkeitID)
+        {
+            if (taetigkeitID != 0)
+            {
+                TaetigkeitView taetigkeitV = new TaetigkeitView("Tätigkeit Bearbeiten", taetigkeit: _handler.TaetigkeitLaden(taetigkeitID, out bool success, _connection), _connection);
+                if (success == false)
                 {
                     MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
                 }
+                else if (taetigkeitV.ShowDialog() == DialogResult.OK)
+                {
+                    if (!_handler.TaetigkeitBearbeiten(taetigkeitV.TaetigkeitInfo, taetigkeitID, _connection))
+                    {
+                        MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
+                    }
+                }
+                this.BringToFront();
+                this.Activate();
+                DataGridNeu();
             }
-            this.BringToFront();
-            this.Activate();
-            DataGridNeu();
+            else
+            {
+                errProv.SetError(dgvAuftrag, "Bitte speichern Sie den Auftrag, bevor Sie die Tätigkeit bearbeiten.");
+            }
         }
 
         /// <summary>
@@ -305,23 +333,55 @@ namespace easyAuftrag.View
         /// <param name="e"></param>
         private void LoeschenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedRows[0].Cells["TaetigkeitID"].Value);
-            TaetigkeitView taetigkeitV = new TaetigkeitView("Tätigkeit Löschen", taetigkeit: _handler.TaetigkeitLaden(taetigkeitID, out bool success, _connection), _connection);
-            if (success == false)
+            if (dgvAuftrag.SelectedRows.Count > 0)
             {
-                MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
+                int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedRows[0].Cells["TaetigkeitID"].Value);
+                TaetigkeitLoeschen(taetigkeitID);
             }
-            else if (taetigkeitV.ShowDialog() == DialogResult.OK)
+            else if (dgvAuftrag.SelectedCells.Count > 0)
             {
-                if (!_handler.TaetigkeitLoeschen(taetigkeitID, _connection))
+                int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedCells[0].OwningRow.Cells["TaetigkeitID"].Value);
+                TaetigkeitLoeschen(taetigkeitID);
+            }
+        }
+
+        /// <summary>
+        /// Methode zum Löschen einer Tätigkeit
+        /// </summary>
+        /// <param name="taetigkeitID">ID zur Identifizierung der Tätigkeit</param>
+        private void TaetigkeitLoeschen(int taetigkeitID)
+        {
+            if (taetigkeitID != 0)
+            {
+                TaetigkeitView taetigkeitV = new TaetigkeitView("Tätigkeit Löschen", taetigkeit: _handler.TaetigkeitLaden(taetigkeitID, out bool success, _connection), _connection);
+                if (success == false)
                 {
                     MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
                 }
+                else if (taetigkeitV.ShowDialog() == DialogResult.OK)
+                {
+                    if (!_handler.TaetigkeitLoeschen(taetigkeitID, _connection))
+                    {
+                        MessageBox.Show("Tätigkeit nicht in der Datenbank gefunden");
+                    }
+                }
+                this.BringToFront();
+                this.Activate();
+                DataGridNeu();
             }
-            this.BringToFront();
-            this.Activate();
-            DataGridNeu();
+            else
+            {
+                if (dgvAuftrag.SelectedRows.Count > 0)
+                {
+                    _bind.RemoveAt(dgvAuftrag.SelectedRows[0].Index);
+                }
+                else if (dgvAuftrag.SelectedCells.Count > 0)
+                {
+                    _bind.RemoveAt(dgvAuftrag.SelectedCells[0].OwningRow.Index);
+                }
+            }
         }
+
         /// <summary>
         /// Methode zum Anlegen einer neuen Tätigkeit
         /// </summary>
@@ -339,6 +399,34 @@ namespace easyAuftrag.View
             }
             this.BringToFront();
             this.Activate();
+        }
+
+        private void dgvAuftrag_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvAuftrag.SelectedRows.Count > 0)
+            {
+                int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedRows[0].Cells["TaetigkeitID"].Value);
+                TaetigkeitBearbeiten(taetigkeitID);
+            }
+            else if (dgvAuftrag.SelectedCells.Count > 0)
+            {
+                int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedCells[0].OwningRow.Cells["TaetigkeitID"].Value);
+                TaetigkeitBearbeiten(taetigkeitID);
+            }
+        }
+
+        private void dgvAuftrag_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (dgvAuftrag.SelectedRows.Count > 0)
+            {
+                int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedRows[0].Cells["TaetigkeitID"].Value);
+                TaetigkeitBearbeiten(taetigkeitID);
+            }
+            else if (dgvAuftrag.SelectedCells.Count > 0)
+            {
+                int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedCells[0].OwningRow.Cells["TaetigkeitID"].Value);
+                TaetigkeitBearbeiten(taetigkeitID);
+            }
         }
     }
 }

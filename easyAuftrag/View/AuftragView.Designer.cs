@@ -52,8 +52,10 @@
             this.bearbeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.loeschenToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.errProv = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAuftrag)).BeginInit();
             this.cxtAuftrag.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errProv)).BeginInit();
             this.SuspendLayout();
             // 
             // butAbbr
@@ -196,6 +198,8 @@
             this.dgvAuftrag.Name = "dgvAuftrag";
             this.dgvAuftrag.Size = new System.Drawing.Size(759, 142);
             this.dgvAuftrag.TabIndex = 14;
+            this.dgvAuftrag.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAuftrag_CellDoubleClick);
+            this.dgvAuftrag.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvAuftrag_RowHeaderMouseDoubleClick);
             this.dgvAuftrag.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DgvAuftrag_MouseUp);
             // 
             // butNeueTaetigkeit
@@ -263,6 +267,10 @@
             this.loeschenToolStripMenuItem1.Text = "Löschen";
             this.loeschenToolStripMenuItem1.Click += new System.EventHandler(this.LoeschenToolStripMenuItem_Click);
             // 
+            // errProv
+            // 
+            this.errProv.ContainerControl = this;
+            // 
             // AuftragView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -290,6 +298,7 @@
             this.Text = "Auftrag";
             ((System.ComponentModel.ISupportInitialize)(this.dgvAuftrag)).EndInit();
             this.cxtAuftrag.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errProv)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -319,5 +328,6 @@
         private System.Windows.Forms.ToolStripSeparator ToolStripMenuItem2;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem loeschenToolStripMenuItem1;
+        private System.Windows.Forms.ErrorProvider errProv;
     }
 }
