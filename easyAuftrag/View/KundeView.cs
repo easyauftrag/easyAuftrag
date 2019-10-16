@@ -381,41 +381,55 @@ namespace easyAuftrag.View
             this.BringToFront();
             this.Activate();
         }
-
-        private void dgvKunde_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        /// <summary>
+        /// Aktion beim Doppelklick auf eine Zelle der <see cref="DataGridView"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DgvKunde_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgvKunde.SelectedRows.Count > 0)
-            {
-                int adresseID = Convert.ToInt32(dgvKunde.SelectedRows[0].Cells["AdresseID"].Value);
-                AdresseBearbeiten(adresseID);
-            }
-            else if (dgvKunde.SelectedCells.Count > 0)
-            {
-                int adresseId = Convert.ToInt32(dgvKunde.SelectedCells[0].OwningRow.Cells["AdresseID"].Value);
-                AdresseBearbeiten(adresseId);
-            }
+            int adresseId = Convert.ToInt32(dgvKunde.SelectedCells[0].OwningRow.Cells["AdresseID"].Value);
+            AdresseBearbeiten(adresseId);
         }
-
-        private void dgvKunde_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        /// <summary>
+        /// Aktion beim Doppelklick auf eine Zeile der <see cref="DataGridView"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DgvKunde_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (dgvKunde.SelectedRows.Count > 0)
-            {
-                int adresseID = Convert.ToInt32(dgvKunde.SelectedRows[0].Cells["AdresseID"].Value);
-                AdresseBearbeiten(adresseID);
-            }
-            else if (dgvKunde.SelectedCells.Count > 0)
-            {
-                int adresseId = Convert.ToInt32(dgvKunde.SelectedCells[0].OwningRow.Cells["AdresseID"].Value);
-                AdresseBearbeiten(adresseId);
-            }
+            int adresseID = Convert.ToInt32(dgvKunde.SelectedRows[0].Cells["AdresseID"].Value);
+            AdresseBearbeiten(adresseID);
         }
-
+        /// <summary>
+        /// Aktion beim Konvertieren des Länderformats
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ComboBoxFormat(object sender, ListControlConvertEventArgs e)
         {
             string kuerzel = ((Land)e.ListItem).Kuerzel;
             string name = ((Land)e.ListItem).Name;
             string vorwahl = ((Land)e.ListItem).Vorwahl;
             e.Value = kuerzel + " - " + name + " (" + vorwahl + ")";
+        }
+        /// <summary>
+        /// Aktion beim Halten der Maus über das PLZ Label
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LabPLZ_MouseHover(object sender, EventArgs e)
+        {
+            toolTipKunde.Show("5-stellige Zahl", labPLZ);
+        }
+        /// <summary>
+        /// Aktion beim Halten der Maus über die PLZ Textbox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TbPLZ_MouseHover(object sender, EventArgs e)
+        {
+            toolTipKunde.Show("5-stellige Zahl", tbPLZ);
         }
 
         private void KundeView_Load(object sender, EventArgs e)

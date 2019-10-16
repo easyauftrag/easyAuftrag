@@ -265,5 +265,23 @@ namespace easyAuftrag.View
             this.DialogResult = DialogResult.Cancel;
             this.Hide();
         }
+        /// <summary>
+        /// Aktion beim Halten der Maus über das Stundensoll Label
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LabSoll_MouseHover(object sender, EventArgs e)
+        {
+            toolTipConfig.Show("Ganzzahliger Wert", labSoll);
+        }
+        /// <summary>
+        /// Aktion beim Halten der Maus über die Stundensoll Textbox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TbSoll_MouseHover(object sender, EventArgs e)
+        {
+            toolTipConfig.Show("Ganzzahliger Wert", tbSoll);
+        }
     }
 }

@@ -430,12 +430,15 @@ namespace easyAuftrag.View
             treeNode4.Name = "Kunden";
             treeNode4.Tag = "Kunden";
             treeNode4.Text = "Kunden";
+            treeNode4.ToolTipText = "Doppelklick auf einen Kunden zum Bearbeiten";
             treeNode5.Name = "Mitarbeiter";
             treeNode5.Tag = "Mitarbeiter";
             treeNode5.Text = "Mitarbeiter";
+            treeNode5.ToolTipText = "Doppelklick auf einen Mitarbeiter zum Bearbeiten";
             treeNode6.Name = "Auftraege";
             treeNode6.Tag = "Auftraege";
             treeNode6.Text = "Aufträge";
+            treeNode6.ToolTipText = "Doppelklick auf einen Auftrag zum Bearbeiten";
             this.tvMain.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode4,
             treeNode5,

@@ -53,6 +53,7 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.loeschenToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.errProv = new System.Windows.Forms.ErrorProvider(this.components);
+            this.toolTipAuftrag = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvAuftrag)).BeginInit();
             this.cxtAuftrag.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProv)).BeginInit();
@@ -108,6 +109,7 @@
             this.dtpEingang.Name = "dtpEingang";
             this.dtpEingang.Size = new System.Drawing.Size(656, 20);
             this.dtpEingang.TabIndex = 2;
+            this.dtpEingang.MouseHover += new System.EventHandler(this.DtpEingang_MouseHover);
             // 
             // dtpErteilt
             // 
@@ -117,6 +119,7 @@
             this.dtpErteilt.Name = "dtpErteilt";
             this.dtpErteilt.Size = new System.Drawing.Size(656, 20);
             this.dtpErteilt.TabIndex = 3;
+            this.dtpErteilt.MouseHover += new System.EventHandler(this.DtpErteilt_MouseHover);
             // 
             // tbGesamt
             // 
@@ -166,6 +169,7 @@
             this.labEingang.Size = new System.Drawing.Size(80, 13);
             this.labEingang.TabIndex = 10;
             this.labEingang.Text = "Eingangsdatum";
+            this.labEingang.MouseHover += new System.EventHandler(this.LabEingang_MouseHover);
             // 
             // labErteilt
             // 
@@ -175,6 +179,7 @@
             this.labErteilt.Size = new System.Drawing.Size(82, 13);
             this.labErteilt.TabIndex = 11;
             this.labErteilt.Text = "Erteilungsdatum";
+            this.labErteilt.MouseHover += new System.EventHandler(this.LabErteilt_MouseHover);
             // 
             // labGesamt
             // 
@@ -329,5 +334,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem loeschenToolStripMenuItem1;
         private System.Windows.Forms.ErrorProvider errProv;
+        private System.Windows.Forms.ToolTip toolTipAuftrag;
     }
 }

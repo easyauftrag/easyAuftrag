@@ -43,6 +43,7 @@
             this.errProv = new System.Windows.Forms.ErrorProvider(this.components);
             this.labLand = new System.Windows.Forms.Label();
             this.cmbLand = new System.Windows.Forms.ComboBox();
+            this.toolTipPLZ = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errProv)).BeginInit();
             this.SuspendLayout();
             // 
@@ -112,6 +113,7 @@
             this.labPLZ.Size = new System.Drawing.Size(27, 13);
             this.labPLZ.TabIndex = 23;
             this.labPLZ.Text = "PLZ";
+            this.labPLZ.MouseHover += new System.EventHandler(this.LabPLZ_MouseHover);
             // 
             // labStraße
             // 
@@ -130,6 +132,7 @@
             this.tbPLZ.Name = "tbPLZ";
             this.tbPLZ.Size = new System.Drawing.Size(650, 20);
             this.tbPLZ.TabIndex = 19;
+            this.tbPLZ.MouseHover += new System.EventHandler(this.TbPLZ_MouseHover);
             // 
             // tbStraße
             // 
@@ -206,5 +209,6 @@
         private System.Windows.Forms.ErrorProvider errProv;
         private System.Windows.Forms.Label labLand;
         private System.Windows.Forms.ComboBox cmbLand;
+        private System.Windows.Forms.ToolTip toolTipPLZ;
     }
 }

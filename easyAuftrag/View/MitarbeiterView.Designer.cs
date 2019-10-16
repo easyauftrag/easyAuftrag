@@ -49,6 +49,7 @@
             this.errorInfo = new System.Windows.Forms.ErrorProvider(this.components);
             this.cmbLand = new System.Windows.Forms.ComboBox();
             this.labLand = new System.Windows.Forms.Label();
+            this.toolTipMitarbeiter = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errorInfo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -127,6 +128,7 @@
             this.labPLZ.Size = new System.Drawing.Size(27, 13);
             this.labPLZ.TabIndex = 13;
             this.labPLZ.Text = "PLZ";
+            this.labPLZ.MouseHover += new System.EventHandler(this.LabPLZ_MouseHover);
             // 
             // labStraße
             // 
@@ -154,6 +156,7 @@
             this.tbPLZ.Name = "tbPLZ";
             this.tbPLZ.Size = new System.Drawing.Size(650, 20);
             this.tbPLZ.TabIndex = 4;
+            this.tbPLZ.MouseHover += new System.EventHandler(this.TbPLZ_MouseHover);
             // 
             // tbStraße
             // 
@@ -190,6 +193,7 @@
             this.tbAuslastung.Name = "tbAuslastung";
             this.tbAuslastung.Size = new System.Drawing.Size(650, 20);
             this.tbAuslastung.TabIndex = 6;
+            this.tbAuslastung.MouseHover += new System.EventHandler(this.TbAuslastung_MouseHover);
             // 
             // labAuslastung
             // 
@@ -199,6 +203,7 @@
             this.labAuslastung.Size = new System.Drawing.Size(88, 13);
             this.labAuslastung.TabIndex = 15;
             this.labAuslastung.Text = "Auslastung Stelle";
+            this.labAuslastung.MouseHover += new System.EventHandler(this.LabAuslastung_MouseHover);
             // 
             // errorInfo
             // 
@@ -278,5 +283,6 @@
         private System.Windows.Forms.ErrorProvider errorInfo;
         private System.Windows.Forms.Label labLand;
         private System.Windows.Forms.ComboBox cmbLand;
+        private System.Windows.Forms.ToolTip toolTipMitarbeiter;
     }
 }

@@ -450,5 +450,41 @@ namespace easyAuftrag.View
             int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedRows[0].Cells["TaetigkeitID"].Value);
             TaetigkeitBearbeiten(taetigkeitID);
         }
+        /// <summary>
+        /// Aktion beim Halten der Maus über das Eingang Label
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LabEingang_MouseHover(object sender, EventArgs e)
+        {
+            toolTipAuftrag.Show("Erteilt Datum kann nicht vor Eingangsdatum liegen", labEingang);
+        }
+        /// <summary>
+        /// Aktion beim Halten der Maus über das Erteilt Label
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LabErteilt_MouseHover(object sender, EventArgs e)
+        {
+            toolTipAuftrag.Show("Erteilt Datum kann nicht vor Eingangsdatum liegen", labErteilt);
+        }
+        /// <summary>
+        /// Aktion beim Halten der Maus über den Eingangs DateTimePicker
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DtpEingang_MouseHover(object sender, EventArgs e)
+        {
+            toolTipAuftrag.Show("Erteilt Datum kann nicht vor Eingangsdatum liegen", dtpEingang);
+        }
+        /// <summary>
+        /// Aktion beim Halten der Maus über den Erteilt DateTimePicker
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DtpErteilt_MouseHover(object sender, EventArgs e)
+        {
+            toolTipAuftrag.Show("Erteilt Datum kann nicht vor Eingangsdatum liegen", dtpErteilt);
+        }
     }
 }

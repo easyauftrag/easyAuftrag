@@ -66,18 +66,26 @@ namespace easyAuftrag.View
         /// <param name="connection"></param>
         public TaetigkeitView(string titel, string connection)
         {
-            _connection = connection;
-            TaetigkeitInfo = new Taetigkeit();
-            InitializeComponent();
-            Text = titel;
-            dtpDatum.MaxDate = DateTime.Now;
-            using (var db = new EasyAuftragContext(connection))
+            try
             {
-                var mitarbeiter = (from k in db.Mitarbeiters select new { ID = k.MitarbeiterID, mName = k.Name }).ToList();
-                cbMitarbeiter.DataSource = mitarbeiter;
-                cbMitarbeiter.DisplayMember = "mName";
-                cbMitarbeiter.ValueMember = "ID";
+                _connection = connection;
+                TaetigkeitInfo = new Taetigkeit();
+                InitializeComponent();
+                Text = titel;
+                dtpDatum.MaxDate = DateTime.Now;
+                using (var db = new EasyAuftragContext(connection))
+                {
+                    var mitarbeiter = (from k in db.Mitarbeiters select new { ID = k.MitarbeiterID, mName = k.Name }).ToList();
+                    cbMitarbeiter.DataSource = mitarbeiter;
+                    cbMitarbeiter.DisplayMember = "mName";
+                    cbMitarbeiter.ValueMember = "ID";
+                }
             }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
+
         }
 
         /// <summary>
@@ -125,19 +133,27 @@ namespace easyAuftrag.View
         /// <param name="taetigkeit"></param>
         private void FillControls(Taetigkeit taetigkeit)
         {
-            using (var db = new EasyAuftragContext(_connection))
+            try
             {
-                int[] mitarbeiterIDs = (from m in db.Mitarbeiters select m.MitarbeiterID).ToArray();
-                var cbMitarbeiterEintraege = (from m in db.Mitarbeiters select new { ID = m.MitarbeiterID, mName = m.Name }).ToList();
-                cbMitarbeiter.DataSource = cbMitarbeiterEintraege;
-                cbMitarbeiter.DisplayMember = "mName";
-                cbMitarbeiter.ValueMember = "ID";
-                cbMitarbeiter.SelectedIndex = Array.IndexOf(mitarbeiterIDs, TaetigkeitInfo.MitarbeiterID);
+                using (var db = new EasyAuftragContext(_connection))
+                {
+                    int[] mitarbeiterIDs = (from m in db.Mitarbeiters select m.MitarbeiterID).ToArray();
+                    var cbMitarbeiterEintraege = (from m in db.Mitarbeiters select new { ID = m.MitarbeiterID, mName = m.Name }).ToList();
+                    cbMitarbeiter.DataSource = cbMitarbeiterEintraege;
+                    cbMitarbeiter.DisplayMember = "mName";
+                    cbMitarbeiter.ValueMember = "ID";
+                    cbMitarbeiter.SelectedIndex = Array.IndexOf(mitarbeiterIDs, TaetigkeitInfo.MitarbeiterID);
+                }
+                dtpDatum.Value = taetigkeit.Datum;
+                tbName.Text = taetigkeit.Name;
+                dtpStart.Value = Convert.ToDateTime(taetigkeit.StartZeit.ToString());
+                dtpEnde.Value = Convert.ToDateTime(taetigkeit.EndZeit.ToString());
             }
-            dtpDatum.Value = taetigkeit.Datum;
-            tbName.Text = taetigkeit.Name;
-            dtpStart.Value =  Convert.ToDateTime(taetigkeit.StartZeit.ToString());
-            dtpEnde.Value = Convert.ToDateTime(taetigkeit.EndZeit.ToString());
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
+
         }
 
         /// <summary>
@@ -182,6 +198,42 @@ namespace easyAuftrag.View
         {
             this.DialogResult = DialogResult.Cancel;
             this.Hide();
+        }
+        /// <summary>
+        /// Aktion beim Halten der Maus über das Startzeit Label
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LabStart_MouseHover(object sender, EventArgs e)
+        {
+            toolTipTaetigkeit.Show("Startzeit muss vor Endzeit liegen", labStart);
+        }
+        /// <summary>
+        /// Aktion beim Halten der Maus über den Startzeit DateTimePicker
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DtpStart_MouseHover(object sender, EventArgs e)
+        {
+            toolTipTaetigkeit.Show("Startzeit muss vor Endzeit liegen", dtpStart);
+        }
+        /// <summary>
+        /// Aktion beim Halten der Maus über das Endzeit Label
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LabEnde_MouseHover(object sender, EventArgs e)
+        {
+            toolTipTaetigkeit.Show("Startzeit muss vor Endzeit liegen", labEnde);
+        }
+        /// <summary>
+        /// Aktion beim Halten der Maus über den Endzeit DateTimePicker
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DtpEnde_MouseHover(object sender, EventArgs e)
+        {
+            toolTipTaetigkeit.Show("Startzeit muss vor Endzeit liegen", dtpEnde);
         }
     }
 }
