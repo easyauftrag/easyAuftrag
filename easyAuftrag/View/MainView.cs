@@ -45,7 +45,7 @@ using System.Windows.Forms;
 using Austausch;
 using System.IO;
 
-namespace easyAuftrag
+namespace easyAuftrag.View
 {
     /// <summary>
     /// Windows Form, welche beim Start des Programms aufgerufen wird.

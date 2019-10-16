@@ -1,5 +1,5 @@
 ﻿
-namespace easyAuftrag
+namespace easyAuftrag.View
 {
     partial class MainView
     {
@@ -30,10 +30,10 @@ namespace easyAuftrag
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Kunden");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Mitarbeiter");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Aufträge");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainView));
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Kunden");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Mitarbeiter");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Aufträge");
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dateiExportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,7 +48,6 @@ namespace easyAuftrag
             this.hilfeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.überToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hilfethemenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tvMain = new System.Windows.Forms.TreeView();
             this.dgvMain = new System.Windows.Forms.DataGridView();
             this.cxtMain = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.TSMIneu = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,6 +73,7 @@ namespace easyAuftrag
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLoeschen = new System.Windows.Forms.ToolStripMenuItem();
             this.suchControlMain = new easyAuftrag.View.SuchControl();
+            this.tvMain = new System.Windows.Forms.TreeView();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
             this.cxtMain.SuspendLayout();
@@ -110,14 +110,14 @@ namespace easyAuftrag
             // dateiExportToolStripMenuItem
             // 
             this.dateiExportToolStripMenuItem.Name = "dateiExportToolStripMenuItem";
-            this.dateiExportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dateiExportToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.dateiExportToolStripMenuItem.Text = "Datei Export";
             this.dateiExportToolStripMenuItem.Click += new System.EventHandler(this.DateiExportToolStripMenuItem_Click);
             // 
             // dateiImportToolStripMenuItem
             // 
             this.dateiImportToolStripMenuItem.Name = "dateiImportToolStripMenuItem";
-            this.dateiImportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dateiImportToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.dateiImportToolStripMenuItem.Text = "Datei Import";
             this.dateiImportToolStripMenuItem.Click += new System.EventHandler(this.DateiImportToolStripMenuItem_Click);
             // 
@@ -127,7 +127,7 @@ namespace easyAuftrag
             this.auftragToolStripMenuItem,
             this.stundennachweisToolStripMenuItem});
             this.druckenToolStripMenuItem.Name = "druckenToolStripMenuItem";
-            this.druckenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.druckenToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.druckenToolStripMenuItem.Text = "Drucken";
             // 
             // auftragToolStripMenuItem
@@ -167,7 +167,7 @@ namespace easyAuftrag
             // einstellungenToolStripMenuItem
             // 
             this.einstellungenToolStripMenuItem.Name = "einstellungenToolStripMenuItem";
-            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.einstellungenToolStripMenuItem.Text = "Einstellungen";
             this.einstellungenToolStripMenuItem.Click += new System.EventHandler(this.EinstellungenToolStripMenuItem_Click);
             // 
@@ -183,38 +183,16 @@ namespace easyAuftrag
             // überToolStripMenuItem
             // 
             this.überToolStripMenuItem.Name = "überToolStripMenuItem";
-            this.überToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.überToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.überToolStripMenuItem.Text = "Info zu easyAuftrag";
             this.überToolStripMenuItem.Click += new System.EventHandler(this.InfoToolStripMenuItem_Click);
             // 
             // hilfethemenToolStripMenuItem
             // 
             this.hilfethemenToolStripMenuItem.Name = "hilfethemenToolStripMenuItem";
-            this.hilfethemenToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.hilfethemenToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.hilfethemenToolStripMenuItem.Text = "Hilfe anzeigen";
             this.hilfethemenToolStripMenuItem.Click += new System.EventHandler(this.HilfeanzeigenToolStripMenuItem_Click);
-            // 
-            // tvMain
-            // 
-            this.tvMain.Location = new System.Drawing.Point(13, 58);
-            this.tvMain.Name = "tvMain";
-            treeNode4.Name = "Kunden";
-            treeNode4.Tag = "Kunden";
-            treeNode4.Text = "Kunden";
-            treeNode5.Name = "Mitarbeiter";
-            treeNode5.Tag = "Mitarbeiter";
-            treeNode5.Text = "Mitarbeiter";
-            treeNode6.Name = "Auftraege";
-            treeNode6.Tag = "Auftraege";
-            treeNode6.Text = "Aufträge";
-            this.tvMain.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode4,
-            treeNode5,
-            treeNode6});
-            this.tvMain.Size = new System.Drawing.Size(189, 441);
-            this.tvMain.TabIndex = 6;
-            this.tvMain.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.TvMain_NodeMouseDoubleClick);
-            this.tvMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TvMain_MouseUp);
             // 
             // dgvMain
             // 
@@ -437,6 +415,28 @@ namespace easyAuftrag
             this.suchControlMain.TabIndex = 12;
             this.suchControlMain.SuchEvent += new System.Action(this.SuchControlMain_SuchEvent);
             // 
+            // tvMain
+            // 
+            this.tvMain.Location = new System.Drawing.Point(13, 58);
+            this.tvMain.Name = "tvMain";
+            treeNode10.Name = "Kunden";
+            treeNode10.Tag = "Kunden";
+            treeNode10.Text = "Kunden";
+            treeNode11.Name = "Mitarbeiter";
+            treeNode11.Tag = "Mitarbeiter";
+            treeNode11.Text = "Mitarbeiter";
+            treeNode12.Name = "Auftraege";
+            treeNode12.Tag = "Auftraege";
+            treeNode12.Text = "Aufträge";
+            this.tvMain.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode10,
+            treeNode11,
+            treeNode12});
+            this.tvMain.Size = new System.Drawing.Size(189, 441);
+            this.tvMain.TabIndex = 6;
+            this.tvMain.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.TvMain_NodeMouseDoubleClick);
+            this.tvMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TvMain_MouseUp);
+            // 
             // MainView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -476,7 +476,6 @@ namespace easyAuftrag
         private System.Windows.Forms.ToolStripMenuItem bearbeitenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem extrasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hilfeToolStripMenuItem;
-        private System.Windows.Forms.TreeView tvMain;
         private System.Windows.Forms.DataGridView dgvMain;
         private System.Windows.Forms.ContextMenuStrip cxtMain;
         private System.Windows.Forms.ToolStripMenuItem TSMIneu;
@@ -510,6 +509,7 @@ namespace easyAuftrag
         private System.Windows.Forms.ToolStripMenuItem auftragToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stundennachweisToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hilfethemenToolStripMenuItem;
+        private System.Windows.Forms.TreeView tvMain;
     }
 }
 
