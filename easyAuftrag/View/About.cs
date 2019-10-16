@@ -39,13 +39,23 @@ using System.Windows.Forms;
 
 namespace easyAuftrag.View
 {
+    /// <summary>
+    /// Windows Form für Informationen zum Programm
+    /// </summary>
     public partial class About : Form
     {
+        /// <summary>
+        /// Konstruktor für die <see cref="About"/>
+        /// </summary>
         public About()
         {
             InitializeComponent();
         }
-
+        /// <summary>
+        /// Aktion beim Laden der Form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void About_Load(object sender, EventArgs e)
         {
             string path = Path.Combine(Application.StartupPath, "LICENSE.txt");
@@ -59,15 +69,23 @@ namespace easyAuftrag.View
             labBoxDLL.Items.Add(typeof(Core.Handler).Assembly.GetName().Name + " " + typeof(Core.Handler).Assembly.GetName().Version);
             labBoxDLL.Items.Add(typeof(Austausch.AustauschCSV).Assembly.GetName().Name + " " + typeof(Austausch.AustauschCSV).Assembly.GetName().Version);
         }
-
-        private void linkLicense_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        /// <summary>
+        /// Aktion beim Klick auf den "Lizenz" Link
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LinkLicense_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process process = new Process();
             process.StartInfo.FileName = (string)linkLicense.Links[0].LinkData;
             process.Start();
         }
-
-        private void butOK_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Aktion beim Klick auf den OK Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButOK_Click(object sender, EventArgs e)
         {
             this.Hide();
         }

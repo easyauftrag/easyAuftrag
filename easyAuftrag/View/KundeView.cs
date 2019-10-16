@@ -74,6 +74,8 @@ namespace easyAuftrag.View
             KundeInfo = new Kunde();
             InitializeComponent();
             Text = titel;
+            butAdresse.Enabled = false;
+            cxtKunde.Enabled = false;
         }
 
         /// <summary>

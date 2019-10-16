@@ -49,7 +49,7 @@
             this.linkLicense.TabIndex = 2;
             this.linkLicense.TabStop = true;
             this.linkLicense.Text = "Lizenz";
-            this.linkLicense.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLicense_LinkClicked);
+            this.linkLicense.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLicense_LinkClicked);
             // 
             // labBoxDLL
             // 
@@ -70,7 +70,7 @@
             this.butOK.TabIndex = 4;
             this.butOK.Text = "OK";
             this.butOK.UseVisualStyleBackColor = true;
-            this.butOK.Click += new System.EventHandler(this.butOK_Click);
+            this.butOK.Click += new System.EventHandler(this.ButOK_Click);
             // 
             // labVersion
             // 
