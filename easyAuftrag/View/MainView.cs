@@ -1802,5 +1802,10 @@ namespace easyAuftrag.View
             string path = Path.Combine(Application.StartupPath, "easyAuftrag.chm");
             Help.ShowHelp(this, path);
         }
+
+        private void länderKonfigurierenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
