@@ -32,6 +32,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Core;
 using Core.Model;
 
@@ -112,17 +113,60 @@ namespace Austausch
 
                     // Die Daten in den Zellen des Arrays werden in die einzelnen Eigenschaften eines Auftragobjekts geschrieben
                     Auftrag auftrag = new Auftrag();
-                    auftrag.AuftragID = Convert.ToInt32(string.Format(auftragItems[0]), _culture);
-                    auftrag.AuftragNummer = auftragItems[1].Trim();
-                    auftrag.KundeID = Convert.ToInt32(string.Format(auftragItems[2]), _culture);
-                    auftrag.Eingang = DateTime.Parse(auftragItems[3], _culture);
-                    auftrag.Erteilt = DateTime.Parse(auftragItems[4], _culture);
-                    auftrag.Erledigt = Convert.ToBoolean(auftragItems[5]);
-                    auftrag.Abgerechnet = Convert.ToBoolean(auftragItems[6]);
 
+                    if (int.TryParse(string.Format(auftragItems[0]), NumberStyles.Integer, _culture, out int auftragID))
+                    {
+                        auftrag.AuftragID = auftragID;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Konnte AuftragID nicht einlesen.");
+                    }
+                    auftrag.AuftragNummer = auftragItems[1].Trim();
+                    if (int.TryParse(string.Format(auftragItems[2]), NumberStyles.Integer, _culture, out int kundeID))
+                    {
+                        auftrag.KundeID = kundeID;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Konnte KundeID nicht einlesen.");
+                    }
+                    if (DateTime.TryParse(auftragItems[3], _culture, DateTimeStyles.None, out DateTime eingang))
+                    {
+                        auftrag.Eingang = eingang;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Konnte Eingangsdatum nicht einlesen.");
+                    }
+                    if (DateTime.TryParse(auftragItems[4], _culture, DateTimeStyles.None, out DateTime erteilt))
+                    {
+                        auftrag.Erteilt = erteilt;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Konnte Erteilt Datum nicht einlesen.");
+                    }
+                    if(bool.TryParse(auftragItems[5], out bool erledigt))
+                    {
+                        auftrag.Erledigt = erledigt;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Konnte Erledigt Status nicht einlesen.");
+                    }
+                    if (bool.TryParse(auftragItems[6], out bool abgerechnet))
+                    {
+                        auftrag.Abgerechnet = abgerechnet;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Konnte Erledigt Status nicht einlesen.");
+                    }
                     // Das Auftragsobjekt wird einer Liste von Aufträgen angefügt
                     lstAuftrag.Add(auftrag);
                 }
+                reader.Close();
 
             }
             catch (Exception ex)
@@ -193,7 +237,15 @@ namespace Austausch
 
                     // Die Daten in den Zellen des Arrays werden in die einzelnen Eigenschaften eines Kundenobjekts geschrieben
                     Kunde kunde = new Kunde();
-                    kunde.KundeID = Convert.ToInt32(string.Format(kundeItems[0]), _culture);
+
+                    if (int.TryParse(string.Format(kundeItems[0]), NumberStyles.Integer, _culture, out int kundeID))
+                    {
+                        kunde.KundeID = kundeID;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Konnte KundeID nicht einlesen.");
+                    }
                     kunde.Name = kundeItems[1].Trim();
                     kunde.Strasse = kundeItems[2].Trim();
                     kunde.Hausnr = kundeItems[3].Trim();
@@ -204,7 +256,7 @@ namespace Austausch
                     // Das Kundenobjekt wird einer Liste von Kunden angefügt
                     lstKunde.Add(kunde);
                 }
-
+                reader.Close();
             }
             catch (Exception ex)
             {
@@ -274,19 +326,33 @@ namespace Austausch
 
                     // Die Daten in den Zellen des Arrays werden in die einzelnen Eigenschaften eines Mitarbeiterobjekts geschrieben
                     Mitarbeiter mitarbeiter = new Mitarbeiter();
-                    mitarbeiter.MitarbeiterID = Convert.ToInt32(string.Format(mitarbeiterItems[0]), _culture);
+
+                    if (int.TryParse(string.Format(mitarbeiterItems[0]), NumberStyles.Integer, _culture, out int mitarbeiterID))
+                    {
+                        mitarbeiter.MitarbeiterID = mitarbeiterID;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Konnte MitarbeiterID nicht einlesen.");
+                    }
                     mitarbeiter.Name = mitarbeiterItems[1].Trim();
                     mitarbeiter.TelefonNr = mitarbeiterItems[2].Trim();
                     mitarbeiter.Strasse = mitarbeiterItems[3].Trim();
                     mitarbeiter.Hausnr = mitarbeiterItems[4].Trim();
                     mitarbeiter.PLZ = mitarbeiterItems[5].Trim();
                     mitarbeiter.Wohnort = mitarbeiterItems[6].Trim();
-                    mitarbeiter.AuslastungStelle = Convert.ToInt32(string.Format(mitarbeiterItems[7]), _culture);
-
+                    if (int.TryParse(string.Format(mitarbeiterItems[7]), NumberStyles.Integer, _culture, out int auslastung))
+                    {
+                        mitarbeiter.AuslastungStelle = auslastung;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Konnte Auslastung nicht einlesen.");
+                    }
                     // Das Mitarbeiterobjekt wird zu einer Liste von Mitarbeitern hinzugefügt
                     lstMitarbeiter.Add(mitarbeiter);
                 }
-
+                reader.Close();
             }
             catch (Exception ex)
             {
@@ -323,7 +389,6 @@ namespace Austausch
                         + item.Wohnort + _datenTrenner
                         + item.AuslastungStelle.ToString(_culture));
                 }
-
                 writer.Flush();
                 writer.Close();
             }
@@ -358,18 +423,60 @@ namespace Austausch
 
                     // Die Daten in den Zellen des Arrays werden in die einzelnen Eigenschaften eines Taetigkeitsobjekts geschrieben
                     Taetigkeit taetigkeit = new Taetigkeit();
-                    taetigkeit.TaetigkeitID = Convert.ToInt32(string.Format(taetigkeitItems[0]), _culture);
-                    taetigkeit.AuftragID = Convert.ToInt32(string.Format(taetigkeitItems[1]), _culture);
-                    taetigkeit.MitarbeiterID = Convert.ToInt32(string.Format(taetigkeitItems[2]), _culture);
-                    taetigkeit.Datum = DateTime.Parse(taetigkeitItems[3]);
-                    taetigkeit.Name = taetigkeitItems[4].Trim();
-                    taetigkeit.StartZeit = TimeSpan.Parse(taetigkeitItems[5]);
-                    taetigkeit.EndZeit = TimeSpan.Parse(taetigkeitItems[6]);
 
+                    if (int.TryParse(string.Format(taetigkeitItems[0]), NumberStyles.Integer, _culture, out int taetigkeitID))
+                    {
+                        taetigkeit.TaetigkeitID = taetigkeitID;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Konnte TaetigkeitID nicht einlesen.");
+                    }
+                    if (int.TryParse(string.Format(taetigkeitItems[1]), NumberStyles.Integer, _culture, out int auftragID))
+                    {
+                        taetigkeit.AuftragID = auftragID;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Konnte AuftragID nicht einlesen.");
+                    }
+                    if (int.TryParse(string.Format(taetigkeitItems[2]), NumberStyles.Integer, _culture, out int mitarbeiterID))
+                    {
+                        taetigkeit.MitarbeiterID = mitarbeiterID;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Konnte MitarbeiterID nicht einlesen.");
+                    }
+                    if (DateTime.TryParse(taetigkeitItems[3], _culture, DateTimeStyles.None, out DateTime datum))
+                    {
+                        taetigkeit.Datum = datum;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Konnte Datum nicht einlesen.");
+                    }
+                    taetigkeit.Name = taetigkeitItems[4].Trim();
+                    if (TimeSpan.TryParse(taetigkeitItems[5], out TimeSpan start))
+                    {
+                        taetigkeit.StartZeit = start;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Konnte Startzeit nicht einlesen.");
+                    }
+                    if (TimeSpan.TryParse(taetigkeitItems[6], out TimeSpan ende))
+                    {
+                        taetigkeit.EndZeit = ende;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Konnte Endzeit nicht einlesen.");
+                    }
                     // Die Tätigkeit wird der Tätigkeitsliste hinzugefügt
                     lstTaetigkeit.Add(taetigkeit);
                 }
-
+                reader.Close();
             }
             catch (Exception ex)
             {
@@ -405,7 +512,6 @@ namespace Austausch
                         + item.StartZeit + _datenTrenner
                         + item.EndZeit);
                 }
-
                 writer.Flush();
                 writer.Close();
             }
@@ -434,8 +540,23 @@ namespace Austausch
 
                     // Die Daten in den Zellen des Arrays werden in die einzelnen Eigenschaften eines Adresseobjekts geschrieben
                     Adresse adresse = new Adresse();
-                    adresse.AdresseID = Convert.ToInt32(string.Format(adresseItems[0]), _culture);
-                    adresse.KundeID = Convert.ToInt32(string.Format(adresseItems[1]), _culture);
+
+                    if (int.TryParse(string.Format(adresseItems[0]), NumberStyles.Integer, _culture, out int adresseID))
+                    {
+                        adresse.AdresseID = adresseID;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Konnte AdresseID nicht einlesen.");
+                    }
+                    if (int.TryParse(string.Format(adresseItems[1]), NumberStyles.Integer, _culture, out int kundeID))
+                    {
+                        adresse.KundeID = kundeID;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Konnte KundeID nicht einlesen.");
+                    }
                     adresse.Strasse = adresseItems[2].Trim();
                     adresse.Hausnr = adresseItems[3].Trim();
                     adresse.PLZ = adresseItems[4].Trim();
@@ -443,7 +564,7 @@ namespace Austausch
                     // Die Adresse wird der Adressenliste hinzugefügt
                     lstAdresse.Add(adresse);
                 }
-
+                reader.Close();
             }
             catch (Exception ex)
             {
@@ -478,7 +599,6 @@ namespace Austausch
                         + item.PLZ + _datenTrenner
                         + item.Wohnort);
                 }
-
                 writer.Flush();
                 writer.Close();
             }
