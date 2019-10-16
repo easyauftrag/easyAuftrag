@@ -213,10 +213,7 @@ namespace easyAuftrag.View
                 dtpEnde.Visible = false;
                 cbSuche.Visible = false;
             }
-            if (_lstRow.Count < 3)
-            {
-                AddControls();
-            }
+            AddControls();
         }
 
         /// <summary>
