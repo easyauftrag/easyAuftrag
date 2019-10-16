@@ -164,10 +164,10 @@ namespace easyAuftrag.View
             using (var db = new EasyAuftragContext(_connection))
             {
                 int[] landIDs = (from lnd in db.Laender select lnd.LandID).ToArray();
-                var cbLandEintraege = (from lnd in db.Laender select new { ID = lnd.LandID, lName = lnd.Name }).ToList();
+                var cbLandEintraege = (from lnd in db.Laender select lnd).ToList();
                 cmbLand.DataSource = cbLandEintraege;
-                cmbLand.DisplayMember = "lName";
-                cmbLand.ValueMember = "ID";
+                cmbLand.DisplayMember = "Name";
+                cmbLand.ValueMember = "LandID";
                 cmbLand.SelectedIndex = Array.IndexOf(landIDs, kunde.LandID);
             }
         }
@@ -200,9 +200,12 @@ namespace easyAuftrag.View
             {
                 errProv.SetError(tbPLZ, "PLZ darf nicht leer sein.");
             }
-            else if (!Regex.IsMatch(tbPLZ.Text, @"^([0]{1}[1-9]{1}|[1-9]{1}[0-9]{1})[0-9]{3}$"))
+            else if (cmbLand.SelectedIndex == 1)
             {
-                errProv.SetError(tbPLZ, "Bitte gültige PLZ eingeben.");
+                if (!Regex.IsMatch(tbPLZ.Text, @"^([0]{1}[1-9]{1}|[1-9]{1}[0-9]{1})[0-9]{3}$"))
+                {
+                    errProv.SetError(tbPLZ, "Bitte gültige PLZ eingeben.");
+                }
             }
             else
             {
@@ -405,6 +408,14 @@ namespace easyAuftrag.View
                 int adresseId = Convert.ToInt32(dgvKunde.SelectedCells[0].OwningRow.Cells["AdresseID"].Value);
                 AdresseBearbeiten(adresseId);
             }
+        }
+
+        private void ComboBoxFormat(object sender, ListControlConvertEventArgs e)
+        {
+            string kuerzel = ((Land)e.ListItem).Kuerzel;
+            string name = ((Land)e.ListItem).Name;
+            string vorwahl = ((Land)e.ListItem).Vorwahl;
+            e.Value = kuerzel + " - " + name + " (" + vorwahl + ")";
         }
     }
 }

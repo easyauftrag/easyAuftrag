@@ -280,6 +280,7 @@
             this.cmbLand.Name = "cmbLand";
             this.cmbLand.Size = new System.Drawing.Size(650, 21);
             this.cmbLand.TabIndex = 18;
+            this.cmbLand.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.ComboBoxFormat);
             // 
             // KundeView
             // 

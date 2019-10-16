@@ -29,5 +29,17 @@ namespace Core.Model
         /// Vorwahl des Landes
         /// </summary>
         public string Vorwahl { get; set; }
+
+        public Land()
+        {
+
+        }
+
+        public Land(string name, string kuerzel, string vorwahl)
+        {
+            Name = name;
+            Kuerzel = kuerzel;
+            Vorwahl = vorwahl;
+        }
     }
 }

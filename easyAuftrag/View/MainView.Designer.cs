@@ -31,9 +31,9 @@ namespace easyAuftrag.View
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainView));
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Kunden");
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Mitarbeiter");
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Aufträge");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Kunden");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Mitarbeiter");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Aufträge");
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dateiExportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,6 +74,7 @@ namespace easyAuftrag.View
             this.toolStripLoeschen = new System.Windows.Forms.ToolStripMenuItem();
             this.suchControlMain = new easyAuftrag.View.SuchControl();
             this.tvMain = new System.Windows.Forms.TreeView();
+            this.länderKonfigurierenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
             this.cxtMain.SuspendLayout();
@@ -159,7 +160,8 @@ namespace easyAuftrag.View
             // extrasToolStripMenuItem
             // 
             this.extrasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.einstellungenToolStripMenuItem});
+            this.einstellungenToolStripMenuItem,
+            this.länderKonfigurierenToolStripMenuItem});
             this.extrasToolStripMenuItem.Name = "extrasToolStripMenuItem";
             this.extrasToolStripMenuItem.Size = new System.Drawing.Size(50, 24);
             this.extrasToolStripMenuItem.Text = "Extras";
@@ -167,7 +169,7 @@ namespace easyAuftrag.View
             // einstellungenToolStripMenuItem
             // 
             this.einstellungenToolStripMenuItem.Name = "einstellungenToolStripMenuItem";
-            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.einstellungenToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.einstellungenToolStripMenuItem.Text = "Einstellungen";
             this.einstellungenToolStripMenuItem.Click += new System.EventHandler(this.EinstellungenToolStripMenuItem_Click);
             // 
@@ -419,23 +421,29 @@ namespace easyAuftrag.View
             // 
             this.tvMain.Location = new System.Drawing.Point(13, 58);
             this.tvMain.Name = "tvMain";
-            treeNode10.Name = "Kunden";
-            treeNode10.Tag = "Kunden";
-            treeNode10.Text = "Kunden";
-            treeNode11.Name = "Mitarbeiter";
-            treeNode11.Tag = "Mitarbeiter";
-            treeNode11.Text = "Mitarbeiter";
-            treeNode12.Name = "Auftraege";
-            treeNode12.Tag = "Auftraege";
-            treeNode12.Text = "Aufträge";
+            treeNode4.Name = "Kunden";
+            treeNode4.Tag = "Kunden";
+            treeNode4.Text = "Kunden";
+            treeNode5.Name = "Mitarbeiter";
+            treeNode5.Tag = "Mitarbeiter";
+            treeNode5.Text = "Mitarbeiter";
+            treeNode6.Name = "Auftraege";
+            treeNode6.Tag = "Auftraege";
+            treeNode6.Text = "Aufträge";
             this.tvMain.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode10,
-            treeNode11,
-            treeNode12});
+            treeNode4,
+            treeNode5,
+            treeNode6});
             this.tvMain.Size = new System.Drawing.Size(189, 441);
             this.tvMain.TabIndex = 6;
             this.tvMain.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.TvMain_NodeMouseDoubleClick);
             this.tvMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TvMain_MouseUp);
+            // 
+            // länderKonfigurierenToolStripMenuItem
+            // 
+            this.länderKonfigurierenToolStripMenuItem.Name = "länderKonfigurierenToolStripMenuItem";
+            this.länderKonfigurierenToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.länderKonfigurierenToolStripMenuItem.Text = "Länder konfigurieren";
             // 
             // MainView
             // 
@@ -510,6 +518,7 @@ namespace easyAuftrag.View
         private System.Windows.Forms.ToolStripMenuItem stundennachweisToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hilfethemenToolStripMenuItem;
         private System.Windows.Forms.TreeView tvMain;
+        private System.Windows.Forms.ToolStripMenuItem länderKonfigurierenToolStripMenuItem;
     }
 }
 

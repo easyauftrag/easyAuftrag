@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfigView));
-            this.tcConfig = new System.Windows.Forms.TabControl();
+            this.gBoxLand = new System.Windows.Forms.TabControl();
             this.tpAllg = new System.Windows.Forms.TabPage();
             this.butExport = new System.Windows.Forms.Button();
             this.tbExport = new System.Windows.Forms.TextBox();
@@ -39,6 +39,8 @@
             this.labSoll = new System.Windows.Forms.Label();
             this.tbDB = new System.Windows.Forms.TabPage();
             this.gBoxDB = new System.Windows.Forms.GroupBox();
+            this.tbConString = new System.Windows.Forms.TextBox();
+            this.labConString = new System.Windows.Forms.Label();
             this.butDB = new System.Windows.Forms.Button();
             this.butServer = new System.Windows.Forms.Button();
             this.cmbDB = new System.Windows.Forms.ComboBox();
@@ -55,27 +57,28 @@
             this.butOK = new System.Windows.Forms.Button();
             this.fbdExport = new System.Windows.Forms.FolderBrowserDialog();
             this.errorInfo = new System.Windows.Forms.ErrorProvider(this.components);
-            this.tbConString = new System.Windows.Forms.TextBox();
-            this.labConString = new System.Windows.Forms.Label();
-            this.tcConfig.SuspendLayout();
+            this.neuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bearbeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.löschenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gBoxLand.SuspendLayout();
             this.tpAllg.SuspendLayout();
             this.tbDB.SuspendLayout();
             this.gBoxDB.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorInfo)).BeginInit();
             this.SuspendLayout();
             // 
-            // tcConfig
+            // gBoxLand
             // 
-            this.tcConfig.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.gBoxLand.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tcConfig.Controls.Add(this.tpAllg);
-            this.tcConfig.Controls.Add(this.tbDB);
-            this.tcConfig.Location = new System.Drawing.Point(13, 13);
-            this.tcConfig.Name = "tcConfig";
-            this.tcConfig.SelectedIndex = 0;
-            this.tcConfig.Size = new System.Drawing.Size(759, 234);
-            this.tcConfig.TabIndex = 0;
+            this.gBoxLand.Controls.Add(this.tpAllg);
+            this.gBoxLand.Controls.Add(this.tbDB);
+            this.gBoxLand.Location = new System.Drawing.Point(13, 13);
+            this.gBoxLand.Name = "gBoxLand";
+            this.gBoxLand.SelectedIndex = 0;
+            this.gBoxLand.Size = new System.Drawing.Size(759, 234);
+            this.gBoxLand.TabIndex = 0;
             // 
             // tpAllg
             // 
@@ -87,7 +90,7 @@
             this.tpAllg.Location = new System.Drawing.Point(4, 22);
             this.tpAllg.Name = "tpAllg";
             this.tpAllg.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAllg.Size = new System.Drawing.Size(751, 185);
+            this.tpAllg.Size = new System.Drawing.Size(751, 208);
             this.tpAllg.TabIndex = 1;
             this.tpAllg.Text = "Allgemein";
             this.tpAllg.UseVisualStyleBackColor = true;
@@ -172,6 +175,24 @@
             this.gBoxDB.Size = new System.Drawing.Size(745, 202);
             this.gBoxDB.TabIndex = 2;
             this.gBoxDB.TabStop = false;
+            // 
+            // tbConString
+            // 
+            this.tbConString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbConString.Location = new System.Drawing.Point(138, 173);
+            this.tbConString.Name = "tbConString";
+            this.tbConString.Size = new System.Drawing.Size(568, 20);
+            this.tbConString.TabIndex = 13;
+            // 
+            // labConString
+            // 
+            this.labConString.AutoSize = true;
+            this.labConString.Location = new System.Drawing.Point(6, 176);
+            this.labConString.Name = "labConString";
+            this.labConString.Size = new System.Drawing.Size(126, 13);
+            this.labConString.TabIndex = 12;
+            this.labConString.Text = "Verbindungszeichenfolge";
             // 
             // butDB
             // 
@@ -324,24 +345,6 @@
             // 
             this.errorInfo.ContainerControl = this;
             // 
-            // tbConString
-            // 
-            this.tbConString.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbConString.Location = new System.Drawing.Point(138, 173);
-            this.tbConString.Name = "tbConString";
-            this.tbConString.Size = new System.Drawing.Size(568, 20);
-            this.tbConString.TabIndex = 13;
-            // 
-            // labConString
-            // 
-            this.labConString.AutoSize = true;
-            this.labConString.Location = new System.Drawing.Point(6, 176);
-            this.labConString.Name = "labConString";
-            this.labConString.Size = new System.Drawing.Size(126, 13);
-            this.labConString.TabIndex = 12;
-            this.labConString.Text = "Verbindungszeichenfolge";
-            // 
             // ConfigView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -349,12 +352,12 @@
             this.ClientSize = new System.Drawing.Size(784, 294);
             this.Controls.Add(this.butOK);
             this.Controls.Add(this.butAbbr);
-            this.Controls.Add(this.tcConfig);
+            this.Controls.Add(this.gBoxLand);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(400, 333);
             this.Name = "ConfigView";
             this.Text = "ConfigView";
-            this.tcConfig.ResumeLayout(false);
+            this.gBoxLand.ResumeLayout(false);
             this.tpAllg.ResumeLayout(false);
             this.tpAllg.PerformLayout();
             this.tbDB.ResumeLayout(false);
@@ -367,7 +370,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TabControl tcConfig;
+        private System.Windows.Forms.TabControl gBoxLand;
         private System.Windows.Forms.TabPage tbDB;
         private System.Windows.Forms.TabPage tpAllg;
         private System.Windows.Forms.Button butAbbr;
@@ -394,5 +397,8 @@
         private System.Windows.Forms.ErrorProvider errorInfo;
         private System.Windows.Forms.TextBox tbConString;
         private System.Windows.Forms.Label labConString;
+        private System.Windows.Forms.ToolStripMenuItem neuToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bearbeitenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem löschenToolStripMenuItem;
     }
 }

@@ -85,6 +85,23 @@ namespace easyAuftrag.View
                         this.Close();
                     }
                 }
+                using (var db = new EasyAuftragContext(_config.ConnectionString))
+                {
+                    if (!(from lnd in db.Laender select lnd.LandID).Any())
+                    {
+                        _handler.LandAnlegen(new Land("Deutschland", "DE", "+49"), _config.ConnectionString);
+                        _handler.LandAnlegen(new Land("Österreich", "AU", "+43"), _config.ConnectionString);
+                        _handler.LandAnlegen(new Land("Schweiz", "DE", "+41"), _config.ConnectionString);
+                        _handler.LandAnlegen(new Land("Frankreich", "FR", "+33"), _config.ConnectionString);
+                        _handler.LandAnlegen(new Land("Großbritannien", "GB", "+44"), _config.ConnectionString);
+                        _handler.LandAnlegen(new Land("Niederlande", "NL", "+31"), _config.ConnectionString);
+                        _handler.LandAnlegen(new Land("Belgien", "BE", "+32"), _config.ConnectionString);
+                        _handler.LandAnlegen(new Land("Tschechische Republik", "CZ", "+420"), _config.ConnectionString);
+                        _handler.LandAnlegen(new Land("Polen", "PL", "+48"), _config.ConnectionString);
+                        _handler.LandAnlegen(new Land("Luxemburg", "LU", "+352"), _config.ConnectionString);
+                        _handler.LandAnlegen(new Land("Dänemark", "DK", "+45"), _config.ConnectionString);
+                    }
+                }
                 // Laden der Aufträge ins DataGridView
                 TabelleNeu();
                 // Laden aller Daten ins TreeView

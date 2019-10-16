@@ -477,6 +477,91 @@ namespace Core
         }
 
         /// <summary>
+        /// Legt ein neues Land mit den übergebenen Daten in der Datenbank an.
+        /// </summary>
+        /// <param name="land">Daten des neuen Landes</param>
+        /// <seealso cref="EasyAuftragContext"/>
+        public void LandAnlegen(Land land, string connection)
+        {
+            try
+            {
+                using (var db = new EasyAuftragContext(connection))
+                {
+                    db.Laender.Add(land);
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
+        }
+
+        /// <summary>
+        /// Bearbeitet ein existierendes Land mit den übergebenen Daten in der Datenbank.
+        /// </summary>
+        /// <param name="land">aktualisierte Daten des Landes</param>
+        /// <param name="land_ID">Primärschlüssel des Landes in der Datenbank</param>
+        /// <seealso cref="EasyAuftragContext"/>
+        public bool LandBearbeiten(Land land, int land_ID, string connection)
+        {
+            try
+            {
+                using (var db = new EasyAuftragContext(connection))
+                {
+                    if (db.Laender.Find(land_ID) != null)
+                    {
+                        db.Laender.Find(land_ID).LandID = land.LandID;
+                        db.Laender.Find(land_ID).Name = land.Name;
+                        db.Laender.Find(land_ID).Vorwahl = land.Vorwahl;
+                        db.Laender.Find(land_ID).Kuerzel = land.Kuerzel;
+                        db.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Löscht das Land, dessen ID übergeben wird.
+        /// </summary>
+        /// <param name="landID">Primärschlüssel des Landes in der Datenbank</param>
+        /// <seealso cref="EasyAuftragContext"/>
+        public bool LandLoeschen(int landID, string connection)
+        {
+            try
+            {
+                using (var db = new EasyAuftragContext(connection))
+                {
+                    if (db.Laender.Find(landID) != null)
+                    {
+                        db.Laender.Remove(db.Laender.Find(landID));
+                        db.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Gibt einen Kunden aus der Datenbank anhand der Kunden ID zurück
         /// </summary>
         /// <param name="kundeID"></param>
@@ -606,7 +691,7 @@ namespace Core
         /// <summary>
         /// Gibt eine Adresse aus der Datenbank anhand der Adressen ID zurück
         /// </summary>
-        /// <param name="kundeID"></param>
+        /// <param name="adresseID"></param>
         /// <returns>Kunde aus Datenbank</returns>
         /// <seealso cref="EasyAuftragContext"/>
         public Adresse AdresseLaden(int adresseID, out bool success, string connection)
@@ -633,6 +718,38 @@ namespace Core
                 success = false;
             }
             return adr;
+        }
+
+        /// <summary>
+        /// Gibt ein Land aus der Datenbank anhand der LandID zurück
+        /// </summary>
+        /// <param name="landID"></param>
+        /// <returns>Land aus Datenbank</returns>
+        /// <seealso cref="EasyAuftragContext"/>
+        public Land LandLaden(int landID, out bool success, string connection)
+        {
+            Land land = new Land();
+            try
+            {
+                using (var db = new EasyAuftragContext(connection))
+                {
+                    if (db.Adressen.Find(landID) != null)
+                    {
+                        land = (from lnd in db.Laender select lnd).First(lnd => lnd.LandID == landID);
+                        success = true;
+                    }
+                    else
+                    {
+                        success = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+                success = false;
+            }
+            return land;
         }
     }
 }
