@@ -733,7 +733,7 @@ namespace Core
             {
                 using (var db = new EasyAuftragContext(connection))
                 {
-                    if (db.Adressen.Find(landID) != null)
+                    if (db.Laender.Find(landID) != null)
                     {
                         land = (from lnd in db.Laender select lnd).First(lnd => lnd.LandID == landID);
                         success = true;

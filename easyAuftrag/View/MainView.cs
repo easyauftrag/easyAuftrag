@@ -1805,7 +1805,12 @@ namespace easyAuftrag.View
 
         private void laenderKonfigurierenToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            LaenderConfig laenderConfig = new LaenderConfig(_config.ConnectionString);
+            if (laenderConfig.ShowDialog() == DialogResult.OK)
+            {
+                this.BringToFront();
+                this.Activate();
+            }
         }
     }
 }
