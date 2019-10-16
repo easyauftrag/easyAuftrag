@@ -433,5 +433,17 @@ namespace easyAuftrag.View
         {
             toolTipKunde.Show("5-stellige Zahl", tbPLZ);
         }
+
+        private void KundeView_Load(object sender, EventArgs e)
+        {
+            using (var db = new EasyAuftragContext(_connection))
+            {
+                int[] landIDs = (from lnd in db.Laender select lnd.LandID).ToArray();
+                var cbLandEintraege = (from lnd in db.Laender select lnd).ToList();
+                cmbLand.DataSource = cbLandEintraege;
+                cmbLand.DisplayMember = "Name";
+                cmbLand.ValueMember = "LandID";
+            }
+        }
     }
 }

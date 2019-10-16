@@ -103,9 +103,9 @@ namespace easyAuftrag.View
         }
 
         /// <summary>
-        /// Zeigt den übergebenen <see cref="Mitarbeiter"/> in den Controls an.
+        /// Zeigt das übergebene <see cref="Land"/> in den Controls an.
         /// </summary>
-        /// <param name="mitarbeiter"></param>
+        /// <param name="land"></param>
         private void FillControls(Land land)
         {
             tbName.Text = land.Name;

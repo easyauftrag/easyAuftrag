@@ -12,10 +12,24 @@ using System.Windows.Forms;
 
 namespace easyAuftrag.View
 {
+    /// <summary>
+    /// Windows Form mit DataGridView zum Anzeigen der Länder
+    /// </summary>
     public partial class LaenderConfig : Form
     {
+        /// <summary>
+        /// Handler-Instanz zum anlegen, bearbeiten und löschen von Ländern
+        /// </summary>
         private Handler _handler = new Handler();
+        /// <summary>
+        /// Connection String für die Verbindung mit der Datenbank
+        /// </summary>
         private string _connection;
+
+        /// <summary>
+        /// Erzeugt eine neue Instanz der LaenderConfig Form
+        /// </summary>
+        /// <param name="connection">Connection String zur Verbindung mit der Datenbank</param>
         public LaenderConfig(string connection)
         {
             _connection = connection;
@@ -23,6 +37,9 @@ namespace easyAuftrag.View
             DataGridNeu();
         }
 
+        /// <summary>
+        /// Methode zum Aktualisieren des DataGridViews
+        /// </summary>
         private void DataGridNeu()
         {
             try
@@ -39,6 +56,11 @@ namespace easyAuftrag.View
             }
         }
 
+        /// <summary>
+        /// Aktion beim Klick auf den OK Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void butOK_Click(object sender, EventArgs e)
         {
             errProv.Clear();
@@ -46,22 +68,29 @@ namespace easyAuftrag.View
             this.Hide();
         }
 
-        private void butAbbrechen_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.Cancel;
-            this.Hide();
-        }
-
+        /// <summary>
+        /// Aktion beim Klick auf den "Land hinzufügen" Button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void butLand_Click(object sender, EventArgs e)
         {
             landNeu();
         }
 
+        /// <summary>
+        /// Aktion beim Klick auf das Contextmenü Eintrag "Neu"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void neuToolStripMenuItem_Click(object sender, EventArgs e)
         {
             landNeu();
         }
 
+        /// <summary>
+        /// Methode zum Aufruf des "Land anlegen" Dialogs
+        /// </summary>
         private void landNeu()
         {
             LaenderView laenderView = new LaenderView("Land anlegen", _connection);
@@ -74,6 +103,11 @@ namespace easyAuftrag.View
             DataGridNeu();
         }
 
+        /// <summary>
+        /// Aktion beim Klick auf das Contextmenü Eintrag "Bearbeiten"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void bearbeitenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (dgvLaender.SelectedRows.Count > 0)
@@ -88,6 +122,9 @@ namespace easyAuftrag.View
             }
         }
 
+        /// <summary>
+        /// Methode zum Aufruf des "Land bearbeiten" Dialogs
+        /// </summary>
         private void landBearbeiten(int landID)
         {
             if (landID < 12)
@@ -96,7 +133,7 @@ namespace easyAuftrag.View
             }
             else
             {
-                LaenderView laenderV = new LaenderView("Land Bearbeiten", _handler.LandLaden(landID, out bool success, _connection), _connection);
+                LaenderView laenderV = new LaenderView("Land bearbeiten", _handler.LandLaden(landID, out bool success, _connection), _connection);
                 if (success == false)
                 {
                     MessageBox.Show("Land nicht in der Datenbank gefunden");
@@ -114,6 +151,11 @@ namespace easyAuftrag.View
             }
         }
 
+        /// <summary>
+        /// Aktion beim Klick auf das Contextmenü Eintrag "Löschen"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void loeschenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (dgvLaender.SelectedRows.Count > 0)
@@ -128,6 +170,10 @@ namespace easyAuftrag.View
             }
         }
 
+        /// <summary>
+        /// Methode zum Aufruf des "Land löschen" Dialogs
+        /// </summary>
+        /// <param name="landID"></param>
         private void landLoeschen(int landID)
         {
             if (landID < 12)
@@ -136,7 +182,7 @@ namespace easyAuftrag.View
             }
             else
             {
-                LaenderView laenderV = new LaenderView("Land Löschen", _handler.LandLaden(landID, out bool success, _connection), _connection);
+                LaenderView laenderV = new LaenderView("Land löschen", _handler.LandLaden(landID, out bool success, _connection), _connection);
                 if (success == false)
                 {
                     MessageBox.Show("Land nicht in der Datenbank gefunden");
@@ -154,6 +200,11 @@ namespace easyAuftrag.View
             }
         }
 
+        /// <summary>
+        /// Aktion beim Klick auf das DataGridView
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dgvLaender_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -162,6 +213,11 @@ namespace easyAuftrag.View
             }
         }
 
+        /// <summary>
+        /// Aktion beim Doppelklick in eine Zelle des DataGridViews
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dgvLaender_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dgvLaender.SelectedCells.Count > 0)
@@ -171,6 +227,11 @@ namespace easyAuftrag.View
             }
         }
 
+        /// <summary>
+        /// Aktion beim Doppelklick auf einen RowHeader des DataGridViews
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dgvLaender_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             int landID = Convert.ToInt32(dgvLaender.SelectedRows[0].Cells["LandID"].Value);
