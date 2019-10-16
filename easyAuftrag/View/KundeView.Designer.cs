@@ -310,6 +310,7 @@
             this.MinimumSize = new System.Drawing.Size(600, 450);
             this.Name = "KundeView";
             this.Text = "Kunde";
+            this.Load += new System.EventHandler(this.KundeView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvKunde)).EndInit();
             this.cxtKunde.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errProv)).EndInit();
