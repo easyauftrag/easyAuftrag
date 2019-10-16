@@ -1747,7 +1747,10 @@ namespace easyAuftrag.View
         {
             try
             {
-                TreeViewBearbeiten();
+                if (tvMain.SelectedNode.Tag.ToString().Contains('_'))
+                {
+                    TreeViewBearbeiten();
+                }
             }
             catch (Exception ex)
             {

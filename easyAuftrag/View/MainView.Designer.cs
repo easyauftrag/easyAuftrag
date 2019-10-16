@@ -31,9 +31,9 @@ namespace easyAuftrag.View
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainView));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Kunden");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Mitarbeiter");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Aufträge");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Kunden");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Mitarbeiter");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Aufträge");
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dateiExportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,6 +74,7 @@ namespace easyAuftrag.View
             this.splitConTree = new System.Windows.Forms.SplitContainer();
             this.tvMain = new System.Windows.Forms.TreeView();
             this.splitConSuche = new System.Windows.Forms.SplitContainer();
+            this.suchControlMain = new easyAuftrag.View.SuchControl();
             this.dgvMain = new System.Windows.Forms.DataGridView();
             this.menuStrip1.SuspendLayout();
             this.cxtMain.SuspendLayout();
@@ -85,6 +86,7 @@ namespace easyAuftrag.View
             this.splitConTree.Panel2.SuspendLayout();
             this.splitConTree.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitConSuche)).BeginInit();
+            this.splitConSuche.Panel1.SuspendLayout();
             this.splitConSuche.Panel2.SuspendLayout();
             this.splitConSuche.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMain)).BeginInit();
@@ -408,7 +410,7 @@ namespace easyAuftrag.View
             // 
             this.splitConTree.Panel2.Controls.Add(this.splitConSuche);
             this.splitConTree.Size = new System.Drawing.Size(784, 453);
-            this.splitConTree.SplitterDistance = 193;
+            this.splitConTree.SplitterDistance = 150;
             this.splitConTree.TabIndex = 12;
             // 
             // tvMain
@@ -416,21 +418,23 @@ namespace easyAuftrag.View
             this.tvMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvMain.Location = new System.Drawing.Point(0, 0);
             this.tvMain.Name = "tvMain";
-            treeNode1.Name = "Kunden";
-            treeNode1.Tag = "Kunden";
-            treeNode1.Text = "Kunden";
-            treeNode2.Name = "Mitarbeiter";
-            treeNode2.Tag = "Mitarbeiter";
-            treeNode2.Text = "Mitarbeiter";
-            treeNode3.Name = "Auftraege";
-            treeNode3.Tag = "Auftraege";
-            treeNode3.Text = "Aufträge";
+            treeNode7.Name = "Kunden";
+            treeNode7.Tag = "Kunden";
+            treeNode7.Text = "Kunden";
+            treeNode8.Name = "Mitarbeiter";
+            treeNode8.Tag = "Mitarbeiter";
+            treeNode8.Text = "Mitarbeiter";
+            treeNode9.Name = "Auftraege";
+            treeNode9.Tag = "Auftraege";
+            treeNode9.Text = "Aufträge";
             this.tvMain.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3});
-            this.tvMain.Size = new System.Drawing.Size(193, 453);
+            treeNode7,
+            treeNode8,
+            treeNode9});
+            this.tvMain.Size = new System.Drawing.Size(150, 453);
             this.tvMain.TabIndex = 11;
+            this.tvMain.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.TvMain_NodeMouseDoubleClick);
+            this.tvMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TvMain_MouseUp);
             // 
             // splitConSuche
             // 
@@ -446,9 +450,19 @@ namespace easyAuftrag.View
             // splitConSuche.Panel2
             // 
             this.splitConSuche.Panel2.Controls.Add(this.dgvMain);
-            this.splitConSuche.Size = new System.Drawing.Size(587, 453);
-            this.splitConSuche.SplitterDistance = 136;
+            this.splitConSuche.Size = new System.Drawing.Size(630, 453);
+            this.splitConSuche.SplitterDistance = 150;
             this.splitConSuche.TabIndex = 0;
+            // 
+            // suchControlMain
+            // 
+            this.suchControlMain.AutoScroll = true;
+            this.suchControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.suchControlMain.Location = new System.Drawing.Point(0, 0);
+            this.suchControlMain.Name = "suchControlMain";
+            this.suchControlMain.Size = new System.Drawing.Size(630, 150);
+            this.suchControlMain.Spalten = ((System.Collections.Generic.List<string>)(resources.GetObject("suchControlMain.Spalten")));
+            this.suchControlMain.TabIndex = 0;
             // 
             // dgvMain
             // 
@@ -459,8 +473,11 @@ namespace easyAuftrag.View
             this.dgvMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvMain.Location = new System.Drawing.Point(0, 0);
             this.dgvMain.Name = "dgvMain";
-            this.dgvMain.Size = new System.Drawing.Size(587, 313);
+            this.dgvMain.Size = new System.Drawing.Size(630, 299);
             this.dgvMain.TabIndex = 12;
+            this.dgvMain.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvMain_CellDoubleClick);
+            this.dgvMain.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvMain_RowHeaderMouseDoubleClick);
+            this.dgvMain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DgvMain_MouseUp);
             // 
             // MainView
             // 
@@ -489,6 +506,7 @@ namespace easyAuftrag.View
             this.splitConTree.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitConTree)).EndInit();
             this.splitConTree.ResumeLayout(false);
+            this.splitConSuche.Panel1.ResumeLayout(false);
             this.splitConSuche.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitConSuche)).EndInit();
             this.splitConSuche.ResumeLayout(false);
@@ -520,7 +538,6 @@ namespace easyAuftrag.View
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel tssLabText;
         private System.Windows.Forms.ToolStripStatusLabel tssLabNummer;
-        private View.SuchControl suchControlMain;
         private System.Windows.Forms.ContextMenuStrip ctxTree;
         private System.Windows.Forms.ToolStripMenuItem toolStripNeu;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -542,6 +559,7 @@ namespace easyAuftrag.View
         private System.Windows.Forms.SplitContainer splitConSuche;
         private System.Windows.Forms.TreeView tvMain;
         private System.Windows.Forms.DataGridView dgvMain;
+        private SuchControl suchControlMain;
     }
 }
 
