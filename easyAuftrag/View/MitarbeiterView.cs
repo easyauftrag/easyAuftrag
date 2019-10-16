@@ -189,5 +189,41 @@ namespace easyAuftrag.View
             this.DialogResult = DialogResult.Cancel;
             this.Hide();
         }
+        /// <summary>
+        /// Aktion beim Halten der Maus über das PLZ Label
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LabPLZ_MouseHover(object sender, EventArgs e)
+        {
+            toolTipMitarbeiter.Show("5-stellige Zahl", labPLZ);
+        }
+        /// <summary>
+        /// Aktion beim Halten der Maus über die PLZ Textbox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TbPLZ_MouseHover(object sender, EventArgs e)
+        {
+            toolTipMitarbeiter.Show("5-stellige Zahl", tbPLZ);
+        }
+        /// <summary>
+        /// Aktion beim Halten der Maus über das "Auslastung Stelle" Label
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LabAuslastung_MouseHover(object sender, EventArgs e)
+        {
+            toolTipMitarbeiter.Show("Prozentangabe (0-100)", labAuslastung);
+        }
+        /// <summary>
+        /// Aktion beim Halten der Maus über die "Auslastung Stelle" Textbox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TbAuslastung_MouseHover(object sender, EventArgs e)
+        {
+            toolTipMitarbeiter.Show("Prozentangabe (0-100)", tbAuslastung);
+        }
     }
 }

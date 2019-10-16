@@ -173,5 +173,23 @@ namespace easyAuftrag.View
             this.DialogResult = DialogResult.Cancel;
             this.Hide();
         }
+        /// <summary>
+        /// Aktion beim Halten der Maus über das PLZ Label
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LabPLZ_MouseHover(object sender, EventArgs e)
+        {
+            toolTipPLZ.Show("5-Stellige Zahl", labPLZ);
+        }
+        /// <summary>
+        /// Aktion beim Halten der Maus über die PLZ Textbox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TbPLZ_MouseHover(object sender, EventArgs e)
+        {
+            toolTipPLZ.Show("5-Stellige Zahl", tbPLZ);
+        }
     }
 }

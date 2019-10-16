@@ -45,7 +45,7 @@
             // butOK
             // 
             this.butOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butOK.Location = new System.Drawing.Point(616, 223);
+            this.butOK.Location = new System.Drawing.Point(606, 221);
             this.butOK.Name = "butOK";
             this.butOK.Size = new System.Drawing.Size(75, 23);
             this.butOK.TabIndex = 0;
@@ -56,7 +56,7 @@
             // butAbbrechen
             // 
             this.butAbbrechen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAbbrechen.Location = new System.Drawing.Point(697, 223);
+            this.butAbbrechen.Location = new System.Drawing.Point(687, 221);
             this.butAbbrechen.Name = "butAbbrechen";
             this.butAbbrechen.Size = new System.Drawing.Size(75, 23);
             this.butAbbrechen.TabIndex = 1;
@@ -70,7 +70,7 @@
             this.groupBox1.Controls.Add(this.rbPunkt);
             this.groupBox1.Location = new System.Drawing.Point(13, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(759, 86);
+            this.groupBox1.Size = new System.Drawing.Size(749, 86);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Dezimaltrenner";
@@ -106,7 +106,7 @@
             this.groupBox2.Controls.Add(this.rbKomma);
             this.groupBox2.Location = new System.Drawing.Point(12, 105);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(760, 110);
+            this.groupBox2.Size = new System.Drawing.Size(750, 110);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Datentrenner";

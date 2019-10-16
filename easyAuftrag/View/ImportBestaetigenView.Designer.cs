@@ -43,13 +43,13 @@
             this.dgvImport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvImport.Location = new System.Drawing.Point(13, 13);
             this.dgvImport.Name = "dgvImport";
-            this.dgvImport.Size = new System.Drawing.Size(759, 357);
+            this.dgvImport.Size = new System.Drawing.Size(747, 357);
             this.dgvImport.TabIndex = 0;
             // 
             // butAbbrechen
             // 
             this.butAbbrechen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAbbrechen.Location = new System.Drawing.Point(696, 376);
+            this.butAbbrechen.Location = new System.Drawing.Point(685, 376);
             this.butAbbrechen.Name = "butAbbrechen";
             this.butAbbrechen.Size = new System.Drawing.Size(75, 23);
             this.butAbbrechen.TabIndex = 1;
@@ -60,7 +60,7 @@
             // butSpeichern
             // 
             this.butSpeichern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butSpeichern.Location = new System.Drawing.Point(615, 376);
+            this.butSpeichern.Location = new System.Drawing.Point(604, 376);
             this.butSpeichern.Name = "butSpeichern";
             this.butSpeichern.Size = new System.Drawing.Size(75, 23);
             this.butSpeichern.TabIndex = 2;

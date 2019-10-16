@@ -41,12 +41,11 @@
             this.tbName = new System.Windows.Forms.TextBox();
             this.labBeschreibung = new System.Windows.Forms.Label();
             this.errorInfo = new System.Windows.Forms.ErrorProvider(this.components);
-            this.easyAuftragDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dtpStart = new System.Windows.Forms.DateTimePicker();
             this.dtpEnde = new System.Windows.Forms.DateTimePicker();
             this.suchControl1 = new easyAuftrag.View.SuchControl();
+            this.toolTipTaetigkeit = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errorInfo)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.easyAuftragDataSetBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // labEnde
@@ -57,6 +56,7 @@
             this.labEnde.Size = new System.Drawing.Size(42, 13);
             this.labEnde.TabIndex = 11;
             this.labEnde.Text = "Endzeit";
+            this.labEnde.MouseHover += new System.EventHandler(this.LabEnde_MouseHover);
             // 
             // labStart
             // 
@@ -66,6 +66,7 @@
             this.labStart.Size = new System.Drawing.Size(45, 13);
             this.labStart.TabIndex = 10;
             this.labStart.Text = "Startzeit";
+            this.labStart.MouseHover += new System.EventHandler(this.LabStart_MouseHover);
             // 
             // labDatum
             // 
@@ -161,6 +162,7 @@
             this.dtpStart.Size = new System.Drawing.Size(671, 20);
             this.dtpStart.TabIndex = 12;
             this.dtpStart.Value = new System.DateTime(2019, 10, 14, 0, 0, 0, 0);
+            this.dtpStart.MouseHover += new System.EventHandler(this.DtpStart_MouseHover);
             // 
             // dtpEnde
             // 
@@ -173,6 +175,7 @@
             this.dtpEnde.Size = new System.Drawing.Size(671, 20);
             this.dtpEnde.TabIndex = 13;
             this.dtpEnde.Value = new System.DateTime(2019, 10, 14, 0, 0, 0, 0);
+            this.dtpEnde.MouseHover += new System.EventHandler(this.DtpEnde_MouseHover);
             // 
             // suchControl1
             // 
@@ -203,9 +206,8 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(319, 222);
             this.Name = "TaetigkeitView";
-            this.Text = "Taetigkeit";
+            this.Text = "Tätigkeit";
             ((System.ComponentModel.ISupportInitialize)(this.errorInfo)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.easyAuftragDataSetBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -224,9 +226,9 @@
         private System.Windows.Forms.TextBox tbName;
         private System.Windows.Forms.Label labBeschreibung;
         private System.Windows.Forms.ErrorProvider errorInfo;
-        private System.Windows.Forms.BindingSource easyAuftragDataSetBindingSource;
         private System.Windows.Forms.DateTimePicker dtpEnde;
         private System.Windows.Forms.DateTimePicker dtpStart;
         private SuchControl suchControl1;
+        private System.Windows.Forms.ToolTip toolTipTaetigkeit;
     }
 }

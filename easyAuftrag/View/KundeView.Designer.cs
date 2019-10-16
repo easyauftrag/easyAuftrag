@@ -54,6 +54,7 @@
             this.errProv = new System.Windows.Forms.ErrorProvider(this.components);
             this.labLand = new System.Windows.Forms.Label();
             this.cmbLand = new System.Windows.Forms.ComboBox();
+            this.toolTipKunde = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvKunde)).BeginInit();
             this.cxtKunde.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProv)).BeginInit();
@@ -116,6 +117,7 @@
             this.tbPLZ.Name = "tbPLZ";
             this.tbPLZ.Size = new System.Drawing.Size(650, 20);
             this.tbPLZ.TabIndex = 5;
+            this.tbPLZ.MouseHover += new System.EventHandler(this.TbPLZ_MouseHover);
             // 
             // tbTelefon
             // 
@@ -143,6 +145,7 @@
             this.labPLZ.Size = new System.Drawing.Size(27, 13);
             this.labPLZ.TabIndex = 15;
             this.labPLZ.Text = "PLZ";
+            this.labPLZ.MouseHover += new System.EventHandler(this.LabPLZ_MouseHover);
             // 
             // labTelefon
             // 
@@ -223,8 +226,8 @@
             this.dgvKunde.Name = "dgvKunde";
             this.dgvKunde.Size = new System.Drawing.Size(740, 176);
             this.dgvKunde.TabIndex = 16;
-            this.dgvKunde.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvKunde_CellContentDoubleClick);
-            this.dgvKunde.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvKunde_RowHeaderMouseDoubleClick);
+            this.dgvKunde.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvKunde_CellDoubleClick);
+            this.dgvKunde.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvKunde_RowHeaderMouseDoubleClick);
             this.dgvKunde.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DgvKunde_MouseUp);
             // 
             // cxtKunde
@@ -344,5 +347,6 @@
         private System.Windows.Forms.ErrorProvider errProv;
         private System.Windows.Forms.Label labLand;
         private System.Windows.Forms.ComboBox cmbLand;
+        private System.Windows.Forms.ToolTip toolTipKunde;
     }
 }

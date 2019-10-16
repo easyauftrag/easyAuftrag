@@ -60,6 +60,7 @@
             this.neuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bearbeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.löschenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolTipConfig = new System.Windows.Forms.ToolTip(this.components);
             this.gBoxLand.SuspendLayout();
             this.tpAllg.SuspendLayout();
             this.tbDB.SuspendLayout();
@@ -77,7 +78,7 @@
             this.gBoxLand.Location = new System.Drawing.Point(13, 13);
             this.gBoxLand.Name = "gBoxLand";
             this.gBoxLand.SelectedIndex = 0;
-            this.gBoxLand.Size = new System.Drawing.Size(759, 234);
+            this.gBoxLand.Size = new System.Drawing.Size(749, 234);
             this.gBoxLand.TabIndex = 0;
             // 
             // tpAllg
@@ -90,7 +91,7 @@
             this.tpAllg.Location = new System.Drawing.Point(4, 22);
             this.tpAllg.Name = "tpAllg";
             this.tpAllg.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAllg.Size = new System.Drawing.Size(751, 208);
+            this.tpAllg.Size = new System.Drawing.Size(741, 208);
             this.tpAllg.TabIndex = 1;
             this.tpAllg.Text = "Allgemein";
             this.tpAllg.UseVisualStyleBackColor = true;
@@ -98,7 +99,7 @@
             // butExport
             // 
             this.butExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.butExport.Location = new System.Drawing.Point(718, 40);
+            this.butExport.Location = new System.Drawing.Point(708, 40);
             this.butExport.Name = "butExport";
             this.butExport.Size = new System.Drawing.Size(27, 23);
             this.butExport.TabIndex = 4;
@@ -112,7 +113,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbExport.Location = new System.Drawing.Point(90, 42);
             this.tbExport.Name = "tbExport";
-            this.tbExport.Size = new System.Drawing.Size(622, 20);
+            this.tbExport.Size = new System.Drawing.Size(612, 20);
             this.tbExport.TabIndex = 3;
             // 
             // labExport
@@ -130,8 +131,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbSoll.Location = new System.Drawing.Point(90, 11);
             this.tbSoll.Name = "tbSoll";
-            this.tbSoll.Size = new System.Drawing.Size(622, 20);
+            this.tbSoll.Size = new System.Drawing.Size(612, 20);
             this.tbSoll.TabIndex = 1;
+            this.tbSoll.MouseHover += new System.EventHandler(this.TbSoll_MouseHover);
             // 
             // labSoll
             // 
@@ -141,6 +143,7 @@
             this.labSoll.Size = new System.Drawing.Size(62, 13);
             this.labSoll.TabIndex = 0;
             this.labSoll.Text = "Sollstunden";
+            this.labSoll.MouseHover += new System.EventHandler(this.LabSoll_MouseHover);
             // 
             // tbDB
             // 
@@ -148,7 +151,7 @@
             this.tbDB.Location = new System.Drawing.Point(4, 22);
             this.tbDB.Name = "tbDB";
             this.tbDB.Padding = new System.Windows.Forms.Padding(3);
-            this.tbDB.Size = new System.Drawing.Size(751, 208);
+            this.tbDB.Size = new System.Drawing.Size(741, 208);
             this.tbDB.TabIndex = 0;
             this.tbDB.Text = "Datenbank";
             this.tbDB.UseVisualStyleBackColor = true;
@@ -172,7 +175,7 @@
             this.gBoxDB.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gBoxDB.Location = new System.Drawing.Point(3, 3);
             this.gBoxDB.Name = "gBoxDB";
-            this.gBoxDB.Size = new System.Drawing.Size(745, 202);
+            this.gBoxDB.Size = new System.Drawing.Size(735, 202);
             this.gBoxDB.TabIndex = 2;
             this.gBoxDB.TabStop = false;
             // 
@@ -182,7 +185,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbConString.Location = new System.Drawing.Point(138, 173);
             this.tbConString.Name = "tbConString";
-            this.tbConString.Size = new System.Drawing.Size(568, 20);
+            this.tbConString.Size = new System.Drawing.Size(558, 20);
             this.tbConString.TabIndex = 13;
             // 
             // labConString
@@ -197,7 +200,7 @@
             // butDB
             // 
             this.butDB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.butDB.Location = new System.Drawing.Point(712, 144);
+            this.butDB.Location = new System.Drawing.Point(702, 144);
             this.butDB.Name = "butDB";
             this.butDB.Size = new System.Drawing.Size(27, 23);
             this.butDB.TabIndex = 11;
@@ -208,7 +211,7 @@
             // butServer
             // 
             this.butServer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.butServer.Location = new System.Drawing.Point(712, 15);
+            this.butServer.Location = new System.Drawing.Point(702, 15);
             this.butServer.Name = "butServer";
             this.butServer.Size = new System.Drawing.Size(27, 23);
             this.butServer.TabIndex = 10;
@@ -223,7 +226,7 @@
             this.cmbDB.FormattingEnabled = true;
             this.cmbDB.Location = new System.Drawing.Point(138, 146);
             this.cmbDB.Name = "cmbDB";
-            this.cmbDB.Size = new System.Drawing.Size(568, 21);
+            this.cmbDB.Size = new System.Drawing.Size(558, 21);
             this.cmbDB.TabIndex = 9;
             // 
             // cmbServer
@@ -233,7 +236,7 @@
             this.cmbServer.FormattingEnabled = true;
             this.cmbServer.Location = new System.Drawing.Point(138, 17);
             this.cmbServer.Name = "cmbServer";
-            this.cmbServer.Size = new System.Drawing.Size(568, 21);
+            this.cmbServer.Size = new System.Drawing.Size(558, 21);
             this.cmbServer.TabIndex = 8;
             // 
             // tbPW
@@ -243,7 +246,7 @@
             this.tbPW.Location = new System.Drawing.Point(138, 120);
             this.tbPW.Name = "tbPW";
             this.tbPW.PasswordChar = '*';
-            this.tbPW.Size = new System.Drawing.Size(568, 20);
+            this.tbPW.Size = new System.Drawing.Size(558, 20);
             this.tbPW.TabIndex = 7;
             // 
             // tbUser
@@ -252,7 +255,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbUser.Location = new System.Drawing.Point(138, 94);
             this.tbUser.Name = "tbUser";
-            this.tbUser.Size = new System.Drawing.Size(568, 20);
+            this.tbUser.Size = new System.Drawing.Size(558, 20);
             this.tbUser.TabIndex = 6;
             // 
             // rdbSQL
@@ -322,7 +325,7 @@
             // butAbbr
             // 
             this.butAbbr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAbbr.Location = new System.Drawing.Point(697, 259);
+            this.butAbbr.Location = new System.Drawing.Point(687, 259);
             this.butAbbr.Name = "butAbbr";
             this.butAbbr.Size = new System.Drawing.Size(75, 23);
             this.butAbbr.TabIndex = 1;
@@ -333,7 +336,7 @@
             // butOK
             // 
             this.butOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butOK.Location = new System.Drawing.Point(616, 259);
+            this.butOK.Location = new System.Drawing.Point(606, 259);
             this.butOK.Name = "butOK";
             this.butOK.Size = new System.Drawing.Size(75, 23);
             this.butOK.TabIndex = 2;
@@ -344,6 +347,21 @@
             // errorInfo
             // 
             this.errorInfo.ContainerControl = this;
+            // 
+            // neuToolStripMenuItem
+            // 
+            this.neuToolStripMenuItem.Name = "neuToolStripMenuItem";
+            this.neuToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
+            // 
+            // bearbeitenToolStripMenuItem
+            // 
+            this.bearbeitenToolStripMenuItem.Name = "bearbeitenToolStripMenuItem";
+            this.bearbeitenToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
+            // 
+            // löschenToolStripMenuItem
+            // 
+            this.löschenToolStripMenuItem.Name = "löschenToolStripMenuItem";
+            this.löschenToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
             // 
             // ConfigView
             // 
@@ -400,5 +418,6 @@
         private System.Windows.Forms.ToolStripMenuItem neuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem bearbeitenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem löschenToolStripMenuItem;
+        private System.Windows.Forms.ToolTip toolTipConfig;
     }
 }
