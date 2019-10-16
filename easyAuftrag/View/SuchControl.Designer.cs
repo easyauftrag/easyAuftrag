@@ -42,8 +42,7 @@
             // 
             // cbSuche
             // 
-            this.cbSuche.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbSuche.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cbSuche.AutoSize = true;
             this.cbSuche.Location = new System.Drawing.Point(205, 46);
             this.cbSuche.Name = "cbSuche";
@@ -81,7 +80,7 @@
             // butSuche
             // 
             this.butSuche.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.butSuche.Location = new System.Drawing.Point(485, 41);
+            this.butSuche.Location = new System.Drawing.Point(485, 42);
             this.butSuche.Name = "butSuche";
             this.butSuche.Size = new System.Drawing.Size(75, 23);
             this.butSuche.TabIndex = 5;
@@ -151,7 +150,7 @@
             this.Controls.Add(this.tbSuche);
             this.Controls.Add(this.cbSuche);
             this.Name = "SuchControl";
-            this.Size = new System.Drawing.Size(563, 130);
+            this.Size = new System.Drawing.Size(624, 130);
             this.ResumeLayout(false);
             this.PerformLayout();
 
