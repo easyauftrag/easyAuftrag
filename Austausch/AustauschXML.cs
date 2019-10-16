@@ -28,6 +28,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Forms;
 using System.Xml;
 using Core;
 using Core.Model;
@@ -57,21 +58,70 @@ namespace Austausch
 
                 // Speichert alle Knoten mit dem Tag "Auftrag" in einer Liste
                 XmlNodeList xmlAuftrag = xml.GetElementsByTagName("Auftrag");
-                // Geht durch die Liste der Knoten
-                foreach (XmlNode item in xmlAuftrag)
+                if (xmlAuftrag.Count > 0)
                 {
-                    // Liest alle Eigenschaften in ein Auftragsobjekt
-                    Auftrag auftrag = new Auftrag();
-                    auftrag.AuftragID = Convert.ToInt32(item.Attributes["AuftragID"].Value);
-                    auftrag.AuftragNummer = item.Attributes["AuftragNummer"].Value.Trim();
-                    auftrag.KundeID = Convert.ToInt32(item.Attributes["KundeID"].Value);
-                    auftrag.Eingang = DateTime.Parse(item.Attributes["Eingang"].Value);
-                    auftrag.Erteilt = DateTime.Parse(item.Attributes["Erteilt"].Value);
-                    auftrag.Erledigt = Convert.ToBoolean(item.Attributes["Erledigt"].Value);
-                    auftrag.Abgerechnet = Convert.ToBoolean(item.Attributes["Abgerechnet"].Value);
+                    // Geht durch die Liste der Knoten
+                    foreach (XmlNode item in xmlAuftrag)
+                    {
+                        // Liest alle Eigenschaften in ein Auftragsobjekt
+                        Auftrag auftrag = new Auftrag();
 
-                    // Fügt den Auftrag der Liste hinzu
-                    lstAuftrag.Add(auftrag);
+                        auftrag.AuftragNummer = item.Attributes["AuftragNummer"].Value.Trim();
+                        if (int.TryParse(item.Attributes["AuftragID"].Value, out int auftragID))
+                        {
+                            auftrag.AuftragID = auftragID;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Konnte AuftragID nicht einlesen.");
+                        }
+                        if (int.TryParse(item.Attributes["KundeID"].Value, out int kundeID))
+                        {
+                            auftrag.KundeID = kundeID;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Konnte KundeID nicht einlesen.");
+                        }
+                        if(DateTime.TryParse(item.Attributes["Eingang"].Value, out DateTime eingang))
+                        {
+                            auftrag.Eingang = eingang;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Konnte Eingangsdatum nicht einlesen.");
+                        }
+                        if (DateTime.TryParse(item.Attributes["Erteilt"].Value, out DateTime erteilt))
+                        {
+                            auftrag.Eingang = erteilt;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Konnte Erteiltdatum nicht einlesen.");
+                        }
+                        if(bool.TryParse(item.Attributes["Erledigt"].Value, out bool erledigt))
+                        {
+                            auftrag.Erledigt = erledigt;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Konnte Erledigt Status nicht einlesen.");
+                        }
+                        if (bool.TryParse(item.Attributes["Abgerechnet"].Value, out bool abgerechnet))
+                        {
+                            auftrag.Erledigt = abgerechnet;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Konnte Abgerechnet Status nicht einlesen.");
+                        }
+                        // Fügt den Auftrag der Liste hinzu
+                        lstAuftrag.Add(auftrag);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ungültiges Format.");
                 }
             }
             catch (Exception ex)
@@ -164,21 +214,35 @@ namespace Austausch
 
                 // Speichert alle Knoten mit dem Tag "Kunde" in einer Liste
                 XmlNodeList xmlKunde = xml.GetElementsByTagName("Kunde");
-                // Geht durch die Liste der Knoten
-                foreach (XmlNode item in xmlKunde)
+                if (xmlKunde.Count > 0)
                 {
-                    // Speichert alle Eigenschaften in ein Kundenobjekt
-                    Kunde kunde = new Kunde();
-                    kunde.KundeID = Convert.ToInt32(item.Attributes["KundeID"].Value);
-                    kunde.Name = item.Attributes["Name"].Value.Trim();
-                    kunde.Strasse = item.Attributes["Strasse"].Value.Trim();
-                    kunde.Hausnr = item.Attributes["Hausnr"].Value.Trim();
-                    kunde.PLZ = item.Attributes["PLZ"].Value.Trim();
-                    kunde.Wohnort = item.Attributes["Wohnort"].Value.Trim();
-                    kunde.TelefonNr = item.Attributes["TelefonNr"].Value.Trim();
-
-                    // Fügt den Kunden der Liste hinzu
-                    lstKunde.Add(kunde);
+                    // Geht durch die Liste der Knoten
+                    foreach (XmlNode item in xmlKunde)
+                    {
+                        // Speichert alle Eigenschaften in ein Kundenobjekt
+                        Kunde kunde = new Kunde();
+                        
+                        kunde.Name = item.Attributes["Name"].Value.Trim();
+                        kunde.Strasse = item.Attributes["Strasse"].Value.Trim();
+                        kunde.Hausnr = item.Attributes["Hausnr"].Value.Trim();
+                        kunde.PLZ = item.Attributes["PLZ"].Value.Trim();
+                        kunde.Wohnort = item.Attributes["Wohnort"].Value.Trim();
+                        kunde.TelefonNr = item.Attributes["TelefonNr"].Value.Trim();
+                        if (int.TryParse(item.Attributes["KundeID"].Value, out int kundeID))
+                        {
+                            kunde.KundeID = kundeID;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Konnte KundeID nicht einlesen.");
+                        }
+                        // Fügt den Kunden der Liste hinzu
+                        lstKunde.Add(kunde);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ungültiges Format.");
                 }
             }
             catch (Exception ex)
@@ -271,22 +335,43 @@ namespace Austausch
 
                 // Speichert alle Knoten mit dem Tag "Mitarbeiter" in einer Liste
                 XmlNodeList xmlMitarbeiter = xml.GetElementsByTagName("Mitarbeiter");
-                // Geht durch die Liste der Knoten
-                foreach (XmlNode item in xmlMitarbeiter)
+                if (xmlMitarbeiter.Count > 0)
                 {
-                    // Speichert alle Eigenschaften in ein Mitarbeiterobjekt
-                    Mitarbeiter mitarbeiter = new Mitarbeiter();
-                    mitarbeiter.MitarbeiterID = Convert.ToInt32(item.Attributes["MitarbeiterID"].Value);
-                    mitarbeiter.Name = item.Attributes["Name"].Value.Trim();
-                    mitarbeiter.TelefonNr = item.Attributes["TelefonNr"].Value.Trim();
-                    mitarbeiter.Strasse = item.Attributes["Strasse"].Value.Trim();
-                    mitarbeiter.Hausnr = item.Attributes["Hausnr"].Value.Trim();
-                    mitarbeiter.PLZ = item.Attributes["PLZ"].Value.Trim();
-                    mitarbeiter.Wohnort = item.Attributes["Wohnort"].Value.Trim();
-                    mitarbeiter.AuslastungStelle = Convert.ToInt32(item.Attributes["AuslastungStelle"].Value);
-
-                    // Fügt den Mitarbeiter der Liste hinzu
-                    lstMitarbeiter.Add(mitarbeiter);
+                    // Geht durch die Liste der Knoten
+                    foreach (XmlNode item in xmlMitarbeiter)
+                    {
+                        // Speichert alle Eigenschaften in ein Mitarbeiterobjekt
+                        Mitarbeiter mitarbeiter = new Mitarbeiter();
+                        
+                        mitarbeiter.Name = item.Attributes["Name"].Value.Trim();
+                        mitarbeiter.TelefonNr = item.Attributes["TelefonNr"].Value.Trim();
+                        mitarbeiter.Strasse = item.Attributes["Strasse"].Value.Trim();
+                        mitarbeiter.Hausnr = item.Attributes["Hausnr"].Value.Trim();
+                        mitarbeiter.PLZ = item.Attributes["PLZ"].Value.Trim();
+                        mitarbeiter.Wohnort = item.Attributes["Wohnort"].Value.Trim();
+                        if (int.TryParse(item.Attributes["MitarbeiterID"].Value, out int mitarbeiterID))
+                        {
+                            mitarbeiter.MitarbeiterID = mitarbeiterID;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Konnte MitarbeiterID nicht einlesen.");
+                        }
+                        if (int.TryParse(item.Attributes["AuslastungStelle"].Value, out int auslastung))
+                        {
+                            mitarbeiter.AuslastungStelle = auslastung;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Konnte Auslastung Stelle nicht einlesen.");
+                        }
+                        // Fügt den Mitarbeiter der Liste hinzu
+                        lstMitarbeiter.Add(mitarbeiter);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ungültiges Format.");
                 }
             }
             catch (Exception ex)
@@ -383,21 +468,69 @@ namespace Austausch
 
                 // Speichert alle Knoten mit dem Tag "Taetigkeit" in einer Liste
                 XmlNodeList xmlTaetigkeit = xml.GetElementsByTagName("Taetigkeit");
-                // Geht durch die Liste der Knoten
-                foreach (XmlNode item in xmlTaetigkeit)
+                if (xmlTaetigkeit.Count > 0)
                 {
-                    // Speichert alle Eigenschaften in einem Taetigkeisobjekt
-                    Taetigkeit taetigkeit = new Taetigkeit();
-                    taetigkeit.TaetigkeitID = Convert.ToInt32(item.Attributes["TaetigkeitID"].Value);
-                    taetigkeit.AuftragID = Convert.ToInt32(item.Attributes["AuftragID"].Value);
-                    taetigkeit.MitarbeiterID = Convert.ToInt32(item.Attributes["MitarbeiterID"].Value);
-                    taetigkeit.Datum = DateTime.Parse(item.Attributes["Datum"].Value);
-                    taetigkeit.Name = item.Attributes["Name"].Value.Trim();
-                    taetigkeit.StartZeit = TimeSpan.Parse(item.Attributes["StartZeit"].Value);
-                    taetigkeit.EndZeit = TimeSpan.Parse(item.Attributes["EndZeit"].Value);
-
-                    // Fügt die Tatigkeit der Liste hinzu
-                    lstTaetigkeit.Add(taetigkeit);
+                    // Geht durch die Liste der Knoten
+                    foreach (XmlNode item in xmlTaetigkeit)
+                    {
+                        // Speichert alle Eigenschaften in einem Taetigkeisobjekt
+                        Taetigkeit taetigkeit = new Taetigkeit();
+                        taetigkeit.Name = item.Attributes["Name"].Value.Trim();
+                        if (int.TryParse(item.Attributes["TaetigkeitID"].Value, out int taetigkeitID))
+                        {
+                            taetigkeit.TaetigkeitID = taetigkeitID;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Konnte TaetigkeitID nicht einlesen.");
+                        }
+                        if (int.TryParse(item.Attributes["AuftragID"].Value, out int auftragID))
+                        {
+                            taetigkeit.AuftragID = auftragID;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Konnte AuftragID nicht einlesen.");
+                        }
+                        if (int.TryParse(item.Attributes["MitarbeiterID"].Value, out int mitarbeiterID))
+                        {
+                            taetigkeit.MitarbeiterID = mitarbeiterID;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Konnte MitarbeiterID nicht einlesen.");
+                        }
+                        if (DateTime.TryParse(item.Attributes["Datum"].Value, out DateTime datum))
+                        {
+                            taetigkeit.Datum = datum;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Konnte Datum nicht einlesen.");
+                        }
+                        if(TimeSpan.TryParse(item.Attributes["StartZeit"].Value, out TimeSpan start))
+                        {
+                            taetigkeit.StartZeit = start;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Konnte Startzeit nicht einlesen.");
+                        }
+                        if (TimeSpan.TryParse(item.Attributes["EndZeit"].Value, out TimeSpan ende))
+                        {
+                            taetigkeit.EndZeit = ende;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Konnte Endzeit nicht einlesen.");
+                        }
+                        // Fügt die Tatigkeit der Liste hinzu
+                        lstTaetigkeit.Add(taetigkeit);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ungültiges Format.");
                 }
             }
             catch (Exception ex)
@@ -489,20 +622,42 @@ namespace Austausch
 
                 // Speichert alle Knoten mit dem Tag "Adresse" in einer Liste
                 XmlNodeList xmlAdresse = xml.GetElementsByTagName("Adresse");
-                // Geht durch die Liste der Knoten
-                foreach (XmlNode item in xmlAdresse)
+                if (xmlAdresse.Count > 0)
                 {
-                    // Speichert alle Eigenschaften in einem Adressenobjekt
-                    Adresse adresse = new Adresse();
-                    adresse.AdresseID = Convert.ToInt32(item.Attributes["AdresseID"].Value);
-                    adresse.KundeID = Convert.ToInt32(item.Attributes["KundeID"].Value);
-                    adresse.Strasse = item.Attributes["Strasse"].Value.Trim();
-                    adresse.Hausnr = item.Attributes["Hausnr"].Value.Trim();
-                    adresse.PLZ = item.Attributes["PLZ"].Value.Trim();
-                    adresse.Wohnort = item.Attributes["Wohnort"].Value.Trim();
+                    // Geht durch die Liste der Knoten
+                    foreach (XmlNode item in xmlAdresse)
+                    {
+                        // Speichert alle Eigenschaften in einem Adressenobjekt
+                        Adresse adresse = new Adresse();
 
-                    // Fügt die Adresse der Liste hinzu
-                    lstAdresse.Add(adresse);
+                        if (int.TryParse(item.Attributes["AdresseID"].Value, out int adresseID))
+                        {
+                            adresse.AdresseID = adresseID;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Konnte AdresseID nicht einlesen.");
+                        }
+                        if (int.TryParse(item.Attributes["KundeID"].Value, out int kundeID))
+                        {
+                            adresse.KundeID = kundeID;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Konnte KundeID nicht einlesen.");
+                        }
+                        adresse.Strasse = item.Attributes["Strasse"].Value.Trim();
+                        adresse.Hausnr = item.Attributes["Hausnr"].Value.Trim();
+                        adresse.PLZ = item.Attributes["PLZ"].Value.Trim();
+                        adresse.Wohnort = item.Attributes["Wohnort"].Value.Trim();
+
+                        // Fügt die Adresse der Liste hinzu
+                        lstAdresse.Add(adresse);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ungültiges Format.");
                 }
             }
             catch (Exception ex)
