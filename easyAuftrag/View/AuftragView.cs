@@ -98,7 +98,6 @@ namespace easyAuftrag.View
                 ErrorHandler.ErrorHandle(ex);
             }
         }
-
         /// <summary>
         /// Konstruktor für die <see cref="AuftragView"/>
         /// </summary>
@@ -136,35 +135,13 @@ namespace easyAuftrag.View
         {
             try
             {
-                /*List<(string AuftragNummer, string Mitarbeiter, DateTime Datum, string Beschreibung, TimeSpan Startzeit, TimeSpan EndZeit, double Minuten)>
-                           tatl = new List<(string AuftragNummer, string Mitarbeiter, DateTime Datum, string Beschreibung, TimeSpan Startzeit, TimeSpan EndZeit, double Minuten)>();
-                */
                 using (var db = new EasyAuftragContext(_connection))
                 {
                     //Laden aller zugehörigen Tätigkeiten
                     _tatlist = (from t in db.Taetigkeiten 
                                 where t.AuftragID == AuftragInfo.AuftragID 
                                 select t).ToList();
-                    /*foreach (var item in _tatlist)
-                    {
-                        _minlist.Add(_tatlist[_tatlist.IndexOf(item)].Minuten);
-                    }
-                    var auftr = (from a in db.Auftraege
-                                 where a.AuftragID == AuftragInfo.AuftragID
-                                 select a).ToList();
-                    var tatl2 = (from t in db.Taetigkeiten
-                                join a in db.Auftraege on t.AuftragID equals a.AuftragID
-                                join m in db.Mitarbeiters on t.MitarbeiterID equals m.MitarbeiterID
-                                where t.AuftragID == AuftragInfo.AuftragID
-                                select new { a.AuftragNummer, Mitarbeiter = m.Name, t.Datum, Beschreibung = t.Name, t.StartZeit, t.EndZeit}).ToList();
                     
-                    
-                    foreach (var item in tatl2)
-                    {
-                        _minlist.Add(_tatlist[tatl2.IndexOf(item)].Minuten);
-                        tatl.Add((AuftragNummer: item.AuftragNummer, Mitarbeiter:  item.Mitarbeiter, Datum: item.Datum, Beschreibung: item.Beschreibung, Startzeit: item.StartZeit, EndZeit: item.EndZeit, Minuten : _minlist.Last()));
-                    }
-                    */
                     _bind.DataSource = _tatlist;
                     foreach (var tat in AuftragInfo.Taetigkeiten)
                     {
@@ -202,7 +179,6 @@ namespace easyAuftrag.View
                 ErrorHandler.ErrorHandle(ex);
             }
         }
-
         /// <summary>
         /// Methode zum Anzeigen des übergebenen <see cref="Auftrag"/> in den Controls
         /// </summary>
@@ -226,7 +202,6 @@ namespace easyAuftrag.View
             cbAbgerechnet.Checked = auftrag.Abgerechnet;
             tbGesamt.Text = Math.Round(Berechnung.AuftragZeitGesamt(_minlist)/60, 2).ToString();
         }
-
         /// <summary>
         /// Aktion beim Klick auf den "Speichen" Button
         /// </summary>
@@ -259,7 +234,6 @@ namespace easyAuftrag.View
                 this.Hide();
             }
         }
-
         /// <summary>
         /// Aktion beim Klick auf den "Abbrechen" Button
         /// </summary>
@@ -270,7 +244,6 @@ namespace easyAuftrag.View
             this.DialogResult = DialogResult.Cancel;
             this.Hide();
         }
-
         /// <summary>
         /// Aktion beim Klick auf den "Neue Tätigkeit" Button
         /// </summary>
@@ -280,7 +253,6 @@ namespace easyAuftrag.View
         {
             NeueTaetigkeit();
         }
-
         /// <summary>
         /// Aktion beim Rechtsklick auf die <see cref="DataGridView"/>
         /// </summary>
@@ -293,7 +265,6 @@ namespace easyAuftrag.View
                 cxtAuftrag.Show(dgvAuftrag, e.X, e.Y);
             }
         }
-
         /// <summary>
         /// Aktion beim Klick auf "Neu" im Kontextmenu auf der <see cref="DataGridView"/>
         /// </summary>
@@ -303,7 +274,6 @@ namespace easyAuftrag.View
         {
             NeueTaetigkeit();
         }
-
         /// <summary>
         /// Aktion beim Klick auf "Bearbeiten" im Kontextmenu auf der <see cref="DataGridView"/>
         /// </summary>
@@ -322,7 +292,6 @@ namespace easyAuftrag.View
                 TaetigkeitBearbeiten(taetigkeitID);
             }
         }
-
         /// <summary>
         /// Methode zum Bearbeiten einer Tätigkeit
         /// </summary>
@@ -352,7 +321,6 @@ namespace easyAuftrag.View
                 errProv.SetError(dgvAuftrag, "Bitte speichern Sie den Auftrag, bevor Sie die Tätigkeit bearbeiten.");
             }
         }
-
         /// <summary>
         /// Aktion beim Klick auf "Löschen" im Kontextmenu auf der <see cref="DataGridView"/>
         /// </summary>
@@ -371,7 +339,6 @@ namespace easyAuftrag.View
                 TaetigkeitLoeschen(taetigkeitID);
             }
         }
-
         /// <summary>
         /// Methode zum Löschen einer Tätigkeit
         /// </summary>
@@ -408,7 +375,6 @@ namespace easyAuftrag.View
                 }
             }
         }
-
         /// <summary>
         /// Methode zum Anlegen einer neuen Tätigkeit
         /// </summary>
@@ -434,11 +400,8 @@ namespace easyAuftrag.View
         /// <param name="e"></param>
         private void DgvAuftrag_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (dgvAuftrag.SelectedCells.Count > 0)
-            {
                 int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedCells[0].OwningRow.Cells["TaetigkeitID"].Value);
                 TaetigkeitBearbeiten(taetigkeitID);
-            }
         }
         /// <summary>
         /// Aktion beim Doppelklick auf einen Zeilenkopf der <see cref="DataGridView"/>
@@ -451,7 +414,7 @@ namespace easyAuftrag.View
             TaetigkeitBearbeiten(taetigkeitID);
         }
         /// <summary>
-        /// Aktion beim Halten der Maus über das Eingang Label
+        /// Aktion beim Halten der Maus über das Eingang <see cref="Label"/>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -460,7 +423,7 @@ namespace easyAuftrag.View
             toolTipAuftrag.Show("Erteilt Datum kann nicht vor Eingangsdatum liegen", labEingang);
         }
         /// <summary>
-        /// Aktion beim Halten der Maus über das Erteilt Label
+        /// Aktion beim Halten der Maus über das Erteilt <see cref="Label"/>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -469,7 +432,7 @@ namespace easyAuftrag.View
             toolTipAuftrag.Show("Erteilt Datum kann nicht vor Eingangsdatum liegen", labErteilt);
         }
         /// <summary>
-        /// Aktion beim Halten der Maus über den Eingangs DateTimePicker
+        /// Aktion beim Halten der Maus über den Eingangs <see cref="DateTimePicker"/>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -478,7 +441,7 @@ namespace easyAuftrag.View
             toolTipAuftrag.Show("Erteilt Datum kann nicht vor Eingangsdatum liegen", dtpEingang);
         }
         /// <summary>
-        /// Aktion beim Halten der Maus über den Erteilt DateTimePicker
+        /// Aktion beim Halten der Maus über den Erteilt <see cref="DateTimePicker"/>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

@@ -77,7 +77,6 @@ namespace easyAuftrag.View
             butAdresse.Enabled = false;
             cxtKunde.Enabled = false;
         }
-
         /// <summary>
         /// Konstruktor für die <see cref="KundeView"/>
         /// </summary>
@@ -105,7 +104,10 @@ namespace easyAuftrag.View
                 ErrorHandler.ErrorHandle(ex);
             }
         }
-
+        /// <summary>
+        /// Methode zum Laden und Aktualisieren der Adressen im <see cref="DataGridView"/>
+        /// </summary>
+        /// <seealso cref="EasyAuftragContext"/>
         private void DataGridNeu()
         {
             try
@@ -130,7 +132,7 @@ namespace easyAuftrag.View
             }
         }
         /// <summary>
-        /// Packt die Eingaben in den Controls in einen <see cref="Kunde"/>.
+        /// Methode zum Transferieren der Werte in den Controls in einen <see cref="Kunde"/>.
         /// </summary>
         /// <returns>Kunde aus den Eingaben in den Controls</returns>
         private void FillKunde()
@@ -150,11 +152,11 @@ namespace easyAuftrag.View
                 ErrorHandler.ErrorHandle(ex);
             }
         }
-
         /// <summary>
-        /// Zeigt den übergebenen <see cref="Kunde"/> in den Controls an.
+        /// Methode zum Anzeigen des übergebenen <see cref="Kunde"/> in den Controls
         /// </summary>
         /// <param name="kunde"></param>
+        /// <seealso cref="EasyAuftragContext"/>
         private void FillControls(Kunde kunde)
         {
             tbName.Text = kunde.Name;
@@ -173,7 +175,6 @@ namespace easyAuftrag.View
                 cmbLand.SelectedIndex = Array.IndexOf(landIDs, kunde.LandID);
             }
         }
-
         /// <summary>
         /// Aktion beim Klick auf den "Speichen" Button
         /// </summary>
@@ -217,7 +218,6 @@ namespace easyAuftrag.View
                 this.Hide();
             }
         }
-
         /// <summary>
         /// Aktion beim Klick auf den "Abbrechen" Button
         /// </summary>
@@ -228,7 +228,6 @@ namespace easyAuftrag.View
             this.DialogResult = DialogResult.Cancel;
             this.Hide();
         }
-
         /// <summary>
         /// Aktion beim Klick auf den "Weitere Adresse" Button
         /// </summary>
@@ -238,7 +237,6 @@ namespace easyAuftrag.View
         {
             NeueAdresse();
         }
-        
         /// <summary>
         /// Aktion beim Rechtsklick auf die <see cref="DataGridView"/>
         /// </summary>
@@ -279,7 +277,6 @@ namespace easyAuftrag.View
                 AdresseBearbeiten(adresseId);
             }
         }
-
         /// <summary>
         /// Methode zum Bearbeiten von Adressen
         /// </summary>
@@ -309,7 +306,6 @@ namespace easyAuftrag.View
                 errProv.SetError(dgvKunde, "Bitte speichern Sie den Kunden, bevor Sie die Adresse bearbeiten.");
             }
         }
-
         /// <summary>
         /// Aktion beim Klick auf "Löschen" im Kontextmenu auf der <see cref="DataGridView"/>
         /// </summary>
@@ -328,7 +324,6 @@ namespace easyAuftrag.View
                 AdresseLoeschen(adresseId);
             }
         }
-
         /// <summary>
         /// Methode zum Löschen einer Adresse
         /// </summary>
@@ -365,7 +360,6 @@ namespace easyAuftrag.View
                 }
             }
         }
-
         /// <summary>
         /// Methode zum Anlegen einer neuen Tätigkeit
         /// </summary>
@@ -416,7 +410,7 @@ namespace easyAuftrag.View
             e.Value = kuerzel + " - " + name + " (" + vorwahl + ")";
         }
         /// <summary>
-        /// Aktion beim Halten der Maus über das PLZ Label
+        /// Aktion beim Halten der Maus über das PLZ <see cref="Label"/>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -425,7 +419,7 @@ namespace easyAuftrag.View
             toolTipKunde.Show("5-stellige Zahl", labPLZ);
         }
         /// <summary>
-        /// Aktion beim Halten der Maus über die PLZ Textbox
+        /// Aktion beim Halten der Maus über die PLZ <see cref="TextBox"/>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -433,7 +427,11 @@ namespace easyAuftrag.View
         {
             toolTipKunde.Show("5-stellige Zahl", tbPLZ);
         }
-
+        /// <summary>
+        /// Aktion beim Laden der <see cref="KundeView"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void KundeView_Load(object sender, EventArgs e)
         {
             using (var db = new EasyAuftragContext(_connection))
