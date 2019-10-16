@@ -37,6 +37,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Core.Model;
 using Core;
+using System.Text.RegularExpressions;
 
 namespace easyAuftrag.View
 {
@@ -140,6 +141,7 @@ namespace easyAuftrag.View
                 KundeInfo.PLZ = tbPLZ.Text;
                 KundeInfo.Wohnort = tbStadt.Text;
                 KundeInfo.TelefonNr = tbTelefon.Text;
+                KundeInfo.LandID = Convert.ToInt32(cmbLand.SelectedValue);
             }
             catch (Exception ex)
             {
@@ -159,6 +161,15 @@ namespace easyAuftrag.View
             tbPLZ.Text = kunde.PLZ;
             tbStadt.Text = kunde.Wohnort;
             tbTelefon.Text = kunde.TelefonNr;
+            using (var db = new EasyAuftragContext(_connection))
+            {
+                int[] landIDs = (from lnd in db.Laender select lnd.LandID).ToArray();
+                var cbLandEintraege = (from lnd in db.Laender select new { ID = lnd.LandID, lName = lnd.Name }).ToList();
+                cmbLand.DataSource = cbLandEintraege;
+                cmbLand.DisplayMember = "lName";
+                cmbLand.ValueMember = "ID";
+                cmbLand.SelectedIndex = Array.IndexOf(landIDs, kunde.LandID);
+            }
         }
 
         /// <summary>
@@ -188,6 +199,10 @@ namespace easyAuftrag.View
             else if (string.IsNullOrEmpty(tbPLZ.Text))
             {
                 errProv.SetError(tbPLZ, "PLZ darf nicht leer sein.");
+            }
+            else if (!Regex.IsMatch(tbPLZ.Text, @"^([0]{1}[1-9]{1}|[1-9]{1}[0-9]{1})[0-9]{3}$"))
+            {
+                errProv.SetError(tbPLZ, "Bitte gültige PLZ eingeben.");
             }
             else
             {
@@ -268,7 +283,7 @@ namespace easyAuftrag.View
         {
             if (adresseID != 0)
             {
-                AdresseView adresseV = new AdresseView("Adresse Bearbeiten", adresse: _handler.AdresseLaden(adresseID, out bool success, _connection));
+                AdresseView adresseV = new AdresseView("Adresse Bearbeiten", adresse: _handler.AdresseLaden(adresseID, out bool success, _connection), _connection);
                 if (success == false)
                 {
                     MessageBox.Show("Adresse nicht in der Datenbank gefunden");
@@ -317,7 +332,7 @@ namespace easyAuftrag.View
         {
             if (adresseID != 0)
             {
-                AdresseView adresseV = new AdresseView("Adresse Löschen", adresse: _handler.AdresseLaden(adresseID, out bool success, _connection));
+                AdresseView adresseV = new AdresseView("Adresse Löschen", adresse: _handler.AdresseLaden(adresseID, out bool success, _connection), _connection);
                 if (success == false)
                 {
                     MessageBox.Show("Adresse nicht in der Datenbank gefunden");
@@ -354,7 +369,7 @@ namespace easyAuftrag.View
         /// </remarks>
         private void NeueAdresse()
         {
-            AdresseView adresseV = new AdresseView("Neue Adresse");
+            AdresseView adresseV = new AdresseView("Neue Adresse", _connection);
             if (adresseV.ShowDialog() == DialogResult.OK)
             {
                 KundeInfo.WeitereAdressen.Add(adresseV.AdresseInfo);

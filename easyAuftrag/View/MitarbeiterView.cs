@@ -35,6 +35,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -57,12 +58,14 @@ namespace easyAuftrag.View
         /// und gibt seine Daten an <see cref="FillControls"/>, um sie in der View anzuzeigen.
         /// </value>
         public Mitarbeiter MitarbeiterInfo { get; set; }
+        private string _connection;
 
         /// <summary>
         /// Konstruktor für die <see cref="MitarbeiterView"/>
         /// </summary>
-        public MitarbeiterView(string titel)
+        public MitarbeiterView(string titel, string connection)
         {
+            _connection = connection;
             MitarbeiterInfo = new Mitarbeiter();
             InitializeComponent();
             Text = titel;
@@ -71,8 +74,9 @@ namespace easyAuftrag.View
         /// <summary>
         /// Konstruktor für die <see cref="MitarbeiterView"/>
         /// </summary>
-        public MitarbeiterView(string titel, Mitarbeiter mitarbeiter)
+        public MitarbeiterView(string titel, Mitarbeiter mitarbeiter, string connection)
         {
+            _connection = connection;
             InitializeComponent();
             Text = titel; 
             if (titel == "Mitarbeiter Löschen")
@@ -95,6 +99,7 @@ namespace easyAuftrag.View
                 MitarbeiterInfo.Strasse = tbStraße.Text;
                 MitarbeiterInfo.Hausnr = tbHaus.Text;
                 MitarbeiterInfo.PLZ = tbPLZ.Text;
+                MitarbeiterInfo.LandID = Convert.ToInt32(cmbLand.SelectedValue);
                 MitarbeiterInfo.Wohnort = tbStadt.Text;
                 MitarbeiterInfo.TelefonNr = tbTelefon.Text;
                 int auslastung;
@@ -133,6 +138,15 @@ namespace easyAuftrag.View
             tbStadt.Text = mitarbeiter.Wohnort;
             tbTelefon.Text = mitarbeiter.TelefonNr;
             tbAuslastung.Text = mitarbeiter.AuslastungStelle.ToString();
+            using (var db = new EasyAuftragContext(_connection))
+            {
+                int[] landIDs = (from lnd in db.Laender select lnd.LandID).ToArray();
+                var cbLandEintraege = (from lnd in db.Laender select new { ID = lnd.LandID, lName = lnd.Name }).ToList();
+                cmbLand.DataSource = cbLandEintraege;
+                cmbLand.DisplayMember = "lName";
+                cmbLand.ValueMember = "ID";
+                cmbLand.SelectedIndex = Array.IndexOf(landIDs, mitarbeiter.LandID);
+            }
         }
 
         /// <summary>
@@ -146,6 +160,13 @@ namespace easyAuftrag.View
             if (String.IsNullOrEmpty(tbName.Text))
             {
                 errorInfo.SetError(tbName, "Name darf nicht leer sein.");
+            }
+            if (String.IsNullOrEmpty(tbPLZ.Text))
+            {
+                if (!Regex.IsMatch(tbPLZ.Text, @"^([0]{1}[1-9]{1}|[1-9]{1}[0-9]{1})[0-9]{3}$"))
+                    {
+                        errorInfo.SetError(tbPLZ, "Bitte gültige PLZ eingeben.");
+                    }
             }
             else
             {

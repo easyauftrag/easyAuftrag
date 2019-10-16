@@ -485,7 +485,7 @@ namespace easyAuftrag.View
             if (item[0].ToLower().StartsWith("mit"))
             {
                 // Öffnen des "Mitarbeiter" Fensters und Laden der Daten des Mitarbeiters in die Felder
-                MitarbeiterView mitarbeiterV = new MitarbeiterView("Mitarbeiter Bearbeiten", mitarbeiter: _handler.MitarbeiterLaden(Convert.ToInt32(item[1]), out bool success, _config.ConnectionString));
+                MitarbeiterView mitarbeiterV = new MitarbeiterView("Mitarbeiter Bearbeiten", mitarbeiter: _handler.MitarbeiterLaden(Convert.ToInt32(item[1]), out bool success, _config.ConnectionString), _config.ConnectionString);
                 if (success == false)
                 {
                     MessageBox.Show("Mitarbeiter nicht in der Datenbank gefunden");
@@ -532,7 +532,7 @@ namespace easyAuftrag.View
             if (item[0].ToLower().StartsWith("adr"))
             {
                 // Öffnen des "Adresse" Fensters und Laden der Daten der Adresse in die Felder
-                AdresseView adresseV = new AdresseView("Adresse Bearbeiten", adresse: _handler.AdresseLaden(Convert.ToInt32(item[1]), out bool success, _config.ConnectionString));
+                AdresseView adresseV = new AdresseView("Adresse Bearbeiten", adresse: _handler.AdresseLaden(Convert.ToInt32(item[1]), out bool success, _config.ConnectionString), _config.ConnectionString);
                 if (success == false)
                 {
                     MessageBox.Show("Adresse nicht in der Datenbank gefunden");
@@ -587,7 +587,7 @@ namespace easyAuftrag.View
                 if (item[0].ToLower().StartsWith("mit"))
                 {
                     // Öffnen des "Mitarbeiter" Fensters und Laden der Daten des Mitarbeiters in die Felder
-                    MitarbeiterView mitarbeiterV = new MitarbeiterView("Mitarbeiter Löschen", mitarbeiter: _handler.MitarbeiterLaden(Convert.ToInt32(item[1]), out bool success, _config.ConnectionString));
+                    MitarbeiterView mitarbeiterV = new MitarbeiterView("Mitarbeiter Löschen", mitarbeiter: _handler.MitarbeiterLaden(Convert.ToInt32(item[1]), out bool success, _config.ConnectionString), _config.ConnectionString);
                     if (success == false)
                     {
                         MessageBox.Show("Mitarbeiter nicht in der Datenbank gefunden");
@@ -634,7 +634,7 @@ namespace easyAuftrag.View
                 if (item[0].ToLower().StartsWith("adr"))
                 {
                     // Öffnen des "Adresse" Fensters und Laden der Daten der Adresse in die Felder
-                    AdresseView adresseV = new AdresseView("Adresse Löschen", adresse: _handler.AdresseLaden(Convert.ToInt32(item[1]), out bool success, _config.ConnectionString));
+                    AdresseView adresseV = new AdresseView("Adresse Löschen", adresse: _handler.AdresseLaden(Convert.ToInt32(item[1]), out bool success, _config.ConnectionString), _config.ConnectionString);
                     if (success == false)
                     {
                         MessageBox.Show("Adresse nicht in der Datenbank gefunden");
@@ -944,7 +944,7 @@ namespace easyAuftrag.View
             try
             {
                 // Öffnen des "Mitarbeiter" Fensters
-                MitarbeiterView mitarbeiterV = new MitarbeiterView("Neuer Mitarbeiter");
+                MitarbeiterView mitarbeiterV = new MitarbeiterView("Neuer Mitarbeiter", _config.ConnectionString);
                 if (mitarbeiterV.ShowDialog() == DialogResult.OK)
                 {
                     // Hinzufügen des Mitarbeiters zur Datenbank

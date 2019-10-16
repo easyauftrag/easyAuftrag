@@ -47,13 +47,15 @@
             this.tbAuslastung = new System.Windows.Forms.TextBox();
             this.labAuslastung = new System.Windows.Forms.Label();
             this.errorInfo = new System.Windows.Forms.ErrorProvider(this.components);
+            this.cmbLand = new System.Windows.Forms.ComboBox();
+            this.labLand = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorInfo)).BeginInit();
             this.SuspendLayout();
             // 
             // butSpeichern
             // 
             this.butSpeichern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butSpeichern.Location = new System.Drawing.Point(616, 201);
+            this.butSpeichern.Location = new System.Drawing.Point(599, 233);
             this.butSpeichern.Name = "butSpeichern";
             this.butSpeichern.Size = new System.Drawing.Size(75, 23);
             this.butSpeichern.TabIndex = 7;
@@ -64,7 +66,7 @@
             // butAbbr
             // 
             this.butAbbr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAbbr.Location = new System.Drawing.Point(697, 201);
+            this.butAbbr.Location = new System.Drawing.Point(680, 233);
             this.butAbbr.Name = "butAbbr";
             this.butAbbr.Size = new System.Drawing.Size(75, 23);
             this.butAbbr.TabIndex = 8;
@@ -78,7 +80,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbStadt.Location = new System.Drawing.Point(105, 92);
             this.tbStadt.Name = "tbStadt";
-            this.tbStadt.Size = new System.Drawing.Size(667, 20);
+            this.tbStadt.Size = new System.Drawing.Size(650, 20);
             this.tbStadt.TabIndex = 3;
             // 
             // tbHaus
@@ -87,7 +89,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbHaus.Location = new System.Drawing.Point(105, 65);
             this.tbHaus.Name = "tbHaus";
-            this.tbHaus.Size = new System.Drawing.Size(667, 20);
+            this.tbHaus.Size = new System.Drawing.Size(650, 20);
             this.tbHaus.TabIndex = 2;
             // 
             // labStadt
@@ -111,7 +113,7 @@
             // labTelefon
             // 
             this.labTelefon.AutoSize = true;
-            this.labTelefon.Location = new System.Drawing.Point(12, 148);
+            this.labTelefon.Location = new System.Drawing.Point(12, 178);
             this.labTelefon.Name = "labTelefon";
             this.labTelefon.Size = new System.Drawing.Size(55, 13);
             this.labTelefon.TabIndex = 14;
@@ -139,9 +141,9 @@
             // 
             this.tbTelefon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbTelefon.Location = new System.Drawing.Point(105, 145);
+            this.tbTelefon.Location = new System.Drawing.Point(105, 175);
             this.tbTelefon.Name = "tbTelefon";
-            this.tbTelefon.Size = new System.Drawing.Size(667, 20);
+            this.tbTelefon.Size = new System.Drawing.Size(650, 20);
             this.tbTelefon.TabIndex = 5;
             // 
             // tbPLZ
@@ -150,7 +152,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbPLZ.Location = new System.Drawing.Point(105, 118);
             this.tbPLZ.Name = "tbPLZ";
-            this.tbPLZ.Size = new System.Drawing.Size(667, 20);
+            this.tbPLZ.Size = new System.Drawing.Size(650, 20);
             this.tbPLZ.TabIndex = 4;
             // 
             // tbStraße
@@ -159,7 +161,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbStraße.Location = new System.Drawing.Point(105, 39);
             this.tbStraße.Name = "tbStraße";
-            this.tbStraße.Size = new System.Drawing.Size(667, 20);
+            this.tbStraße.Size = new System.Drawing.Size(650, 20);
             this.tbStraße.TabIndex = 1;
             // 
             // tbName
@@ -168,7 +170,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbName.Location = new System.Drawing.Point(105, 12);
             this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(667, 20);
+            this.tbName.Size = new System.Drawing.Size(650, 20);
             this.tbName.TabIndex = 0;
             // 
             // labName
@@ -184,15 +186,15 @@
             // 
             this.tbAuslastung.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbAuslastung.Location = new System.Drawing.Point(105, 172);
+            this.tbAuslastung.Location = new System.Drawing.Point(105, 201);
             this.tbAuslastung.Name = "tbAuslastung";
-            this.tbAuslastung.Size = new System.Drawing.Size(667, 20);
+            this.tbAuslastung.Size = new System.Drawing.Size(650, 20);
             this.tbAuslastung.TabIndex = 6;
             // 
             // labAuslastung
             // 
             this.labAuslastung.AutoSize = true;
-            this.labAuslastung.Location = new System.Drawing.Point(12, 175);
+            this.labAuslastung.Location = new System.Drawing.Point(11, 204);
             this.labAuslastung.Name = "labAuslastung";
             this.labAuslastung.Size = new System.Drawing.Size(88, 13);
             this.labAuslastung.TabIndex = 15;
@@ -202,11 +204,33 @@
             // 
             this.errorInfo.ContainerControl = this;
             // 
+            // cmbLand
+            // 
+            this.cmbLand.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbLand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbLand.FormattingEnabled = true;
+            this.cmbLand.Location = new System.Drawing.Point(105, 148);
+            this.cmbLand.Name = "cmbLand";
+            this.cmbLand.Size = new System.Drawing.Size(650, 21);
+            this.cmbLand.TabIndex = 16;
+            // 
+            // labLand
+            // 
+            this.labLand.AutoSize = true;
+            this.labLand.Location = new System.Drawing.Point(12, 151);
+            this.labLand.Name = "labLand";
+            this.labLand.Size = new System.Drawing.Size(31, 13);
+            this.labLand.TabIndex = 17;
+            this.labLand.Text = "Land";
+            // 
             // MitarbeiterView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 236);
+            this.ClientSize = new System.Drawing.Size(784, 268);
+            this.Controls.Add(this.labLand);
+            this.Controls.Add(this.cmbLand);
             this.Controls.Add(this.labAuslastung);
             this.Controls.Add(this.tbAuslastung);
             this.Controls.Add(this.tbStadt);
@@ -252,5 +276,7 @@
         private System.Windows.Forms.TextBox tbAuslastung;
         private System.Windows.Forms.Label labAuslastung;
         private System.Windows.Forms.ErrorProvider errorInfo;
+        private System.Windows.Forms.Label labLand;
+        private System.Windows.Forms.ComboBox cmbLand;
     }
 }

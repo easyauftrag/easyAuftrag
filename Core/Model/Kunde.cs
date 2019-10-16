@@ -53,12 +53,25 @@ namespace Core.Model
         public string Name { get; set; }
 
         /// <summary>
-        /// Rechnungsadresse des Kunden
+        /// Strasse der Rechnungsadresse
         /// </summary>
         public string Strasse { get; set; }
+        /// <summary>
+        /// Hausnummer der Rechnungsadresse
+        /// </summary>
         public string Hausnr { get; set; }
+        /// <summary>
+        /// Postleitzahl der Rechnungsadresse
+        /// </summary>
         public string PLZ { get; set; }
+        /// <summary>
+        /// Wohnort der Rechnungsadresse
+        /// </summary>
         public string Wohnort { get; set; }
+        /// <summary>
+        /// LandID als Fremdschlüssel zur Verknüpfung des Kunden mit einem Land für die Rechnungsadresse
+        /// </summary>
+        public int LandID { get; set; }
 
         /// <summary>
         /// weitere Adressen des Kunden

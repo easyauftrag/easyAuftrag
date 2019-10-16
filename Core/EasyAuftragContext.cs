@@ -76,6 +76,11 @@ namespace Core
         /// </summary>
         /// <seealso cref="Model.Taetigkeit"/>
         public virtual DbSet<Taetigkeit> Taetigkeiten { get; set; }
+        /// <summary>
+        /// Liste von Ländern, welche durch die von <see cref="DbContext"/> geerbten Methoden in die Datenbank geschrieben werden kann
+        /// </summary>
+        /// <seealso cref="Model.Land"/>
+        public virtual DbSet<Land> Laender { get; set; }
 
         /// <summary>
         /// Konstruktor der Kontextklasse, verweist auf die zu verwendende Datenbank

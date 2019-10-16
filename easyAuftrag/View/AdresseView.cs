@@ -34,6 +34,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -56,13 +57,15 @@ namespace easyAuftrag.View
         /// und gibt seine Daten an <see cref="FillControls"/>, um sie in der View anzuzeigen.
         /// </value>
         public Adresse AdresseInfo { get; set; }
+        private string _connection;
 
         /// <summary>
         /// Konstruktor für die <see cref="AdresseView"/>
         /// </summary>
         /// <param name="titel"></param>
-        public AdresseView(string titel)
+        public AdresseView(string titel, string connection)
         {
+            _connection = connection;
             AdresseInfo = new Adresse();
             InitializeComponent();
             Text = titel;
@@ -72,8 +75,9 @@ namespace easyAuftrag.View
         /// </summary>
         /// <param name="titel"></param>
         /// <param name="adresse"></param>
-        public AdresseView(string titel, Adresse adresse)
+        public AdresseView(string titel, Adresse adresse, string connection)
         {
+            _connection = connection;
             InitializeComponent();
             Text = titel;
             if (titel == "Adresse Löschen")
@@ -96,6 +100,7 @@ namespace easyAuftrag.View
                 AdresseInfo.Hausnr = tbHaus.Text;
                 AdresseInfo.PLZ = tbPLZ.Text;
                 AdresseInfo.Wohnort = tbStadt.Text;
+                AdresseInfo.LandID = Convert.ToInt32(cmbLand.SelectedValue);
             }
             catch (Exception ex)
             {
@@ -112,6 +117,15 @@ namespace easyAuftrag.View
             tbHaus.Text = adresse.Hausnr;
             tbPLZ.Text = adresse.PLZ;
             tbStadt.Text = adresse.Wohnort;
+            using (var db = new EasyAuftragContext(_connection))
+            {
+                int[] landIDs = (from lnd in db.Laender select lnd.LandID).ToArray();
+                var cbLandEintraege = (from lnd in db.Laender select new { ID = lnd.LandID, lName = lnd.Name }).ToList();
+                cmbLand.DataSource = cbLandEintraege;
+                cmbLand.DisplayMember = "lName";
+                cmbLand.ValueMember = "ID";
+                cmbLand.SelectedIndex = Array.IndexOf(landIDs, adresse.LandID);
+            }
         }
         /// <summary>
         /// Aktion beim Klick auf den "Speichen" Button
@@ -136,6 +150,10 @@ namespace easyAuftrag.View
             else if (String.IsNullOrEmpty(tbPLZ.Text))
             {
                 errProv.SetError(tbPLZ, "PLZ darf nicht leer sein.");
+            }
+            else if (!Regex.IsMatch(tbPLZ.Text, @"^([0]{1}[1-9]{1}|[1-9]{1}[0-9]{1})[0-9]{3}$"))
+            {
+                errProv.SetError(tbPLZ, "Bitte gültige PLZ eingeben.");
             }
             else
             {

@@ -41,13 +41,15 @@
             this.tbPLZ = new System.Windows.Forms.TextBox();
             this.tbStraße = new System.Windows.Forms.TextBox();
             this.errProv = new System.Windows.Forms.ErrorProvider(this.components);
+            this.labLand = new System.Windows.Forms.Label();
+            this.cmbLand = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.errProv)).BeginInit();
             this.SuspendLayout();
             // 
             // butAbbr
             // 
             this.butAbbr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAbbr.Location = new System.Drawing.Point(697, 127);
+            this.butAbbr.Location = new System.Drawing.Point(686, 147);
             this.butAbbr.Name = "butAbbr";
             this.butAbbr.Size = new System.Drawing.Size(75, 23);
             this.butAbbr.TabIndex = 0;
@@ -58,7 +60,7 @@
             // butSpeichern
             // 
             this.butSpeichern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butSpeichern.Location = new System.Drawing.Point(616, 127);
+            this.butSpeichern.Location = new System.Drawing.Point(605, 147);
             this.butSpeichern.Name = "butSpeichern";
             this.butSpeichern.Size = new System.Drawing.Size(75, 23);
             this.butSpeichern.TabIndex = 1;
@@ -72,7 +74,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbStadt.Location = new System.Drawing.Point(111, 65);
             this.tbStadt.Name = "tbStadt";
-            this.tbStadt.Size = new System.Drawing.Size(661, 20);
+            this.tbStadt.Size = new System.Drawing.Size(650, 20);
             this.tbStadt.TabIndex = 18;
             // 
             // tbHaus
@@ -81,7 +83,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbHaus.Location = new System.Drawing.Point(111, 38);
             this.tbHaus.Name = "tbHaus";
-            this.tbHaus.Size = new System.Drawing.Size(661, 20);
+            this.tbHaus.Size = new System.Drawing.Size(650, 20);
             this.tbHaus.TabIndex = 17;
             // 
             // labStadt
@@ -126,7 +128,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbPLZ.Location = new System.Drawing.Point(111, 91);
             this.tbPLZ.Name = "tbPLZ";
-            this.tbPLZ.Size = new System.Drawing.Size(661, 20);
+            this.tbPLZ.Size = new System.Drawing.Size(650, 20);
             this.tbPLZ.TabIndex = 19;
             // 
             // tbStraße
@@ -135,18 +137,40 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbStraße.Location = new System.Drawing.Point(111, 12);
             this.tbStraße.Name = "tbStraße";
-            this.tbStraße.Size = new System.Drawing.Size(661, 20);
+            this.tbStraße.Size = new System.Drawing.Size(650, 20);
             this.tbStraße.TabIndex = 16;
             // 
             // errProv
             // 
             this.errProv.ContainerControl = this;
             // 
+            // labLand
+            // 
+            this.labLand.AutoSize = true;
+            this.labLand.Location = new System.Drawing.Point(18, 120);
+            this.labLand.Name = "labLand";
+            this.labLand.Size = new System.Drawing.Size(31, 13);
+            this.labLand.TabIndex = 25;
+            this.labLand.Text = "Land";
+            // 
+            // cmbLand
+            // 
+            this.cmbLand.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbLand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbLand.FormattingEnabled = true;
+            this.cmbLand.Location = new System.Drawing.Point(111, 117);
+            this.cmbLand.Name = "cmbLand";
+            this.cmbLand.Size = new System.Drawing.Size(650, 21);
+            this.cmbLand.TabIndex = 24;
+            // 
             // AdresseView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 162);
+            this.ClientSize = new System.Drawing.Size(784, 182);
+            this.Controls.Add(this.labLand);
+            this.Controls.Add(this.cmbLand);
             this.Controls.Add(this.tbStadt);
             this.Controls.Add(this.tbHaus);
             this.Controls.Add(this.labStadt);
@@ -180,5 +204,7 @@
         private System.Windows.Forms.TextBox tbPLZ;
         private System.Windows.Forms.TextBox tbStraße;
         private System.Windows.Forms.ErrorProvider errProv;
+        private System.Windows.Forms.Label labLand;
+        private System.Windows.Forms.ComboBox cmbLand;
     }
 }

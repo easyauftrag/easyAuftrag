@@ -25,6 +25,7 @@
     79100 Freiburg im Breisgau
     DE - Germany
 */
+using easyAuftrag.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;

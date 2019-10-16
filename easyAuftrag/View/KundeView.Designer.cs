@@ -52,6 +52,8 @@
             this.bearbeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loeschenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.errProv = new System.Windows.Forms.ErrorProvider(this.components);
+            this.labLand = new System.Windows.Forms.Label();
+            this.cmbLand = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKunde)).BeginInit();
             this.cxtKunde.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errProv)).BeginInit();
@@ -60,7 +62,7 @@
             // butAbbr
             // 
             this.butAbbr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAbbr.Location = new System.Drawing.Point(697, 376);
+            this.butAbbr.Location = new System.Drawing.Point(680, 407);
             this.butAbbr.Name = "butAbbr";
             this.butAbbr.Size = new System.Drawing.Size(75, 23);
             this.butAbbr.TabIndex = 8;
@@ -71,7 +73,7 @@
             // butSpeichern
             // 
             this.butSpeichern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butSpeichern.Location = new System.Drawing.Point(616, 376);
+            this.butSpeichern.Location = new System.Drawing.Point(599, 407);
             this.butSpeichern.Name = "butSpeichern";
             this.butSpeichern.Size = new System.Drawing.Size(75, 23);
             this.butSpeichern.TabIndex = 7;
@@ -94,7 +96,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbName.Location = new System.Drawing.Point(105, 13);
             this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(667, 20);
+            this.tbName.Size = new System.Drawing.Size(650, 20);
             this.tbName.TabIndex = 0;
             // 
             // tbStraße
@@ -103,7 +105,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbStraße.Location = new System.Drawing.Point(105, 92);
             this.tbStraße.Name = "tbStraße";
-            this.tbStraße.Size = new System.Drawing.Size(667, 20);
+            this.tbStraße.Size = new System.Drawing.Size(650, 20);
             this.tbStraße.TabIndex = 2;
             // 
             // tbPLZ
@@ -112,7 +114,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbPLZ.Location = new System.Drawing.Point(105, 171);
             this.tbPLZ.Name = "tbPLZ";
-            this.tbPLZ.Size = new System.Drawing.Size(667, 20);
+            this.tbPLZ.Size = new System.Drawing.Size(650, 20);
             this.tbPLZ.TabIndex = 5;
             // 
             // tbTelefon
@@ -121,7 +123,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbTelefon.Location = new System.Drawing.Point(105, 39);
             this.tbTelefon.Name = "tbTelefon";
-            this.tbTelefon.Size = new System.Drawing.Size(667, 20);
+            this.tbTelefon.Size = new System.Drawing.Size(650, 20);
             this.tbTelefon.TabIndex = 1;
             // 
             // labStraße
@@ -175,7 +177,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbHaus.Location = new System.Drawing.Point(105, 118);
             this.tbHaus.Name = "tbHaus";
-            this.tbHaus.Size = new System.Drawing.Size(667, 20);
+            this.tbHaus.Size = new System.Drawing.Size(650, 20);
             this.tbHaus.TabIndex = 3;
             // 
             // tbStadt
@@ -184,7 +186,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbStadt.Location = new System.Drawing.Point(105, 145);
             this.tbStadt.Name = "tbStadt";
-            this.tbStadt.Size = new System.Drawing.Size(667, 20);
+            this.tbStadt.Size = new System.Drawing.Size(650, 20);
             this.tbStadt.TabIndex = 4;
             // 
             // labRech
@@ -200,7 +202,7 @@
             // 
             this.butAdresse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.butAdresse.AutoSize = true;
-            this.butAdresse.Location = new System.Drawing.Point(12, 376);
+            this.butAdresse.Location = new System.Drawing.Point(12, 407);
             this.butAdresse.Name = "butAdresse";
             this.butAdresse.Size = new System.Drawing.Size(101, 23);
             this.butAdresse.TabIndex = 6;
@@ -217,9 +219,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvKunde.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvKunde.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvKunde.Location = new System.Drawing.Point(15, 197);
+            this.dgvKunde.Location = new System.Drawing.Point(15, 224);
             this.dgvKunde.Name = "dgvKunde";
-            this.dgvKunde.Size = new System.Drawing.Size(757, 172);
+            this.dgvKunde.Size = new System.Drawing.Size(740, 176);
             this.dgvKunde.TabIndex = 16;
             this.dgvKunde.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvKunde_CellContentDoubleClick);
             this.dgvKunde.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvKunde_RowHeaderMouseDoubleClick);
@@ -259,11 +261,33 @@
             // 
             this.errProv.ContainerControl = this;
             // 
+            // labLand
+            // 
+            this.labLand.AutoSize = true;
+            this.labLand.Location = new System.Drawing.Point(12, 200);
+            this.labLand.Name = "labLand";
+            this.labLand.Size = new System.Drawing.Size(31, 13);
+            this.labLand.TabIndex = 19;
+            this.labLand.Text = "Land";
+            // 
+            // cmbLand
+            // 
+            this.cmbLand.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbLand.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbLand.FormattingEnabled = true;
+            this.cmbLand.Location = new System.Drawing.Point(105, 197);
+            this.cmbLand.Name = "cmbLand";
+            this.cmbLand.Size = new System.Drawing.Size(650, 21);
+            this.cmbLand.TabIndex = 18;
+            // 
             // KundeView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 411);
+            this.ClientSize = new System.Drawing.Size(784, 442);
+            this.Controls.Add(this.labLand);
+            this.Controls.Add(this.cmbLand);
             this.Controls.Add(this.dgvKunde);
             this.Controls.Add(this.butAdresse);
             this.Controls.Add(this.labRech);
@@ -317,5 +341,7 @@
         private System.Windows.Forms.ToolStripMenuItem bearbeitenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loeschenToolStripMenuItem;
         private System.Windows.Forms.ErrorProvider errProv;
+        private System.Windows.Forms.Label labLand;
+        private System.Windows.Forms.ComboBox cmbLand;
     }
 }

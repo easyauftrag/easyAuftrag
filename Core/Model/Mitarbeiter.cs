@@ -71,6 +71,10 @@ namespace Core.Model
         /// Postleitzahl des Mitarbeiters
         /// </summary>
         public string PLZ { get; set; }
+        /// <summary>
+        /// LandID als Fremdschlüssel zur Verknüpfung der Adresse des Mitarbeiters mit einem Land
+        /// </summary>
+        public int LandID { get; set; }
 
         /// <summary>
         /// Wohnort des Mitarbeiters
