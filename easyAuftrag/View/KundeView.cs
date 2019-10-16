@@ -125,6 +125,7 @@ namespace easyAuftrag.View
                 dgvKunde.DataSource = _bind;
                 // AdresseID wird später benötigt, soll aber für den User nicht sichtbar sein
                 dgvKunde.Columns["AdresseID"].Visible = false;
+                dgvKunde.Columns["KundeID"].Visible = false;
             }
             catch (Exception ex)
             {

@@ -188,7 +188,7 @@ namespace easyAuftrag.View
             this.laenderKonfigurierenToolStripMenuItem.Name = "laenderKonfigurierenToolStripMenuItem";
             this.laenderKonfigurierenToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.laenderKonfigurierenToolStripMenuItem.Text = "Länder konfigurieren";
-            this.laenderKonfigurierenToolStripMenuItem.Click += new System.EventHandler(this.laenderKonfigurierenToolStripMenuItem_Click);
+            this.laenderKonfigurierenToolStripMenuItem.Click += new System.EventHandler(this.LaenderKonfigurierenToolStripMenuItem_Click);
             // 
             // hilfeToolStripMenuItem
             // 
@@ -481,7 +481,6 @@ namespace easyAuftrag.View
             // 
             this.dgvMain.AllowUserToAddRows = false;
             this.dgvMain.AllowUserToDeleteRows = false;
-            this.dgvMain.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvMain.Location = new System.Drawing.Point(0, 0);

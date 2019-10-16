@@ -186,21 +186,29 @@ namespace easyAuftrag.View
         /// <seealso cref="EasyAuftragContext"/>
         private void FillControls(Auftrag auftrag)
         {
-            tbAuftragNr.Text = auftrag.AuftragNummer;
-            using (var db = new EasyAuftragContext(_connection))
+            try
             {
-                int[] kundenIDs = (from k in db.Kunden select k.KundeID).ToArray();
-                var cbKundeEintraege = (from k in db.Kunden select new { ID = k.KundeID, kName = k.Name }).ToList();
-                cbKunde.DataSource = cbKundeEintraege;
-                cbKunde.DisplayMember = "kName";
-                cbKunde.ValueMember = "ID";
-                cbKunde.SelectedIndex = Array.IndexOf(kundenIDs, auftrag.KundeID);
+                tbAuftragNr.Text = auftrag.AuftragNummer;
+                using (var db = new EasyAuftragContext(_connection))
+                {
+                    int[] kundenIDs = (from k in db.Kunden select k.KundeID).ToArray();
+                    var cbKundeEintraege = (from k in db.Kunden select new { ID = k.KundeID, kName = k.Name }).ToList();
+                    cbKunde.DataSource = cbKundeEintraege;
+                    cbKunde.DisplayMember = "kName";
+                    cbKunde.ValueMember = "ID";
+                    cbKunde.SelectedIndex = Array.IndexOf(kundenIDs, auftrag.KundeID);
+                }
+                dtpEingang.Value = auftrag.Eingang;
+                dtpErteilt.Value = auftrag.Erteilt;
+                cbErledigt.Checked = auftrag.Erledigt;
+                cbAbgerechnet.Checked = auftrag.Abgerechnet;
+                tbGesamt.Text = Math.Round(Berechnung.AuftragZeitGesamt(_minlist) / 60, 2).ToString();
             }
-            dtpEingang.Value = auftrag.Eingang;
-            dtpErteilt.Value = auftrag.Erteilt;
-            cbErledigt.Checked = auftrag.Erledigt;
-            cbAbgerechnet.Checked = auftrag.Abgerechnet;
-            tbGesamt.Text = Math.Round(Berechnung.AuftragZeitGesamt(_minlist)/60, 2).ToString();
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
+
         }
         /// <summary>
         /// Aktion beim Klick auf den "Speichen" Button

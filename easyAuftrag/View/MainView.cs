@@ -62,7 +62,7 @@ namespace easyAuftrag.View
             InitializeComponent();
         }
         /// <summary>
-        /// Aktion beim Laden der Form
+        /// Aktion beim Laden der <see cref="MainView"/>
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -104,6 +104,12 @@ namespace easyAuftrag.View
                 }
                 // Laden der Aufträge ins DataGridView
                 TabelleNeu();
+                dgvMain.Columns[6].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                dgvMain.Columns[5].Width = dgvMain.Columns[6].Width;
+                dgvMain.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dgvMain.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dgvMain.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                dgvMain.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 // Laden aller Daten ins TreeView
                 TreeViewNeu();
                 // Liste der Spaltennamen
@@ -1790,7 +1796,6 @@ namespace easyAuftrag.View
             {
                 ErrorHandler.ErrorHandle(ex);
             }
-            
         }
         /// <summary>
         /// Aktion beim Klick auf "Hilfe anzeigen" im MenuStrip Bereich "Hilfe"
@@ -1802,8 +1807,12 @@ namespace easyAuftrag.View
             string path = Path.Combine(Application.StartupPath, "easyAuftrag.chm");
             Help.ShowHelp(this, path);
         }
-
-        private void laenderKonfigurierenToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Aktion beim Klick auf "Länder Konfigurieren" im MenuStrip Bereich "Extras"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LaenderKonfigurierenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LaenderConfig laenderConfig = new LaenderConfig(_config.ConnectionString);
             if (laenderConfig.ShowDialog() == DialogResult.OK)
