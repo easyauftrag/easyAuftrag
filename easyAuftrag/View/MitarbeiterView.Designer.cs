@@ -219,6 +219,7 @@
             this.cmbLand.Name = "cmbLand";
             this.cmbLand.Size = new System.Drawing.Size(650, 21);
             this.cmbLand.TabIndex = 16;
+            this.cmbLand.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.LandFormat);
             // 
             // labLand
             // 
@@ -256,6 +257,7 @@
             this.MinimumSize = new System.Drawing.Size(289, 275);
             this.Name = "MitarbeiterView";
             this.Text = "Mitarbeiter";
+            this.Load += new System.EventHandler(this.MitarbeiterView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorInfo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

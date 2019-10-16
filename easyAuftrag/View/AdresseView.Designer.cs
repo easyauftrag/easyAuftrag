@@ -166,6 +166,7 @@
             this.cmbLand.Name = "cmbLand";
             this.cmbLand.Size = new System.Drawing.Size(650, 21);
             this.cmbLand.TabIndex = 24;
+            this.cmbLand.Format += new System.Windows.Forms.ListControlConvertEventHandler(this.LandFormat);
             // 
             // AdresseView
             // 
@@ -188,6 +189,7 @@
             this.MinimumSize = new System.Drawing.Size(473, 201);
             this.Name = "AdresseView";
             this.Text = "Adresse";
+            this.Load += new System.EventHandler(this.AdresseView_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errProv)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -141,10 +141,10 @@ namespace easyAuftrag.View
             using (var db = new EasyAuftragContext(_connection))
             {
                 int[] landIDs = (from lnd in db.Laender select lnd.LandID).ToArray();
-                var cbLandEintraege = (from lnd in db.Laender select new { ID = lnd.LandID, lName = lnd.Name }).ToList();
+                var cbLandEintraege = (from lnd in db.Laender select lnd).ToList();
                 cmbLand.DataSource = cbLandEintraege;
-                cmbLand.DisplayMember = "lName";
-                cmbLand.ValueMember = "ID";
+                cmbLand.DisplayMember = "Name";
+                cmbLand.ValueMember = "LandID";
                 cmbLand.SelectedIndex = Array.IndexOf(landIDs, mitarbeiter.LandID);
             }
         }
@@ -224,6 +224,31 @@ namespace easyAuftrag.View
         private void TbAuslastung_MouseHover(object sender, EventArgs e)
         {
             toolTipMitarbeiter.Show("Prozentangabe (0-100)", tbAuslastung);
+        }
+
+        private void MitarbeiterView_Load(object sender, EventArgs e)
+        {
+            using (var db = new EasyAuftragContext(_connection))
+            {
+                int[] landIDs = (from lnd in db.Laender select lnd.LandID).ToArray();
+                var cbLandEintraege = (from lnd in db.Laender select lnd).ToList();
+                cmbLand.DataSource = cbLandEintraege;
+                cmbLand.DisplayMember = "Name";
+                cmbLand.ValueMember = "LandID";
+            }
+        }
+
+        /// <summary>
+        /// Aktion beim Konvertieren des Länderformats
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LandFormat(object sender, ListControlConvertEventArgs e)
+        {
+            string kuerzel = ((Land)e.ListItem).Kuerzel;
+            string name = ((Land)e.ListItem).Name;
+            string vorwahl = ((Land)e.ListItem).Vorwahl;
+            e.Value = kuerzel + " - " + name + " (" + vorwahl + ")";
         }
     }
 }
