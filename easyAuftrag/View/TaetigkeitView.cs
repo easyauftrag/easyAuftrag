@@ -136,8 +136,8 @@ namespace easyAuftrag.View
             }
             dtpDatum.Value = taetigkeit.Datum;
             tbName.Text = taetigkeit.Name;
-            dtpStart.Value = Convert.ToDateTime(taetigkeit.StartZeit);
-            dtpEnde.Value = Convert.ToDateTime(taetigkeit.EndZeit);
+            dtpStart.Value =  Convert.ToDateTime(taetigkeit.StartZeit.ToString());
+            dtpEnde.Value = Convert.ToDateTime(taetigkeit.EndZeit.ToString());
         }
 
         /// <summary>

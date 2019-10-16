@@ -82,6 +82,8 @@ namespace easyAuftrag.View
                 Text = titel;
                 dtpEingang.MaxDate = DateTime.Now;
                 dtpErteilt.MaxDate = DateTime.Now;
+                butNeueTaetigkeit.Enabled = false;
+                cxtAuftrag.Enabled = false;
                 using (var db = new EasyAuftragContext(connection))
                 {
                     // Laden aller Kunden IDs und Namen, um sie in der ComboBox anzuzeigen
@@ -245,7 +247,7 @@ namespace easyAuftrag.View
             {
                 errProv.SetError(cbKunde, "Bitte legen Sie zunächst einen Kunden an.");
             }
-            else if (dtpEingang.Value >= dtpErteilt.Value)
+            else if (dtpEingang.Value > dtpErteilt.Value)
             {
                 errProv.SetError(dtpEingang, "Eingangdatum muss vor Erteilungsdatum liegen.");
                 errProv.SetError(dtpErteilt, "Eingangdatum muss vor Erteilungsdatum liegen.");
@@ -425,8 +427,12 @@ namespace easyAuftrag.View
             this.BringToFront();
             this.Activate();
         }
-
-        private void dgvAuftrag_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        /// <summary>
+        /// Aktion beim Doppelklick auf eine Zelle der <see cref="DataGridView"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DgvAuftrag_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dgvAuftrag.SelectedCells.Count > 0)
             {
@@ -434,8 +440,12 @@ namespace easyAuftrag.View
                 TaetigkeitBearbeiten(taetigkeitID);
             }
         }
-
-        private void dgvAuftrag_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        /// <summary>
+        /// Aktion beim Doppelklick auf einen Zeilenkopf der <see cref="DataGridView"/>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DgvAuftrag_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             int taetigkeitID = Convert.ToInt32(dgvAuftrag.SelectedRows[0].Cells["TaetigkeitID"].Value);
             TaetigkeitBearbeiten(taetigkeitID);

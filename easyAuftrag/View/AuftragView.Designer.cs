@@ -61,7 +61,7 @@
             // butAbbr
             // 
             this.butAbbr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAbbr.Location = new System.Drawing.Point(697, 326);
+            this.butAbbr.Location = new System.Drawing.Point(684, 326);
             this.butAbbr.Name = "butAbbr";
             this.butAbbr.Size = new System.Drawing.Size(75, 23);
             this.butAbbr.TabIndex = 7;
@@ -72,7 +72,7 @@
             // butSpeichern
             // 
             this.butSpeichern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butSpeichern.Location = new System.Drawing.Point(616, 326);
+            this.butSpeichern.Location = new System.Drawing.Point(603, 326);
             this.butSpeichern.Name = "butSpeichern";
             this.butSpeichern.Size = new System.Drawing.Size(75, 23);
             this.butSpeichern.TabIndex = 6;
@@ -86,7 +86,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbAuftragNr.Location = new System.Drawing.Point(103, 13);
             this.tbAuftragNr.Name = "tbAuftragNr";
-            this.tbAuftragNr.Size = new System.Drawing.Size(669, 20);
+            this.tbAuftragNr.Size = new System.Drawing.Size(656, 20);
             this.tbAuftragNr.TabIndex = 0;
             // 
             // cbKunde
@@ -97,7 +97,7 @@
             this.cbKunde.FormattingEnabled = true;
             this.cbKunde.Location = new System.Drawing.Point(103, 40);
             this.cbKunde.Name = "cbKunde";
-            this.cbKunde.Size = new System.Drawing.Size(669, 21);
+            this.cbKunde.Size = new System.Drawing.Size(656, 21);
             this.cbKunde.TabIndex = 1;
             // 
             // dtpEingang
@@ -106,7 +106,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpEingang.Location = new System.Drawing.Point(103, 67);
             this.dtpEingang.Name = "dtpEingang";
-            this.dtpEingang.Size = new System.Drawing.Size(669, 20);
+            this.dtpEingang.Size = new System.Drawing.Size(656, 20);
             this.dtpEingang.TabIndex = 2;
             // 
             // dtpErteilt
@@ -115,7 +115,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpErteilt.Location = new System.Drawing.Point(103, 94);
             this.dtpErteilt.Name = "dtpErteilt";
-            this.dtpErteilt.Size = new System.Drawing.Size(669, 20);
+            this.dtpErteilt.Size = new System.Drawing.Size(656, 20);
             this.dtpErteilt.TabIndex = 3;
             // 
             // tbGesamt
@@ -125,7 +125,7 @@
             this.tbGesamt.Location = new System.Drawing.Point(103, 121);
             this.tbGesamt.Name = "tbGesamt";
             this.tbGesamt.ReadOnly = true;
-            this.tbGesamt.Size = new System.Drawing.Size(669, 20);
+            this.tbGesamt.Size = new System.Drawing.Size(656, 20);
             this.tbGesamt.TabIndex = 13;
             // 
             // cbErledigt
@@ -196,10 +196,10 @@
             this.dgvAuftrag.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvAuftrag.Location = new System.Drawing.Point(13, 178);
             this.dgvAuftrag.Name = "dgvAuftrag";
-            this.dgvAuftrag.Size = new System.Drawing.Size(759, 142);
+            this.dgvAuftrag.Size = new System.Drawing.Size(746, 142);
             this.dgvAuftrag.TabIndex = 14;
-            this.dgvAuftrag.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvAuftrag_CellDoubleClick);
-            this.dgvAuftrag.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvAuftrag_RowHeaderMouseDoubleClick);
+            this.dgvAuftrag.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvAuftrag_CellDoubleClick);
+            this.dgvAuftrag.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvAuftrag_RowHeaderMouseDoubleClick);
             this.dgvAuftrag.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DgvAuftrag_MouseUp);
             // 
             // butNeueTaetigkeit

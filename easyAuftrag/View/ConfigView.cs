@@ -87,6 +87,7 @@ namespace easyAuftrag.View
         {
             try
             {
+                Cursor = Cursors.WaitCursor;
                 SqlDataSourceEnumerator enumerator = SqlDataSourceEnumerator.Instance;
                 DataTable serverTable = enumerator.GetDataSources();
 
@@ -102,6 +103,7 @@ namespace easyAuftrag.View
 
                     cmbServer.Items.Add(serverName);
                 }
+                Cursor = Cursors.Default;
             }
             catch (Exception ex)
             {
@@ -117,6 +119,7 @@ namespace easyAuftrag.View
         {
             try
             {
+                Cursor = Cursors.WaitCursor;
                 if (!string.IsNullOrEmpty(cmbServer.Text))
                 {
                     string con = "Data Source=" + cmbServer.Text + ";Initial Catalog=MASTER;Integrated Security=True;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
@@ -131,6 +134,7 @@ namespace easyAuftrag.View
                         cmbDB.Items.Add(row[0]);
                     }
                 }
+                Cursor = Cursors.Default;
             }
             catch (Exception ex)
             {
@@ -168,28 +172,34 @@ namespace easyAuftrag.View
         /// </summary>
         private void FillControls()
         {
+            try
+            {
+                if (Conf.LeseXML())
+                {
+                    tbSoll.Text = Conf.StundenSoll.ToString();
+                    tbExport.Text = Conf.StandardZielPfad;
+                    cmbServer.Text = Conf.Server;
+                    rdbWin.Checked = Conf.WinAuth;
+                    tbUser.Text = Conf.BenutzerName;
+                    tbPW.Text = Conf.Passwort;
+                    cmbDB.Text = Conf.Datenbank;
+                }
+                else
+                {
+                    tbConString.Text = Properties.Settings.Default.easyAuftragConnectionString;
+                    SqlConnectionStringBuilder scsb = new SqlConnectionStringBuilder(Properties.Settings.Default.easyAuftragConnectionString);
+                    cmbServer.Text = scsb.DataSource;
+                    rdbWin.Checked = scsb.IntegratedSecurity;
+                    tbUser.Text = scsb.UserID;
+                    tbPW.Text = scsb.Password;
+                    cmbDB.Text = scsb.InitialCatalog;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorHandler.ErrorHandle(ex);
+            }
             
-            if (Conf.LeseXML())
-            {
-                tbSoll.Text = Conf.StundenSoll.ToString();
-                tbExport.Text = Conf.StandardZielPfad;
-                cmbServer.Text = Conf.Server;
-                rdbWin.Checked = Conf.WinAuth;
-                tbUser.Text = Conf.BenutzerName;
-                tbPW.Text = Conf.Passwort;
-                cmbDB.Text = Conf.Datenbank;
-            }
-            else
-            {
-                tbConString.Text = Properties.Settings.Default.easyAuftragConnectionString;
-                SqlConnectionStringBuilder scsb = new SqlConnectionStringBuilder(Properties.Settings.Default.easyAuftragConnectionString);
-                cmbServer.Text = scsb.DataSource;
-                rdbWin.Checked = scsb.IntegratedSecurity;
-                tbUser.Text = scsb.UserID;
-                tbPW.Text = scsb.Password;
-                cmbDB.Text = scsb.InitialCatalog;
-                
-            }
             
 
             
@@ -199,20 +209,28 @@ namespace easyAuftrag.View
         /// </summary>
         private void FillConfig()
         {
-            if (double.TryParse(tbSoll.Text, out double soll))
+            try
             {
-                Conf.StundenSoll = soll;
+                if (double.TryParse(tbSoll.Text, out double soll))
+                {
+                    Conf.StundenSoll = soll;
+                }
+                else
+                {
+                    errorInfo.SetError(tbSoll, "Bitte korrekten Stundensoll eingeben!");
+                }
+                Conf.StandardZielPfad = tbExport.Text;
+                Conf.Server = cmbServer.Text;
+                Conf.WinAuth = rdbWin.Checked;
+                Conf.BenutzerName = tbUser.Text;
+                Conf.Passwort = tbPW.Text;
+                Conf.Datenbank = cmbDB.Text;
             }
-            else
+            catch (Exception ex)
             {
-                errorInfo.SetError(tbSoll, "Bitte korrekten Stundensoll eingeben!");
+                ErrorHandler.ErrorHandle(ex);
             }
-            Conf.StandardZielPfad = tbExport.Text;
-            Conf.Server = cmbServer.Text;
-            Conf.WinAuth = rdbWin.Checked;
-            Conf.BenutzerName = tbUser.Text;
-            Conf.Passwort = tbPW.Text;
-            Conf.Datenbank = cmbDB.Text;
+            
         }
         /// <summary>
         /// Aktion beim Klick auf den "Ok" Button

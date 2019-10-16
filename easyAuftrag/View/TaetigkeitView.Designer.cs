@@ -91,7 +91,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpDatum.Location = new System.Drawing.Point(90, 40);
             this.dtpDatum.Name = "dtpDatum";
-            this.dtpDatum.Size = new System.Drawing.Size(682, 20);
+            this.dtpDatum.Size = new System.Drawing.Size(671, 20);
             this.dtpDatum.TabIndex = 1;
             this.dtpDatum.Value = new System.DateTime(2019, 10, 14, 0, 0, 0, 0);
             // 
@@ -103,13 +103,13 @@
             this.cbMitarbeiter.FormattingEnabled = true;
             this.cbMitarbeiter.Location = new System.Drawing.Point(90, 13);
             this.cbMitarbeiter.Name = "cbMitarbeiter";
-            this.cbMitarbeiter.Size = new System.Drawing.Size(682, 21);
+            this.cbMitarbeiter.Size = new System.Drawing.Size(671, 21);
             this.cbMitarbeiter.TabIndex = 0;
             // 
             // butAbbr
             // 
             this.butAbbr.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butAbbr.Location = new System.Drawing.Point(697, 148);
+            this.butAbbr.Location = new System.Drawing.Point(686, 148);
             this.butAbbr.Name = "butAbbr";
             this.butAbbr.Size = new System.Drawing.Size(75, 23);
             this.butAbbr.TabIndex = 6;
@@ -120,7 +120,7 @@
             // butSpeichern
             // 
             this.butSpeichern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butSpeichern.Location = new System.Drawing.Point(616, 148);
+            this.butSpeichern.Location = new System.Drawing.Point(605, 148);
             this.butSpeichern.Name = "butSpeichern";
             this.butSpeichern.Size = new System.Drawing.Size(75, 23);
             this.butSpeichern.TabIndex = 5;
@@ -134,7 +134,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbName.Location = new System.Drawing.Point(90, 66);
             this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(682, 20);
+            this.tbName.Size = new System.Drawing.Size(671, 20);
             this.tbName.TabIndex = 2;
             // 
             // labBeschreibung
@@ -158,7 +158,7 @@
             this.dtpStart.Location = new System.Drawing.Point(90, 93);
             this.dtpStart.Name = "dtpStart";
             this.dtpStart.ShowUpDown = true;
-            this.dtpStart.Size = new System.Drawing.Size(682, 20);
+            this.dtpStart.Size = new System.Drawing.Size(671, 20);
             this.dtpStart.TabIndex = 12;
             this.dtpStart.Value = new System.DateTime(2019, 10, 14, 0, 0, 0, 0);
             // 
@@ -170,12 +170,13 @@
             this.dtpEnde.Location = new System.Drawing.Point(90, 119);
             this.dtpEnde.Name = "dtpEnde";
             this.dtpEnde.ShowUpDown = true;
-            this.dtpEnde.Size = new System.Drawing.Size(682, 20);
+            this.dtpEnde.Size = new System.Drawing.Size(671, 20);
             this.dtpEnde.TabIndex = 13;
             this.dtpEnde.Value = new System.DateTime(2019, 10, 14, 0, 0, 0, 0);
             // 
             // suchControl1
             // 
+            this.suchControl1.AutoScroll = true;
             this.suchControl1.Location = new System.Drawing.Point(0, 0);
             this.suchControl1.Name = "suchControl1";
             this.suchControl1.Size = new System.Drawing.Size(563, 130);
