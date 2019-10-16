@@ -1803,7 +1803,7 @@ namespace easyAuftrag.View
             Help.ShowHelp(this, path);
         }
 
-        private void länderKonfigurierenToolStripMenuItem_Click(object sender, EventArgs e)
+        private void laenderKonfigurierenToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }

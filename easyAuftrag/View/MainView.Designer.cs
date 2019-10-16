@@ -45,7 +45,7 @@ namespace easyAuftrag.View
             this.bearbeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.extrasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.einstellungenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.länderKonfigurierenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.laenderKonfigurierenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hilfeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.überToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hilfethemenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -171,7 +171,7 @@ namespace easyAuftrag.View
             // 
             this.extrasToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.einstellungenToolStripMenuItem,
-            this.länderKonfigurierenToolStripMenuItem});
+            this.laenderKonfigurierenToolStripMenuItem});
             this.extrasToolStripMenuItem.Name = "extrasToolStripMenuItem";
             this.extrasToolStripMenuItem.Size = new System.Drawing.Size(50, 24);
             this.extrasToolStripMenuItem.Text = "Extras";
@@ -183,12 +183,12 @@ namespace easyAuftrag.View
             this.einstellungenToolStripMenuItem.Text = "Einstellungen";
             this.einstellungenToolStripMenuItem.Click += new System.EventHandler(this.EinstellungenToolStripMenuItem_Click);
             // 
-            // länderKonfigurierenToolStripMenuItem
+            // laenderKonfigurierenToolStripMenuItem
             // 
-            this.länderKonfigurierenToolStripMenuItem.Name = "länderKonfigurierenToolStripMenuItem";
-            this.länderKonfigurierenToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.länderKonfigurierenToolStripMenuItem.Text = "Länder konfigurieren";
-            this.länderKonfigurierenToolStripMenuItem.Click += new System.EventHandler(this.länderKonfigurierenToolStripMenuItem_Click);
+            this.laenderKonfigurierenToolStripMenuItem.Name = "laenderKonfigurierenToolStripMenuItem";
+            this.laenderKonfigurierenToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.laenderKonfigurierenToolStripMenuItem.Text = "Länder konfigurieren";
+            this.laenderKonfigurierenToolStripMenuItem.Click += new System.EventHandler(this.laenderKonfigurierenToolStripMenuItem_Click);
             // 
             // hilfeToolStripMenuItem
             // 
@@ -472,6 +472,7 @@ namespace easyAuftrag.View
             this.suchControlMain.Size = new System.Drawing.Size(630, 150);
             this.suchControlMain.Spalten = ((System.Collections.Generic.List<string>)(resources.GetObject("suchControlMain.Spalten")));
             this.suchControlMain.TabIndex = 0;
+            this.suchControlMain.SuchEvent += new System.Action(this.SuchControlMain_SuchEvent);
             // 
             // dgvMain
             // 
@@ -564,7 +565,7 @@ namespace easyAuftrag.View
         private System.Windows.Forms.ToolStripMenuItem auftragToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stundennachweisToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hilfethemenToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem länderKonfigurierenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem laenderKonfigurierenToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitConTree;
         private System.Windows.Forms.SplitContainer splitConSuche;
         private System.Windows.Forms.TreeView tvMain;
