@@ -44,7 +44,7 @@
             // 
             this.cbSuche.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cbSuche.Location = new System.Drawing.Point(208, 19);
+            this.cbSuche.Location = new System.Drawing.Point(208, 17);
             this.cbSuche.Name = "cbSuche";
             this.cbSuche.Size = new System.Drawing.Size(339, 17);
             this.cbSuche.TabIndex = 1;
