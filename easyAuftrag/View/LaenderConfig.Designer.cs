@@ -46,8 +46,10 @@
             // 
             this.dgvLaender.AllowUserToAddRows = false;
             this.dgvLaender.AllowUserToDeleteRows = false;
-            this.dgvLaender.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.dgvLaender.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvLaender.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvLaender.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvLaender.Location = new System.Drawing.Point(12, 12);
             this.dgvLaender.Name = "dgvLaender";
@@ -60,6 +62,7 @@
             // 
             // butLand
             // 
+            this.butLand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.butLand.Location = new System.Drawing.Point(13, 386);
             this.butLand.Name = "butLand";
             this.butLand.Size = new System.Drawing.Size(102, 23);
@@ -70,6 +73,7 @@
             // 
             // butOK
             // 
+            this.butOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.butOK.Location = new System.Drawing.Point(697, 386);
             this.butOK.Name = "butOK";
             this.butOK.Size = new System.Drawing.Size(75, 23);
@@ -120,7 +124,7 @@
             this.Controls.Add(this.butOK);
             this.Controls.Add(this.butLand);
             this.Controls.Add(this.dgvLaender);
-            this.MinimumSize = new System.Drawing.Size(800, 460);
+            this.MinimumSize = new System.Drawing.Size(400, 300);
             this.Name = "LaenderConfig";
             this.Text = "Länder konfigurieren";
             ((System.ComponentModel.ISupportInitialize)(this.dgvLaender)).EndInit();

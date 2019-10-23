@@ -38,11 +38,17 @@ namespace easyAuftrag.View
             this.dateiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dateiExportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dateiImportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.druckenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.auftragToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stundennachweisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ansichtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bearbeitenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.neuerKundeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.neuerMitarbeiterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.neuerAuftragToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.extrasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.einstellungenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.laenderKonfigurierenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -113,6 +119,7 @@ namespace easyAuftrag.View
             this.dateiToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.dateiExportToolStripMenuItem,
             this.dateiImportToolStripMenuItem,
+            this.toolStripMenuItem4,
             this.druckenToolStripMenuItem});
             this.dateiToolStripMenuItem.Name = "dateiToolStripMenuItem";
             this.dateiToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
@@ -131,6 +138,11 @@ namespace easyAuftrag.View
             this.dateiImportToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.dateiImportToolStripMenuItem.Text = "Datei Import";
             this.dateiImportToolStripMenuItem.Click += new System.EventHandler(this.DateiImportToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(137, 6);
             // 
             // druckenToolStripMenuItem
             // 
@@ -163,9 +175,43 @@ namespace easyAuftrag.View
             // 
             // bearbeitenToolStripMenuItem
             // 
+            this.bearbeitenToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.neuerKundeToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.neuerMitarbeiterToolStripMenuItem,
+            this.toolStripMenuItem3,
+            this.neuerAuftragToolStripMenuItem});
             this.bearbeitenToolStripMenuItem.Name = "bearbeitenToolStripMenuItem";
             this.bearbeitenToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
             this.bearbeitenToolStripMenuItem.Text = "Bearbeiten";
+            // 
+            // neuerKundeToolStripMenuItem
+            // 
+            this.neuerKundeToolStripMenuItem.Name = "neuerKundeToolStripMenuItem";
+            this.neuerKundeToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.neuerKundeToolStripMenuItem.Text = "Neuer Kunde";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(164, 6);
+            // 
+            // neuerMitarbeiterToolStripMenuItem
+            // 
+            this.neuerMitarbeiterToolStripMenuItem.Name = "neuerMitarbeiterToolStripMenuItem";
+            this.neuerMitarbeiterToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.neuerMitarbeiterToolStripMenuItem.Text = "Neuer Mitarbeiter";
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(164, 6);
+            // 
+            // neuerAuftragToolStripMenuItem
+            // 
+            this.neuerAuftragToolStripMenuItem.Name = "neuerAuftragToolStripMenuItem";
+            this.neuerAuftragToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.neuerAuftragToolStripMenuItem.Text = "Neuer Auftrag";
             // 
             // extrasToolStripMenuItem
             // 
@@ -469,6 +515,7 @@ namespace easyAuftrag.View
             // suchControlMain
             // 
             this.suchControlMain.AutoScroll = true;
+            this.suchControlMain.AutoSize = true;
             this.suchControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.suchControlMain.Location = new System.Drawing.Point(0, 0);
             this.suchControlMain.Name = "suchControlMain";
@@ -481,11 +528,14 @@ namespace easyAuftrag.View
             // 
             this.dgvMain.AllowUserToAddRows = false;
             this.dgvMain.AllowUserToDeleteRows = false;
+            this.dgvMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvMain.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvMain.Location = new System.Drawing.Point(0, 0);
             this.dgvMain.Name = "dgvMain";
-            this.dgvMain.Size = new System.Drawing.Size(630, 299);
+            this.dgvMain.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvMain.Size = new System.Drawing.Size(627, 299);
             this.dgvMain.TabIndex = 12;
             this.dgvMain.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvMain_CellDoubleClick);
             this.dgvMain.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvMain_RowHeaderMouseDoubleClick);
@@ -519,6 +569,7 @@ namespace easyAuftrag.View
             ((System.ComponentModel.ISupportInitialize)(this.splitConTree)).EndInit();
             this.splitConTree.ResumeLayout(false);
             this.splitConSuche.Panel1.ResumeLayout(false);
+            this.splitConSuche.Panel1.PerformLayout();
             this.splitConSuche.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitConSuche)).EndInit();
             this.splitConSuche.ResumeLayout(false);
@@ -573,6 +624,12 @@ namespace easyAuftrag.View
         private System.Windows.Forms.TreeView tvMain;
         private System.Windows.Forms.DataGridView dgvMain;
         private SuchControl suchControlMain;
+        private System.Windows.Forms.ToolStripMenuItem neuerKundeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem neuerMitarbeiterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem neuerAuftragToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
     }
 }
 

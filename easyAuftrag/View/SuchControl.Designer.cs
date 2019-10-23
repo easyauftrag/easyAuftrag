@@ -42,11 +42,11 @@
             // 
             // cbSuche
             // 
-            this.cbSuche.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.cbSuche.AutoSize = true;
-            this.cbSuche.Location = new System.Drawing.Point(205, 46);
+            this.cbSuche.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.cbSuche.Location = new System.Drawing.Point(208, 19);
             this.cbSuche.Name = "cbSuche";
-            this.cbSuche.Size = new System.Drawing.Size(163, 17);
+            this.cbSuche.Size = new System.Drawing.Size(339, 17);
             this.cbSuche.TabIndex = 1;
             this.cbSuche.Text = "Nicht abgerechnete Aufträge";
             this.cbSuche.UseVisualStyleBackColor = true;
@@ -55,32 +55,32 @@
             // 
             this.tbSuche.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbSuche.Location = new System.Drawing.Point(205, 44);
+            this.tbSuche.Location = new System.Drawing.Point(208, 17);
             this.tbSuche.Name = "tbSuche";
-            this.tbSuche.Size = new System.Drawing.Size(274, 20);
+            this.tbSuche.Size = new System.Drawing.Size(339, 20);
             this.tbSuche.TabIndex = 2;
             // 
             // dtpAnfang
             // 
             this.dtpAnfang.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dtpAnfang.Location = new System.Drawing.Point(205, 44);
+            this.dtpAnfang.Location = new System.Drawing.Point(208, 17);
             this.dtpAnfang.Name = "dtpAnfang";
-            this.dtpAnfang.Size = new System.Drawing.Size(134, 20);
+            this.dtpAnfang.Size = new System.Drawing.Size(166, 20);
             this.dtpAnfang.TabIndex = 3;
             // 
             // dtpEnde
             // 
             this.dtpEnde.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.dtpEnde.Location = new System.Drawing.Point(345, 44);
+            this.dtpEnde.Location = new System.Drawing.Point(380, 17);
             this.dtpEnde.Name = "dtpEnde";
-            this.dtpEnde.Size = new System.Drawing.Size(134, 20);
+            this.dtpEnde.Size = new System.Drawing.Size(166, 20);
             this.dtpEnde.TabIndex = 4;
             // 
             // butSuche
             // 
             this.butSuche.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.butSuche.Location = new System.Drawing.Point(485, 42);
+            this.butSuche.Location = new System.Drawing.Point(553, 15);
             this.butSuche.Name = "butSuche";
             this.butSuche.Size = new System.Drawing.Size(75, 23);
             this.butSuche.TabIndex = 5;
@@ -92,7 +92,7 @@
             // 
             this.comboSpalte.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboSpalte.FormattingEnabled = true;
-            this.comboSpalte.Location = new System.Drawing.Point(66, 44);
+            this.comboSpalte.Location = new System.Drawing.Point(69, 17);
             this.comboSpalte.Name = "comboSpalte";
             this.comboSpalte.Size = new System.Drawing.Size(133, 21);
             this.comboSpalte.TabIndex = 11;
@@ -101,7 +101,7 @@
             // labSpalte
             // 
             this.labSpalte.AutoSize = true;
-            this.labSpalte.Location = new System.Drawing.Point(63, 27);
+            this.labSpalte.Location = new System.Drawing.Point(66, 0);
             this.labSpalte.Name = "labSpalte";
             this.labSpalte.Size = new System.Drawing.Size(37, 13);
             this.labSpalte.TabIndex = 12;
@@ -110,7 +110,7 @@
             // labWert
             // 
             this.labWert.AutoSize = true;
-            this.labWert.Location = new System.Drawing.Point(202, 27);
+            this.labWert.Location = new System.Drawing.Point(205, 0);
             this.labWert.Name = "labWert";
             this.labWert.Size = new System.Drawing.Size(30, 13);
             this.labWert.TabIndex = 13;
@@ -120,7 +120,7 @@
             // 
             this.comboLink.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboLink.FormattingEnabled = true;
-            this.comboLink.Location = new System.Drawing.Point(4, 44);
+            this.comboLink.Location = new System.Drawing.Point(7, 17);
             this.comboLink.Name = "comboLink";
             this.comboLink.Size = new System.Drawing.Size(56, 21);
             this.comboLink.TabIndex = 14;
@@ -128,7 +128,7 @@
             // labLink
             // 
             this.labLink.AutoSize = true;
-            this.labLink.Location = new System.Drawing.Point(0, 27);
+            this.labLink.Location = new System.Drawing.Point(3, 0);
             this.labLink.Name = "labLink";
             this.labLink.Size = new System.Drawing.Size(62, 13);
             this.labLink.TabIndex = 15;
@@ -150,7 +150,7 @@
             this.Controls.Add(this.tbSuche);
             this.Controls.Add(this.cbSuche);
             this.Name = "SuchControl";
-            this.Size = new System.Drawing.Size(624, 130);
+            this.Size = new System.Drawing.Size(631, 130);
             this.ResumeLayout(false);
             this.PerformLayout();
 

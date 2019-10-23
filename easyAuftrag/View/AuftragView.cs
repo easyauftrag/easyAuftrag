@@ -143,6 +143,10 @@ namespace easyAuftrag.View
                                 select t).ToList();
                     
                     _bind.DataSource = _tatlist;
+                    foreach (var tat in _tatlist)
+                    {
+                        _minlist.Add(tat.Minuten);
+                    }
                     foreach (var tat in AuftragInfo.Taetigkeiten)
                     {
                         _bind.Add(tat);

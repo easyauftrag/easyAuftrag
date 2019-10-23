@@ -80,6 +80,8 @@ namespace easyAuftrag.View
                     cbMitarbeiter.DisplayMember = "mName";
                     cbMitarbeiter.ValueMember = "ID";
                 }
+                dtpStart.CustomFormat = "HH:mm";
+                dtpEnde.CustomFormat = "HH:mm";
             }
             catch (Exception ex)
             {
@@ -99,6 +101,9 @@ namespace easyAuftrag.View
             InitializeComponent();
             Text = titel;
             dtpDatum.MaxDate = DateTime.Now;
+            dtpDatum.Value = DateTime.Now;
+            dtpStart.CustomFormat = "HH:mm";
+            dtpEnde.CustomFormat = "HH:mm";
             if (titel == "Tätigkeit Löschen")
             {
                 butSpeichern.Text = "Löschen";

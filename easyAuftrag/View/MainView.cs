@@ -1670,6 +1670,9 @@ namespace easyAuftrag.View
                 // Zuweisung zum DruckDoc
                 doc.AuftragNr = auftrag.AuftragNummer;
                 doc.KundeName = kunde.Name;
+                doc.KundeTelefon = kunde.TelefonNr;
+                doc.TatListe = Tatlist;
+                doc.MitListe = MitList;
                 // Öffnen des "AuswahlAdresse" Fensters falls weitere Adressen vorliegen
                 if (Adrlist.Any())
                 {
@@ -1680,13 +1683,9 @@ namespace easyAuftrag.View
                                             + auswahl.AdresseInfo.Hausnr + ", "
                                             + auswahl.AdresseInfo.PLZ + " "
                                             + auswahl.AdresseInfo.Wohnort;
-                    }
-                    else
-                    {
-                        doc.KundeAnschrift = kunde.Strasse + " "
-                                            + kunde.Hausnr + ", "
-                                            + kunde.PLZ + " "
-                                            + kunde.Wohnort;
+                        // Drucken der Auswahl
+                        Drucken druck = new Drucken();
+                        druck.Druck(doc);
                     }
                 }
                 else
@@ -1695,13 +1694,11 @@ namespace easyAuftrag.View
                                         + kunde.Hausnr + ", "
                                         + kunde.PLZ + " "
                                         + kunde.Wohnort;
+                    // Drucken der Auswahl
+                    Drucken druck = new Drucken();
+                    druck.Druck(doc);
                 }
-                doc.KundeTelefon = kunde.TelefonNr;
-                doc.TatListe = Tatlist;
-                doc.MitListe = MitList;
-                // Drucken der Auswahl
-                Drucken druck = new Drucken();
-                druck.Druck(doc);
+                
             }
         }
 

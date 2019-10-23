@@ -94,7 +94,7 @@
             this.dtpDatum.Name = "dtpDatum";
             this.dtpDatum.Size = new System.Drawing.Size(671, 20);
             this.dtpDatum.TabIndex = 1;
-            this.dtpDatum.Value = new System.DateTime(2019, 10, 14, 0, 0, 0, 0);
+            this.dtpDatum.Value = new System.DateTime(2019, 10, 23, 0, 0, 0, 0);
             // 
             // cbMitarbeiter
             // 
@@ -155,20 +155,20 @@
             // 
             this.dtpStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dtpStart.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpStart.Location = new System.Drawing.Point(90, 93);
             this.dtpStart.Name = "dtpStart";
             this.dtpStart.ShowUpDown = true;
             this.dtpStart.Size = new System.Drawing.Size(671, 20);
             this.dtpStart.TabIndex = 12;
-            this.dtpStart.Value = new System.DateTime(2019, 10, 14, 0, 0, 0, 0);
+            this.dtpStart.Value = new System.DateTime(2019, 10, 23, 0, 0, 0, 0);
             this.dtpStart.MouseHover += new System.EventHandler(this.DtpStart_MouseHover);
             // 
             // dtpEnde
             // 
             this.dtpEnde.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dtpEnde.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpEnde.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpEnde.Location = new System.Drawing.Point(90, 119);
             this.dtpEnde.Name = "dtpEnde";
             this.dtpEnde.ShowUpDown = true;

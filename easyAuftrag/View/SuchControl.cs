@@ -110,7 +110,7 @@ namespace easyAuftrag.View
 
             comboLinkVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             comboLinkVorlage.FormattingEnabled = true;
-            comboLinkVorlage.Location = new Point(4, tbSuche.Location.Y + _lstRow.Count * 30);
+            comboLinkVorlage.Location = new Point(7, 17 + _lstRow.Count() * 30);
             comboLinkVorlage.Name = "comboLinkVorlage_" + _lstRow.Count.ToString();
             comboLinkVorlage.Size = new Size(56, 21);
             comboLinkVorlage.TabIndex = 2;
@@ -123,7 +123,7 @@ namespace easyAuftrag.View
 
             comboSpalteVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             comboSpalteVorlage.FormattingEnabled = true;
-            comboSpalteVorlage.Location = new Point(66, comboSpalte.Location.Y + _lstRow.Count * 30);
+            comboSpalteVorlage.Location = new Point(69, 17 + _lstRow.Count() * 30);
             comboSpalteVorlage.Name = "comboSpalteVorlage_" + _lstRow.Count.ToString();
             comboSpalteVorlage.Size = new Size(133, 21);
             comboSpalteVorlage.TabIndex = 3;
@@ -134,35 +134,35 @@ namespace easyAuftrag.View
             }
 
             tbSucheVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            tbSucheVorlage.Location = new Point(205, tbSuche.Location.Y + _lstRow.Count * 30);
+            tbSucheVorlage.Location = new Point(_lstRow[0].ValueControl.Location.X, 17 + _lstRow.Count() * 30);
             tbSucheVorlage.Name = "tbSucheVorlage_" + _lstRow.Count.ToString();
-            tbSucheVorlage.Size = new Size(274, 20);
+            tbSucheVorlage.Size = new Size(_lstRow[0].ValueControl.Width, 20);
             tbSucheVorlage.TabIndex = 4;
 
             dtpAnfangVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            dtpAnfangVorlage.Location = new Point(205, dtpAnfang.Location.Y + _lstRow.Count * 30);
+            dtpAnfangVorlage.Location = new Point(_lstRow[0].AnfangControl.Location.X, 17 + _lstRow.Count() * 30);
             dtpAnfangVorlage.Name = "dtpAnfangVorlage_" + _lstRow.Count.ToString();
-            dtpAnfangVorlage.Size = new Size(134, 20);
+            dtpAnfangVorlage.Size = new Size(_lstRow[0].AnfangControl.Width, 20);
             dtpAnfangVorlage.TabIndex = 5;
             dtpAnfangVorlage.Visible = false;
 
             dtpEndeVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            dtpEndeVorlage.Location = new Point(345, dtpEnde.Location.Y + _lstRow.Count * 30);
+            dtpEndeVorlage.Location = new Point(_lstRow[0].EndeControl.Location.X, 17 + _lstRow.Count() * 30);
             dtpEndeVorlage.Name = "dtpEndeVorlage_" + _lstRow.Count.ToString();
-            dtpEndeVorlage.Size = new Size(134, 20);
+            dtpEndeVorlage.Size = new Size(_lstRow[0].EndeControl.Width, 20);
             dtpEndeVorlage.TabIndex = 6;
             dtpEndeVorlage.Visible = false;
 
             cbSucheVorlage.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            cbSucheVorlage.Location = new Point(205, cbSuche.Location.Y + _lstRow.Count * 30);
+            cbSucheVorlage.Location = new Point(_lstRow[0].CheckControl.Location.X, 17 + _lstRow.Count() * 30);
             cbSucheVorlage.Name = "cbSucheVorlage_" + _lstRow.Count.ToString();
-            cbSucheVorlage.Size = new Size(274, 20);
+            cbSucheVorlage.Size = new Size(_lstRow[0].CheckControl.Width, 20);
             cbSucheVorlage.TabIndex = 7;
             cbSucheVorlage.Visible = false;
 
             Controls.Add(comboLinkVorlage);
-            Controls.Add(tbSucheVorlage);
             Controls.Add(comboSpalteVorlage);
+            Controls.Add(tbSucheVorlage);
             Controls.Add(dtpAnfangVorlage);
             Controls.Add(dtpEndeVorlage);
             Controls.Add(cbSucheVorlage);
@@ -213,7 +213,10 @@ namespace easyAuftrag.View
                 dtpEnde.Visible = false;
                 cbSuche.Visible = false;
             }
-            AddControls();
+            if (_lstRow.Count < 2)
+            {
+                AddControls();
+            }
         }
 
         /// <summary>
@@ -255,7 +258,7 @@ namespace easyAuftrag.View
                 _lstRow[currentIndex].EndeControl.Visible = false;
                 _lstRow[currentIndex].CheckControl.Visible = false;
             }
-            if (_lstRow.Count < 3)
+            if (currentIndex == _lstRow.Count()-1)
             {
                 AddControls();
             }
