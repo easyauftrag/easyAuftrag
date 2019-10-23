@@ -94,7 +94,7 @@
             this.dtpDatum.Name = "dtpDatum";
             this.dtpDatum.Size = new System.Drawing.Size(671, 20);
             this.dtpDatum.TabIndex = 1;
-            this.dtpDatum.Value = new System.DateTime(2019, 10, 23, 0, 0, 0, 0);
+            this.dtpDatum.Value = new System.DateTime(2019, 10, 23, 15, 43, 34, 0);
             // 
             // cbMitarbeiter
             // 

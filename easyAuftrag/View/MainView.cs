@@ -328,12 +328,7 @@ namespace easyAuftrag.View
         {
             try
             {
-                if (dgvMain.SelectedCells.Count > 0)
-                {
-                    int auftragID = Convert.ToInt32(dgvMain.SelectedCells[0].OwningRow.Cells["AuftragID"].Value);
-                    BearbeitenAuftrag(auftragID);
-                }
-                else if (dgvMain.SelectedRows.Count > 0)
+                if (dgvMain.SelectedRows.Count > 0)
                 {
                     int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
                     BearbeitenAuftrag(auftragID);
@@ -353,12 +348,7 @@ namespace easyAuftrag.View
         {
             try
             {
-                if (dgvMain.SelectedCells.Count > 0)
-                {
-                    int auftragID = Convert.ToInt32(dgvMain.SelectedCells[0].OwningRow.Cells["AuftragID"].Value);
-                    LoeschenAuftrag(auftragID);
-                }
-                else if (dgvMain.SelectedRows.Count > 0)
+                if (dgvMain.SelectedRows.Count > 0)
                 {
                     int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
                     LoeschenAuftrag(auftragID);
@@ -1621,12 +1611,7 @@ namespace easyAuftrag.View
         {
             try
             {
-                if (dgvMain.SelectedCells.Count > 0)
-                {
-                    int auftragID = Convert.ToInt32(dgvMain.SelectedCells[0].OwningRow.Cells["AuftragID"].Value);
-                    ZettelSchreiben(auftragID);
-                }
-                else if (dgvMain.SelectedRows.Count > 0)
+                if (dgvMain.SelectedRows.Count > 0)
                 {
                     int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
                     ZettelSchreiben(auftragID);
@@ -1660,7 +1645,7 @@ namespace easyAuftrag.View
                 // Laden der zugehörigen Liste von Adressen
                 List<Adresse> Adrlist = (from ad in db.Adressen where ad.KundeID == auftrag.KundeID select ad).ToList();
                 // Laden der zugehörigen Liste von Tätigkeiten
-                List<Taetigkeit> Tatlist = (from t in db.Taetigkeiten where t.AuftragID == auftrag.AuftragID select t).ToList();
+                List<Taetigkeit> Tatlist = (from t in db.Taetigkeiten where t.AuftragID == auftragID select t).ToList();
                 List<Mitarbeiter> MitList = new List<Mitarbeiter>();
                 // Laden der Mitarbeiter, die zu den einzelnen Tätigkeiten gehören
                 foreach (Taetigkeit t in Tatlist)
@@ -1750,7 +1735,7 @@ namespace easyAuftrag.View
         {
             try
             {
-                int auftragID = Convert.ToInt32(dgvMain.SelectedCells[0].OwningRow.Cells["AuftragID"].Value);
+                int auftragID = Convert.ToInt32(dgvMain.SelectedRows[0].Cells["AuftragID"].Value);
                 BearbeitenAuftrag(auftragID);
             }
             catch (Exception ex)
@@ -1844,6 +1829,15 @@ namespace easyAuftrag.View
         private void NeuerAuftragToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NeuerAuftrag();
+        }
+        /// <summary>
+        /// Aktion beim Klick auf "Beenden" im MenuStrip Bereich "Datei"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BeendenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

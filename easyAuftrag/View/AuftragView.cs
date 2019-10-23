@@ -234,7 +234,7 @@ namespace easyAuftrag.View
             {
                 errProv.SetError(cbKunde, "Bitte legen Sie zunächst einen Kunden an.");
             }
-            else if (dtpEingang.Value > dtpErteilt.Value)
+            else if (dtpEingang.Value.Date > dtpErteilt.Value.Date)
             {
                 errProv.SetError(dtpEingang, "Eingangdatum muss vor Erteilungsdatum liegen.");
                 errProv.SetError(dtpErteilt, "Eingangdatum muss vor Erteilungsdatum liegen.");
@@ -400,6 +400,7 @@ namespace easyAuftrag.View
             {
                 AuftragInfo.Taetigkeiten.Add(taetigkeitV.TaetigkeitInfo);
                 _bind.Add(taetigkeitV.TaetigkeitInfo);
+                _minlist.Add(taetigkeitV.TaetigkeitInfo.Minuten);
                 tbGesamt.Text = Math.Round(Berechnung.AuftragZeitGesamt(_minlist) / 60, 2).ToString();
             }
             this.BringToFront();

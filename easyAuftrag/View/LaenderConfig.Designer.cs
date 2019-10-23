@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LaenderConfig));
             this.dgvLaender = new System.Windows.Forms.DataGridView();
             this.butLand = new System.Windows.Forms.Button();
             this.butOK = new System.Windows.Forms.Button();
@@ -56,9 +57,9 @@
             this.dgvLaender.ReadOnly = true;
             this.dgvLaender.Size = new System.Drawing.Size(760, 368);
             this.dgvLaender.TabIndex = 0;
-            this.dgvLaender.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvLaender_CellDoubleClick);
-            this.dgvLaender.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvLaender_RowHeaderMouseDoubleClick);
-            this.dgvLaender.MouseUp += new System.Windows.Forms.MouseEventHandler(this.dgvLaender_MouseUp);
+            this.dgvLaender.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvLaender_CellDoubleClick);
+            this.dgvLaender.RowHeaderMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DgvLaender_RowHeaderMouseDoubleClick);
+            this.dgvLaender.MouseUp += new System.Windows.Forms.MouseEventHandler(this.DgvLaender_MouseUp);
             // 
             // butLand
             // 
@@ -69,7 +70,7 @@
             this.butLand.TabIndex = 1;
             this.butLand.Text = "Land hinzufügen";
             this.butLand.UseVisualStyleBackColor = true;
-            this.butLand.Click += new System.EventHandler(this.butLand_Click);
+            this.butLand.Click += new System.EventHandler(this.ButLand_Click);
             // 
             // butOK
             // 
@@ -80,7 +81,7 @@
             this.butOK.TabIndex = 2;
             this.butOK.Text = "OK";
             this.butOK.UseVisualStyleBackColor = true;
-            this.butOK.Click += new System.EventHandler(this.butOK_Click);
+            this.butOK.Click += new System.EventHandler(this.ButOK_Click);
             // 
             // cxtLaender
             // 
@@ -96,21 +97,21 @@
             this.neuToolStripMenuItem.Name = "neuToolStripMenuItem";
             this.neuToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.neuToolStripMenuItem.Text = "Neu";
-            this.neuToolStripMenuItem.Click += new System.EventHandler(this.neuToolStripMenuItem_Click);
+            this.neuToolStripMenuItem.Click += new System.EventHandler(this.NeuToolStripMenuItem_Click);
             // 
             // bearbeitenToolStripMenuItem
             // 
             this.bearbeitenToolStripMenuItem.Name = "bearbeitenToolStripMenuItem";
             this.bearbeitenToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.bearbeitenToolStripMenuItem.Text = "Bearbeiten";
-            this.bearbeitenToolStripMenuItem.Click += new System.EventHandler(this.bearbeitenToolStripMenuItem_Click);
+            this.bearbeitenToolStripMenuItem.Click += new System.EventHandler(this.BearbeitenToolStripMenuItem_Click);
             // 
             // loeschenToolStripMenuItem
             // 
             this.loeschenToolStripMenuItem.Name = "loeschenToolStripMenuItem";
             this.loeschenToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.loeschenToolStripMenuItem.Text = "Löschen";
-            this.loeschenToolStripMenuItem.Click += new System.EventHandler(this.loeschenToolStripMenuItem_Click);
+            this.loeschenToolStripMenuItem.Click += new System.EventHandler(this.LoeschenToolStripMenuItem_Click);
             // 
             // errProv
             // 
@@ -124,6 +125,7 @@
             this.Controls.Add(this.butOK);
             this.Controls.Add(this.butLand);
             this.Controls.Add(this.dgvLaender);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(400, 300);
             this.Name = "LaenderConfig";
             this.Text = "Länder konfigurieren";

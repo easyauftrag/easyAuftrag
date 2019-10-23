@@ -68,6 +68,7 @@
             this.dtpAnfang.Name = "dtpAnfang";
             this.dtpAnfang.Size = new System.Drawing.Size(166, 20);
             this.dtpAnfang.TabIndex = 3;
+            this.dtpAnfang.Value = new System.DateTime(2019, 10, 23, 15, 43, 5, 0);
             // 
             // dtpEnde
             // 
@@ -76,6 +77,7 @@
             this.dtpEnde.Name = "dtpEnde";
             this.dtpEnde.Size = new System.Drawing.Size(166, 20);
             this.dtpEnde.TabIndex = 4;
+            this.dtpEnde.Value = new System.DateTime(2019, 10, 23, 15, 43, 10, 0);
             // 
             // butSuche
             // 

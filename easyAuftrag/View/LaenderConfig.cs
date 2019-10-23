@@ -61,7 +61,7 @@ namespace easyAuftrag.View
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void butOK_Click(object sender, EventArgs e)
+        private void ButOK_Click(object sender, EventArgs e)
         {
             errProv.Clear();
             this.DialogResult = DialogResult.OK;
@@ -73,9 +73,9 @@ namespace easyAuftrag.View
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void butLand_Click(object sender, EventArgs e)
+        private void ButLand_Click(object sender, EventArgs e)
         {
-            landNeu();
+            LandNeu();
         }
 
         /// <summary>
@@ -83,15 +83,15 @@ namespace easyAuftrag.View
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void neuToolStripMenuItem_Click(object sender, EventArgs e)
+        private void NeuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            landNeu();
+            LandNeu();
         }
 
         /// <summary>
         /// Methode zum Aufruf des "Land anlegen" Dialogs
         /// </summary>
-        private void landNeu()
+        private void LandNeu()
         {
             LaenderView laenderView = new LaenderView("Land anlegen", _connection);
             if (laenderView.ShowDialog() == DialogResult.OK)
@@ -108,24 +108,24 @@ namespace easyAuftrag.View
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void bearbeitenToolStripMenuItem_Click(object sender, EventArgs e)
+        private void BearbeitenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (dgvLaender.SelectedRows.Count > 0)
             {
                 int landID = Convert.ToInt32(dgvLaender.SelectedRows[0].Cells["LandID"].Value);
-                landBearbeiten(landID);
+                LandBearbeiten(landID);
             }
             else if (dgvLaender.SelectedCells.Count > 0)
             {
                 int landID = Convert.ToInt32(dgvLaender.SelectedCells[0].OwningRow.Cells["LandID"].Value);
-                landBearbeiten(landID);
+                LandBearbeiten(landID);
             }
         }
 
         /// <summary>
         /// Methode zum Aufruf des "Land bearbeiten" Dialogs
         /// </summary>
-        private void landBearbeiten(int landID)
+        private void LandBearbeiten(int landID)
         {
             if (landID < 12)
             {
@@ -156,17 +156,17 @@ namespace easyAuftrag.View
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void loeschenToolStripMenuItem_Click(object sender, EventArgs e)
+        private void LoeschenToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (dgvLaender.SelectedRows.Count > 0)
             {
                 int landID = Convert.ToInt32(dgvLaender.SelectedRows[0].Cells["LandID"].Value);
-                landLoeschen(landID);
+                LandLoeschen(landID);
             }
             else if (dgvLaender.SelectedCells.Count > 0)
             {
                 int landID = Convert.ToInt32(dgvLaender.SelectedCells[0].OwningRow.Cells["LandID"].Value);
-                landLoeschen(landID);
+                LandLoeschen(landID);
             }
         }
 
@@ -174,7 +174,7 @@ namespace easyAuftrag.View
         /// Methode zum Aufruf des "Land löschen" Dialogs
         /// </summary>
         /// <param name="landID"></param>
-        private void landLoeschen(int landID)
+        private void LandLoeschen(int landID)
         {
             if (landID < 12)
             {
@@ -205,7 +205,7 @@ namespace easyAuftrag.View
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void dgvLaender_MouseUp(object sender, MouseEventArgs e)
+        private void DgvLaender_MouseUp(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
@@ -218,12 +218,12 @@ namespace easyAuftrag.View
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void dgvLaender_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void DgvLaender_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dgvLaender.SelectedCells.Count > 0)
             {
                 int landID = Convert.ToInt32(dgvLaender.SelectedCells[0].OwningRow.Cells["LandID"].Value);
-                landBearbeiten(landID);
+                LandBearbeiten(landID);
             }
         }
 
@@ -232,10 +232,10 @@ namespace easyAuftrag.View
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void dgvLaender_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void DgvLaender_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             int landID = Convert.ToInt32(dgvLaender.SelectedRows[0].Cells["LandID"].Value);
-            landBearbeiten(landID);
+            LandBearbeiten(landID);
         }
     }
 }
