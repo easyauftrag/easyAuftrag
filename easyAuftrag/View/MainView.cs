@@ -1818,5 +1818,32 @@ namespace easyAuftrag.View
                 this.Activate();
             }
         }
+        /// <summary>
+        /// Aktion beim Klick auf "Neuer Kunde" im MenuStrip Bereich "Bearbeiten"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NeuerKundeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NeuerKunde();
+        }
+        /// <summary>
+        /// Aktion beim Klick auf "Neuer Mitarbeiter" im MenuStrip Bereich "Bearbeiten"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NeuerMitarbeiterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NeuerMitarbeiter();
+        }
+        /// <summary>
+        /// Aktion beim Klick auf "Neuer Auftrag" im MenuStrip Bereich "Bearbeiten"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void NeuerAuftragToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NeuerAuftrag();
+        }
     }
 }

@@ -188,30 +188,33 @@ namespace easyAuftrag.View
             // neuerKundeToolStripMenuItem
             // 
             this.neuerKundeToolStripMenuItem.Name = "neuerKundeToolStripMenuItem";
-            this.neuerKundeToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.neuerKundeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.neuerKundeToolStripMenuItem.Text = "Neuer Kunde";
+            this.neuerKundeToolStripMenuItem.Click += new System.EventHandler(this.NeuerKundeToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(164, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
             // 
             // neuerMitarbeiterToolStripMenuItem
             // 
             this.neuerMitarbeiterToolStripMenuItem.Name = "neuerMitarbeiterToolStripMenuItem";
-            this.neuerMitarbeiterToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.neuerMitarbeiterToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.neuerMitarbeiterToolStripMenuItem.Text = "Neuer Mitarbeiter";
+            this.neuerMitarbeiterToolStripMenuItem.Click += new System.EventHandler(this.NeuerMitarbeiterToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(164, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(177, 6);
             // 
             // neuerAuftragToolStripMenuItem
             // 
             this.neuerAuftragToolStripMenuItem.Name = "neuerAuftragToolStripMenuItem";
-            this.neuerAuftragToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
+            this.neuerAuftragToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.neuerAuftragToolStripMenuItem.Text = "Neuer Auftrag";
+            this.neuerAuftragToolStripMenuItem.Click += new System.EventHandler(this.NeuerAuftragToolStripMenuItem_Click);
             // 
             // extrasToolStripMenuItem
             // 
